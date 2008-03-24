@@ -1,0 +1,103 @@
+<!DOCTYPE root>
+<permission>
+	<!-- role definition is from the com.jdon.jivejdon.service.Role -->
+	<service ref="forumService">
+		<method name="createForum">
+			<role>Admin</role>
+		</method>
+		<method name="updateForum">
+			<role>Admin</role>
+			<role>Moderator</role>
+		</method>				
+		<method name="deleteForum">
+			<role>Admin</role>
+		</method>								
+	</service>
+	
+    <service ref="forumMessageService">
+		<method name="initMessage">
+			<role>User</role>
+		</method>
+				
+		<method name="createTopicMessage">
+			<role>User</role>
+		</method>
+		
+		<method name="createReplyMessage">
+			<role>User</role>
+		</method>
+
+		<method name="findMessage">
+			<role>User</role>
+			<role>Moderator</role>
+			<role>Admin</role>			
+		</method>
+				
+		<method name="updateMessage">
+			<role>User</role>
+			<role>Moderator</role>
+			<role>Admin</role>
+		</method>				
+		<method name="deleteMessage">
+			<role>User</role>
+			<role>Moderator</role>
+			<role>Admin</role>
+		</method>				
+		<method name="deleteRecursiveMessage">
+			<role>Admin</role>
+		</method>
+		<method name="deleteUserMessages">
+			<role>Admin</role>
+		</method>		
+		<method name="maskMessage">
+			<role>Admin</role>
+		</method>			
+	</service>	
+	
+	 <service ref="uploadService">			
+		<method name="saveUploadFile">
+			<role>User</role>
+			<role>Moderator</role>
+			<role>Admin</role>
+		</method>				
+		<method name="removeUploadFile">
+			<role>User</role>
+			<role>Moderator</role>
+			<role>Admin</role>
+		</method>				
+	</service>	
+	
+	<service ref="othersService">			
+		<method name="savePropertys">
+			<role>Moderator</role>
+			<role>Admin</role>
+		</method>				
+	</service>	
+	
+    <service ref="accountService">
+    	<method name="getAccount">
+    		<role>Moderator</role>
+			<role>Admin</role>
+		</method>    
+    	<method name="getAccountByName">
+			<role>User</role>
+			<role>Admin</role>
+			<role>Moderator</role>
+		</method>
+		<method name="getAccounts">
+			<role>Admin</role>
+			<role>Moderator</role>			
+		</method>
+		<method name="updateAccount">
+			<role>User</role>
+			<role>Admin</role>
+			<role>Moderator</role>			
+		</method>		
+	    <method name="deleteAccount">
+			<role>Admin</role>
+		</method>							
+	</service>	
+	
+	
+	
+</permission>
