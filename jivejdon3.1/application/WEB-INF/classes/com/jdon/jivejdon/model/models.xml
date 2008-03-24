@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE app PUBLIC "-//Jdon//DTD 2005 1.0 Framework//EN" "http://www.jdon.com/jdonframework.dtd">
+<!-- qucik manual http://www.jdon.com/jdonframework/threemin.htm 
+     english version: https://jdon.dev.java.net/steps.html -->
+
+<app>
+	<models>
+		<model key="username"
+			class="com.jdon.jivejdon.model.Account">
+			<actionForm name="accountForm"/>
+			<handler>
+				<service ref="accountService">
+					<initMethod   name="initAccount"/>
+					<getMethod    name="getAccountByName"/>
+					<createMethod name="createAccount"/>
+					<updateMethod name="updateAccount"/>
+					<deleteMethod name="deleteAccount"/>
+				</service>
+			</handler>
+		</model>
+        <model key="userId"
+			class="com.jdon.jivejdon.model.AccountProfile">
+			<actionForm name="accountProfileForm"/>
+			<handler>
+				<service ref="accountProfileService">
+					<getMethod    name="getAccountProfile"/>
+					<updateMethod name="updateAccountProfile"/>
+				</service>
+			</handler>
+		</model>		
+		
+		<model key="forumId"
+			class="com.jdon.jivejdon.model.Forum">
+			<actionForm name="forumForm"/>
+			<handler>
+				<service ref="forumService">
+					<getMethod    name="getForum"/>
+					<createMethod name="createForum"/>
+					<updateMethod name="updateForum"/>
+					<deleteMethod name="deleteForum"/>
+				</service>
+			</handler>
+		</model>
+		<model key="messageId"
+			class="com.jdon.jivejdon.model.ForumMessage">
+			<actionForm name="messageForm"/>
+			<handler>
+				<service ref="forumMessageService">
+					<initMethod   name="initMessage"/>
+					<getMethod    name="findMessage"/>
+					<createMethod name="createTopicMessage"/>
+					<updateMethod name="updateMessage"/>
+					<deleteMethod name="deleteMessage"/>
+				</service>
+			</handler>
+		</model>
+		<model key="messageId"
+			class="com.jdon.jivejdon.model.ForumMessageReply">
+			<actionForm name="messageReplyForm"/>
+			<handler>
+				<service ref="forumMessageService">
+					<initMethod   name="initReplyMessage"/>
+					<getMethod    name="findMessage"/>
+					<createMethod name="createReplyMessage"/>
+					<!-- no need update/delete, instead of above configure
+					<updateMethod name="updateMessage"/>
+					<deleteMethod name="deleteMessage"/>
+						-->
+				</service>
+			</handler>
+		</model>		
+		 <model class="com.jdon.jivejdon.model.UploadFile" key="id">
+           <actionForm name="upLoadFileForm" />
+			<handler>
+               <service ref="uploadService">
+					<getMethod    name="getUploadFile"/>
+					<createMethod name="saveUploadFile"/>
+					<deleteMethod name="removeUploadFile"/>
+				</service>
+			</handler>
+        </model>		
+        <model key="imageId" class="com.jdon.jivejdon.model.ImageInfo">
+        	<actionForm name="imageInfoForm"/>
+        	<handler>
+        		<service ref="imageService">
+        			<getMethod    name="getImage"/>
+        			<updateMethod name="updateImage"/>
+        			<deleteMethod name="deleteImage"/>        			
+        		</service>
+        	</handler>
+        </model>				
+	</models>
+	
+</app>

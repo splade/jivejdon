@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 2.6//EN"
+    "http://tuckey.org/res/dtds/urlrewrite2.6.dtd">
+
+<!-- See the manual for configuring: http://tuckey.org/urlrewrite/manual/   -->
+<!-- This filter is disabled by default in metadata/web/filter-mappings.xml -->
+<urlrewrite >    
+    <rule>
+         <from>^/forum/messageList.shtml?(.*)thread=([0-9]+)&amp;count=([0-9]+)&amp;start=0$</from>
+         <to type="permanent-redirect">../thread/$2.html</to>
+    </rule>  
+    <rule>
+        <from>^/thread/([0-9]+).html$</from>
+        <to>/forum/messageList.shtml?thread=$1</to>
+    </rule>
+    <rule>
+        <from>^/key/(.*)$</from>
+        <to>/query/searchThreadAction.shtml?query=$1</to>
+    </rule>
+     <rule>
+        <from casesensitive="false">^/tag/gb/(.*)$</from>
+        <to>/query/searchThreadAction.shtml?useGBK=on&amp;query=$1</to>
+    </rule>
+    <rule>
+        <from>^/query/hotkeys$</from>
+        <to>/query/hotKeys.shtml?method=hotkeys</to>
+    </rule>
+    
+    <!-- 
+    <rule>
+        <from>^/thread.jsp?(.*)&amp;message=([0-9]+)$</from>
+        <to type="permanent-redirect">thread.jsp$1&amp;message=$2#$2</to>
+    </rule>
+     -->
+</urlrewrite>
+

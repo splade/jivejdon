@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+  <form-beans>
+    <form-bean name="upLoadFileForm"      type="com.jdon.jivejdon.presentation.form.UpLoadFileForm" />
+    <form-bean name="upLoadFileListForm"  type="com.jdon.strutsutil.ModelListForm"/>	  	  	  	  
+  </form-beans>
+  <global-forwards>
+    <forward name="imageShow" path="/uploadShowAction.shtml"/>	  
+    <forward name="uploadDL" path="/uploadShowAction.shtml"/>	  
+  </global-forwards>		
+  <action-mappings>
+  
+    <!--  upload view  -->
+    <action name="upLoadFileForm" path="/message/upload/uploadAction" scope="request" type="com.jdon.strutsutil.ModelViewAction" validate="false">
+      <forward name="create" path="/message/upload/uploadListAction.shtml" />
+    </action>
+   <action path="/message/upload/uploadListAction" type="com.jdon.jivejdon.presentation.action.UploadFileListAction"
+      name="upLoadFileListForm" scope="request" 
+      validate="false">
+      <forward name="success" path="/message/upload/upload.jsp"/>
+    </action>	  	  	  
+    <!--  upload  view -->
+    
+    <action name="upLoadFileForm" path="/message/upload/saveUploadAction" scope="request" type="com.jdon.strutsutil.ModelSaveAction" 
+		validate="true" input="/message/upload/uploadAction.shtml">
+      <forward name="success" path="/message/upload/result.jsp" />
+      <forward name="failure" path="/message/upload/uploadAction.shtml" />
+    </action>	  
+     <action path="/uploadShowAction" type="com.jdon.jivejdon.presentation.action.UploadShowAction" validate="false" />
+  </action-mappings>
+  <controller maxFileSize="100K" />
+</struts-config>

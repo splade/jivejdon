@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE app PUBLIC "-//Jdon//DTD 2005 1.0 Framework//EN" "http://www.jdon.com/jdonframework.dtd">
+<!-- qucik manual http://www.jdon.com/jdonframework/threemin.htm 
+     english version: https://jdon.dev.java.net/steps.html -->
+
+<app>
+	
+	<services>
+      
+		<!--  dao  start-->				
+		<component name="messageDaoFacade"
+			class="com.jdon.jivejdon.dao.MessageDaoFacade"/>		
+		
+		<component name="sequenceDao"
+			class="com.jdon.jivejdon.dao.sql.SequenceDaoSql"/>
+
+		<component name="forumDao"
+			class="com.jdon.jivejdon.dao.filter.ForumDaoCache"/>
+
+    	<component name="messageDao"
+			class="com.jdon.jivejdon.dao.filter.MessageDaoDecorator"/>		
+		
+     	<component name="messageQueryDao"
+			class="com.jdon.jivejdon.dao.filter.MessageQueryDaoProxy"/>	
+		
+		<component name="propertyDao"
+			class="com.jdon.jivejdon.dao.sql.PropertyDaoSql"/>	
+		
+		<component name="uploadFileDao"
+			class="com.jdon.jivejdon.dao.filter.UploadFileDaoCache"/>
+				
+		<component name="accountDao"
+			class="com.jdon.jivejdon.dao.filter.AccountDaoDecorator"/>
+		
+		<component name="accountSSOSql"
+			class="com.jdon.jivejdon.dao.sql.AccountSSOSql"/>
+		
+    	<component name="setupDao"
+			class="com.jdon.jivejdon.dao.sql.SetupDaoSql"/>
+		<component name="imageInfoDao" 
+					class="com.jdon.jivejdon.dao.sql.ImageInfoDaoSql">
+		</component>
+		<!--  dao  end-->				
+			
+		<!--  multi-page query  -->
+		<component name="messagePageIteratorSolve"
+			class="com.jdon.jivejdon.dao.util.MessagePageIteratorSolver"/>
+			
+		<!-- search   -->
+    	<component name="messageSearchProxy"
+			class="com.jdon.jivejdon.dao.search.MessageSearchProxy"/>			
+			
+    	<!--  Old jive2.5 DB Update to New JiveJdon3 DB Util -->
+		<component name="oldUpdateNewUtil"
+			class="com.jdon.jivejdon.dao.util.OldUpdateNewUtil"/>
+			
+        <!--  re Build luncene Index-->
+		<component name="reBuildIndex"
+			class="com.jdon.jivejdon.dao.search.ReBuildIndex"/>			
+			
+						
+		<!--  DataSource  -->	
+		<component name="jdbcTempSource"
+			class="com.jdon.jivejdon.dao.sql.JdbcTempSource">
+			<!--  	 JBoss JNDI-->
+			       <constructor value="java:/JiveJdonDS"/> 			
+	       <!-- tomcat jndi    <constructor value="java:comp/env/jdbc/JiveJdonDS"/>-->
+        </component>
+				
+    	<!--  DataSource for SSO -->	
+		<component name="jdbcTempSSOSource"
+			class="com.jdon.jivejdon.dao.sql.JdbcTempSSOSource">
+      <!-- jboss jndi -->  <constructor value="java:/Security"/> 
+       <!-- tomcat jndi     <constructor value="java:comp/env/jdbc/Security"/>-->
+        </component>
+
+      
+	</services>
+</app>

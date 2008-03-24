@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE app PUBLIC "-//Jdon//DTD 2005 1.0 Framework//EN" "http://www.jdon.com/jdonframework.dtd">
+<!-- qucik manual http://www.jdon.com/jdonframework/threemin.htm 
+     english version: https://jdon.dev.java.net/steps.html -->
+<app>	
+	<services>
+	    <component name="constants" class="com.jdon.jivejdon.Constants">
+	        <constructor value="yyyy年MM月dd日 HH:mm"/>    	<!--displaye date format -->
+	    </component>
+       			   
+        <component name="treeManager"
+			class="com.jdon.jivejdon.manager.TreeManager"/>
+			
+		<!-- message output  filter -->
+		<component name="outFilterManager"
+			class="com.jdon.jivejdon.manager.filter.OutFilterManager"/>
+			
+        <component name="renderingFilterManager"
+			class="com.jdon.jivejdon.model.message.output.RenderingFilterManagerImp"/>						
+						
+		<component name="renderingAvailableFilters"
+			class="com.jdon.jivejdon.model.message.output.RenderingAvailableFilters">			
+			<constructor value="com.jdon.jivejdon.model.message.output.html.HTMLFilter"/>
+            <constructor value="com.jdon.jivejdon.model.message.output.html.Newline"/>
+            <constructor value="com.jdon.jivejdon.model.message.output.html.TextStyle"/>
+            <constructor value="com.jdon.jivejdon.model.message.output.html.URLConverter"/>
+            <constructor value="com.jdon.jivejdon.model.message.output.shield.Profanity"/>
+            <constructor value="com.jdon.jivejdon.model.message.output.codeviewer.CodeHighlighter"/>
+            <constructor value="com.jdon.jivejdon.model.message.output.html.WordBreak"/>
+            <constructor value="com.jdon.jivejdon.model.message.output.html.QuoteFilter"/> 
+            <constructor value="com.jdon.jivejdon.model.message.output.emotion.Emoticon"/>
+            <constructor value="com.jdon.jivejdon.model.message.output.html.ImageFilter"/>
+            <constructor value="com.jdon.jivejdon.model.message.output.shield.Bodymasking"/>
+            <constructor value="com.jdon.jivejdon.model.message.output.hotkeys.HotKeysFilter"/>
+            
+	    </component>
+
+		<!-- message input  filter -->
+		<component name="inFilterManager"
+			class="com.jdon.jivejdon.manager.filter.InFilterManager">
+			<constructor value="com.jdon.jivejdon.model.message.upload.MessageRenderingFile"/>
+    		<constructor value="com.jdon.jivejdon.model.message.upload.MessageRenderingImage"/>
+    		<constructor value="com.jdon.jivejdon.model.message.props.InFilterPosterIP"/>
+		</component>
+				
+        <component name="queryManager"
+			class="com.jdon.jivejdon.manager.QueryManager"/>
+			
+		<!--  Throttle -->
+		<component name="throttleHolder" class="com.jdon.jivejdon.manager.throttle.ThrottleHolder"/>		
+		<component name="throttleManager" class="com.jdon.jivejdon.manager.throttle.ThrottleManager"/>
+		<component name="throttleConf" class="com.jdon.jivejdon.manager.throttle.ThrottleConf">		
+    		<constructor value="3"/>       <!-- hit -->
+    		<constructor value="60"/>    	<!-- second -->
+		</component>
+		
+		 <component name="IPBanList"
+			class="com.jdon.jivejdon.manager.block.IPBanList"/>
+				
+		
+								
+	</services>
+</app>

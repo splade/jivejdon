@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+  <form-beans>
+    <form-bean name="messageReplyForm"  type="com.jdon.jivejdon.presentation.form.MessageForm"/>	  	  
+    <form-bean name="messageForm"       type="com.jdon.jivejdon.presentation.form.MessageForm"/>	  
+    <form-bean name="messageListForm"   type="com.jdon.jivejdon.presentation.form.MessageListForm"/>	  	  	  	      
+    <form-bean name="threadPrevNexListForm" type="com.jdon.strutsutil.ModelListForm"/>	  	  	  
+    <form-bean name="threadListForm"    type="com.jdon.strutsutil.ModelListForm"/>	  	  	  	  	  
+  </form-beans>
+
+  <action-mappings>
+
+   <action path="/forum/threadList" type="com.jdon.jivejdon.presentation.action.ThreadListAction"
+      name="threadListForm" scope="request" 
+      validate="false">
+      <forward name="success" path="/forum/threadList.jsp"/>
+    </action>
+        
+  <!-- message CRUD  -->
+  <action path="/message/messageAction" type="com.jdon.jivejdon.presentation.action.ForumListAction"
+      name="forumListForm" scope="request" 
+      validate="false">
+      <forward name="success" path="/message/messageEditAuthFilter.shtml"/>
+    </action>	  
+	  
+   <action name="messageForm" path="/message/messageEditAuthFilter" type="com.jdon.jivejdon.presentation.filter.MessageEditAuthFilter" scope="request"
+		validate="false">
+       <forward name="success" path="/message/messageAction2.shtml"/>
+    </action>
+    
+    <action name="messageForm" path="/message/messageAction2" type="com.jdon.strutsutil.ModelViewAction" scope="request"
+		validate="false">
+      <forward name="create" path="/message/message.jsp" />
+      <forward name="edit" path="/message/message.jsp" />
+    </action>
+	  
+    <action name="messageForm" path="/message/messageSaveAction" type="com.jdon.strutsutil.ModelSaveAction" scope="request"
+    	validate="true" input="/message/messageAction.shtml">
+      <forward name="success" path="/message/result.jsp" />
+      <forward name="failure" path="/message/result.jsp" />
+    </action>
+   <!-- message CRUD   -->
+
+   <action name="messageReplyForm" path="/message/messageReplyAction" type="com.jdon.strutsutil.ModelViewAction" scope="request"
+		validate="false">
+      <forward name="create" path="/message/messageReply.jsp" />
+      <forward name="edit" path="/message/messageReply.jsp" />
+    </action>
+	  
+    <action name="messageReplyForm" path="/message/messageReplySaveAction" type="com.jdon.strutsutil.ModelSaveAction" scope="request"
+    	validate="true" input="/message/messageReplyAction.shtml">
+      <forward name="success" path="/message/result.jsp" />
+      <forward name="failure" path="/message/result.jsp" />
+    </action>
+
+   <action name="messageListForm" path="/message/messageDeleAction" type="com.jdon.jivejdon.presentation.action.MessageRecursiveListAction" scope="request"
+		validate="false">
+       <forward name="success" path="/message/deleteMessage.jsp" />	
+	   <forward name="failure" path="/message/result.jsp" />
+    </action>
+   
+   <!--  message mask directly call messageService's maskMessage method by "/message/messageMaskAction.shtml?method=maskMessage" --> 
+    <action name="messageForm" path="/message/messageMaskAction" type="com.jdon.strutsutil.ServiceMethodAction" scope="request"
+		validate="false">
+       <forward name="success" path="/message/result.jsp" />	
+    </action>
+    
+    <!-- message List start  -->
+	  	  	  
+    <action path="/forum/messageList" type="com.jdon.jivejdon.presentation.action.ThreadPrevNexListAction"
+      name="threadPrevNexListForm" scope="request" 
+      validate="false">
+      <forward name="success" path="/forum/messageListBody.shtml"/>
+    </action>
+
+	 <action path="/forum/messageListBody" type="com.jdon.jivejdon.presentation.action.MessageListAction"
+      name="messageListForm" scope="request" 
+      validate="false">
+      <forward name="success" path="/forum/messageListAuth.shtml"/>
+    </action>
+    
+    <action path="/forum/messageListAuth" type="com.jdon.jivejdon.presentation.filter.MessageListAuthFilter"
+      name="messageListForm" scope="request" 
+      validate="false">
+      <forward name="success" path="/forum/messageList.jsp"/>
+    </action>
+    <!-- message List end  -->
+    
+    
+      <!-- article List start  -->
+	  	  	  
+    <action path="/article/articleList" type="com.jdon.jivejdon.presentation.action.ThreadPrevNexListAction"
+      name="threadPrevNexListForm" scope="request" 
+      validate="false">
+      <forward name="success" path="/article/articleListBody.shtml"/>
+    </action>
+
+	 <action path="/article/articleListBody" type="com.jdon.jivejdon.presentation.action.MessageListAction"
+      name="messageListForm" scope="request" 
+      validate="false">
+      <forward name="success" path="/article/articleList.jsp"/>
+    </action>
+    
+    <!-- article List end  -->
+	  
+  </action-mappings>
+  <controller maxFileSize="100K" />
+</struts-config>

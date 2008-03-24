@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE app PUBLIC "-//Jdon//DTD 2005 1.0 Framework//EN" "http://www.jdon.com/jdonframework.dtd">
+<!-- qucik manual http://www.jdon.com/jdonframework/threemin.htm 
+     english version: https://jdon.dev.java.net/steps.html -->
+
+<app>
+	
+	<services>
+        <!--  business services  start-->
+		<pojoService name="forumService"
+			class="com.jdon.jivejdon.service.imp.ForumServiceImp"/>
+
+		<pojoService name="forumMessageService"
+			class="com.jdon.jivejdon.service.imp.message.ForumMessageShell"/>
+
+		<component name="messageKernel"
+			class="com.jdon.jivejdon.service.imp.message.MessageKernel"/>
+
+		<component name="messageRenderingFilter"
+			class="com.jdon.jivejdon.service.imp.message.MessageRenderingFilter"/>
+
+     	<pojoService name="forumMessageQueryService"
+			class="com.jdon.jivejdon.service.imp.message.ForumMessageQueryServiceImp"/>
+					
+		<pojoService name="uploadService"
+			class="com.jdon.jivejdon.service.imp.upload.UploadServiceShell"/>
+		
+		
+     	<pojoService name="accountService"
+			class="com.jdon.jivejdon.service.imp.account.AccountServiceImp"/>
+
+     	<pojoService name="accountProfileService"
+			class="com.jdon.jivejdon.service.imp.account.AccountProfileServiceImp"/>
+			
+		<pojoService name="imageService" 
+			class="com.jdon.jivejdon.service.imp.upload.ImageServiceImp">
+		</pojoService>	
+			
+         <!--  business services  end-->
+		
+		
+	  
+		<!--  relation with the micro container  start-->
+		<component name="containerUtil"
+			class="com.jdon.jivejdon.service.util.ContainerUtil"/>
+
+        <component name="sessionContextUtil"
+			class="com.jdon.jivejdon.service.util.SessionContextUtil"/>
+        <!--  relation with the micro container end -->					
+        			
+			
+		<!-- forget password send mail by JavaMail   -->	
+		<component name="emailTask"
+			class="com.jdon.jivejdon.util.EmailTask"> 
+			 <constructor value="java:/Mail"/>
+         </component>		
+         
+         <component name="emailHelper"
+			class="com.jdon.jivejdon.service.imp.account.EmailHelper"/> 
+         
+		<component name="emailDefine"
+			class="com.jdon.jivejdon.service.imp.account.EmailDefine"> 
+			<constructor value="J道：用户名和密码"/>
+			 <constructor value="您好：您索要的jdon.com网站登陆用户和密码如下："/>
+			 <constructor value="Jdon.com --- 解惑授道 专业的解决之道"/> 			 
+			 <constructor value="Jdon.com"/> 			 
+			 <constructor value="admin@jdon.com"/>
+         </component>		
+         <!-- forget password send mail by JavaMail end   -->	
+         
+         	       
+        <!-- Tansaction JNDI   -->
+        <component name="jtaTransactionUtil"
+			class="com.jdon.jivejdon.service.util.JtaTransactionUtil">
+	        <constructor value="java:/TransactionManager"/>
+        </component>
+        
+        <pojoService name="othersService" class="com.jdon.jivejdon.service.others.OthersServiceImp"></pojoService>
+		
+	</services>
+</app>

@@ -1,0 +1,99 @@
+推荐安装环境:  JDK 5.0 + JBoss 4.0.5 + MySQL 4/5
+
+1. 下载JBoss  下载MySQL/或其他数据库。
+如果不是从jdon.com下载的MySQl，必须进行数据库访问用户授权：
+GRANT ALL PRIVILEGES ON *.* TO banq@127.0.0.1 IDENTIFIED BY '数据库密码' WITH GRANT OPTION;
+其中banq为数据库访问用户名，可任意指定。数据库密码也可任意指定。
+注意Jboss/server/default/deploy/mysql-ds.xml中与此对应，见第4条。
+
+2. 将数据表结构导入到数据库中，有两个数据库，一个jivejdon，一个security
+  ddl目录/mysql_forum.sql 导入===> jivejdon
+  ddl/mysql_user.sql 导入==> jivejdon
+  ddl/mysql_auth.sql 导入==> security
+  
+3. 配置JBoss,
+    (1).配置struts,将strutslib/*.jar cpoy to jboss/server/default/lib
+    (2).配置JdonFramework, 将项目lib目录下jdonFramework.jar(还有辅助包aopalliance.jar/commons-pool-1.2.jar/jdom.jar/log4j.jar/picocontainer-1.1.jar
+       拷贝到jboss/server/default/lib，如果是非JBoss，参考JdonFramework安装手册安装JdonFramework
+    (3) 配置Compass 将searchlib目录下所有jar包拷贝到jboss/server/default/lib目录下
+    (3).配置MySQLJDBC驱动jar包，将本项目lib/mysql-connector-java-3.0.14-production-bin.jar拷贝到jboss/server/default/lib
+    (4).修改 jbossweb-tomcat5sar/server.xml的conntector增加maxSavePostSize="-1" URIEncoding="UTF-8"
+
+4. 配置JBoss的Datasouce JNDI:
+   将本项目的mysql-ds.xml 拷贝到jboss/server/default/deploy,根据你数据库配置修改 mysql-ds.xml,
+   需要修改数据库的用户名和密码:
+    <user-name>你的数据库用户名</user-name>
+    <password>你的数据库密码</password>
+    
+   注意：JiveJdon3源码包com.jdon.jivejdon.dao.dao.xml配置中
+   	<!--  DataSource  -->	
+		<component name="jdbcTempSource"
+			class="com.jdon.jivejdon.dao.sql.JdbcTempSource">			
+			       <constructor value="java:/JiveJdonDS"/> <!-- mysql-ds.xml中配置的JNDI名称加上前缀java:/ -->
+        </component>
+				
+    	<!--  DataSource for SSO -->	
+		<component name="jdbcTempSSOSource"
+			class="com.jdon.jivejdon.dao.sql.JdbcTempSSOSource">
+        <constructor value="java:/Security"/> <!-- mysql-ds.xml中配置的JNDI名称加上前缀java:/ -->
+            
+        </component>
+  
+   
+5. 配置JBoss的安全机制，
+    将下面配置加入jboss/server/default/conf/login-config.xml文件中
+       <application-policy name = "SecurityRealm">
+       <authentication>
+          <login-module code = "org.jboss.security.auth.spi.DatabaseServerLoginModule"  flag = "required">
+             <module-option name = "dsJndiName">java:/Security</module-option>
+             <module-option name="principalsQuery">SELECT password AS Password FROM user WHERE name = ?</module-option>
+             <module-option name="rolesQuery">SELECT RL.name AS Roles, 'Roles' AS RoleGroups FROM role as RL, user as U ,  users_roles as RU WHERE U.userid = RU.userid and RU.roleid = RL.roleid  and U.name = ?</module-option>
+                <module-option name="debug">true</module-option>
+              <module-option name="hashAlgorithm">MD5</module-option>
+              <module-option name="hashEncoding">hex</module-option>
+          </login-module>
+       </authentication>
+  </application-policy>    
+
+
+6.将目录_wars下的jivejdon.war拷贝到JBoss/server/default/deploy下，启动jBoss 
+注意：因为本论坛内置了防爬虫攻击安全机制，为正常运行，需要将jivejdon.war中WEB-INF/web.xml中referrer.domain.name的值http://www.jdon.com/改为
+你的域名，或将referrer.test.name值改为http://127.0.0.1或http://localhost
+或到数据表setup中清除相应IP记录
+  
+browse: 
+http://localhost:8080/jivejdon/
+
+admin:
+http://localhost:8080/jivejdon/admin/
+username:admin
+password:admin
+
+起初设置要进入管理依据下面顺序安装下面过滤器:
+1 HTMLFilter HTMLFilter   
+2 CodeHighlighter CodeHighlighter
+3 TextStyle TextStyle        
+4 Newline Newline        
+5 URLConverter URLConverter        
+6 ImageFilter ImageFilter               
+7 Profanity Profanity        
+
+
+注意：
+（1）JiveJdon3.0是基于JdonFramework的轻量架构，需要服务器JAAS和JTA支持。推荐在标准J2EE服务器如JBoss Welogic下运行，。
+如果你希望安装在Tomcat下(一般人不推荐在tomcat下安装，除非你非常熟悉tomcat，推荐使用JBoss)：
+配置Tomcat 基于Realm授权认证:
+http://www.jdon.com/jivejdon/thread/32703.html
+配置Tomcat的JTA 事务:
+http://www.blogjava.net/zhanglijun33/archive/2006/09/21/jta.html
+
+（2）运行中出现任何错误，例如“500错误:错误信息：对不起，没有权限操作”。一定要根据日志定位具体第一个错误。
+使用文本编辑器打开JBoss/server/default/log/server.log,搜索" ERROR "，找到错误行。
+或者使用Eclipse3.2.1等开发工具的调试定位。
+
+（3）http://www.jdon.com/jdonframework/jivejdon3/index.html
+     JdonFramework快速指南:http://www.jdon.com/jdonframework/threemin.htm
+     技术支持论坛: http://www.jdon.com/jivejdon/forum.jsp?forumId=61
+     收费jivejdon开发文档: http://www.jdon.com/my/train/controllAction.do
+     
+(4) 没有接触过Java初学者；  http://www.jdon.com/jivejdon/thread/33437.html  

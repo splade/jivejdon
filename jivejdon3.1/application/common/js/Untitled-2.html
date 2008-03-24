@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+</head>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+
+
+function urlAction(theFile){
+
+   
+   	
+	  var body = window.opener.document.all['body'];
+      
+      if(body != null){	
+			  if (body.value.indexOf("[img]<1>") <= -1){			
+	      	      imgtext="[img]<1>tttt[/img]";			
+                  body.value+= imgtext;						
+			  }else{
+				  var s =  body.value;
+			      var matchArray = s.replace(/(\\[img\\])([^\\[]+)(\\[/img\\])/,"<1>qqqqqq"); 
+                  alert("Match found: " + matchArray); 
+
+			  }
+       }		
+	 
+}
+
+
+//-->
+</script>
+<body>
+
+<input type=button value="确定" class=Button onClick="urlAction('oo')">
+</body>
+</html>
