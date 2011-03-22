@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="JiveJdon 4.1" default="all" basedir=".">
+<project name="JiveJdon 4.2" default="all" basedir=".">
 
 	<target name="all" depends="war">
 		
