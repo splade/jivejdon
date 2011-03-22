@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.generic.runtimeTarget/JBoss v5.0"/>
+	<classpathentry kind="lib" path="servletlib/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="servletlib/javax.servlet.jsp.jar"/>
+	<classpathentry kind="lib" path="servletlib/junit.jar"/>
+	<classpathentry kind="lib" path="servletlib/mysql-connector-java-3.0.14-production-bin.jar"/>
+	<classpathentry kind="lib" path="searchlib/lucene2.0/lucene-analyzers.jar"/>
+	<classpathentry kind="lib" path="searchlib/lucene2.0/lucene-core.jar"/>
+	<classpathentry kind="lib" path="searchlib/lucene2.0/lucene-highlighter.jar"/>
+	<classpathentry kind="lib" path="searchlib/lucene2.0/lucene-snowball.jar"/>
+	<classpathentry kind="lib" path="searchlib/compass.jar"/>
+	<classpathentry kind="lib" path="lib/javamail/activation.jar"/>
+	<classpathentry kind="lib" path="lib/javamail/mail.jar"/>
+	<classpathentry kind="lib" path="lib/jdontree/treepattern.jar"/>
+	<classpathentry kind="lib" path="lib/rsslib/rome-0.9.jar"/>
+	<classpathentry kind="lib" path="lib/upload/commons-fileupload-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/upload/commons-logging-api-1.1.jar"/>
+	<classpathentry kind="lib" path="strutslib/struts-core-1.3.8.jar"/>
+	<classpathentry kind="lib" path="strutslib/struts-taglib-1.3.8.jar"/>
+	<classpathentry kind="lib" path="strutslib/antlr-2.7.2.jar"/>
+	<classpathentry kind="lib" path="strutslib/bsf-2.3.0.jar"/>
+	<classpathentry kind="lib" path="strutslib/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="strutslib/commons-chain-1.1.jar"/>
+	<classpathentry kind="lib" path="strutslib/commons-digester-1.8.jar"/>
+	<classpathentry kind="lib" path="strutslib/commons-fileupload-1.1.1.jar"/>
+	<classpathentry kind="lib" path="strutslib/commons-io-1.1.jar"/>
+	<classpathentry kind="lib" path="strutslib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="strutslib/commons-validator-1.3.1.jar"/>
+	<classpathentry kind="lib" path="strutslib/jstl-1.0.2.jar"/>
+	<classpathentry kind="lib" path="strutslib/oro-2.0.8.jar"/>
+	<classpathentry kind="lib" path="strutslib/standard-1.0.2.jar"/>
+	<classpathentry kind="lib" path="strutslib/struts-el-1.3.8.jar"/>
+	<classpathentry kind="lib" path="strutslib/struts-extras-1.3.8.jar"/>
+	<classpathentry kind="lib" path="strutslib/struts-faces-1.3.8.jar"/>
+	<classpathentry kind="lib" path="strutslib/struts-mailreader-dao-1.3.8.jar"/>
+	<classpathentry kind="lib" path="strutslib/struts-scripting-1.3.8.jar"/>
+	<classpathentry kind="lib" path="strutslib/struts-tiles-1.3.8.jar"/>
+	<classpathentry kind="lib" path="lib/jf/jdonFramework.jar" sourcepath="/jdonframework"/>
+	<classpathentry kind="lib" path="lib/jf/log4j.jar"/>
+	<classpathentry kind="lib" path="lib/jf/cglib.jar"/>
+	<classpathentry kind="lib" path="lib/jf/commons-pool-1.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/jf/ehcache-1.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/jf/hessian-3.1.6.jar"/>
+	<classpathentry kind="lib" path="lib/jf/jdom.jar"/>
+	<classpathentry kind="lib" path="lib/jf/jdon-hibernate3x.jar"/>
+	<classpathentry kind="lib" path="lib/jf/jdon-remote-hessian.jar"/>
+	<classpathentry kind="lib" path="lib/jf/jdon-struts1x.jar" sourcepath="/jdonframework"/>
+	<classpathentry kind="lib" path="lib/jf/picocontainer-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jf/scannotation-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/transaction/jta-spec1_0_1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="lib/time/ocpsoft-pretty-time-1.0.6.jar"/>
+	<classpathentry kind="lib" path="lib/xebia-servlet-extras-1.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/urlrewrite/urlrewrite-3.2.0.jar"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>

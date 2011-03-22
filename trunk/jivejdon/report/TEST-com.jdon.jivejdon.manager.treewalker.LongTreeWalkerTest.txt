@@ -1,0 +1,19 @@
+Testsuite: com.jdon.jivejdon.manager.treewalker.LongTreeWalkerTest
+Tests run: 8, Failures: 0, Errors: 0, Time elapsed: 0.75 sec
+------------- Standard Output ---------------
+result=4
+ child=6100
+ child=6200
+index=1
+index=2
+RecursiveChildren Error, pass by
+------------- ---------------- ---------------
+
+Testcase: testGetParent took 0.735 sec
+Testcase: testGetChild took 0 sec
+Testcase: testGetChildCount took 0 sec
+Testcase: testGetChildren took 0 sec
+Testcase: testGetIndexOfChild took 0 sec
+Testcase: testGetDepth took 0 sec
+Testcase: testGetRecursiveChildren took 0.015 sec
+Testcase: testIsLeaf took 0 sec
