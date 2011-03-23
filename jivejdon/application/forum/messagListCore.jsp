@@ -268,7 +268,7 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
 
 <script language="javascript" >
    $LAB
-   .script('<html:rewrite page="/common/js/prototype.js"/>').wait()
+   .script('<html:rewrite page="/common/js/default.js"/>').wait()
    .wait(function(){
    
       hotList();
@@ -278,10 +278,7 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
       $('messageReply').observe("submit", callbackSubmit);
       
    
-    })
-   .script('<html:rewrite page="/common/js/others.js"/>')          	  
-   .script('<html:rewrite page="/common/js/window.js"/>')
-   .script('<html:rewrite page="/common/js/window_effects.js"/>')
+    })   
    .wait(function(){
           
   <%@include file="./messageNotfierJS.jsp"%>
