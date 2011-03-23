@@ -1,8 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <link rel="stylesheet" type="text/css" media="all" href="<%=request.getContextPath()%>/common/js/calendar-win2k-cold-1.css" title="win2k-cold-1" />
 <script type="text/javascript" src="<%=request.getContextPath()%>/common/js/calendar.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/common/js/calendar-zh.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/common/js/calendar-setup.js"></script>
 
 <logic:notPresent name="query">
   <bean:parameter name="query" id="query" value=""/>
