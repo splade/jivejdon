@@ -16,7 +16,7 @@
 <head>
     <title>标签的主题列表</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="<html:rewrite page="/jivejdon.css"/>" type="text/css">
+<link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
 </head>
 <body leftmargin="0" rightmargin="0" topmargin="0">
 

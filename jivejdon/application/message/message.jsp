@@ -64,19 +64,23 @@
  
 
 <script>
-$('messageNew').observe("submit", callbackSubmit);
-
-function callbackSubmit(){
-    openInfoDiag("已经提交...");     
-
+function loadPostjs(){
+  if (typeof(openReplyWindow) == 'undefined') {
+    $LAB
+     .script('<html:rewrite page="/message/js/messageEdit.js"/>').wait()
+     .wait(function(){
+          setObserve();
+     })      
+  }else
+     setObserve();  
 }
 
-function forwardNewPage(fmainurl, fmainPars, anchor){
-      infoDiagClose();         
-      var url = fmainurl + "/nocache" +fmainPars + "#" + anchor;
-      window.location.href =  url;
-      
+function setObserve(){
+ if(typeof(Ajax) != "undefined"){
+      $('messageNew').observe("submit", callbackSubmit);
+  }   
 }
+
 </script>
 
 

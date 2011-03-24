@@ -30,7 +30,7 @@
 </logic:empty>
 
 <logic:notEmpty name="winwidth" >
-<link rel="stylesheet" href="<html:rewrite page="/jivejdon.css"/>" type="text/css">
+<link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
 <table bgcolor="#cccccc"
  cellspacing="0" cellpadding="0" border="0" width="<bean:write name="winwidth" />" align="center">
  </logic:notEmpty>

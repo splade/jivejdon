@@ -90,4 +90,32 @@ function hotList(){
         new Ajax.Updater('hotList', contextpath +'/hot/180_400_10_190.html', { method: 'get', parameters: pars });
    }
 }
-	
+
+function loadWPostjs(mId){  
+  if (typeof(openReplyWindow) == 'undefined') {
+   $LAB
+   .script(contextpath + '/forum/js/postreply.js').wait()
+   .wait(function(){
+      openReplyWindow(mId);
+   })   
+  }else{
+     openReplyWindow(mId);
+  }
+}
+
+
+function loadQPostjs(mId){  
+  if (typeof(openReplyWindow) == 'undefined') {
+   $LAB
+   .script(contextpath + '/forum/js/postreply.js').wait()
+   .wait(function(){
+      openQuoteWindow(mId);
+   })   
+  }else{
+     openQuoteWindow(mId);
+  }
+}
+
+
+
+

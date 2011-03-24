@@ -6,7 +6,6 @@
 <%@ taglib uri="/WEB-INF/MultiPages.tld" prefix="MultiPages" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
-<script language="javascript" src="<html:rewrite page="/forum/js/threadPost.js"/>"></script>
 
 <bean:parameter id="forumId" name="forumId" value="" />
 
@@ -45,7 +44,23 @@
 
 </html:form>
 
+
 <script>
-$('messageNew').observe("submit", callbackSubmit);
+function loadPostjs(){
+  if (typeof(openReplyWindow) == 'undefined') {
+     $LAB
+     .script('<html:rewrite page="/forum/js/threadPost.js"/>').wait()
+     .wait(function(){
+         setObserve();
+     })              
+  }else
+     setObserve();
+}
+
+function setObserve(){
+ if(typeof(Ajax) != "undefined"){
+      $('messageNew').observe("submit", callbackSubmit);
+  }   
+}
 
 </script>

@@ -113,7 +113,8 @@ var replyW;
    function initQuoteForm(pmessageId){
      var quotetexts = getSelText() + "";
    	 if (quotetexts == ""){
-   	    myalert("请首先用鼠标选择本帖中需要回复的文字");      	
+    	 Dialog.alert("请首先用鼠标选择本帖中需要回复的文字", 
+                {windowParameters: {className: "mac_os_x", width:250, height:200}, okLabel: "   确定  "});   	    
       	return false;
    	 }   	 
    	 quotetexts = quotetexts.substring(0, 120) + " ... ";

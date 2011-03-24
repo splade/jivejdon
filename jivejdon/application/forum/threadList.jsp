@@ -38,7 +38,7 @@ if (currentPageNo > 1){
 pageContext.setAttribute("title", titleStr);
 %>
 <%@ include file="../common/IncludeTop.jsp" %>
-
+<script type="text/javascript" src="<html:rewrite page="/common/js/LAB.js"/>"></script>
 
 <script>
  if(top !== self) top.location = self.location;

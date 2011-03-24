@@ -2,7 +2,7 @@
 <%@taglib uri="struts-logic" prefix="logic"%>
 <%@taglib uri="struts-html" prefix="html"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<link rel="stylesheet" href="<html:rewrite page="/jivejdon.css"/>"	type="text/css">
+<link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
 <bean:parameter name="userId" id="userId"/>
 
 <html:form method="post" action="/account/protected/accountProfileSave.shtml">

@@ -7,9 +7,7 @@
 <head>
 <title>
 编辑注册资料
-</title>
-<link rel="stylesheet" href="<html:rewrite page="/jivejdon.css"/>" type="text/css" /> 
-<link rel="stylesheet" href="<html:rewrite page="/post.css"/>" type="text/css" /> 
+</title> 
 <link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <body>

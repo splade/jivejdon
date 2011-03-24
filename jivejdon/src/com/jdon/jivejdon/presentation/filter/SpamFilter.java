@@ -50,6 +50,8 @@ public class SpamFilter implements Filter {
 
 	protected Pattern domainPattern;
 
+	public static String DP = "domainPattern";
+
 	protected ServletContext servletContext;
 
 	protected IPBanListManagerIF iPBanListManagerIF;
@@ -72,6 +74,8 @@ public class SpamFilter implements Filter {
 		if (!UtilValidate.isEmpty(domainPatternStr)) {
 			try {
 				domainPattern = Pattern.compile(domainPatternStr);
+				if (domainPattern != null)
+					config.getServletContext().setAttribute(this.DP, domainPattern);
 			} catch (Exception e) {
 				log.error("Error parsingreferrer.domain.namePattern value '" + domainPattern, e);
 			}

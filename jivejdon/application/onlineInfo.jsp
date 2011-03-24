@@ -12,7 +12,7 @@
 <title>
 在线登录用户状态
 </title>
-<link rel="stylesheet" href="<html:rewrite page="/jivejdon.css"/>" type="text/css">
+<link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
 <body>
 <table border="0" cellpadding="0" cellspacing="0" width="300" align='center'>
 <tr>

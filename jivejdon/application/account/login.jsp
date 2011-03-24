@@ -16,7 +16,7 @@ if(ua.matches(".*(android|avantgo|blackberry|blazer|compal|elaine|fennec|hiptop|
 <title>
 <bean:write name="title" />
 </title>
-<link rel="stylesheet" href="<html:rewrite page="/jivejdon.css"/>" type="text/css">
+<link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/portlet_css.jsp" type="text/css">
 
    

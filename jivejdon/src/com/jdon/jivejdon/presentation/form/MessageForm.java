@@ -230,16 +230,20 @@ public class MessageForm extends BaseForm {
 			addErrorIfStringEmpty(errors, "body is required.", getBody());
 			if (UtilValidate.isEmpty(this.getSubject()) || UtilValidate.isEmpty(this.getBody())) {
 				errors.add("subject or body is null");
+				return;
 			}
 			if (UtilValidate.isEmpty(this.getSubject().replaceAll("[^\\p{L}\\p{N}]", ""))
 					|| UtilValidate.isEmpty(this.getBody().replaceAll("[^\\p{L}\\p{N}]", ""))) {
 				errors.add("subject or body is null");
+				return;
 			}
 			if ((this.getSubject() != null) && (this.getSubject().length() > subjectMaxLength)) {
 				errors.add("subject lengt too long");
+				return;
 			}
 			if ((getBody() != null) && (getBody().length() >= bodyMaxLength)) {
 				errors.add("body's max length should < " + bodyMaxLength);
+				return;
 			}
 		}
 	}

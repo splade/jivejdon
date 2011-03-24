@@ -8,12 +8,15 @@
 </title>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <link rel="shortcut icon" href="<html:rewrite page="/images/favicon.ico"/>" />
-<link rel="stylesheet" href="<html:rewrite page="/jivejdon.css"/>" type="text/css" />
 <link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
 <script type="text/javascript" src="<html:rewrite page="/common/js/LAB.js"/>"></script>
 <script>
-if(top !== self) top.location = self.location;
+ if(top !== self) top.location = self.location;
+
+ contextpath = "<%=request.getContextPath()%>";
 </script>
+<script type="text/javascript" src="<html:rewrite page="/forum/js/messageList.js"/>"></script>
+
 <%@ include file="../common/security.jsp" %>
 <%@ include file="../common/loginAccount.jsp" %>
 
