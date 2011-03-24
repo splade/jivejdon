@@ -6,8 +6,6 @@
 
 <bean:parameter id="parentMessageId" name="parentMessageId" value="" />
 
-<script language="javascript" src="<html:rewrite page="/forum/js/postreply.js"/>"></script>
-
 <iframe id='target_reply' name='target_reply' src='' style='display: none'></iframe>
 
 <div id="replyDiv">
@@ -26,8 +24,23 @@
  </jsp:include>  
 
 <script>
-if(typeof(Ajax) != "undefined")
-  $('messageReply').observe("submit", callbackSubmit);   
+function loadPostjs(){
+  if (typeof(openReplyWindow) == 'undefined') {
+     $LAB
+     .script('<html:rewrite page="/forum/js/postreply.js"/>').wait()
+     .wait(function(){
+          setObserve();
+     })     
+  }else
+     setObserve();
+}
+
+function setObserve(){
+ if(typeof(Ajax) != "undefined"){
+      Event.observe('messageReply', 'submit', callbackSubmit);
+  }   
+}
+
 </script>
 
 </html:form>

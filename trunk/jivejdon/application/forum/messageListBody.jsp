@@ -105,10 +105,10 @@
        <a title="手机条码扫描浏览本页" href="JavaScript:void(0);" onclick='qtCode()'  >
        <html:img page="/images/phone.gif" width="18" height="18" alt="手机条码扫描浏览本页" border="0" /></a>
        
-         <a title="请用鼠标选择需要回复的文字再点按本回复键" href="javascript:void(0);" onclick="openQuoteWindow('<bean:write name="forumMessage" property="messageId"/>');">
+         <a title="请用鼠标选择需要回复的文字再点按本回复键" href="javascript:void(0);" onclick="loadQPostjs('<bean:write name="forumMessage" property="messageId"/>')">
         <html:img page="/images/document_comment.gif" width="18" height="18" border="0" alt="请用鼠标选择需要回复的文字再点按本回复键"/></a>
        
-         <a title="回复该主题" href="javascript:void(0);" onclick="openReplyWindow('<bean:write name="forumMessage" property="messageId"/>');">
+         <a title="回复该主题" href="javascript:void(0);" onclick="loadWPostjs('<bean:write name="forumMessage" property="messageId"/>')">
          <html:img page="/images/comment_reply.gif" width="18" height="18" border="0" alt="回复该主题"/></a>
                  
        <logic:equal name="messageListForm" property='<%= "authenticated[" + i + "]" %>' value="true">

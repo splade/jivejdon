@@ -9,8 +9,7 @@
 	<head>
 		<title>My JSP 'images.jsp' starting page</title>
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-		<link rel="stylesheet" href="<html:rewrite page="/jivejdon.css"/>"
-			type="text/css">
+        <link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" /> 
 		<script type="text/JavaScript">
 			function delConfirm(){
   				if (confirm( '删除该图片 ! \n\n 你肯定吗?  '))

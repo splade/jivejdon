@@ -13,7 +13,7 @@
 
     <title>标签列表</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="<html:rewrite page="/jivejdon.css"/>" type="text/css">
+<link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
 <style type="text/css">
 .tag0 { font-size: 12px;}
 .tag1 { font-size: 13px;}

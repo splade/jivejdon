@@ -10,7 +10,7 @@
 <title>
 <bean:write name="title" />
 </title>
-<link rel="stylesheet" href="<html:rewrite page="/jivejdon.css"/>" type="text/css">
+<link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
 
 <%@ include file="../common/body_header.jsp" %>
 

@@ -9,7 +9,7 @@
 <title>
 论坛使用指南
 </title>
-<link rel="stylesheet" href="<html:rewrite page="/jivejdon.css"/>" type="text/css">
+<link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
 <body>
 
 

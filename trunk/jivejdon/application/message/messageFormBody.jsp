@@ -27,6 +27,20 @@
 
 <script type="text/javascript">
 <!--
+function loadformjs(){
+  if (typeof(openUploadWindow) == 'undefined') {
+   $LAB
+   .script('<html:rewrite page="/forum/js/form.js"/>').wait()
+   .wait(function(){
+      loadPostjs();
+   })     
+  }else
+    loadPostjs();
+  
+}
+
+
+
 function openUploadWindowStart(url){
     <logic:notPresent name="principal" > 
        myalert("只有登录后才能打开上传页面");
@@ -40,7 +54,6 @@ function openUploadWindowStart(url){
 var bodyMaxLength = <bean:write name="messageForm" property="bodyMaxLength"/>; 
 //-->
 </script>
-<script language="javascript" src="<html:rewrite page="/common/js/form.js"/>"></script>
 
 <table cellpadding="2" cellspacing="0" border="0" width="971" align="center">
 
@@ -112,7 +125,7 @@ var bodyMaxLength = <bean:write name="messageForm" property="bodyMaxLength"/>;
 	</td>
 
 	<td align="left">
-	<html:textarea property="body" cols="100" rows="40" styleClass="tpc_content" styleId="formBody" tabindex="6" onkeydown="releaseKeyboard()" ></html:textarea>	<%-- onclick="startCopy(300000)" --%>
+	<html:textarea property="body" cols="100" rows="40" styleClass="tpc_content" styleId="formBody" tabindex="6" onkeydown="releaseKeyboard()" onfocus="loadformjs()"  ></html:textarea>	<%-- onclick="startCopy(300000)" --%>
 	</td>
 </tr>
 

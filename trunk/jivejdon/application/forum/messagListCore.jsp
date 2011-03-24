@@ -32,11 +32,6 @@ pageContext.setAttribute("title", titleStr);
   <bean:write name="threadTag" property="title" />,
 </logic:iterate>'/>
 
-<script>
- contextpath = "<%=request.getContextPath()%>";
-</script>
-<script type="text/javascript" src="<html:rewrite page="/forum/js/messageList.js"/>"></script>
-
 
 <!-- 导航区  -->
 <%@include file="nav.jsp"%>
@@ -274,9 +269,6 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
       hotList();
       hotkeys();
       approveList();
-
-      $('messageReply').observe("submit", callbackSubmit);
-      
    
     })   
    .wait(function(){
