@@ -64,10 +64,7 @@
                      <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="forumThread" property="threadId" />/<bean:write name="forumMessage" property="messageId" />#<bean:write name="forumMessage" property="messageId" />'  rel="nofollow"> 
        </logic:equal>           
        <html:img page="/images/arrow_down.gif" width="18" height="18" alt="到本帖网址" border="0" /></a>
-      
-       <a href="JavaScript:void(0);" onclick="addfavorite('<bean:write name="forumMessage" property="messageVO.subject"/>')">
-       <html:img page="/images/album_add.gif" width="18" height="18" alt="加入本帖到收藏夹" border="0" /></a>
-       
+             
         <a href="<html:rewrite page="/message/messageReplyAction.shtml" paramId="parentMessage.messageId" paramName="forumMessage" paramProperty="messageId"
          />&forum.forumId=<bean:write name="forum" property="forumId"
          />"  rel="nofollow"> <html:img page="/images/comment_reply.gif" width="18" height="18" border="0" alt="回复"/></a>

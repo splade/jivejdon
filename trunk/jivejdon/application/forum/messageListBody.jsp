@@ -14,10 +14,12 @@
         <table cellpadding="0" cellspacing="0" border="0" width="160">
         <tr><td>
           <logic:notEmpty name="forumMessage" property="account">
-          
+
+          <span class="loadUsersJS">          
           <html:link page="/profile.jsp" paramId="user" paramName="forumMessage" paramProperty="account.username">
-            <span  class='Users ajax_userId=<bean:write name="forumMessage" property="account.userId"/>' >                      
-              <b> <span  id='author_<bean:write name="forumMessage" property="messageId"/>'><bean:write name="forumMessage" property="account.username" /></span></b>                       
+            <span  class='Users ajax_userId=<bean:write name="forumMessage" property="account.userId"/>' id="users" >                      
+              <b> <span  id='author_<bean:write name="forumMessage" property="messageId"/>'>
+              <bean:write name="forumMessage" property="account.username" /></span></b>                       
           <br><br/>
            <logic:notEmpty name="forumMessage" property="account.uploadFile">
             <img  src="<%=request.getContextPath() %>/img/uploadShowAction.shtml?oid=<bean:write name="forumMessage" property="account.userId"/>&id=<bean:write name="forumMessage" property="account.uploadFile.id"/>"  border='0' />
@@ -25,6 +27,7 @@
            </span>           
 		  <br/>个人详介按这里<br/>
           </html:link>	
+          </span>
           	  
            <html:link page="/query/threadViewQuery.shtml?queryType=userMessageQueryAction" paramId="user" paramName="forumMessage" paramProperty="account.userId" target="_blank">
            <span class="smallgray"> 发表文章:
@@ -39,7 +42,7 @@
            <br>
          <logic:notEmpty name="forumMessage" property="account.username">
              <bean:define id="messageTo" name="forumMessage" property="account.username" />
-             <a href="javascript:void(0);" onclick="openShortmessageWindow('<html:rewrite page="/account/protected/shortmessageAction.shtml" paramId="messageTo"  paramName="messageTo" />');">          
+             <a href="javascript:void(0);" onclick="loadWLJSWithP('<html:rewrite page="/account/protected/shortmessageAction.shtml" paramId="messageTo"  paramName="messageTo" />', openShortmessageWindow);">          
              <html:img page="/images/user_comment.gif" width="18" height="18" border="0" align="absmiddle"/><span class="smallgray">悄悄话</span>
             </a>     
             <br>
@@ -98,17 +101,17 @@
        <a title="加入本帖到收藏夹" href="JavaScript:void(0);" onclick="addfavorite('<bean:write name="forumMessage" property="messageVO.subject"/>')" >
        <html:img page="/images/album_add.gif" width="18" height="18" alt="加入本帖到收藏夹" border="0" /></a>
        
-       <a title="网上收藏本主题" href="JavaScript:void(0);" onclick="mark('<%=request.getContextPath()%>')" >
+       <a title="网上收藏本主题" href="JavaScript:void(0);" onclick="loadWLJS(mark)" >
        <html:img page="/images/user_up.gif" width="18" height="18" alt="网上收藏本主题" border="0" /></a>
        
        
-       <a title="手机条码扫描浏览本页" href="JavaScript:void(0);" onclick='qtCode()'  >
+       <a title="手机条码扫描浏览本页" href="JavaScript:void(0);" onclick='loadWLJS(qtCode)'  >
        <html:img page="/images/phone.gif" width="18" height="18" alt="手机条码扫描浏览本页" border="0" /></a>
        
-         <a title="请用鼠标选择需要回复的文字再点按本回复键" href="javascript:void(0);" onclick="loadQPostjs('<bean:write name="forumMessage" property="messageId"/>')">
+         <a title="请用鼠标选择需要回复的文字再点按本回复键" href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumMessage" property="messageId"/>',loadQPostjs)">
         <html:img page="/images/document_comment.gif" width="18" height="18" border="0" alt="请用鼠标选择需要回复的文字再点按本回复键"/></a>
        
-         <a title="回复该主题" href="javascript:void(0);" onclick="loadWPostjs('<bean:write name="forumMessage" property="messageId"/>')">
+         <a title="回复该主题" href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumMessage" property="messageId"/>',loadWPostjs)">
          <html:img page="/images/comment_reply.gif" width="18" height="18" border="0" alt="回复该主题"/></a>
                  
        <logic:equal name="messageListForm" property='<%= "authenticated[" + i + "]" %>' value="true">
@@ -133,6 +136,7 @@
     <logic:equal name="i" value="0"> 
      <tr bgcolor="<%=bgcolor%>"> 
         <td colspan="3">
+        <span  onmouseover="loadWLJS(initTagsW)">
         <html:link page="/query/tagsList.shtml?count=150" target="_blank" title="标签"><html:img page="/images/tag_yellow.png" width="16" height="16" alt="标签" border="0"/></html:link>
         <logic:iterate id="threadTag" name="forumThread" property="tags" >
            <span  class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
@@ -142,7 +146,7 @@
               </span>
              &nbsp;&nbsp;&nbsp;&nbsp;
         </logic:iterate>
-         
+         </span>
        </td> 
     </tr> 
     </logic:equal>

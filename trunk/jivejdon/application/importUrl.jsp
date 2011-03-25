@@ -10,6 +10,7 @@
 <head>
 <title>享道</title>
 <%@ include file="./common/headerBody.jsp" %>
+<script type="text/javascript" src="<html:rewrite page="/common/js/prototype.js"/>"></script>
 </head>
 <%@ include file="./account/loginAJAX.jsp" %>
 <body>

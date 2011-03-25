@@ -13,9 +13,8 @@
 <script>
  if(top !== self) top.location = self.location;
 
- contextpath = "<%=request.getContextPath()%>";
 </script>
-<script type="text/javascript" src="<html:rewrite page="/forum/js/messageList.js"/>"></script>
+
 
 <%@ include file="../common/security.jsp" %>
 <%@ include file="../common/loginAccount.jsp" %>

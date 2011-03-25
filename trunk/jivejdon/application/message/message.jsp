@@ -69,10 +69,12 @@ function loadPostjs(){
     $LAB
      .script('<html:rewrite page="/message/js/messageEdit.js"/>').wait()
      .wait(function(){
-          setObserve();
+         setObserve();
+     
      })      
   }else
-     setObserve();  
+     setObserve();
+       
 }
 
 function setObserve(){

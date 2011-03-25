@@ -28,7 +28,7 @@
 <table cellpadding="3" cellspacing="0" border="0" width="971" align="center">
 <tr>
     <td class="smallgray">
-<div class="tres">           
+<div class="tres" onmouseover="loadWLJS(nof)">           
      符合查询结果共有<b><bean:write name="messageListForm" property="allCount"/></b>贴  
 <MultiPages:pager actionFormName="messageListForm" page="/query/threadViewQuery.shtml" name="paramMaps" >
 <MultiPages:prev name="&#9668;" />
@@ -146,7 +146,7 @@
 <table cellpadding="3" cellspacing="0" border="0" width="100%">
 <tr>
     <td class="smallgray">
-<div class="tres">    
+<div class="tres" onmouseover="loadWLJS(nof)">    
      符合查询结果共有<b><bean:write name="messageListForm" property="allCount"/></b>贴  
 <a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go">Go</a>     
 <MultiPages:pager actionFormName="messageListForm" page="/query/threadViewQuery.shtml" name="paramMaps">

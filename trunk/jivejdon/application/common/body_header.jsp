@@ -48,7 +48,7 @@ String oc = Integer.toString(onlinecount.getActiveSessions());
 %>
   <html:img page="/images/user_groups.gif" width="17" height="17" align="absmiddle" />
   <span class="smallgray">
-  <a href="javascript:onlineInfo()" target="_blank" onmouseover="onlinesInf('<%=request.getContextPath()%>')" >在线<%=oc%>人</a> 
+  <a href="javascript:onlineInfo()" target="_blank" onmouseover="loadWLJS(onlinesInf)" >在线<%=oc%>人</a> 
   </span>
   &nbsp;&nbsp;<html:img page="/images/world.gif" width="17" height="17" align="absmiddle" /><a href="/">首页</a>
   &nbsp;&nbsp;<html:img page="/images/folder_folder.gif" width="17" height="17" align="absmiddle"/><html:link page="/thread">主题表</html:link>
@@ -62,9 +62,11 @@ String oc = Integer.toString(onlinecount.getActiveSessions());
 </logic:notPresent>
 
 <logic:notPresent name="principal" >
-  &nbsp;&nbsp;<a href="javascript:void(0);" onclick='loginW();'>
+  <span onmouseover="loadWLJS(loginW)">
+  &nbsp;&nbsp;<a href="javascript:void(0);" onclick='loginW;'>
   <html:img border="0"  page="/images/user_right.gif"  width="17" height="17" align="absmiddle"/>登陆
   </a>  
+  </span>
 </logic:notPresent>
               
 <logic:present name="principal" >

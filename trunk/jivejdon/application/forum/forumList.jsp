@@ -38,6 +38,16 @@ function lastPost(forumId, messageId){
 }
 
 
+function loadAcJS(thisId){
+  if (typeof(ac) == 'undefined') {
+     $LAB
+     .script('<%=request.getContextPath()%>/common/js/autocomplete.js')
+     .wait(function(){
+          ac(thisId,'<%=request.getContextPath()%>');
+     })     
+  }else
+      ac(thisId,'<%=request.getContextPath()%>');
+}
 </script>     
 
 <table cellpadding="0" cellspacing="0" border="0" width="971" align="center">
@@ -107,7 +117,7 @@ function lastPost(forumId, messageId){
      <tr><td valign="bottom">
   
      <html:form action="/query/searchAction.shtml"  method="post" styleClass="search"> 
-        <input type="text"  name="query" size="15" id="queryId" onfocus="ac(this.id,'<%=request.getContextPath()%>')"/>
+        <input type="text"  name="query" size="15" id="queryId" onfocus="loadAcJS(this.id,'<%=request.getContextPath()%>')"/>
          <input type="image"  align="absmiddle" height="16" width="16" name="..." src="<%=request.getContextPath() %>/images/search.gif" onClick="document.messageListForm.submit()"/>
      </html:form>             
      
@@ -139,21 +149,12 @@ function lastPost(forumId, messageId){
    
   popList();
 
- TooltipManager.init('Users', 
-  {url: '<html:rewrite page="/account/accountProfile.shtml?winwidth=250" />', 
-   options: {method: 'get'}},
-   {className:"mac_os_x", width:260});
-
- TooltipManager.init('ForumLastPost', 
-  {url: '<html:rewrite page="/query/forumLastPostViewAction.shtml" />', 
-   options: {method: 'get'}},
-   {className:"mac_os_x", width:250});
    
       
 //-->
 </script>
 
-<%@include file="../common/messageNotfier.jsp"%>
+<%@include file="./messageNotfier.jsp"%>
 
 
 <%@include file="../common/IncludeBottom.jsp"%> 

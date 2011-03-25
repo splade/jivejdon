@@ -11,6 +11,7 @@
 </title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="<html:rewrite page="/jivejdon.css"/>" type="text/css">
+<script language="javascript" src="<html:rewrite page="/common/js/autocomplete.js"/>"></script>
 </head>
 <body bgcolor='#ffffff'>
 

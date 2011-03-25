@@ -106,8 +106,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
               <logic:greaterThan name="forumThread" property="state.subscriptionCount" value="0">
                  (<bean:write name="forumThread" property="state.subscriptionCount"/>人关注)
               </logic:greaterThan>
-              
-            <!-- for prototype window TooltipManager.init -->
+                       
              <div id="tooltip_content_<bean:write name="forumThread" property="threadId"/>" style="display:none">
                <div class="tooltip_content">
                 <span class="tpc_content">

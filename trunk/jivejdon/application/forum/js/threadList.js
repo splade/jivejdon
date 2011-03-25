@@ -95,6 +95,24 @@ function  splitLink(link) {
 }
 //pageShow end
 
+var initUsers = function(){
+ TooltipManager.init('Users', 
+  {url: contextpath+"/account/accountProfile.shtml?winwidth=250", 
+   options: {method: 'get'}},
+   {className:"mac_os_x", width:260});
+}  
 
+var initLastPost = function(){
+ TooltipManager.init('ThreadLastPost', 
+  {url: contextpath+"/query/threadLastPostViewAction.shtml", 
+   options: {method: 'get'}},
+   {className:"mac_os_x", width:150});
+}
 
+var initTags = function(){   
+    TooltipManager.init('Tags', 
+  {url: contextpath+"/query/tt.shtml?tablewidth=400&count=10", 
+   options: {method: 'get'}},
+   {className:"mac_os_x", width:400});  
 
+}

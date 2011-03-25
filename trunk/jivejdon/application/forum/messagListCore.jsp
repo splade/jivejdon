@@ -68,13 +68,14 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 <table bgcolor="#CFCFA0"
  cellpadding="3" cellspacing="0" border="0" width="100%" align="center">
 <tr><td >
-<div class="tres">         
+
+<div class="tres" onmouseover="loadWLJS(nof)">         
 <MultiPagesREST:pager actionFormName="messageListForm" page="/thread" paramId="thread" paramName="forumThread" paramProperty="threadId">
 <MultiPagesREST:prev name="&#9668;" />
 <MultiPagesREST:index displayCount="3" />
 <MultiPagesREST:next  name="&#9658;" />
 </MultiPagesREST:pager>
-<a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go">Go</a>
+<a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go"><span class="pageGo">Go</span></a>
 共有 <b><bean:write name="messageListForm" property="numReplies" /></b> 回复(<b><bean:write name="messageListForm" property="numPages" /></b>页) 
 阅读<bean:write name="forumThread" property="state.viewCount" />次 
 <logic:greaterThan name="forumThread" property="state.subscriptionCount" value="0">
@@ -87,19 +88,12 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 	<div class="form">
 		<input type="text" style="width: 50px;" id="pageToGo">
 		<input type="button" value=" Go "
-		 onClick="goToAnotherPageREST('<%=request.getContextPath() %>/thread/<bean:write name="forumThread" property="threadId"/>',
+		 onClick="goToAnotherPageREST('/thread/<bean:write name="forumThread" property="threadId"/>',
 		 <bean:write name="messageListForm" property="count" />);" />				
 	</div>
   </div>  
 </div>  
 </div>
-<script>
-   var pageURL = '<%=request.getContextPath() %>/thread/<bean:write name="forumThread" property="threadId"/>';
-   var count = <bean:write name="messageListForm" property="count" />;
-   var allCount = <bean:write name="messageListForm" property="allCount" />
-   var start = <bean:write name="messageListForm" property="start" />;
-   document.onkeydown=leftRightgoPageREST;
-</script>
     </td><td >
     </td>
     
@@ -135,6 +129,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
     <td >
     <table cellpadding="3" cellspacing="0" border="0" width="100%" height="30"  >
      <tr><td  align="center">
+     <span  onmouseover="loadWLJS(initTagsW)">
         <html:link page="/query/tagsList.shtml?count=150" target="_blank" title="标签"><html:img page="/images/tag_yellow.png" width="16" height="16" alt="标签" border="0"/></html:link>
         <logic:iterate id="threadTag" name="forumThread" property="tags" >
          <span  class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
@@ -143,6 +138,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
              </a></span>
              &nbsp;&nbsp;&nbsp;&nbsp;
         </logic:iterate>
+      </span>
        </td></tr></table>
     </td>
 </tr>
@@ -255,47 +251,43 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
 </script>
 </center>
 
-
-
-<span id="__onDOMContentLoaded" ></span>
 <div id="isNewMessage" style="display:none"></div>
 
 
 <script language="javascript" >
    $LAB
-   .script('<html:rewrite page="/common/js/default.js"/>').wait()
+   .script('<html:rewrite page="/common/js/prototype.js"/>').wait()
+   .script('<html:rewrite page="/forum/js/messageList.js"/>')
    .wait(function(){
    
       hotList();
       hotkeys();
       approveList();
+
+      var pageURL = '<%=request.getContextPath() %>/thread/<bean:write name="forumThread" property="threadId"/>';
+      var start = <bean:write name="messageListForm" property="start" />;
+      var count = <bean:write name="messageListForm" property="count" />;
+      var allCount = <bean:write name="messageListForm" property="allCount" />
+      document.onkeydown=leftRightgoPageREST;
    
     })   
    .wait(function(){
-          
-  <%@include file="./messageNotfierJS.jsp"%>
-          
- TooltipManager.init('Tags', 
-  {url: '<html:rewrite page="/query/tt.shtml?tablewidth=300&count=20" />', 
-   options: {method: 'get'}},
-   {className:"mac_os_x", width:300});  
-
-
- TooltipManager.init("hotkeys",
-    {url: '<html:rewrite page="/query/s.shtml?tablewidth=340&count=15" />', options: {method: 'post'}},
-   {className:"mac_os_x", width:350});
-
- TooltipManager.init("tooltip", {url: "", options: {method: 'get'}}, {showEffect: Element.show, hideEffect: Element.hide,className: "mac_os_x", width: 250, height: 100});
- 
- TooltipManager.init('Users', 
-  {url: '<html:rewrite page="/account/accountProfile.shtml?winwidth=250" />', 
-   options: {method: 'get'}},
-   {className:"mac_os_x", width:260});   
-   
+      $$('.loadUsersJS').each(function(e){
+        Event.observe(e, 'mouseover', function(event){ 
+    	  loadWLJS(initUsersW, "<%=request.getContextPath()%>");
+    	  });
+       });
+       
+      $$('.loadTagsJS').each(function(e){
+        Event.observe(e, 'mouseover', function(event){ 
+    	  loadWLJS(initTagsW, "<%=request.getContextPath()%>");
+    	  });
+       });
+       
+       <%@ include file="./js/messageNotfierJS.jsp" %>
+    
     })
-
-
-
+ 
 </script>
 
 

@@ -15,11 +15,34 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 			<br>
 			<a href="javascript:void(0);" onclick='window.top.disablePopUPWithID(<bean:write name="Notification" property="id" />,<bean:write name="Notification" property="scopeSeconds" />)'>关闭提示</a>
 		  </div>
-            <script> 	 
-            if (typeof(window.top.popUpNewMessage) != "undefined")
-                window.top.popUpNewMessageWithID(<bean:write name="Notification" property="id" />);
-            else  if (typeof(popUpNewMessage) != "undefined")
-                popUpNewMessageWithID(<bean:write name="Notification" property="id" />);
+
+<script type="text/javascript" src="<html:rewrite page="/common/js/LAB.js"/>"></script>		  
+<script> 	 
+
+
+function loadWLJS(myfunc){
+  if (typeof(TooltipManager) == 'undefined') {     
+     $LAB
+     .script('<%=request.getContextPath()%>/common/js/window_def.js').wait()   
+     .wait(function(){
+          myfunc();          
+     })    
+  }else
+     myfunc();
+}
+   
+var loadNMJS = function (){
+  if (typeof(popUpNewMessageWithID) == "undefined"){
+     $LAB
+     .script('<%=request.getContextPath()%>/forum/js/newMessage.js').wait()
+     .wait(function(){
+       popUpNewMessageWithID(<bean:write name="Notification" property="id" />);
+     })    
+  }else
+       popUpNewMessageWithID(<bean:write name="Notification" property="id" />);
+}
+
+loadWLJS(loadNMJS());                   
                 
               
             </script>

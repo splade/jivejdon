@@ -7,11 +7,65 @@
   	    if (typeof(isLogin) != "undefined")
   	       isLogin = true;
   	 }
+
+var initTooltipWL = function (){
+  TooltipManager.init("tooltip", {url: "", options: {method: 'get'}}, {showEffect: Element.show, hideEffect: Element.hide,className: "mac_os_x", width: 250, height: 100});   
+}
+
+function getContextPath(){
+  if (document.getElementById('contextPath') == null){
+     alert("no contextPath");
+     return null;
+  }
+   return document.getElementById('contextPath').getAttribute("class");  
+}
+
+
+function loadWLJS(myfunc){
+  if (typeof(TooltipManager) == 'undefined') {     
+     $LAB
+     .script(getContextPath() + '/common/js/window_def.js').wait()
+     .wait(function(){
+          initTooltipWL();          
+     })     
+     .wait(function(){
+          myfunc();          
+     })    
+  }else
+     myfunc();
+}
+
+var nof = function(){
+}
+
+function loadWLJSWithP(param,myfunc){
+  if (typeof(TooltipManager) == 'undefined') {     
+     $LAB
+     .script(getContextPath() + '/common/js/window_def.js').wait()
+     .wait(function(){
+          initTooltipWL();          
+     }).wait()
+     .wait(function(){
+          myfunc(param);          
+     })    
+  }else
+     myfunc(param);
+}
+
+
+
+var onlinesInf = function (){
+   if (typeof(TooltipManager) == 'undefined') 
+       loadWLJS(nof);
+    try{
+           var onlineWindow = new Window({className: "mac_os_x", width:350, height:150, title: " 当前登录用户 "});
+           onlineWindow.setURL(getContextPath() +"/onlineInfo.jsp");
+           onlineWindow.showCenter();
+    }catch(e){}
+}  	
+
   	 
-  	
-  	 
-  	function loginW(fromForm)
-    {  	    
+function loginW(fromForm) {  	    
          if (typeof(isLogin) != "undefined")
            if (isLogin) {//isLogin defined in /common/security.jsp  
               setLogged()            
@@ -20,7 +74,15 @@
            }
          fromFormName = fromForm;
   	     if (typeof(Dialog) != "undefined"){
-  		     Dialog.confirm($('loginAJAX').innerHTML, {className:"mac_os_x", width:350, height:180,
+  		     logindiag();
+         }else
+             alert("no load window_def.js");
+  		
+  	}
+
+
+function logindiag(){
+     Dialog.confirm($('loginAJAX').innerHTML, {className:"mac_os_x", width:350, height:180,
                                       okLabel: " 登录 ", cancelLabel: " 关闭窗口 ",
                                       onOk:function(win){    
                                           $('login_error_msg').innerHTML='';                                      
@@ -36,9 +98,7 @@
                                             return true;                                            
                                       
                                 	}});
-        }
-  		
-  	}
+} 
   	
   	function delloginCookies(){  	    
     	eraseCookie("rememberMe");

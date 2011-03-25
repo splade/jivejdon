@@ -37,10 +37,11 @@
 <head> 
 <title><bean:write name="accountProfileForm" property="account.username"/>的博客</title> 
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="robots" content="nofollow"> 
 <link href="<html:rewrite page="/account/cp/themes/default/style/blog.css"/>" rel=stylesheet type=text/css />
 
 <%@ include file="../../common/headerBody.jsp" %>
-
+<script language="javascript" src="<html:rewrite page="/account/cp/js/blog.js"/>"></script>
 </head> 
 
 <body > 
@@ -59,7 +60,9 @@
          <html:link page="/jasslogin?logout"> 退出 </html:link>
     </logic:present>
      <logic:notPresent name="principal"  >
-        <a href="javascript:void(0);" onclick='loginW();'>登录</a> | <html:link page="/account/newAccountForm.shtml">注册</html:link>  
+     <span onmouseover="loadWLJS(loginW)">
+        <a href="javascript:void(0);" onclick='loginW;'>登录</a> | <html:link page="/account/newAccountForm.shtml">注册</html:link>
+        </span>  
      </logic:notPresent>
       
     </div> 
@@ -88,8 +91,8 @@
 <div class="secondbar"></div> 
  <script language="JavaScript" type="text/javascript">
  var uploadW;
-  function openUploadWindow(url){       
-         
+ ////loadWLJSWithP(url, openUploadWindow)
+var openUploadWindow = function(url){                
     if (uploadW == null) {
        uploadW = new Window({className: "mac_os_x", width:450, height:300, title: " Upload "}); 
        uploadW.setURL(url);
@@ -145,7 +148,7 @@
 				
 				<logic:present name="isOwner" >
 				    <br>
-					<a href="javascript:openUploadWindow('<%=request.getContextPath()%>/account/protected/upload/uploadUserFaceAction.shtml?parentId=<bean:write name="accountProfileForm" property="account.userId"/>')"
+					<a href="javascript:loadWLJSWithP('<%=request.getContextPath()%>/account/protected/upload/uploadUserFaceAction.shtml?parentId=<bean:write name="accountProfileForm" property="account.userId"/>', openUploadWindow)"
                				tabindex="4">上传头像</a>	
                 </logic:present>                    				
                </div>

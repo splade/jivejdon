@@ -11,6 +11,7 @@
 <%@ include file="../header.jsp" %>
 <link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
 <script language="javascript" src="<html:rewrite page="/common/js/default.js"/>"></script>
+<script language="javascript" src="<html:rewrite page="/common/js/autocomplete.js"/>"></script>
 
 <script>
 	 var options = {

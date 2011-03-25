@@ -12,7 +12,7 @@
  </jsp:include>  
 
 
-<html:form action="/query/threadViewQuery.shtml" method="post" onsubmit="return checkPost(this);">
+<html:form action="/query/threadViewQuery.shtml" method="post" onsubmit="return loadWLJSWithP(this, checkPost);">
 <html:hidden  name="queryForm" property="queryType" value="HOT2"/>
   <table cellspacing="1" cellpadding="0" width="971" bgcolor="#999999" border="0" ID="Table2" align="center">
     <tr>
@@ -77,7 +77,8 @@
   </table>
 </html:form>
 <script language="JavaScript" type="text/javascript">
-function checkPost(theForm) {      
+//loadWLJSWithP(theForm, checkPost)
+var checkPost = function(theForm) {      
       if ((theForm.fromDate.value  == "") ||(theForm.toDate.value  == "") ){          
          Dialog.alert(" 请完整输入条件 起始日期 终止日期 和 用户名", 
                 {windowParameters: {className: "mac_os_x", width:250, height:200}, okLabel: "   确定  "});

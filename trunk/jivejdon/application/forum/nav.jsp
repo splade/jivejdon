@@ -27,10 +27,23 @@
     </td>
      
      <td valign="top"  align="right">   
-        <input type="text"  name="query" size="25" id="queryId" onfocus="javascript:ac(this.id,'<%=request.getContextPath()%>')"/>
+        <input type="text"  name="query" size="25" id="queryId" onfocus="javascript:loadAcJS(this.id,'<%=request.getContextPath()%>')"/>
          <html:submit value="论坛搜索"/>
     </td>
     </html:form>
  </tr>
 </table>
    
+<script>
+
+function loadAcJS(thisId){
+  if (typeof(ac) == 'undefined') {
+     $LAB
+     .script('<%=request.getContextPath()%>/common/js/autocomplete.js')
+     .wait(function(){
+          ac(thisId,'<%=request.getContextPath()%>');
+     })     
+  }else
+      ac(thisId,'<%=request.getContextPath()%>');
+}
+</script>
