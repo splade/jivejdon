@@ -50,7 +50,7 @@
         </span>
         </td>
         <td>
-            <span onmouseover="loadWLJS(nof)">         
+            <span onmouseover="loadWLJS(initTooltipWL)">         
              <a href="<%=request.getContextPath()%>/thread/<bean:write name="forumThread" property="threadId"/>" 
               >
              <b><span class="tooltip html_tooltip_content_<bean:write name="forumThread" property="threadId"/>">

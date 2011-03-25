@@ -8,7 +8,7 @@ response.setContentType("text/javascript; charset=utf-8");
      new Ajax.PeriodicalUpdater('isNewMessage', messageChkURL,
       { method: 'get',
         frequency: 60, 
-        decay: 5,
+        decay: 60,
         evalScripts: true}); 
            
 </logic:present>
@@ -25,7 +25,7 @@ response.setContentType("text/javascript; charset=utf-8");
      new Ajax.PeriodicalUpdater('isNewMessage', messageChkURL,
       { method: 'get',
         frequency: 60, 
-        decay: 5,
+        decay: 60,
         evalScripts: true}); 
       
 
@@ -35,7 +35,7 @@ response.setContentType("text/javascript; charset=utf-8");
      new Ajax.PeriodicalUpdater('isNewMessage', messageChkURL,
       { method: 'get',
         frequency: 60, 
-        decay: 5,
+        decay: 60,
         evalScripts: true}); 
 
 <% }%>

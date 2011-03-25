@@ -251,14 +251,7 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
 </script>
 </center>
 
-<div id="isNewMessage" style="display:none"></div>
-
-
 <script language="javascript" >
-   $LAB
-   .script('<html:rewrite page="/common/js/prototype.js"/>').wait()
-   .script('<html:rewrite page="/forum/js/messageList.js"/>')
-   .wait(function(){
    
       hotList();
       hotkeys();
@@ -270,8 +263,6 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
       var allCount = <bean:write name="messageListForm" property="allCount" />
       document.onkeydown=leftRightgoPageREST;
    
-    })   
-   .wait(function(){
       $$('.loadUsersJS').each(function(e){
         Event.observe(e, 'mouseover', function(event){ 
     	  loadWLJS(initUsersW, "<%=request.getContextPath()%>");
@@ -284,12 +275,10 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
     	  });
        });
        
-       <%@ include file="./js/messageNotfierJS.jsp" %>
-    
-    })
- 
+  
 </script>
 
+ <%@ include file="messageNotfier.jsp" %>
 
 <jsp:include page="../common/advert.jsp" flush="true">   
      <jsp:param name="fmt" value="468x60"/>   
