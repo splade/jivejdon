@@ -48,7 +48,7 @@
 <table cellpadding="3" cellspacing="0" border="0" width="100%">
 <tr>
     <td class="smallgray" align="center">
-<div class="tres">        
+<div class="tres" onmouseover="loadWLJS(nof)">        
         
      符合查询主题贴共有<b><bean:write name="threadListForm" property="allCount"/></b>贴 
 <MultiPages:pager actionFormName="threadListForm" page="/query/taggedThreadList.shtml"  paramId="tagID" paramName="tagID"  >
@@ -104,8 +104,18 @@
     </span>
    </p>                
     
+<script>
 
-    <div class="post-footer">标签分类:
+var initTagsW = function (){          
+ TooltipManager.init('Tags', 
+  {url: getContextPath() +'/query/tt.shtml?tablewidth=300&count=20', 
+   options: {method: 'get'}},
+   {className:"mac_os_x", width:300});   
+}
+
+</script>
+
+    <div class="post-footer" onmouseover="loadWLJS(initTagsW)">标签分类:
       <logic:iterate id="threadTag" name="forumThread" property="tags" >
          <span  class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
            <a href='<%=request.getContextPath() %>/tags/<bean:write name="threadTag" property="tagID"/>' target="_blank" class="post-tag">
@@ -129,7 +139,7 @@
 <table cellpadding="3" cellspacing="0" border="0" width="100%">
 <tr>
     <td class="smallgray" align="center">
-<div class="tres">        
+<div class="tres" onmouseover="loadWLJS(nof)">        
      符合查询主题共有<b><bean:write name="threadListForm" property="allCount"/></b>贴  
 <MultiPages:pager actionFormName="threadListForm" page="/query/taggedThreadList.shtml"  paramId="tagID" paramName="tagID"  >
 <a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go">Go</a>
@@ -145,16 +155,6 @@
 </logic:greaterThan>
 </logic:present>
 
-
-<script>
-if (typeof(TooltipManager) != "undefined")
-TooltipManager.init('Tags', 
-		  {url: '<html:rewrite page="/query/tt.shtml?tablewidth=400&count=10" />', 
-		   options: {method: 'get'}},
-		   {className:"mac_os_x", width:400});  
-		   
-
-</script>
 
 <%@ include file="searchInputView.jsp" %>
 

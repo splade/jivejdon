@@ -6,16 +6,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 
-<script type="text/javascript">
-
-<!--
-
- if (typeof(TooltipManager) != "undefined")
-    TooltipManager.init("tooltip", {url: "", options: {method: 'get'}}, {showEffect: Element.show, hideEffect: Element.hide,className: "mac_os_x", width: 250, height: 100});
-
-
-//-->
-</script>
 
 
 <%@include file="./IncludeBottomBody.jsp"%>

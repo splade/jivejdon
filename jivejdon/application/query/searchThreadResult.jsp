@@ -28,7 +28,7 @@ pageContext.setAttribute("title", title);
 <table cellpadding="3" cellspacing="0" border="0" width="971" align="center">
 <tr>
     <td class="smallgray">
-<div class="tres">         
+<div class="tres" onmouseover="loadWLJS(nof)">         
     
      符合查询的主题贴共有<b><bean:write name="messageListForm" property="allCount"/></b>贴 
    
@@ -76,8 +76,19 @@ pageContext.setAttribute("title", title);
 <bean:define id="forumMessage" name="messageSearchSpec" property="message"/>
 <bean:define id="forumThread" name="forumMessage" property="forumThread"/>
 
+<script>
+
+var initTagsW = function (){          
+ TooltipManager.init('Tags', 
+  {url: getContextPath() +'/query/tt.shtml?tablewidth=300&count=20', 
+   options: {method: 'get'}},
+   {className:"mac_os_x", width:300});   
+}
+
+</script>
     <tr bgcolor="#FFFFEC">
         <td nowrap="nowrap">
+        <span  onmouseover="loadWLJS(initTagsW)">
           <logic:iterate id="threadTag" name="forumThread" property="tags" >
             <a href='<%=request.getContextPath() %>/tags/<bean:write name="threadTag" property="tagID"/>' target="_blank" class="post-tag">
               <span  class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
@@ -85,7 +96,8 @@ pageContext.setAttribute("title", title);
              </span>
              </a>
              <br>             
-        </logic:iterate>
+          </logic:iterate>
+         </span>
         </td>
         <td>
              <a href="<%=request.getContextPath()%>/thread/<bean:write name="forumThread" property="threadId"/>" 
@@ -136,13 +148,6 @@ pageContext.setAttribute("title", title);
 </table>
 
 
-<script>
-  TooltipManager.init('Tags', 
-  {url: '<html:rewrite page="/query/tt.shtml?tablewidth=300&count=20" />', 
-   options: {method: 'get'}},
-   {className:"mac_os_x", width:300});  
-</script>
-
 
 <script language="javascript"><!--
 //ejiaA1("表格名称","奇数行背景","偶数行背景","鼠标经过背景","点击后背景");
@@ -175,7 +180,7 @@ ejiaA1("ejiaA1","#fff","#F5F5F5","#FFFFCC","#FFFF84");
 <table cellpadding="3" cellspacing="0" border="0" width="971" align="center">
 <tr>
     <td class="smallgray" align="right">
-<div class="tres">        
+<div class="tres" onmouseover="loadWLJS(nof)">        
      符合查询的主题共有<b><bean:write name="messageListForm" property="allCount"/></b>贴
 <a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go">Go</a>       
 <MultiPages:pager actionFormName="messageListForm" page="/query/searchThreadAction.shtml" paramId="query" paramName="query" >

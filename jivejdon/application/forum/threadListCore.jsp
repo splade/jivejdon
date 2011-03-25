@@ -39,6 +39,7 @@
 <logic:iterate indexId="i"   id="forumThread" name="threadListForm" property="list" >
     <tr bgcolor="#FFFFEC" id="tr_<bean:write name="forumThread" property="threadId" />">
         <td nowrap="nowrap">
+        <span onmouseover="loadWLJS(initTags)">
         <logic:iterate id="threadTag" name="forumThread" property="tags" >
            <a href='<%=request.getContextPath() %>/tags/<bean:write name="threadTag" property="tagID"/>' target="_blank" class="post-tag">
              <span  class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
@@ -46,13 +47,16 @@
              </a>
              <br>             
         </logic:iterate>
+        </span>
         </td>
-        <td>        
+        <td>
+            <span onmouseover="loadWLJS(nof)">         
              <a href="<%=request.getContextPath()%>/thread/<bean:write name="forumThread" property="threadId"/>" 
               >
              <b><span class="tooltip html_tooltip_content_<bean:write name="forumThread" property="threadId"/>">
              <bean:write name="forumThread" property="name" />                          
              </span></b></a>
+             </span>
              
              <logic:greaterEqual  name="forumThread" property="state.messageCount" value="15">
              <script>             
@@ -64,14 +68,16 @@
                  (<bean:write name="forumThread" property="state.subscriptionCount"/>人关注)
               </logic:greaterThan>
               
-            <!-- for prototype window TooltipManager.init -->
-             <div id="tooltip_content_<bean:write name="forumThread" property="threadId"/>" style="display:none">
+            <!-- for prototype window  -->
+            <span onmouseover="loadWLJS(initTooltipWL)">
+             <div  id="tooltip_content_<bean:write name="forumThread" property="threadId"/>" style="display:none">
                <div class="tooltip_content">
                 <span class="tpc_content">
                  <bean:write name="forumThread" property="rootMessage.messageVO.shortBody[100]" />
                  </span>
                </div>
              </div>
+             </span>
 
         </td>
         <td align="center">
@@ -83,23 +89,26 @@
         <td nowrap="nowrap">
             &nbsp;
             <bean:define id="rootMessage" name="forumThread" property="rootMessage"></bean:define>
-            <logic:notEmpty name="rootMessage"  property="account">            
+            <logic:notEmpty name="rootMessage"  property="account">
+            <span onmouseover="loadWLJS(initUsers)">            
             <html:link page="/profile.jsp" paramId="user" paramName="rootMessage" paramProperty="account.username"
             target="_blank" >
             <span class='Users ajax_userId=<bean:write name="rootMessage" property="account.userId"/>' >
                 <b><bean:write name="rootMessage" property="account.username" /></b>            
             </span>
             </html:link>
+            </span>
              </logic:notEmpty>
 
             &nbsp;
         </td>
         <td nowrap="nowrap">
            <logic:notEmpty name="forumThread" property="state.lastPost">
+            <span onmouseover="loadWLJS(initLastPost)">
             <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>
             <span  class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >
             <bean:write name="lastPost" property="modifiedDate" />
-            </span>
+            </span>            
             <br> by:
             <logic:equal name="lastPost" property="root" value="true">
                    <a href='<%=request.getContextPath()%>/thread/<bean:write name="lastPost" property="forumThread.threadId" />' target="_blank" >                    
@@ -109,6 +118,7 @@
             </logic:equal>
                     <span class='Users ajax_userId=<bean:write name="lastPost" property="account.userId"/>' >
                     <bean:write name="lastPost" property="account.username" /></span></a>
+           </span>                    
         </logic:notEmpty>
         <%-- 
            <span id="<bean:write name="forumThread" property="threadId" />"></span>
@@ -129,23 +139,3 @@ addStickyList('ejiaA1_title_tr','<bean:write name="forum" property="forumId"/>')
 ejiaA1("ejiaA1","#fff","#F5F5F5","#FFFFCC","#FFFF84");
 </script>
 
-
-<script>
-if (typeof(TooltipManager) != "undefined"){
-
- TooltipManager.init('Users', 
-  {url: '<html:rewrite page="/account/accountProfile.shtml?winwidth=250" />', 
-   options: {method: 'get'}},
-   {className:"mac_os_x", width:260});  
-
- TooltipManager.init('ThreadLastPost', 
-  {url: '<html:rewrite page="/query/threadLastPostViewAction.shtml" />', 
-   options: {method: 'get'}},
-   {className:"mac_os_x", width:150});
-   
-    TooltipManager.init('Tags', 
-  {url: '<html:rewrite page="/query/tt.shtml?tablewidth=400&count=10" />', 
-   options: {method: 'get'}},
-   {className:"mac_os_x", width:400});  
-}
-</script>

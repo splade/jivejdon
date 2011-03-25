@@ -27,7 +27,19 @@
 	
      <select name="forum.forumId" id="forumId_select" >
 <script>
-	getFourmList("<html:rewrite page="/forum/forumListJSON.shtml"/>");
+var pars = "";
+new Ajax.Request('<html:rewrite page="/forum/forumListJSON.shtml"/>', 
+  	    {method: 'post', parameters: pars, onComplete: shoForumResponse}); 
+  	     	    	  
+function shoForumResponse(transport){
+  if (!transport.responseText.isJSON())
+	 	 return;
+  var dataArray = (transport.responseText).evalJSON();	 	 
+  dataArray.each(function(forum){          
+      new Insertion.Bottom('forumId_select', " <option value='"+ forum.forumId +"' id='o_"+ forum.forumId +"' >"+ forum.name +"</option>");
+  });
+ }
+	
 </script>
     
      </select>

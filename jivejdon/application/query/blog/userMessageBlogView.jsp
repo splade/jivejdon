@@ -67,7 +67,7 @@
 </logic:iterate>
 
 <div class="title_right">
-<div class="tres">    
+<div class="tres" onmouseover="loadWLJS(nof)">    
      共有<b><bean:write name="messageListForm" property="allCount"/></b>贴  
 <a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go">Go</a>     
 <MultiPages:pager actionFormName="messageListForm" page="/query/blog/userMessageReplyBlog.shtml" name="paramMaps">

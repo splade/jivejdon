@@ -1,4 +1,72 @@
 
+function loadPrototypeJS(myfunc){
+  if (typeof(AJAX) == 'undefined') {
+     $LAB
+     .script(getContextPath() + '/common/js/prototype.js')
+     .wait(function(){
+          myfunc();          
+     })     
+  }else
+     myfunc()
+}
+
+
+
+var initTooltipW = function (){
+  TooltipManager.init("tooltip", {url: "", options: {method: 'get'}}, {showEffect: Element.show, hideEffect: Element.hide,className: "mac_os_x", width: 250, height: 100});   
+}
+
+
+var initUsersW = function (){
+ TooltipManager.init('Users', 
+  {url: getContextPath() +'/account/accountProfile.shtml?winwidth=250', 
+   options: {method: 'get'}},
+   {className:"mac_os_x", width:260});   
+}
+
+var initTagsW = function (){          
+ TooltipManager.init('Tags', 
+  {url: getContextPath() +'/query/tt.shtml?tablewidth=300&count=20', 
+   options: {method: 'get'}},
+   {className:"mac_os_x", width:300});   
+}
+
+ //loadWLJS(qtCode) 
+var qtCode = function(){
+    new Window({url: "http://chart.apis.google.com/chart?chs=250x250&cht=qr&chl="+location.href+"&chld=L|1&choe=UTF-8", className: "mac_os_x", width:300, height:300,title: "     手机条码软件扫描下图继续浏览  " }).showCenter();
+}
+////loadWLJS(mark)
+var mark = function(){  
+ if (typeof(TooltipManager) == 'undefined') 
+       loadWLJS(nof);
+    new Window({url: getContextPath() +"/common/bookmark.jsp", className: "mac_os_x", width:300, height:100,title: "  将本主题收藏如下站点  " }).showCenter();
+}
+
+////loadWLJSWithP(url, openShortmessageWindow)
+var openShortmessageWindow = function(url){
+     if (!isLogin){//login defined in .common/security.jsp        
+        Dialog.alert("请先登陆", 
+                {windowParameters: {className: "mac_os_x", width:250, height:200}, okLabel: "   确定  "});
+        return false;
+    }
+   openPopUpWindow("发送消息", url);
+}
+
+
+function addfavorite( title) {
+ var url = location.href;
+ if (document.all) {
+   window.external.addFavorite(url,title); 
+ }else if (window.sidebar) {
+   window.sidebar.addPanel(title, url, ""); 
+ }else{
+   alert('Press ctrl+D to bookmark ');
+ }
+}
+
+
+
+
 function leftRightgoPageREST(event)
 {
    var page;
@@ -33,7 +101,7 @@ function leftRightgoPageREST(event)
  function digMessage(id)
     {            
     	var pars = 'messageId='+id;   
-        new Ajax.Updater('digNumber_'+id, contextpath +'/updateDigCount.shtml', { method: 'get', parameters: pars });
+        new Ajax.Updater('digNumber_'+id, getContextPath() +'/updateDigCount.shtml', { method: 'get', parameters: pars });
         $('textArea_'+id).update("顶一下");
         
     }
@@ -42,7 +110,7 @@ function stickyThread(threadId, ui_state,action,forumId)
 	{
 		var pars = 'threadId='+threadId+'&ui_state='+ui_state+'&action='+action; 
 		new Ajax.Request(  
-            contextpath +'/admin/stickyThread.shtml',  
+            getContextPath() +'/admin/stickyThread.shtml',  
             {  
                 method:'post',  
                 parameters:pars,  
@@ -50,51 +118,67 @@ function stickyThread(threadId, ui_state,action,forumId)
             }  
         );  
 		alert("操作成功");
-		window.location = contextpath +'/' + forumId;
+		window.location = getContextPath() +'/' + forumId;
 	}
 	
 function checkUserIfOnline(username,messageId)
 	{
 		var pars = 'username='+username; 
-		new Ajax.Updater('messageOwnerOnline_'+messageId, contextpath +'/onlineCheck.jsp',  
+		new Ajax.Updater('messageOwnerOnline_'+messageId, getContextPath() +'/onlineCheck.jsp',  
             {  
                method:'get',  
                parameters:pars
             }
         );
 	}
+
+
+var popupW;
+function openPopUpWindow(wtitlename, url){
+ if (typeof(TooltipManager) == 'undefined') 
+       loadWLJS(nof);
+       
+    if (popupW == null) {       
+       popupW = new Window({className: "mac_os_x", width:600, height:380, title: wtitlename}); 
+       popupW.setURL(url);
+       popupW.showCenter();
+	
+	    
+	   var myObserver = {
+        onClose: function(eventName, myW) {    	  
+          if (myW == popupW){        	        	
+            popupW = null;   
+            Windows.removeObserver(this);
+          }
+        }
+       }
+     Windows.addObserver(myObserver);
+     } 
+ }     
 	
 
-function openShortmessageWindow(url){
-     if (!isLogin){//login defined in .common/security.jsp        
-        Dialog.alert("请先登陆", 
-                {windowParameters: {className: "mac_os_x", width:250, height:200}, okLabel: "   确定  "});
-        return false;
-    }
-   openPopUpWindow("发送消息", url);
-}
 
 function hotkeys(){
    if (typeof(Ajax) != "undefined")
-        new Ajax.Updater('hotkeys', contextpath +'/query/hotKeys.shtml?method=hotkeys', { method: 'get' });
+        new Ajax.Updater('hotkeys', getContextPath() +'/query/hotKeys.shtml?method=hotkeys', { method: 'get' });
 }
 
 function approveList(){
    if (typeof(Ajax) != "undefined")
-        new Ajax.Updater('approved', contextpath +'/query/threadApprovedNewList.shtml?count=15', { method: 'get' });
+        new Ajax.Updater('approved', getContextPath() +'/query/threadApprovedNewList.shtml?count=15', { method: 'get' });
 }                
  
 function hotList(){
    if (typeof(Ajax) != "undefined"){
         var pars = "";
-        new Ajax.Updater('hotList', contextpath +'/hot/180_400_10_190.html', { method: 'get', parameters: pars });
+        new Ajax.Updater('hotList', getContextPath() +'/hot/180_400_10_190.html', { method: 'get', parameters: pars });
    }
 }
 
-function loadWPostjs(mId){  
+var loadWPostjs =function(mId){  
   if (typeof(openReplyWindow) == 'undefined') {
    $LAB
-   .script(contextpath + '/forum/js/postreply.js').wait()
+   .script(getContextPath() + '/forum/js/postreply.js').wait()
    .wait(function(){
       openReplyWindow(mId);
    })   
@@ -104,10 +188,10 @@ function loadWPostjs(mId){
 }
 
 
-function loadQPostjs(mId){  
+var loadQPostjs =function(mId){  
   if (typeof(openReplyWindow) == 'undefined') {
    $LAB
-   .script(contextpath + '/forum/js/postreply.js').wait()
+   .script(getContextPath() + '/forum/js/postreply.js').wait()
    .wait(function(){
       openQuoteWindow(mId);
    })   

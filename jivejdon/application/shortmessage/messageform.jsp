@@ -36,12 +36,7 @@
 			</td>
 			<td><html:text property="messageTo" size="40" maxlength="75"
 				tabindex="99" styleId="messageTo"></html:text> <br>
-			<%-- 
-						<script>
-		new Autocomplete('messageTo', function() { 
-			return '<%=request.getContextPath()%>/account/protected/searchUserName.shtml?q=' + this.value; 
-		});
-	</script> --%></td>
+			</td>
 		</tr>
 		<tr>
 			<td align="right">标题 <br>

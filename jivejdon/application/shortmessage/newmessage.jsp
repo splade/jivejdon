@@ -8,6 +8,7 @@ response.setHeader("Cache-Control","no-cache");
 response.setDateHeader("Expires", 0); 
 %>
 <%@ include file="../common/security.jsp" %>
+
 <logic:present name="NEWMESSAGES">
 	<logic:notEmpty name="NEWMESSAGES">
 		<logic:greaterThan name="NEWMESSAGES" value="0">
@@ -19,11 +20,39 @@ response.setDateHeader("Expires", 0);
 				您有<bean:write name="NEWMESSAGES" />条新消息
 			</html:link>
 			</div>
-            <script> 	 
+<script type="text/javascript" src="<html:rewrite page="/common/js/LAB.js"/>"></script>			
+<script> 	 
+function loadWLJS(myfunc){
+  if (typeof(TooltipManager) == 'undefined') {     
+     $LAB
+     .script('<%=request.getContextPath()%>/common/js/window_def.js').wait()   
+     .wait(function(){
+          myfunc();          
+     })    
+  }else
+     myfunc();
+}
+   
+var loadNMJS = function (){
+  if (typeof(popUpNewMessage) == "undefined"){
+     $LAB
+     .script('<%=request.getContextPath()%>/forum/js/newMessage.js').wait()
+     .wait(function(){
+       popUpNewMessage();
+     })    
+  }else
+       popUpNewMessage();
+}
+
+var popM = function(){  
             if (typeof(window.top.popUpNewMessage) != "undefined")
                 window.top.popUpNewMessage();
             else  if (typeof(popUpNewMessage) != "undefined")
                 popUpNewMessage();
+}
+
+loadWLJS(loadNMJS());
+
             </script>
 		</logic:greaterThan>
 		<logic:equal name="NEWMESSAGES" value="0">

@@ -38,13 +38,12 @@ if (currentPageNo > 1){
 pageContext.setAttribute("title", titleStr);
 %>
 <%@ include file="../common/IncludeTop.jsp" %>
-<script type="text/javascript" src="<html:rewrite page="/common/js/LAB.js"/>"></script>
-
 <script>
  if(top !== self) top.location = self.location;
   contextpath = "<%=request.getContextPath()%>";
  </script>
 <script language="javascript" src="<html:rewrite page="/forum/js/threadList.js"/>"></script>
+
 
 
 <!-- 导航区  -->
@@ -60,7 +59,7 @@ pageContext.setAttribute("title", titleStr);
 <table cellpadding="3" cellspacing="0" border="0" width="971" align="center">
 <tr>
     <td>
-<div class="tres">    
+<div class="tres" onmouseover="loadWLJS(nof)">    
               
 <MultiPages:pager actionFormName="threadListForm" page="/forum.jsp" paramId="forum" paramName="forum" paramProperty="forumId">
 
@@ -183,7 +182,7 @@ if (typeof(Ajax) != "undefined"){
 </jsp:include>
 </center>
 
-<%@include file="../common/messageNotfier.jsp"%>
+<%@include file="./messageNotfier.jsp"%>
 
 
 <jsp:include page="../common/advert.jsp" flush="true">   

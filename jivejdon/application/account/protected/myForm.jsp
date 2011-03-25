@@ -182,7 +182,7 @@
 </table>
 
 <logic:present name="principal" >
-   <%@include file="../../shortmessage/newmessageNotify.jsp"%>
+   <%@include file="../../forum/messageNotfier.jsp"%>
 </logic:present> 
 <p>
 <%@include file="../../common/IncludeBottom.jsp"%></p>

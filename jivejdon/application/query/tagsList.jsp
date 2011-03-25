@@ -26,7 +26,7 @@
 <table cellpadding="3" cellspacing="0" border="0" width="100%">
 <tr>
     <td class="smallgray" align="center">
-<div class="tres">        
+<div class="tres" onmouseover="loadWLJS(nof)">        
     <%-- request.setAttribute("paramMaps", qForm.getParamMaps());  in ThreadQueryAction --%>    
     共有<b><bean:write name="tagsListForm" property="allCount"/></b>标签 
 <MultiPages:pager actionFormName="tagsListForm" page="/query/tagsList.shtml"  >
@@ -53,15 +53,27 @@
 </table>
 
 
+<script>
+
+var initTagsW = function (){          
+ TooltipManager.init('Tags', 
+  {url: getContextPath() +'/query/tt.shtml?tablewidth=300&count=20', 
+   options: {method: 'get'}},
+   {className:"mac_os_x", width:300});   
+}
+
+</script>
 <table width="600">
 <tr><td></td><td>包含主题数</td><td>关注</td></tr>
 <logic:iterate id="threadTag" name="tagsListForm" property="list" >
 <tr><td>
+   <span  onmouseover="loadWLJS(initTagsW)">
   <span  class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
     <a href='<%=request.getContextPath() %>/tags/<bean:write name="threadTag" property="tagID"/>' target="_blank" class="post-tag">
              <span class="big18"><bean:write name="threadTag" property="title" /></span>      
     </a>
-     </span>
+   </span></span>
+     
    &nbsp;&nbsp;&nbsp;&nbsp;
    </td>
 <td><bean:write name="threadTag" property="assonum" /></td>
@@ -90,7 +102,7 @@
 <table cellpadding="3" cellspacing="0" border="0" width="100%">
 <tr>
     <td class="smallgray" align="center">
-<div class="tres">        
+<div class="tres" onmouseover="loadWLJS(nof)">        
     共有<b><bean:write name="tagsListForm" property="allCount"/></b>标签  
 <MultiPages:pager actionFormName="tagsListForm" page="/query/tagsList.shtml"  >
 <a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go">Go</a>
@@ -106,15 +118,6 @@
 </logic:greaterThan>
 </logic:present>
 
-<script>
-
-
- TooltipManager.init('Tags', 
-  {url: '<html:rewrite page="/query/tt.shtml?tablewidth=350&count=30" />', 
-   options: {method: 'get'}},
-   {className:"mac_os_x", width:300});  
-
-</script>
 <br><br><br><br><br><br><br><br>
 
 <%@ include file="searchInputView.jsp" %>

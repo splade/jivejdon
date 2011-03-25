@@ -1,5 +1,21 @@
+
+function copyToClipboard(obj){
+  try{
+    if (!document.execCommand()) return;  
+    
+    var e = $(obj);
+	e.select();
+	document.execCommand("Copy");
+	document.execCommand("Paste");
+  }catch(e){}
+	
+}
+
 var uploadW;
   function openUploadWindow(url){
+   if (typeof(TooltipManager) == 'undefined') 
+       loadWLJS(nof);
+       
     if (uploadW == null) {
        uploadW = new Window({className: "mac_os_x", width:450, height:300, title: " Upload ", closable: false}); 
        uploadW.setURL(url);
@@ -176,4 +192,5 @@ function forumSubmit(event)
    }else return;
    
  }
+ 
  

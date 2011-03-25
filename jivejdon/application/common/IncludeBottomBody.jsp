@@ -10,13 +10,12 @@
       <tr><td align="center">
        
        <table><tr>
-        <td><a href="javascript:void(0)" onClick="helpW()">使用帮助</a>
+        <td><a href="javascript:void(0)" onClick="loadWLJS(helpW)">使用帮助</a>
        <script language="javascript">
-        function helpW(){
+        var helpW = function(){         
            var helpW = new Window({className: "mac_os_x", width:550, height:400, title: "   用手机的条码扫描软件扫描下图继续浏览 "});
            helpW.setURL("<%=request.getContextPath()%>/help.jsp");
-           helpW.showCenter();
-          
+           helpW.showCenter();          
         }
         
         </script>

@@ -8,11 +8,14 @@
  
  
 <logic:present name="principal" >
-   <%@include file="../../shortmessage/newmessageNotify.jsp"%>
+   <%@include file="../../forum/messageNotfier.jsp"%>
 </logic:present> 
 
 <script>
 function openShortmessageWindow(name, url){
+    if (typeof(Dialog) == 'undefined') 
+       loadWLJS(nof);
+    
      if (!isLogin){//login defined in .common/security.jsp        
         Dialog.alert("请先登陆", 
                 {windowParameters: {className: "mac_os_x", width:250, height:200}, okLabel: "   确定  "});

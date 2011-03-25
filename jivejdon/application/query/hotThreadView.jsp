@@ -26,7 +26,7 @@
 <table cellpadding="3" cellspacing="0" border="0" width="971" align="center">
 <tr>
     <td class="smallgray">
-<div class="tres">        
+<div class="tres" onmouseover="loadWLJS(nof)">        
     <%-- request.setAttribute("paramMaps", qForm.getParamMaps());  in ThreadQueryAction --%>    
      符合查询主题贴共有<b><bean:write name="threadListForm" property="allCount"/></b>贴 
 <MultiPages:pager actionFormName="threadListForm" page="/query/threadViewQuery.shtml"  name="paramMaps">
@@ -73,10 +73,20 @@
 <bean:define id="forumMessage" name="forumThread" property="rootMessage"/>    
 <bean:define id="forumThreadDes" name="forumMessage" property="messageVO.shortBody[100]" />
 
+<script>
 
+var initTagsW = function (){          
+ TooltipManager.init('Tags', 
+  {url: getContextPath() +'/query/tt.shtml?tablewidth=300&count=20', 
+   options: {method: 'get'}},
+   {className:"mac_os_x", width:300});   
+}
+
+</script>
 
     <tr bgcolor="#FFFFEC">
         <td nowrap="nowrap">
+        <span  onmouseover="loadWLJS(initTagsW)">
           <logic:iterate id="threadTag" name="forumThread" property="tags" >
             <a href='<%=request.getContextPath() %>/tags/<bean:write name="threadTag" property="tagID"/>' target="_blank" class="post-tag">
               <span  class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
@@ -84,7 +94,8 @@
              </span>
              </a>
              <br>             
-        </logic:iterate>
+          </logic:iterate>
+        </span>
         </td>
         <td>
              <a href="<%=request.getContextPath()%>/thread/<bean:write name="forumThread" property="threadId"/>" 
@@ -134,12 +145,6 @@
 </tr>
 </table>
 
-<script>
-  TooltipManager.init('Tags', 
-  {url: '<html:rewrite page="/query/tt.shtml?tablewidth=300&count=20" />', 
-   options: {method: 'get'}},
-   {className:"mac_os_x", width:300});  
-</script>
 
 <script language="javascript"><!--
 //ejiaA1("表格名称","奇数行背景","偶数行背景","鼠标经过背景","点击后背景");

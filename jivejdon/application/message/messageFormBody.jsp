@@ -27,7 +27,7 @@
 
 <script type="text/javascript">
 <!--
-function loadformjs(){
+var loadformjs = function(){
   if (typeof(openUploadWindow) == 'undefined') {
    $LAB
    .script('<html:rewrite page="/forum/js/form.js"/>').wait()
@@ -59,7 +59,7 @@ var bodyMaxLength = <bean:write name="messageForm" property="bodyMaxLength"/>;
 
 <tr>
 	<td width="50" align="right">标题</td>
-	<td align="left"> <html:text  property="subject" styleId="replySubject" size="40" maxlength="90" tabindex="5" onkeydown="releaseKeyboard()"/></td>
+	<td align="left"> <html:text  property="subject" styleId="replySubject" size="40" maxlength="90" tabindex="5" /></td>
 </tr>
 
 
@@ -110,7 +110,7 @@ var bodyMaxLength = <bean:write name="messageForm" property="bodyMaxLength"/>;
 	    <logic:equal name="messageForm" property="attached" value="true">
 	    <bean:size name="messageForm" property="uploadFiles" id="attachedSize"/>	    
 	    <SCRIPT language = "Javascript">
-              $("attachsize").innerHTML = "有<bean:write name="attachedSize"/>个附件";
+              document.getElementById("attachsize").innerHTML = "有<bean:write name="attachedSize"/>个附件";
         </script>
 	</logic:equal>
         </td>
@@ -125,7 +125,7 @@ var bodyMaxLength = <bean:write name="messageForm" property="bodyMaxLength"/>;
 	</td>
 
 	<td align="left">
-	<html:textarea property="body" cols="100" rows="40" styleClass="tpc_content" styleId="formBody" tabindex="6" onkeydown="releaseKeyboard()" onfocus="loadformjs()"  ></html:textarea>	<%-- onclick="startCopy(300000)" --%>
+	<html:textarea property="body" cols="100" rows="40" styleClass="tpc_content" styleId="formBody" tabindex="6" onkeydown="releaseKeyboard()" onfocus="loadWLJS(loadformjs)"  ></html:textarea>	<%-- onclick="startCopy(300000)" --%>
 	</td>
 </tr>
 
@@ -137,26 +137,24 @@ var bodyMaxLength = <bean:write name="messageForm" property="bodyMaxLength"/>;
 	<td  width="50" align="right">标签</td>
 	<td align="left">
 	<script>
-	 var options = {
-		      script:'<%=request.getContextPath()%>/query/tags.shtml?method=tags&',
-		      varname:'q',
-		      json:true,
-		      shownoresults:true,
-		      maxresults:16,
-		      callback: function (obj) { 
-		               $('json_info').update('' ); 
-		      }
-     		};
-		function ac(id){
-	    	new AutoComplete(id,options);
-		}
+	
+function loadAcJS(thisId){
+  if (typeof(ac) == 'undefined') {
+     $LAB
+     .script('<%=request.getContextPath()%>/common/js/autocomplete.js')
+     .wait(function(){
+          ac(thisId,'<%=request.getContextPath()%>');
+     })     
+  }else
+      ac(thisId,'<%=request.getContextPath()%>');
+}
 		
 		
 	</script>
-	<input  type="text" name="tagTitle" size="15" maxlength="25" id="searchV_0" onfocus="javascript:ac(this.id)" value='' />
-	<input  type="text" name="tagTitle" size="15" maxlength="25" id="searchV_1" onfocus="javascript:ac(this.id)"   value=''/>	
-    <input  type="text" name="tagTitle" size="15" maxlength="25" id="searchV_2" onfocus="javascript:ac(this.id)"  value=''/>
-    <input  type="text" name="tagTitle" size="15" maxlength="25" id="searchV_3" onfocus="javascript:ac(this.id)"  value=''/>
+	<input  type="text" name="tagTitle" size="15" maxlength="25" id="searchV_0" onfocus="javascript:loadAcJS(this.id)" value='' />
+	<input  type="text" name="tagTitle" size="15" maxlength="25" id="searchV_1" onfocus="javascript:loadAcJS(this.id)"   value=''/>	
+    <input  type="text" name="tagTitle" size="15" maxlength="25" id="searchV_2" onfocus="javascript:loadAcJS(this.id)"  value=''/>
+    <input  type="text" name="tagTitle" size="15" maxlength="25" id="searchV_3" onfocus="javascript:loadAcJS(this.id)"  value=''/>
     <logic:notEmpty name="messageForm" property="forumThread.tags">
          <logic:iterate id="threadTag" name="messageForm" property="forumThread.tags" indexId="i">
              <script>

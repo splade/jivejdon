@@ -34,11 +34,11 @@ if (iter.hasPrevious()){
      <a href="<%=request.getContextPath()%>/thread/<bean:write name="forumThreadPrev" property="threadId"/>" 
       title="<bean:write name="forumThreadPrev" property="name"/>" class="forum">
     <html:img page="/images/prev.gif" width="10" height="10" hspace="2" altKey="forumThreadPrev.name" />
-    <span class="tooltip html_tooltip_content_<bean:write name="forumThreadPrev" property="threadId"/>">
+    <span class="tooltip html_tooltip_content_<bean:write name="forumThreadPrev" property="threadId"/>" onmouseover="loadWLJS(nof)">
      上一主题
      </span>
     </a>
-    <!-- for prototype window TooltipManager.init -->
+    <!-- for prototype window  -->
              <div id="tooltip_content_<bean:write name="forumThreadPrev" property="threadId"/>" style="display:none">
                <div class="tooltip_content">
                 <span class="tpc_content">
@@ -71,11 +71,11 @@ if (iter.hasNext()){
      <a href="<%=request.getContextPath()%>/thread/<bean:write name="forumThreadNext" property="threadId"/>"
       title="<bean:write name="forumThreadNext" property="name"/>" class="forum">
     <html:img page="/images/next.gif" width="10" height="10" hspace="2" altKey="forumThreadNext.name"/>
-    <span class="tooltip html_tooltip_content_<bean:write name="forumThreadNext" property="threadId"/>">
+    <span class="tooltip html_tooltip_content_<bean:write name="forumThreadNext" property="threadId"/>" onmouseover="loadWLJS(nof)">
      下一主题
      </span>
     </a>
-      <!-- for prototype window TooltipManager.init -->
+      <!-- for prototype window  -->
              <div id="tooltip_content_<bean:write name="forumThreadNext" property="threadId"/>" style="display:none">
                <div class="tooltip_content">
                 <span class="tpc_content">
