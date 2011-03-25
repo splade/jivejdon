@@ -8,7 +8,7 @@ if (com.jdon.security.web.CookieUtil.getUsername(request) != null){
 	password = com.jdon.security.web.CookieUtil.getPassword(request);
 }
 %>
-<span id="contextPath" style="display:none" class="<%=request.getContextPath() %>"></span>
+<input type="hidden" id="contextPath"  name="contextPath" value="<%= request.getContextPath()%>" >
 <div id="loginAJAX" style="display:none" align="center">
  <div class="tooltip_content">
   <span id='login_error_msg' class="login_error" style="display:none">&nbsp;</span>

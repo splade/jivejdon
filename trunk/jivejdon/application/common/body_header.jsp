@@ -62,11 +62,11 @@ String oc = Integer.toString(onlinecount.getActiveSessions());
 </logic:notPresent>
 
 <logic:notPresent name="principal" >
-  <span onmouseover="loadWLJS(loginW)">
-  &nbsp;&nbsp;<a href="javascript:void(0);" onclick='loginW;'>
+  
+  &nbsp;&nbsp;<a href="javascript:void(0);" onclick='loadWLJS(loginW)'>
   <html:img border="0"  page="/images/user_right.gif"  width="17" height="17" align="absmiddle"/>登陆
   </a>  
-  </span>
+  
 </logic:notPresent>
               
 <logic:present name="principal" >

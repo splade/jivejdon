@@ -17,7 +17,7 @@ function getContextPath(){
      alert("no contextPath");
      return null;
   }
-   return document.getElementById('contextPath').getAttribute("class");  
+   return document.getElementById('contextPath').value;  
 }
 
 
