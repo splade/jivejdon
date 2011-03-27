@@ -65,9 +65,16 @@
              </logic:greaterEqual>
              
               <logic:greaterThan name="forumThread" property="state.subscriptionCount" value="0">
-                 (<bean:write name="forumThread" property="state.subscriptionCount"/>人关注)
+                 <span class="tooltip html_tooltip_sub" onmouseover="loadWLJS(initTooltipWL)">
+                   <a title="关注本主题" href="<%=request.getContextPath()%>/account/protected/sub/subAction.shtml?subscribeType=1&subscribeId=<bean:write name="forumThread" property="threadId" />"  rel="nofollow">
+                      <html:img page="/images/user_add.gif" width="18" height="18" alt="关注本主题" border="0" /></a>                    
+                    </span>
+                    <div id="tooltip_sub" style="display:none">
+                         <h3>已有<bean:write name="forumThread" property="state.subscriptionCount"/>人关注本主题</h3>
+                        <br>点按进入注册后，当本主题有新帖回复，在下次访问时自动立即通知您。                    
+                    </div>
               </logic:greaterThan>
-              
+                             
             <!-- for prototype window  -->
             <span onmouseover="loadWLJS(initTooltipWL)">
              <div  id="tooltip_content_<bean:write name="forumThread" property="threadId"/>" style="display:none">

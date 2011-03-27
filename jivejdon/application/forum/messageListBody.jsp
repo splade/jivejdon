@@ -86,8 +86,8 @@
         </td>
        <td width="1%" nowrap="nowrap" align="center">
        
-        <a title="收藏关注本主题" href="<%=request.getContextPath()%>/account/protected/sub/subAction.shtml?subscribeType=1&subscribeId=<bean:write name="forumThread" property="threadId" />"  rel="nofollow">
-       <html:img page="/images/user_add.gif" width="18" height="18" alt="收藏关注本主题" border="0" /></a>
+        <a title="关注本主题" href="<%=request.getContextPath()%>/account/protected/sub/subAction.shtml?subscribeType=1&subscribeId=<bean:write name="forumThread" property="threadId" />"  rel="nofollow">
+       <html:img page="/images/user_add.gif" width="18" height="18" alt="关注本主题" border="0" /></a>
 
 
        <logic:equal name="forumMessage" property="root" value="true">

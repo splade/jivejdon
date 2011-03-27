@@ -20,11 +20,11 @@ response.setDateHeader("Expires", 0);
 				您有<bean:write name="NEWMESSAGES" />条新消息
 			</html:link>
 			</div>
-<script type="text/javascript" src="<html:rewrite page="/common/js/LAB.js"/>"></script>			
+			
 <script> 	 
 function loadWLJS(myfunc){
-  if (typeof(TooltipManager) == 'undefined') {     
-     $LAB
+  if (typeof(window.top.TooltipManager) == 'undefined') {     
+     window.top.$LAB
      .script('<%=request.getContextPath()%>/common/js/window_def.js').wait()   
      .wait(function(){
           myfunc();          
@@ -34,14 +34,14 @@ function loadWLJS(myfunc){
 }
    
 var loadNMJS = function (){
-  if (typeof(popUpNewMessage) == "undefined"){
-     $LAB
+  if (typeof(window.top.popUpNewMessage) == "undefined"){
+     window.top.$LAB
      .script('<%=request.getContextPath()%>/forum/js/newMessage.js').wait()
      .wait(function(){
-       popUpNewMessage();
+       window.top.popUpNewMessage();
      })    
   }else
-       popUpNewMessage();
+       window.top.popUpNewMessage();
 }
 
 var popM = function(){  
