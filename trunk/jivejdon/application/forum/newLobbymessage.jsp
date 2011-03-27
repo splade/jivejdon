@@ -13,16 +13,16 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 			<bean:write name="Notification" property="content" filter="false" />
 			<br>
 			<br>
+			注:进入后如发现没有最新帖，请按"刷新"
+			<br>
+			<br>
 			<a href="javascript:void(0);" onclick='window.top.disablePopUPWithID(<bean:write name="Notification" property="id" />,<bean:write name="Notification" property="scopeSeconds" />)'>关闭提示</a>
 		  </div>
-
-<script type="text/javascript" src="<html:rewrite page="/common/js/LAB.js"/>"></script>		  
-<script> 	 
-
+<script>
 
 function loadWLJS(myfunc){
-  if (typeof(TooltipManager) == 'undefined') {     
-     $LAB
+  if (typeof(window.top.TooltipManager) == 'undefined') {     
+     window.top.$LAB
      .script('<%=request.getContextPath()%>/common/js/window_def.js').wait()   
      .wait(function(){
           myfunc();          
@@ -32,14 +32,14 @@ function loadWLJS(myfunc){
 }
    
 var loadNMJS = function (){
-  if (typeof(popUpNewMessageWithID) == "undefined"){
-     $LAB
+  if (typeof(window.top.popUpNewMessageWithID) == "undefined"){
+     window.top.$LAB
      .script('<%=request.getContextPath()%>/forum/js/newMessage.js').wait()
      .wait(function(){
-       popUpNewMessageWithID(<bean:write name="Notification" property="id" />);
+       window.top.popUpNewMessageWithID(<bean:write name="Notification" property="id" />);
      })    
   }else
-       popUpNewMessageWithID(<bean:write name="Notification" property="id" />);
+       window.top.popUpNewMessageWithID(<bean:write name="Notification" property="id" />);
 }
 
 loadWLJS(loadNMJS());                   
