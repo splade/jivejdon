@@ -25,7 +25,8 @@ if (request.getParameter("nocache") !=null){ // for just modified and view it
 	expire =0;
 }
 long modelLastModifiedDate =((Long)pageContext.getAttribute("lastModifiedDate"));
-com.jdon.jivejdon.util.ToolsUtil.checkHeaderCache(expire, modelLastModifiedDate, request, response);	
+if (!com.jdon.jivejdon.util.ToolsUtil.checkHeaderCache(expire, modelLastModifiedDate, request, response))
+	return;
 %>
 
 

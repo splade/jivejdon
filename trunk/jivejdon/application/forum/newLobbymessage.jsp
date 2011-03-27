@@ -13,7 +13,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 			<bean:write name="Notification" property="content" filter="false" />
 			<br>
 			<br>
-			注:进入后如发现没有最新帖，请按"刷新"
+			注:进入如发现无新帖，请按浏览器"刷新"
 			<br>
 			<br>
 			<a href="javascript:void(0);" onclick='window.top.disablePopUPWithID(<bean:write name="Notification" property="id" />,<bean:write name="Notification" property="scopeSeconds" />)'>关闭提示</a>
