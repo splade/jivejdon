@@ -7,7 +7,7 @@ response.setContentType("text/javascript; charset=utf-8");
      var messageChkURL = "<%=request.getContextPath() %>/shortmessage/checknewmessage.shtml";
      new Ajax.PeriodicalUpdater('isNewMessage', messageChkURL,
       { method: 'get',
-        frequency: 60, 
+        frequency: 300, 
         decay: 60,
         evalScripts: true}); 
            
@@ -24,7 +24,7 @@ response.setContentType("text/javascript; charset=utf-8");
   var messageChkURL = "<%=request.getContextPath() %>/shortmessage/checknewmessage.shtml";
      new Ajax.PeriodicalUpdater('isNewMessage', messageChkURL,
       { method: 'get',
-        frequency: 60, 
+        frequency: 300, 
         decay: 60,
         evalScripts: true}); 
       
@@ -34,7 +34,7 @@ response.setContentType("text/javascript; charset=utf-8");
   var messageChkURL = "<%=request.getContextPath() %>/forum/checknewmessage.shtml";
      new Ajax.PeriodicalUpdater('isNewMessage', messageChkURL,
       { method: 'get',
-        frequency: 60, 
+        frequency: 300, 
         decay: 60,
         evalScripts: true}); 
 

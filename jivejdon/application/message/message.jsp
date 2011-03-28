@@ -5,8 +5,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <logic:notEmpty name="messageForm">
-
 <bean:define id="forum" name="messageForm" property="forum"  />
+<logic:notEmpty name="forum">
 <bean:define id="title" name="forum" property="name" />
 <%@ include file="messageHeader.jsp" %>
 
@@ -44,7 +44,7 @@
 <tr>
 	<td  width="50" align="right">在 </td>
 	<td align="left"> 
-     <html:select name="messageForm" property="forum.forumId">
+     <html:select name="messageForm" property="forum.forumId" styleId="forumId_select">
        <html:option value="">请选择</html:option>
        <html:optionsCollection name="forumListForm" property="list" value="forumId" label="name"/>       
      </html:select>
@@ -114,12 +114,14 @@ function setObserve(){
 
 </logic:equal>   
 
-
-
 </html:form>
+</div>
+
+
+</logic:notEmpty>
 </logic:notEmpty>
 
-</div>
+
 
 <p><%@include file="../common/IncludeBottom.jsp"%></p>
 
