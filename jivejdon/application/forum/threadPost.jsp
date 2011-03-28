@@ -14,7 +14,7 @@
 <html:form action="/message/messageSaveAction.sthml" method="post" target="target_new" styleId="messageNew"  onsubmit="return checkPost(this);" >
 
 <logic:notEmpty name="forumId">
-  <input type="hidden" name="forum.forumId" value="<bean:write name="forumId"/>"/>
+  <input type="hidden" name="forum.forumId" value="<bean:write name="forumId"/>" id="forumId_select"/>
 </logic:notEmpty>
 
 
