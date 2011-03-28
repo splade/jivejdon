@@ -115,7 +115,8 @@ var uploadW;
       copyToClipboard($('formBody'));
       closeCopy();
       
-      if (document.getElementById('forumId_select').value == ""){
+      if (document.getElementById('forumId_select') == null
+        || document.getElementById('forumId_select').value == ""){
             myalert("页面forum错误，请拷贝备份你的发言后，重新刷新本页");
             return formSubmitcheck;
      }
