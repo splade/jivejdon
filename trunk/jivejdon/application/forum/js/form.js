@@ -114,8 +114,16 @@ var uploadW;
            
       copyToClipboard($('formBody'));
       closeCopy();
+      
+      if (document.getElementById('forumId_select').value == ""){
+            myalert("页面forum错误，请拷贝备份你的发言后，重新刷新本页");
+            return formSubmitcheck;
+     }
+      
+      
       if ((theForm.body.value  != "") && (theForm.subject.value  != "")){          
            if ((theForm.body.value.length  < bodyMaxLength)){
+               
                   formSubmitcheck = new Boolean(true);
            }else{                   
                  myalert('请发言内容长度必须小于 ' + bodyMaxLength);                  
@@ -123,9 +131,13 @@ var uploadW;
       }else{
            myalert("请输入发言标题和发言内容！");
            window.location.reload();          
-      }     
+      }
+      
       return formSubmitcheck;      
    }
+
+
+
 
    var bodyLength = 0;
    function copyBody(){
