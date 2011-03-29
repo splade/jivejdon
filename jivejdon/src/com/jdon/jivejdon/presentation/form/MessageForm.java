@@ -322,10 +322,11 @@ public class MessageForm extends BaseForm {
 		if (getMethod() == null || !getMethod().equalsIgnoreCase("delete")) {
 			addErrorIfStringEmpty(errors, "subject is required.", this.getSubject());
 			addErrorIfStringEmpty(errors, "body is required.", getBody());
-			if (this.getForum() == null || this.getForum().getForumId() == null) {
-				errors.add("forum is required.");
-				return;
-			}
+			if (this.getParentMessage() == null)
+				if (this.getForum() == null || this.getForum().getForumId() == null) {
+					errors.add("forum is required.");
+					return;
+				}
 			if (UtilValidate.isEmpty(this.getSubject()) || UtilValidate.isEmpty(this.getBody())) {
 				errors.add("subject or body is null");
 				return;
