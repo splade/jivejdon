@@ -1,7 +1,7 @@
 
 function copyToClipboard(obj){
   try{
-    if (!document.execCommand()) return;
+    if (!document.execCommand("Copy")) return;
     
     var e = $(obj);
 	e.select();
