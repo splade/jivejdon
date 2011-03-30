@@ -36,10 +36,15 @@ var loadNMJS = function (){
      window.top.$LAB
      .script('<%=request.getContextPath()%>/forum/js/newMessage.js').wait()
      .wait(function(){
-       window.top.popUpNewMessageWithID(<bean:write name="Notification" property="id" />);
+          popNow();
      })    
   }else
-       window.top.popUpNewMessageWithID(<bean:write name="Notification" property="id" />);
+       popNow();
+}
+
+function popNow(){
+      if (typeof(window.top.popUpNewMessageWithID) != "undefined")
+            window.top.popUpNewMessageWithID(<bean:write name="Notification" property="id" />);
 }
 
 loadWLJS(loadNMJS());                   
