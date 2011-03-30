@@ -320,11 +320,11 @@ public class MessageForm extends BaseForm {
 
 	public void doValidate(ActionMapping mapping, HttpServletRequest request, List errors) {
 		if (getMethod() == null || !getMethod().equalsIgnoreCase("delete")) {
-			addErrorIfStringEmpty(errors, "subject is required.", this.getSubject());
-			addErrorIfStringEmpty(errors, "body is required.", getBody());
+			addErrorIfStringEmpty(errors, "need subject", this.getSubject());
+			addErrorIfStringEmpty(errors, "need body", getBody());
 			if (this.getParentMessage() == null)
 				if (this.getForum() == null || this.getForum().getForumId() == null) {
-					errors.add("forum is required.");
+					errors.add("need forum");
 					return;
 				}
 			if (UtilValidate.isEmpty(this.getSubject()) || UtilValidate.isEmpty(this.getBody())) {
