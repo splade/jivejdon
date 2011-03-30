@@ -6,11 +6,6 @@
 <%@include file="../../common/IncludeBottomBody.jsp"%>
 </div> 
  
- 
-<logic:present name="principal" >
-   <%@include file="../../forum/messageNotfier.jsp"%>
-</logic:present> 
-
 <script>
 function openShortmessageWindow(name, url){
     if (typeof(Dialog) == 'undefined') 

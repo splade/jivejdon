@@ -43,7 +43,7 @@
     </action>
 	  
     <action name="messageForm" path="/message/messageSaveAction" type="com.jdon.strutsutil.ModelSaveAction" scope="request"
-    	validate="true" input="/message/messageAction.shtml">
+    	validate="false" >
       <forward name="success" path="/message/resultSave.jsp" />
       <forward name="failure" path="/message/resultSave.jsp" />
     </action>

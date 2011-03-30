@@ -124,7 +124,6 @@ var uploadW;
       
       if ((theForm.body.value  != "") && (theForm.subject.value  != "")){          
            if ((theForm.body.value.length  < bodyMaxLength)){
-               
                   formSubmitcheck = new Boolean(true);
            }else{                   
                  myalert('请发言内容长度必须小于 ' + bodyMaxLength);                  

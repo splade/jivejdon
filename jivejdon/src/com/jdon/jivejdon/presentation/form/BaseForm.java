@@ -29,30 +29,31 @@ import com.jdon.model.ModelForm;
 
 /**
  * @author <a href="mailto:banq@163.com">banq</a>
- *
+ * 
  */
 public abstract class BaseForm extends ModelForm {
-    /* Public Methods */
+	/* Public Methods */
 
-    public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-      ActionErrors actionErrors = null;
-      ArrayList errorList = new ArrayList();
-      doValidate(mapping, request, errorList);
-      request.setAttribute("errors", errorList);
-      if (!errorList.isEmpty()) {
-        actionErrors = new ActionErrors();
-        actionErrors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("system.error"));
-      }
-      return actionErrors;
-    }
+	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+		ActionErrors actionErrors = null;
+		ArrayList errorList = new ArrayList();
+		doValidate(mapping, request, errorList);
+		request.setAttribute("errors", errorList);
+		if (!errorList.isEmpty()) {
+			actionErrors = new ActionErrors();
+			actionErrors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("system.error"));
+		}
+		return actionErrors;
+	}
 
-    public  abstract void doValidate(ActionMapping mapping, HttpServletRequest request, List errors);
-    /* Protected Methods */
+	public abstract void doValidate(ActionMapping mapping, HttpServletRequest request, List errors);
 
-    protected void addErrorIfStringEmpty(List errors, String message, String value) {
-      if (value == null || value.trim().length() < 1) {
-        errors.add(message);
-      }
-    }
+	/* Protected Methods */
+
+	protected void addErrorIfStringEmpty(List errors, String message, String value) {
+		if (value == null || value.trim().length() < 1) {
+			errors.add(message);
+		}
+	}
 
 }

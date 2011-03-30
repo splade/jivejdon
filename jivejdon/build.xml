@@ -4,7 +4,7 @@
 
 	<target name="all" depends="war">
 		
-		<delete dir="${deploy.dir}/${warname}"/>		
+		<delete dir="${deploy.dir}/jivejdon"/> <!-- for tomcat 6 deploy debug  -->	
 		<copy file="${dist.dir}/${warname}" todir="${deploy.dir}" overwrite="true"/>
 		<!--<delete dir="${devwebapp}/WEB-INF/classes"/>-->
 	</target>
@@ -54,8 +54,9 @@
 
 
 	<target name="clean">
-		<!-- Delete the ${build} and ${dist} directory trees -->
+		<!-- Delete the ${build} and ${dist} directory trees -->		
 		<delete file="${deploy.dir}/${warname}" />		
+		
 		<delete dir="${classes.dir}" />
 		<delete dir="${devwebapp}/WEB-INF/classes" />
 		<delete dir="${devwebapp}/WEB-INF/lib" />
