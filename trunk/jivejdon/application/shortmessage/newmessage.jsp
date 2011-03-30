@@ -38,10 +38,10 @@ var loadNMJS = function (){
      window.top.$LAB
      .script('<%=request.getContextPath()%>/forum/js/newMessage.js').wait()
      .wait(function(){
-       window.top.popUpNewMessage();
+       popM();
      })    
   }else
-       window.top.popUpNewMessage();
+       popM();
 }
 
 var popM = function(){  
