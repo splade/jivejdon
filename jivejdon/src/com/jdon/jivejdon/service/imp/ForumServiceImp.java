@@ -15,7 +15,6 @@
  */
 package com.jdon.jivejdon.service.imp;
 
-
 import org.apache.log4j.Logger;
 
 import com.jdon.annotation.Singleton;
@@ -29,99 +28,102 @@ import com.jdon.jivejdon.repository.dao.SequenceDao;
 import com.jdon.jivejdon.repository.search.ReBuildIndex;
 import com.jdon.jivejdon.service.ForumService;
 import com.jdon.util.task.TaskEngine;
+
 ;
 
 /**
  * @author <a href="mailto:banq@163.com">banq</a>
- *
+ * 
  */
 @Singleton
-public class ForumServiceImp implements ForumService{
-    private final static Logger logger = Logger.getLogger(ForumServiceImp.class);
-    
-    private ForumDao forumDao;
-    private ForumFactory forumBuilder;
-    private SequenceDao sequenceDao;
-    private ReBuildIndex reBuildIndex;
+public class ForumServiceImp implements ForumService {
+	private final static Logger logger = Logger.getLogger(ForumServiceImp.class);
 
-    
-    public ForumServiceImp(ForumDao forumDao, ForumFactory forumBuilder, 
-            SequenceDao sequenceDao,
-            ReBuildIndex reBuildIndex){
-        this.forumDao = forumDao;
-        this.sequenceDao = sequenceDao;
-        this.forumBuilder = forumBuilder;
-        this.reBuildIndex = reBuildIndex;
-      
-    }
-  
-    public Forum getForum(Long forumId) {
-       return forumBuilder.getForum(forumId);
-    }
+	private ForumDao forumDao;
+	private ForumFactory forumBuilder;
+	private SequenceDao sequenceDao;
+	private ReBuildIndex reBuildIndex;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.jdon.jivejdon.service.ForumService#createForum(com.jdon.controller.events.EventModel)
-     */
-    public void createForum(EventModel em) {
-        Forum forum = (Forum)em.getModelIF();      
-        logger.debug(" enter create Forum" );
-        try {
-            Long forumIDInt = sequenceDao.getNextId(Constants.FORUM);
-            forum.setForumId(forumIDInt);
-            
-            //创建时间使用long字符串
-            long dateTime = System.currentTimeMillis();
-            forum.setCreationDate(Long.toString(dateTime));
-            forum.setModifiedDate(Long.toString(dateTime));
-            forumDao.createForum(forum);
-        } catch (Exception e) {
-            logger.error(" createForum error: " + e);
-           
-        }
-    }
+	public ForumServiceImp(ForumDao forumDao, ForumFactory forumBuilder, SequenceDao sequenceDao, ReBuildIndex reBuildIndex) {
+		this.forumDao = forumDao;
+		this.sequenceDao = sequenceDao;
+		this.forumBuilder = forumBuilder;
+		this.reBuildIndex = reBuildIndex;
 
-    /* (non-Javadoc)
-     * @see com.jdon.jivejdon.service.ForumService#updateForum(com.jdon.controller.events.EventModel)
-     */
-    public void updateForum(EventModel em) {
-        Forum forum = (Forum)em.getModelIF();
-        forumDao.updateForum(forum);
+	}
 
-    }
+	public Forum getForum(Long forumId) {
+		return forumBuilder.getForum(forumId);
+	}
 
-    /* (non-Javadoc)
-     * @see com.jdon.jivejdon.service.ForumService#deleteForum(com.jdon.controller.events.EventModel)
-     */
-    public void deleteForum(EventModel em) {
-        Forum forum = (Forum)em.getModelIF();
-        forumDao.deleteForum(forum);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.jivejdon.service.ForumService#createForum(com.jdon.controller.events.EventModel)
+	 */
+	public void createForum(EventModel em) {
+		Forum forum = (Forum) em.getModelIF();
+		logger.debug(" enter create Forum");
+		try {
+			Long forumIDInt = sequenceDao.getNextId(Constants.FORUM);
+			forum.setForumId(forumIDInt);
 
-    }
+			// 创建时间使用long字符串
+			long dateTime = System.currentTimeMillis();
+			forum.setCreationDate(Long.toString(dateTime));
+			forum.setModifiedDate(Long.toString(dateTime));
+			forumDao.createForum(forum);
+		} catch (Exception e) {
+			logger.error(" createForum error: " + e);
 
-    /* (non-Javadoc)
-     * @see com.jdon.jivejdon.service.ForumService#getForums(int, int)
-     */
-    public PageIterator getForums(int start, int count) {       
-        PageIterator pageIterator = new PageIterator();
-        try {
-            pageIterator = forumDao.getForums(start, count);
-        } catch (Exception ex) {
-            logger.error(ex);
-        }
-        return pageIterator;
-    }
-    
-    public void clearCache(){
-    	logger.debug(" clear all  Forum cache");
-    	forumDao.clearCache();
-    }
-    
-    public void doRebuildIndex(){
-    	TaskEngine.addTask(reBuildIndex);
-    	logger.debug("work is over");
-    }
+		}
+	}
 
-    
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.jivejdon.service.ForumService#updateForum(com.jdon.controller.events.EventModel)
+	 */
+	public void updateForum(EventModel em) {
+		Forum forum = (Forum) em.getModelIF();
+		forumDao.updateForum(forum);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.jivejdon.service.ForumService#deleteForum(com.jdon.controller.events.EventModel)
+	 */
+	public void deleteForum(EventModel em) {
+		Forum forum = (Forum) em.getModelIF();
+		forumDao.deleteForum(forum);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.jivejdon.service.ForumService#getForums(int, int)
+	 */
+	public PageIterator getForums(int start, int count) {
+		PageIterator pageIterator = new PageIterator();
+		try {
+			pageIterator = forumDao.getForums(start, count);
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
+		return pageIterator;
+	}
+
+	public void clearCache() {
+		logger.debug(" clear all  Forum cache");
+		forumDao.clearCache();
+	}
+
+	public void doRebuildIndex() {
+		TaskEngine.addTask(reBuildIndex);
+		logger.debug("work is over");
+	}
+
 }

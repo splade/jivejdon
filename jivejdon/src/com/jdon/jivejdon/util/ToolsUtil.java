@@ -416,10 +416,13 @@ public class ToolsUtil {
 			return false;
 		}
 		// if th model has modified , setup the new modified date
-		response.setHeader("ETag", Long.toString(modelLastModifiedDate));
+		setEtagHaeder(response, modelLastModifiedDate);
 		setRespHeaderCache(adddays, request, response);
 		return true;
+	}
 
+	public static void setEtagHaeder(HttpServletResponse response, long modelLastModifiedDate) {
+		response.setHeader("ETag", Long.toString(modelLastModifiedDate));
 	}
 
 	public static boolean setRespHeaderCache(long adddays, HttpServletRequest request, HttpServletResponse response) {

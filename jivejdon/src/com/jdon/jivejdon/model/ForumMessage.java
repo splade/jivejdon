@@ -16,6 +16,7 @@
 package com.jdon.jivejdon.model;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 
 import org.compass.annotations.Searchable;
@@ -49,9 +50,7 @@ import com.jdon.util.Debug;
 public class ForumMessage extends ForumModel implements Cloneable {
 	private static final long serialVersionUID = 1L;
 
-	
 	private final static String module = ForumMessage.class.getName();
-
 
 	@SearchableId
 	private Long messageId;
@@ -348,6 +347,13 @@ public class ForumMessage extends ForumModel implements Cloneable {
 	 */
 	public String getModifiedDate() {
 		return modifiedDate;
+	}
+
+	public long getModifiedDate2() {
+		if (modifiedDate == null)
+			return 0;
+		Date mdate = Constants.parseDateTime(modifiedDate);
+		return mdate.getTime();
 	}
 
 	/**

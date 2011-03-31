@@ -26,6 +26,8 @@ import javax.servlet.http.HttpServletRequest;
  * 
  * request.setAttribute("myExpire", 5 * 24 * 60 * 60);
  * 
+ * expireFilter not effects /jivejdon/thread/xxxx (messageListAction.shtml)
+ * 
  * @author banq
  * 
  */
