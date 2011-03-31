@@ -25,10 +25,12 @@ import org.apache.struts.action.ActionMapping;
 import com.jdon.controller.WebAppUtil;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.service.ForumMessageService;
+import com.jdon.jivejdon.util.ToolsUtil;
 import com.jdon.strutsutil.ModelListAction;
 import com.jdon.util.UtilValidate;
 
 public abstract class ThreadEtagFilter extends ModelListAction {
+	public final static String NEWLASMESSAGE = "NEWLASMESSAGE";
 
 	public ActionForward execute(ActionMapping actionMapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -42,18 +44,31 @@ public abstract class ThreadEtagFilter extends ModelListAction {
 
 		String threadId = request.getParameter("thread");
 		if ((threadId == null) || (!UtilValidate.isInteger(threadId))) {
-			return null;
+			throw new Exception("thread is null " + threadId);
 		}
 
 		ForumMessageService forumMessageService = (ForumMessageService) WebAppUtil.getService("forumMessageService", request);
 		ForumThread forumThread = forumMessageService.getThread(new Long(threadId));
 		if (forumThread == null)
-			return null;
+			throw new Exception("thread is null " + threadId);
 
 		long modelLastModifiedDate = forumThread.getState().getModifiedDate2();
-		if (!com.jdon.jivejdon.util.ToolsUtil.checkHeaderCache(expire, modelLastModifiedDate, request, response))
-			return null;
+		// String previousToken = request.getHeader("If-None-Match");
+
+		// // expireFilter not effects jivejdon/thread/xxxx
+		if (!ToolsUtil.checkHeaderCache(expire, modelLastModifiedDate, request, response)) {
+			return null;// response is 304
+		}
+		// else { //newLastMessageNotfier.jsp
+		// if (previousToken != null && Long.parseLong(previousToken) <
+		// modelLastModifiedDate) {
+		// request.setAttribute(NEWLASMESSAGE,
+		// forumThread.getState().getLastPost());
+		// response.setStatus(HttpServletResponse.SC_OK);
+		// }
+		// }
 
 		return super.execute(actionMapping, actionForm, request, response);
 	}
+
 }

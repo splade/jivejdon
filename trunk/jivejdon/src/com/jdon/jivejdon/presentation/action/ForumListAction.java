@@ -21,29 +21,34 @@ import com.jdon.controller.WebAppUtil;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.model.Forum;
 import com.jdon.jivejdon.service.ForumService;
-import com.jdon.strutsutil.ModelListAction;
 
 /**
  * @author <a href="mailto:banq@163.com">banq</a>
- *
+ * 
  */
-public class ForumListAction extends ModelListAction {
+public class ForumListAction extends ForumEtagFilter {
 
-    /* (non-Javadoc)
-     * @see com.jdon.strutsutil.ModelListAction#getPageIterator(javax.servlet.http.HttpServletRequest, int, int)
-     */
-    public PageIterator getPageIterator(HttpServletRequest request, int start, int count) {
-        ForumService forumService = (ForumService) WebAppUtil.getService("forumService", request);
-        return forumService.getForums(start, count);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.strutsutil.ModelListAction#getPageIterator(javax.servlet.http.HttpServletRequest,
+	 *      int, int)
+	 */
+	public PageIterator getPageIterator(HttpServletRequest request, int start, int count) {
+		ForumService forumService = (ForumService) WebAppUtil.getService("forumService", request);
+		return forumService.getForums(start, count);
+	}
 
-    /* (non-Javadoc)
-     * @see com.jdon.strutsutil.ModelListAction#findModelByKey(javax.servlet.http.HttpServletRequest, java.lang.Object)
-     */
-    public Object findModelIFByKey(HttpServletRequest request, Object key) {
-        ForumService forumService = (ForumService) WebAppUtil.getService("forumService", request);
-        Forum forum = forumService.getForum((Long)key);
-        return forum;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.strutsutil.ModelListAction#findModelByKey(javax.servlet.http.HttpServletRequest,
+	 *      java.lang.Object)
+	 */
+	public Object findModelIFByKey(HttpServletRequest request, Object key) {
+		ForumService forumService = (ForumService) WebAppUtil.getService("forumService", request);
+		Forum forum = forumService.getForum((Long) key);
+		return forum;
+	}
 
 }
