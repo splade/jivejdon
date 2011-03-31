@@ -1,4 +1,4 @@
-
+ 
  //below is from autocomplete.js
 function ac(id, contextPath){
      var options = {
@@ -13,6 +13,21 @@ function ac(id, contextPath){
 
 	    	new AutoComplete(id,options);
 }
+
+function ac(id){
+     var options = {
+		      script: contextPath+'/query/tags.shtml?method=tags&',
+		      varname:'q',
+		      json:true,
+		      shownoresults:true,
+		      maxresults:16,
+		      callback: function (obj) { 
+		      }
+     		};
+
+	    	new AutoComplete(id,options);
+}
+
 
 var AutoComplete=Class.create();
 AutoComplete.prototype={
