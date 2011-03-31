@@ -56,6 +56,7 @@
 	<target name="clean">
 		<!-- Delete the ${build} and ${dist} directory trees -->		
 		<delete file="${deploy.dir}/${warname}" />		
+		<delete file="${dist.dir}/${warname}" />		
 		
 		<delete dir="${classes.dir}" />
 		<delete dir="${devwebapp}/WEB-INF/classes" />

@@ -10,8 +10,13 @@
 <bean:write name="title" />
 </title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="<html:rewrite page="/jivejdon.css"/>" type="text/css">
+<link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
+<script type="text/javascript" src="<html:rewrite page="/common/js/prototype.js"/>"></script>
+<script>
+var contextPath = "<%=request.getContextPath()%>";
+</script>
 <script language="javascript" src="<html:rewrite page="/common/js/autocomplete.js"/>"></script>
+
 </head>
 <body bgcolor='#ffffff'>
 
