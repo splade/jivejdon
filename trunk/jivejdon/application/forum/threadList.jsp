@@ -19,10 +19,10 @@
 
 <bean:define id="lastModifiedDate" name="forum" property="modifiedDate2"/>
 <%
-long expire = 10 * 60;
-long lastModifiedDate2 =((Long)pageContext.getAttribute("lastModifiedDate"));
-com.jdon.jivejdon.util.ToolsUtil.checkHeaderCache(expire, lastModifiedDate2, request, response);	
-
+//long expire = 10 * 60;
+//long lastModifiedDate2 =((Long)pageContext.getAttribute("lastModifiedDate"));
+//com.jdon.jivejdon.util.ToolsUtil.checkHeaderCache(expire, lastModifiedDate2, request, response);	
+//move to ForumEtagFilter
 
 
 int pagestartInt = ((Integer)pageContext.getAttribute("pagestart")).intValue();

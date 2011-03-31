@@ -17,6 +17,7 @@
   response.sendError(404);
   %>
 </logic:empty>
+<%--  move to com.jdon.jivejdon.presentation.action.ThreadEtagFilter 
 <bean:define id="checkthread" name="messageListForm" property="oneModel" />
 <bean:define id="lastModifiedDate" name="checkthread" property="state.modifiedDate2"/>
 <%
@@ -28,7 +29,7 @@ long modelLastModifiedDate =((Long)pageContext.getAttribute("lastModifiedDate"))
 if (!com.jdon.jivejdon.util.ToolsUtil.checkHeaderCache(expire, modelLastModifiedDate, request, response))
 	return;
 %>
-
+--%>
 
 <%@include file="./messagListCore.jsp"%>
 </logic:greaterThan>

@@ -42,6 +42,8 @@ import com.jdon.util.UtilValidate;
  * 
  * see configuration in web.xml
  * 
+ * diable, only check ip in this filter
+ * 
  */
 public class SpamFilter implements Filter {
 	private final static Logger log = Logger.getLogger(SpamFilter.class);

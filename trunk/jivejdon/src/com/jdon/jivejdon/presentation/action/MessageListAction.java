@@ -28,7 +28,6 @@ import com.jdon.jivejdon.presentation.form.MessageListForm;
 import com.jdon.jivejdon.service.AccountService;
 import com.jdon.jivejdon.service.ForumMessageQueryService;
 import com.jdon.jivejdon.service.ForumMessageService;
-import com.jdon.strutsutil.ModelListAction;
 import com.jdon.strutsutil.ModelListForm;
 import com.jdon.util.Debug;
 import com.jdon.util.UtilValidate;
@@ -37,7 +36,7 @@ import com.jdon.util.UtilValidate;
  * @author <a href="mailto:banq@163.com">banq</a>
  * 
  */
-public class MessageListAction extends ModelListAction {
+public class MessageListAction extends ThreadEtagFilter {
 	private final static String module = MessageListAction.class.getName();
 
 	/*
