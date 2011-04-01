@@ -4,41 +4,54 @@
 
 
 <%--  com.jdon.jivejdon.presentation.action.ThreadEtagFilter  --%>
+<%@ include file="./messageNotfier.jsp" %>
+
+<logic:empty name="NEWLASMESSAGE" >
+<script>
+setTimeout(checkMSg,5000);
+</script>
+</logic:empty>
+
+
  
 <logic:notEmpty name="NEWLASMESSAGE" >
-<div id="isNewLastMessage" style="display:none">
+<div id="NEWLASMESSAGE"  style="display:none">
 <center>
-<h4>当前有了新的更新</h4>
+自从您上次访问以来有了更新
 <br>
 <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="NEWLASMESSAGE" 
         property="forumThread.threadId" />/<bean:write name="NEWLASMESSAGE" property="messageId"/>#<bean:write name="NEWLASMESSAGE" property="messageId" />'>按这里</a>
+
+<br><br>本窗口1分钟后消失        
         
-</center>        
+</center>  
+</div>      
 </div>
 
 <script>
-function loadWLJS(myfunc){
-  if (typeof(window.top.TooltipManager) == 'undefined') {     
+var loadNMJS = function (){
+  if (typeof(window.top.popUpNewMessage) == "undefined"){
      window.top.$LAB
-     .script('<%=request.getContextPath()%>/common/js/window_def.js').wait()   
+     .script('<%=request.getContextPath()%>/forum/js/newMessage.js').wait()
      .wait(function(){
-          myfunc();          
+       popM();
      })    
   }else
-     myfunc();
-}
-   
-
-var popNowNewLast = function(){
- var nowNewLast = new Window({className: "mac_os_x", width:250, height:150, title: " Have a Message "}); 
-       nowNewLast.setContent("isNewLastMessage",false, false);                  
-       nowNewLast.showCenter();
+       popM();
 }
 
-loadWLJS(popNowNewLast);                   
-                
+var popM = function(){  
+      document.getElementById("isNewMessage").innerHTML = document.getElementById("NEWLASMESSAGE").innerHTML;      
+      if (typeof(window.top.popUpNewMessage) != "undefined")
+                setTimeout(window.top.popUpNewMessage,2000);
+                //window.top.popUpNewMessage();
+            else  if (typeof(popUpNewMessage) != "undefined")
+                popUpNewMessage();
+}
 
+loadWLJS(loadNMJS());
+
+setTimeout(checkMSg,60000);
 
 </script>
 </logic:notEmpty>
-
