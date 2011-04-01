@@ -52,6 +52,7 @@ public abstract class ForumEtagFilter extends ModelListAction {
 			lastpost = getForumsLastModifiedDate(request);
 			if (lastpost == null)
 				return super.execute(actionMapping, actionForm, request, response);
+			return super.execute(actionMapping, actionForm, request, response);
 
 		} else {
 			Forum forum = forumService.getForum(new Long(forumId));
@@ -61,9 +62,15 @@ public abstract class ForumEtagFilter extends ModelListAction {
 		}
 		long expire = 10 * 60;
 		long modelLastModifiedDate = lastpost.getModifiedDate2();
+		String previousToken = request.getHeader("If-None-Match");
 
 		if (!ToolsUtil.checkHeaderCache(expire, modelLastModifiedDate, request, response)) {
 			return null;
+		} else { // newLastMessageNotfier.jsp
+			if (previousToken != null && Long.parseLong(previousToken) < modelLastModifiedDate) {
+				request.setAttribute(NEWLASMESSAGE, lastpost);
+				response.setStatus(HttpServletResponse.SC_OK);
+			}
 		}
 		// request.setAttribute(NEWLASMESSAGE, lastpost);
 		// expireFilter not effects jivejdon/thread/xxxx

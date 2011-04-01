@@ -11,7 +11,7 @@
        newMessageW = new Window({className: "mac_os_x", width:250, height:150, title: " Have a Message "}); 
        newMessageW.setContent("isNewMessage",false, false);                  
        newMessageW.showCenter();	
-       WindowCloseKey.init();
+       
    
        var myObserver = {
         onClose: function(eventName, mywinMessage) {    	  

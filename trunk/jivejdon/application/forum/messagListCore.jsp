@@ -278,7 +278,7 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
   
 </script>
 
- <%@ include file="./messageNotfier.jsp" %>
+ <%@ include file="./newLastMessageNotfier.jsp" %>
 
 <jsp:include page="../common/advert.jsp" flush="true">   
      <jsp:param name="fmt" value="468x60"/>   

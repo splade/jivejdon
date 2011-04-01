@@ -186,7 +186,7 @@ if (typeof(Ajax) != "undefined"){
      <jsp:param name="fmt" value="336x280_2_b"/>   
 </jsp:include>  
 
-<%@ include file="./messageNotfier.jsp" %>
+<%@ include file="./newLastMessageNotfier.jsp" %>
 
 
 <%@include file="../common/IncludeBottom.jsp"%>
