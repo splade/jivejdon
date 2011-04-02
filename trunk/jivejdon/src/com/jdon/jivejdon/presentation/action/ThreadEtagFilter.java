@@ -58,12 +58,15 @@ public abstract class ThreadEtagFilter extends ModelListAction {
 		// // expireFilter not effects jivejdon/thread/xxxx
 		if (!ToolsUtil.checkHeaderCache(expire, modelLastModifiedDate, request, response)) {
 			return null;// response is 304
-		} else { // newLastMessageNotfier.jsp
-			if (previousToken != null && Long.parseLong(previousToken) < modelLastModifiedDate) {
-				request.setAttribute(NEWLASMESSAGE, forumThread.getState().getLastPost());
-				response.setStatus(HttpServletResponse.SC_OK);
-			}
 		}
+		// else { // newLastMessageNotfier.jsp
+		// if (previousToken != null && Long.parseLong(previousToken) <
+		// modelLastModifiedDate) {
+		// request.setAttribute(NEWLASMESSAGE,
+		// forumThread.getState().getLastPost());
+		// response.setStatus(HttpServletResponse.SC_OK);
+		// }
+		// }
 
 		return super.execute(actionMapping, actionForm, request, response);
 	}
