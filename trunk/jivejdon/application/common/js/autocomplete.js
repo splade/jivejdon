@@ -14,21 +14,6 @@ function ac(id, contextPath){
 	    	new AutoComplete(id,options);
 }
 
-function ac(id){
-     var options = {
-		      script: contextPath+'/query/tags.shtml?method=tags&',
-		      varname:'q',
-		      json:true,
-		      shownoresults:true,
-		      maxresults:16,
-		      callback: function (obj) { 
-		      }
-     		};
-
-	    	new AutoComplete(id,options);
-}
-
-
 var AutoComplete=Class.create();
 AutoComplete.prototype={
 Version:'1.3.0',

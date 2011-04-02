@@ -20,7 +20,15 @@
 		               $('json_info').update('' ); 
 		      }
      		};
+
+
 	
+		function ac(id){
+	    	new AutoComplete(id,options);
+		}
+		
+		
+			
 	</script>
 <span id='json_info'></span>
 
@@ -60,14 +68,6 @@
               <br>
              <bean:write name="forumThread" property="rootMessage.messageVO.body" filter="false" />
 
-	
-<script>
-		function ac(id){
-	    	new AutoComplete(id,options);
-		}
-		
-		
-		</script>
 <%@include file="../footer.jsp"%>
 
 

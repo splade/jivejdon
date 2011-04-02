@@ -18,7 +18,10 @@
 		               $('json_info').update('' ); 
 		      }
      		};
-	
+
+function ac(id){
+	    	new AutoComplete(id,options);
+		}	
 	</script>
 <span id='json_info'></span>
 
@@ -144,13 +147,7 @@
     </td>
 </tr>
 </table>
-<script>
-		function ac(id){
-	    	new AutoComplete(id,options);
-		}
-		
-		
-		</script>
+
 <%@include file="../footer.jsp"%>
 
 
