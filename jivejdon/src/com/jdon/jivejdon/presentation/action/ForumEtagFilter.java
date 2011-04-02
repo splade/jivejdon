@@ -66,12 +66,14 @@ public abstract class ForumEtagFilter extends ModelListAction {
 
 		if (!ToolsUtil.checkHeaderCache(expire, modelLastModifiedDate, request, response)) {
 			return null;
-		} else { // newLastMessageNotfier.jsp
-			if (previousToken != null && Long.parseLong(previousToken) < modelLastModifiedDate) {
-				request.setAttribute(NEWLASMESSAGE, lastpost);
-				response.setStatus(HttpServletResponse.SC_OK);
-			}
 		}
+		// else { // newLastMessageNotfier.jsp
+		// if (previousToken != null && Long.parseLong(previousToken) <
+		// modelLastModifiedDate) {
+		// request.setAttribute(NEWLASMESSAGE, lastpost);
+		// response.setStatus(HttpServletResponse.SC_OK);
+		// }
+		// }
 		// request.setAttribute(NEWLASMESSAGE, lastpost);
 		// expireFilter not effects jivejdon/thread/xxxx
 

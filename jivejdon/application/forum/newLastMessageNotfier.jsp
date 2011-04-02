@@ -8,7 +8,7 @@
 
 <logic:empty name="NEWLASMESSAGE" >
 <script>
-setTimeout(checkMSg,5000);
+checkMSg();
 </script>
 </logic:empty>
 

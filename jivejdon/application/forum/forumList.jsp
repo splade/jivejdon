@@ -154,7 +154,7 @@ function loadAcJS(thisId){
 //-->
 </script>
 
-<%@ include file="./newLastMessageNotfier.jsp" %>
+<%@ include file="./messageNotfier.jsp" %>
 
 <%@include file="../common/IncludeBottom.jsp"%> 
 
