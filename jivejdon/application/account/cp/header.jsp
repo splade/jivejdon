@@ -41,7 +41,38 @@
 <link href="<html:rewrite page="/account/cp/themes/default/style/blog.css"/>" rel=stylesheet type=text/css />
 
 <%@ include file="../../common/headerBody.jsp" %>
-<script language="javascript" src="<html:rewrite page="/account/cp/js/blog.js"/>"></script>
+<script >
+
+var wtitlename;
+var url;
+function openPopUpWindow(wtitlename, url){
+   this.wtitlename = wtitlename;
+   this.url=url;
+   loadWLJS(openPopUpBlogW);
+}     
+
+popupW=null; 
+var openPopUpBlogW = function(){
+    if (popupW == null) {             
+       popupW = new Window({className: "mac_os_x", width:600, height:380, title: wtitlename}); 
+       popupW.setURL(url);
+       popupW.showCenter();
+	
+	    
+	   var myObserver = {
+        onClose: function(eventName, myW) {    	  
+          if (myW == popupW){        	        	
+            popupW = null;   
+            Windows.removeObserver(this);
+          }
+        }
+       }
+     Windows.addObserver(myObserver);
+     } 
+ }     
+ 
+
+</script>
 </head> 
 
 <body > 
@@ -166,11 +197,13 @@ var openUploadWindow = function(url){
               
               </span></div>
               <div class="b_op">
+              <span onmouseover="loadWLJS(nof)">
                <logic:notPresent name="isOwner" >
                     <a href="javascript:void(0);" onclick="openShortmessageWindow('发消息','<html:rewrite page="/account/protected/shortmessageAction.shtml" paramId="messageTo"  paramName="accountProfileForm"  paramProperty="account.username" />');"
                    >发消息</a>
                </logic:notPresent>
                <logic:present name="isOwner" >
+                  
                    <a href="javascript:openPopUpWindow('写消息','<%=request.getContextPath()%>/account/protected/shortmessageAction.shtml')"
                				tabindex="1">写信息</a>
                    <a href="javascript:openPopUpWindow('收件箱','<%=request.getContextPath()%>/account/protected/receiveListAction.shtml?count=10')"
@@ -179,9 +212,10 @@ var openUploadWindow = function(url){
                				tabindex="3">发送箱</a>
                	<a href="javascript:openPopUpWindow('草稿箱','<%=request.getContextPath()%>/account/protected/draftListAction.shtml?count=10')"
                				tabindex="4">草稿箱</a>	
-               											
-
-               </logic:present>               
+              
+               </logic:present>
+                   </span>
+                              
                </div>	
 	  </div> 
 	  </div> 

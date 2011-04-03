@@ -24,4 +24,11 @@ public class MethodDispatchAction extends DispatchAction {
 		return mapping.findForward("deleteUserMessages");
 	}
 
+	public ActionForward sendFeed(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		logger.debug("enter sendFeed");
+		String username = request.getParameter("username");
+		ForumMessageService forumMessageService = (ForumMessageService) WebAppUtil.getService("forumMessageService", request);
+		forumMessageService.deleteUserMessages(username);
+		return mapping.findForward("deleteUserMessages");
+	}
 }

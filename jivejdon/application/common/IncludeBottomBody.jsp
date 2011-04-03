@@ -10,11 +10,11 @@
       <tr><td align="center">
        
        <table><tr>
-        <td><a href="javascript:void(0)" onClick="loadWLJS(helpW)">使用帮助</a>
+        <td><a href="javascript:void(0)" onClick="loadWLJSWithP('<%=request.getContextPath()%>/help.jsp',helpW)">使用帮助</a>
        <script language="javascript">
-        var helpW = function(){         
-           var helpW = new Window({className: "mac_os_x", width:550, height:400, title: "   用手机的条码扫描软件扫描下图继续浏览 "});
-           helpW.setURL("<%=request.getContextPath()%>/help.jsp");
+        var helpW = function(url){         
+           var helpW = new Window({className: "mac_os_x", width:550, height:400, title: "  注意  "});
+           helpW.setURL(url);
            helpW.showCenter();          
         }
         
@@ -43,7 +43,9 @@
           <td>
         <a href="http://add.my.yahoo.com/rss?url=http://www.jdon.com/jivejdon/rss"><html:img page="/images/add-to-myyahoo.gif" width="91" height="17" alt="add to yahoo" border="0"/></a>
          </td>
-        
+        <td>
+        <a href="javascript:void(0)" onClick="loadWLJSWithP('<%=request.getContextPath()%>/forum/feed/feedback.jsp',helpW)">联系管理员 </a> 
+        </td>
          </tr></table>
          
          

@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import com.jdon.annotation.Component;
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.domain.message.MessageListener;
-import com.jdon.jivejdon.manager.email.EmailHelper;
+import com.jdon.jivejdon.manager.email.SubscriptionEmail;
 import com.jdon.jivejdon.manager.shortmessage.ShortMessageFactory;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.ShortMessage;
@@ -29,16 +29,16 @@ public class SubscriptionNotify implements MessageListener {
 	private NotifyMessageFactory notifyMessageFactory;
 
 	private AccountFactory accountFactory;
-	private EmailHelper emailHelper;
+	private SubscriptionEmail subscriptionEmail;
 
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	public SubscriptionNotify(SubscriptionDao subscriptionDao, ShortMessageFactory shortMessageFactory, AccountFactory accountFactory,
-			EmailHelper emailHelper, NotifyMessageFactory notifyMessageFactory) {
+			SubscriptionEmail subscriptionEmail, NotifyMessageFactory notifyMessageFactory) {
 		this.subscriptionDao = subscriptionDao;
 		this.shortMessageFactory = shortMessageFactory;
 		this.accountFactory = accountFactory;
-		this.emailHelper = emailHelper;
+		this.subscriptionEmail = subscriptionEmail;
 		this.notifyMessageFactory = notifyMessageFactory;
 
 	}
@@ -95,7 +95,7 @@ public class SubscriptionNotify implements MessageListener {
 		final Runnable sender = new Runnable() {
 			public void run() {
 				try {
-					emailHelper.sendSubscriptionEmail(account, sm);
+					subscriptionEmail.send(account, sm);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -103,7 +103,7 @@ public class SubscriptionNotify implements MessageListener {
 			}
 		};
 		// send per five min * count.
-		int delay = i * 300;
+		int delay = i * 300;// 300
 		scheduler.schedule(sender, delay, TimeUnit.SECONDS);
 	}
 

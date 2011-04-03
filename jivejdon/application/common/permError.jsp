@@ -23,7 +23,7 @@
     }catch(ex){}
 
     function contactAdmin(){
-    	location.href = 'http://www.jdon.com/my/feed/feedbackAction.do?subject=fromjivejdon3_<bean:write name="error" />'
+    	location.href = '<%=request.getContextPath()%>/forum/feed/feedback.jsp?subject=fromjivejdon3&body=<%=request.getHeader("Referer")%>_<bean:write name="error" />'
         	    + location.href;
     }
    </script>

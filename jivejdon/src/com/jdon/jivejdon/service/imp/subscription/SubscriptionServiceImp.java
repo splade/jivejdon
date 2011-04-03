@@ -7,7 +7,7 @@ import com.jdon.container.visitor.data.SessionContext;
 import com.jdon.controller.events.EventModel;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.Constants;
-import com.jdon.jivejdon.manager.email.EmailHelper;
+import com.jdon.jivejdon.manager.email.ValidateCodeEmail;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.subscription.Subscription;
 import com.jdon.jivejdon.model.subscription.subscribed.AccountSubscribed;
@@ -29,13 +29,14 @@ public class SubscriptionServiceImp implements SubscriptionService {
 
 	protected Account account;
 
-	protected EmailHelper emailHelper;
+	protected ValidateCodeEmail validateCodeEmail;
 
-	public SubscriptionServiceImp(SessionContextUtil sessionContextUtil, SubscriptionRepository subscriptionRepository, EmailHelper emailHelper) {
+	public SubscriptionServiceImp(SessionContextUtil sessionContextUtil, SubscriptionRepository subscriptionRepository,
+			ValidateCodeEmail validateCodeEmail) {
 		super();
 		this.subscriptionRepository = subscriptionRepository;
 		this.sessionContextUtil = sessionContextUtil;
-		this.emailHelper = emailHelper;
+		this.validateCodeEmail = validateCodeEmail;
 	}
 
 	public Account getloginAccount() {
@@ -62,7 +63,7 @@ public class SubscriptionServiceImp implements SubscriptionService {
 				return;
 			}
 			if (subscription.isSendemail() && !subscription.getAccount().isEmailValidate()) {
-				emailHelper.sendValidateCodeEmail(subscription.getAccount());
+				validateCodeEmail.send(subscription.getAccount());
 			}
 			subscriptionRepository.createSubscription(subscription);
 			subscription = getSubscription(subscription.getSubscriptionId());

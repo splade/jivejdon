@@ -8,9 +8,10 @@
 
   <form-beans>
     <form-bean name="forumForm" type="com.jdon.jivejdon.presentation.form.ForumForm"/>
+    <form-bean name="feedForm" type="com.jdon.jivejdon.presentation.form.feed.FeedForm"/>
     <form-bean name="forumListForm" type="com.jdon.strutsutil.ModelListForm"/>	  
     <form-bean name="imageInfoForm" type="com.jdon.jivejdon.presentation.form.ImageInfoForm"/>
-    <form-bean name="imageListForm" type="com.jdon.strutsutil.ModelListForm"/>
+    <form-bean name="imageListForm" type="com.jdon.strutsutil.ModelListForm"/>     
   </form-beans>
 
   <action-mappings>
@@ -64,6 +65,13 @@
       validate="false">
       <forward name="success" path="/forum/forumListJSON.jsp"/>
     </action>	
+    
+    <action name="feedForm" path="/forum/feed/feedbackAction" type="com.jdon.strutsutil.ServiceMethodAction"
+	  scope="request" validate="false" >
+      <forward name="send" path="/forum/feed/result.jsp"/>		
+    </action>
+    
+    
     
     
    

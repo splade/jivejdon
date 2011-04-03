@@ -22,7 +22,7 @@ ddl/mysql_security.sql 导入==>数据库 security （以后专门用于SSO登�
   
 (4)任何涉及创建数据库的地方都选择Utf-8, phpMyadmin中创建jivejdon数据库时，都要选择utf-8-general-c  
   
-以下步骤可以选择JBoss安装或Tomcat安装。  
+以下步骤可以选择JBoss安装或Tomcat安装。JiveJdon 4.2以后缺省安装在Tomcat  
 ###################################################################################################
 （一）JBoss环境安装 :  JDK 5.0 + JBoss 4.0.5 + MySQL 4/5，
 1. 下载JBoss 
@@ -159,9 +159,23 @@ catalina.sh中再加入：JAVA_OPTS="$JAVA_OPTS -Djava.security.auth.login.confi
               password=""
               driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost/jivejdon?useUnicode=true&amp;characterEncoding=UTF-8" />      
-                               
 
-注意数据库的用户名和密码
+<!--  以上注意数据库的用户名和密码  下面是javaMail的JNDI配置，见web.xml和com/jdon/jivejdon/manager/manager.xml -->
+
+<Resource name="mail/Session" auth="Container"
+		type="javax.mail.Session"
+	  mail.smtp.host="smtp.gmail.com"
+    mail.smtp.port="587"
+    mail.smtp.auth="true"
+    mail.smtp.user="你的邮件@gmail.com"    
+		mail.smtp.starttls.enable="true"
+    mail.smtp.socketFactory.class="javax.net.ssl.SSLSocketFactory"    
+    mail.smtp.socketFactory.port="465"
+    password="你的密码" 
+    />               
+                      
+
+
 
 (5)把doc/tomcat/conf/jaas.config拷贝到tomcat的conf目录下
    确保jivejdon.war的WEB-INF/classes目录下存在jaas.properties

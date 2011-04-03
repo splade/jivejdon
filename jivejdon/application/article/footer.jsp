@@ -135,7 +135,7 @@ SRC="<%=request.getContextPath()%>/hot/180_190_15_200.html"></iframe>
   </td></tr>
   <TR>
     <TD align="center">
-      <span class="white"><a href="http://www.jdon.com/my/feed/feedbackAction.do" target="_blank"  >联系我们 </a> | 
+      <span class="white"> 
       <A href="http://www.jdon.com/aboutsite.htm" target=_blank  >关于我们 </A>| <A 
       href="http://www.jdon.com/jivejdon/rss" target=_blank  >RSS订阅</A> |
          <A 

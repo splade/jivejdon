@@ -8,15 +8,17 @@
  
 <script>
 function openShortmessageWindow(name, url){
-    if (typeof(Dialog) == 'undefined') 
-       loadWLJS(nof);
-    
-     if (!isLogin){//login defined in .common/security.jsp        
-        Dialog.alert("请先登陆", 
-                {windowParameters: {className: "mac_os_x", width:250, height:200}, okLabel: "   确定  "});
+   if (!isLogin){//login defined in .common/security.jsp        
+         loadWLJS(loginAlert);
         return false;
     }
    openPopUpWindow(name, url);
+}
+
+var loginAlert = function(){
+        Dialog.alert("请先登陆", 
+                {windowParameters: {className: "mac_os_x", width:250, height:200}, okLabel: "   确定  "});
+   
 }
  
 </script>
