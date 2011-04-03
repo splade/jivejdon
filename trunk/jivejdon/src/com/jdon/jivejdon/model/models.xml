@@ -159,6 +159,15 @@
 				</service>
 			</handler>
 		</model>			
+		
+		<model key="email"
+			class="com.jdon.jivejdon.model.feed.Feed">
+			<actionForm name="feedForm"/>
+			<handler>
+				<service ref="feedEmailSender">					
+				</service>
+			</handler>
+		</model>
 	</models>
 	
 </app>

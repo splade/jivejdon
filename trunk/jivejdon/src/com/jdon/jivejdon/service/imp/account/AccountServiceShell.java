@@ -25,7 +25,7 @@ import com.jdon.container.visitor.data.SessionContext;
 import com.jdon.controller.events.EventModel;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.auth.ResourceAuthorization;
-import com.jdon.jivejdon.manager.email.EmailHelper;
+import com.jdon.jivejdon.manager.email.ForgotPasswdEmail;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.repository.dao.AccountDao;
 import com.jdon.jivejdon.repository.dao.SequenceDao;
@@ -45,16 +45,16 @@ public class AccountServiceShell extends AccountServiceImp {
 
 	protected ResourceAuthorization resourceAuthorization;
 
-	private EmailHelper emailHelper;
+	private ForgotPasswdEmail forgotPasswdEmail;
 
 	private Map<String, Integer> cachedforgetPasswdEmails = new HashMap(1);
 
 	public AccountServiceShell(AccountDao accountDao, SequenceDao sequenceDao, SessionContextUtil sessionContextUtil,
-			JtaTransactionUtil jtaTransactionUtil, ResourceAuthorization resourceAuthorization, EmailHelper emailHelper) {
+			JtaTransactionUtil jtaTransactionUtil, ResourceAuthorization resourceAuthorization, ForgotPasswdEmail forgotPasswdEmail) {
 		super(accountDao, sequenceDao, jtaTransactionUtil);
 		this.sessionContextUtil = sessionContextUtil;
 		this.resourceAuthorization = resourceAuthorization;
-		this.emailHelper = emailHelper;
+		this.forgotPasswdEmail = forgotPasswdEmail;
 	}
 
 	public Account getloginAccount() {
@@ -136,7 +136,7 @@ public class AccountServiceShell extends AccountServiceImp {
 				String newpasswd = StringUtil.getPassword(8);
 				account.setPassword(ToolsUtil.hash(newpasswd));
 				accountDao.updateAccount(account);
-				emailHelper.sendForgotPasswdEmail(account, newpasswd);
+				forgotPasswdEmail.send(account, newpasswd);
 			} else {
 				em.setErrors(Constants.NOT_FOUND);
 				return;

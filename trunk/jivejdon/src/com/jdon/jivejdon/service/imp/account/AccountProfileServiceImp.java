@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import com.jdon.annotation.intercept.Poolable;
 import com.jdon.controller.events.EventModel;
 import com.jdon.jivejdon.Constants;
-import com.jdon.jivejdon.manager.email.EmailHelper;
+import com.jdon.jivejdon.manager.email.ValidateCodeEmail;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.AccountProfile;
 import com.jdon.jivejdon.model.Property;
@@ -25,13 +25,13 @@ public class AccountProfileServiceImp implements AccountProfileService {
 
 	private PropertyDao propertyDao;
 	private AccountDao accountDao;
-	private EmailHelper emailHelper;
+	private ValidateCodeEmail validateCodeEmail;
 	private AccountFactory accountFactory;
 
-	public AccountProfileServiceImp(AccountFactory accountFactory, AccountDao accountDao, PropertyDao propertyDao, EmailHelper emailHelper) {
+	public AccountProfileServiceImp(AccountFactory accountFactory, AccountDao accountDao, PropertyDao propertyDao, ValidateCodeEmail validateCodeEmail) {
 		this.propertyDao = propertyDao;
 		this.accountDao = accountDao;
-		this.emailHelper = emailHelper;
+		this.validateCodeEmail = validateCodeEmail;
 		this.accountFactory = accountFactory;
 	}
 
@@ -73,7 +73,7 @@ public class AccountProfileServiceImp implements AccountProfileService {
 		AccountProfile accountProfiler = (AccountProfile) em.getModelIF();
 		Account account = accountProfiler.getAccount();
 		try {
-			if (emailHelper.emailValidate(account.getUserId(), accountProfiler.getValidateCode())) {
+			if (validateCodeEmail.emailValidate(account.getUserId(), accountProfiler.getValidateCode())) {
 				logger.debug("emailValidate passed =" + account.getUserId());
 				account.setEmailValidate(true);
 				accountDao.updateAccountEmailValidate(account);

@@ -103,26 +103,50 @@
 		<component name="emailHelper"
 			class="com.jdon.jivejdon.manager.email.EmailHelper" />
 
-		<component name="emailDefine"
-			class="com.jdon.jivejdon.manager.email.ForgotPasswdEmailDefine">
-			<constructor value="java:/Mail" />
+		<component name="forgotPasswdEmailParams"
+			class="com.jdon.jivejdon.manager.email.ForgotPasswdEmailParams">
+			<!--  tomcat context.xml  config javaMail -->			
+			<constructor value="java:comp/env/mail/Session" />
+			<!--  Jboss deploy/mail-service.xml configure 
+			<constructor value="java:/Mail" />-->
 			<constructor value="J道：用户名和密码" />
 			<constructor value="您好：您索要的jdon.com网站登陆用户和密码如下：" />
 			<constructor value="Jdon.com --- 专业的软件架构之道" />
 			<constructor value="Jdon.com" />
-			<constructor value="admin@jdon.com" />
+			<constructor value="banQjdon@gmail.com" />
 		</component>
 		<!-- forget password send mail by JavaMail end   -->
 
-		<component name="validateCodeEmailDefine"
-			class="com.jdon.jivejdon.manager.email.ValidateCodeEmailDefine">
-			<constructor value="java:/Mail" />
+		<component name="validateCodeEmailParams"
+			class="com.jdon.jivejdon.manager.email.ValidateCodeEmailParams">
+			<!--  tomcat context.xml  config javaMail -->			
+			<constructor value="java:comp/env/mail/Session" />
+			<!--  Jboss deploy/mail-service.xml configure 
+			<constructor value="java:/Mail" />-->
 			<constructor value="Jdon.com验证邮件 本信件 是因为你开通了本站的邮件关注订阅功能 " />
 			<constructor value="您好：请访问下面的网址验证你的Email" />
 			<constructor
 				value="http://www.jdon.com/jivejdon/account/emailValidate.shtml?method=emailValidate" />
 			<constructor value="jdon.com" />
-			<constructor value="admin@jdon.com" />
+			<constructor value="banQjdon@gmail.com" />
+		</component>
+		
+		
+		
+		<component name="feedbackEmailParams"
+			class="com.jdon.jivejdon.manager.email.FeedbackEmailParams">
+			<!--  tomcat context.xml  config javaMail -->			
+			<constructor value="java:comp/env/mail/Session" />			
+			<constructor value="admin" />
+			<constructor value="banq@163.com" />
+		</component>
+		
+		
+		<component name="SubscriptionEmailParams"
+			class="com.jdon.jivejdon.manager.email.SubscriptionEmailParams">
+			<!--  tomcat context.xml  config javaMail -->			
+			<constructor value="java:comp/env/mail/Session" />			
+			<constructor value="banQjdon@gmail.com" />
 		</component>
 
 		<component name="tagNotifyMessage"

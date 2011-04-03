@@ -41,7 +41,7 @@ if (!errorBlocker.checkRate(request.getRemoteAddr(), 10))
     }
 
     function contactAdmin(){
-    	location.href = 'http://www.jdon.com/my/feed/feedbackAction.do?subject=fromjivejdon3_503_<%=request.getRemoteAddr()%>_'
+    	location.href = '<%=request.getContextPath()%>/forum/feed/feedback.jsp?subject=fromjivejdon3_503&body=<%=request.getRemoteAddr()%> '
         	    + location.href;
     }
    </script>
