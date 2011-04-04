@@ -27,7 +27,7 @@ pageContext.setAttribute("title", title);
 <table cellpadding="3" cellspacing="0" border="0" width="971" align="center">
 <tr>
     <td >
-<div class="tres" onmouseover="loadWLJS(nof)">      
+<div class="tres" >      
  
      符合查询的所有帖子共有<b><bean:write name="messageListForm" property="allCount"/></b>贴      
 <MultiPages:pager actionFormName="messageListForm" page="/query/searchAction.shtml" name="paramsMap">
@@ -35,7 +35,7 @@ pageContext.setAttribute("title", title);
 <MultiPages:index displayCount="3" />
 <MultiPages:next  name="&#9658;" />
 </MultiPages:pager>
-<a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go">Go</a>
+<a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go">Go</a>
 <div id="tooltip_content_go"  style="display:none">
 <div class="tooltip_content">
     <div class="title">前往下页:</div>
@@ -139,9 +139,9 @@ pageContext.setAttribute("title", title);
 <table cellpadding="3" cellspacing="0" border="0" width="971" align="center">
 <tr>
     <td class="smallgray" align="right">
-<div class="tres" onmouseover="loadWLJS(nof)">    
+<div class="tres" >    
      符合查询的所有帖子共有<b><bean:write name="messageListForm" property="allCount"/></b>贴
-<a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go">Go</a>      
+<a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go">Go</a>      
 <MultiPages:pager actionFormName="messageListForm" page="/query/searchAction.shtml" name="paramsMap" >
 <MultiPages:prev name="&#9668;" />
 <MultiPages:index displayCount="3" />

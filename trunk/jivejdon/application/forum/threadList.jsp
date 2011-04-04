@@ -59,7 +59,7 @@ pageContext.setAttribute("title", titleStr);
 <table cellpadding="3" cellspacing="0" border="0" width="971" align="center">
 <tr>
     <td>
-<div class="tres" onmouseover="loadWLJS(nof)">    
+<div class="tres" >    
               
 <MultiPages:pager actionFormName="threadListForm" page="/forum.jsp" paramId="forum" paramName="forum" paramProperty="forumId">
 
@@ -67,7 +67,7 @@ pageContext.setAttribute("title", titleStr);
 <MultiPages:index displayCount="3" />
 <MultiPages:next  name="&#9658;" />
 </MultiPages:pager>
-<a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go">Go</a>
+<a href="JavaScript:void(0);" onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go">Go</a>
 总共有<b><bean:write name="threadListForm" property="allCount"/></b>贴   
 
 <div id="tooltip_content_go"  style="display:none">
@@ -108,7 +108,7 @@ pageContext.setAttribute("title", titleStr);
 <div class="tres">    
      总共有<b><bean:write name="threadListForm" property="allCount"/></b>贴         
 <MultiPages:pager actionFormName="threadListForm" page="/forum.jsp" paramId="forum" paramName="forum" paramProperty="forumId">
-<a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go">Go</a>
+<a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go">Go</a>
 <MultiPages:prev name="&#9668;" />
 <MultiPages:index displayCount="3" />
 <MultiPages:next  name="&#9658;" />

@@ -39,24 +39,22 @@
 <logic:iterate indexId="i"   id="forumThread" name="threadListForm" property="list" >
     <tr bgcolor="#FFFFEC" id="tr_<bean:write name="forumThread" property="threadId" />">
         <td nowrap="nowrap">
-        <span onmouseover="loadWLJS(initTags)">
+        
         <logic:iterate id="threadTag" name="forumThread" property="tags" >
            <a href='<%=request.getContextPath() %>/tags/<bean:write name="threadTag" property="tagID"/>' target="_blank" class="post-tag">
-             <span  class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
+             <span onmouseover="loadWLJSWithP(this, initTagsW)" class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
              <bean:write name="threadTag" property="title" /></span>
              </a>
              <br>             
         </logic:iterate>
-        </span>
+
         </td>
         <td>
-            <span onmouseover="loadWLJS(initTooltipWL);">         
              <a href="<%=request.getContextPath()%>/thread/<bean:write name="forumThread" property="threadId"/>" 
               >
-             <b><span class="tooltip html_tooltip_content_<bean:write name="forumThread" property="threadId"/>">
+             <b><span  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_<bean:write name="forumThread" property="threadId"/>">
              <bean:write name="forumThread" property="name" />                          
              </span></b></a>
-             </span>
              
              <logic:greaterEqual  name="forumThread" property="state.messageCount" value="15">
              <script>             
@@ -65,7 +63,7 @@
              </logic:greaterEqual>
              
               <logic:greaterThan name="forumThread" property="state.subscriptionCount" value="0">
-                 <span class="tooltip html_tooltip_sub" onmouseover="loadWLJS(initTooltipWL)">
+                 <span class="tooltip html_tooltip_sub" onmouseover="loadWLJSWithP(this, initTooltipWL)">
                    <a title="关注本主题" href="<%=request.getContextPath()%>/account/protected/sub/subAction.shtml?subscribeType=1&subscribeId=<bean:write name="forumThread" property="threadId" />"  rel="nofollow">
                       <html:img page="/images/user_add.gif" width="18" height="18" alt="关注本主题" border="0" /></a>                    
                     </span>
@@ -76,16 +74,15 @@
               </logic:greaterThan>
                              
             <!-- for prototype window  -->
-            <span onmouseover="loadWLJS(initTooltipWL)">
-             <div  id="tooltip_content_<bean:write name="forumThread" property="threadId"/>" style="display:none">
+            
+             <div onmouseover="loadWLJSWithP(this, initTooltipWL)" id="tooltip_content_<bean:write name="forumThread" property="threadId"/>" style="display:none">
                <div class="tooltip_content">
                 <span class="tpc_content">
                  <bean:write name="forumThread" property="rootMessage.messageVO.shortBody[100]" />
                  </span>
                </div>
              </div>
-             </span>
-
+            
         </td>
         <td align="center">
             <bean:write name="forumThread" property="state.viewCount" />            
@@ -97,23 +94,23 @@
             &nbsp;
             <bean:define id="rootMessage" name="forumThread" property="rootMessage"></bean:define>
             <logic:notEmpty name="rootMessage"  property="account">
-            <span onmouseover="loadWLJS(initUsers)">            
+            
             <html:link page="/profile.jsp" paramId="user" paramName="rootMessage" paramProperty="account.username"
             target="_blank" >
             <span class='Users ajax_userId=<bean:write name="rootMessage" property="account.userId"/>' >
                 <b><bean:write name="rootMessage" property="account.username" /></b>            
             </span>
             </html:link>
-            </span>
+
              </logic:notEmpty>
 
             &nbsp;
         </td>
         <td nowrap="nowrap">
            <logic:notEmpty name="forumThread" property="state.lastPost">
-            <span onmouseover="loadWLJS(initLastPost)">
+            
             <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>
-            <span  class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >
+            <span onmouseover="loadWLJSWithP(this, initLastPost)" class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >
             <bean:write name="lastPost" property="modifiedDate" />
             </span>            
             <br> by:
@@ -125,7 +122,7 @@
             </logic:equal>
                     <span class='Users ajax_userId=<bean:write name="lastPost" property="account.userId"/>' >
                     <bean:write name="lastPost" property="account.username" /></span></a>
-           </span>                    
+                               
         </logic:notEmpty>
         <%-- 
            <span id="<bean:write name="forumThread" property="threadId" />"></span>

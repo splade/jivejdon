@@ -69,13 +69,13 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
  cellpadding="3" cellspacing="0" border="0" width="100%" align="center">
 <tr><td >
 
-<div class="tres" onmouseover="loadWLJS(nof)">         
+<div class="tres">         
 <MultiPagesREST:pager actionFormName="messageListForm" page="/thread" paramId="thread" paramName="forumThread" paramProperty="threadId">
 <MultiPagesREST:prev name="&#9668;" />
 <MultiPagesREST:index displayCount="3" />
 <MultiPagesREST:next  name="&#9658;" />
 </MultiPagesREST:pager>
-<a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go"><span class="pageGo">Go</span></a>
+<a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go"><span class="pageGo">Go</span></a>
 共有 <b><bean:write name="messageListForm" property="numReplies" /></b> 回复(<b><bean:write name="messageListForm" property="numPages" /></b>页) 
 阅读<bean:write name="forumThread" property="state.viewCount" />次 
 <logic:greaterThan name="forumThread" property="state.subscriptionCount" value="0">
@@ -129,16 +129,14 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
     <td >
     <table cellpadding="3" cellspacing="0" border="0" width="100%" height="30"  >
      <tr><td  align="center">
-     <span  onmouseover="loadWLJS(initTagsW)">
         <html:link page="/query/tagsList.shtml?count=150" target="_blank" title="标签"><html:img page="/images/tag_yellow.png" width="16" height="16" alt="标签" border="0"/></html:link>
         <logic:iterate id="threadTag" name="forumThread" property="tags" >
-         <span  class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
+         <span onmouseover="loadWLJSWithP(this, initTagsW)" class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
            <a href='<%=request.getContextPath() %>/tags/<bean:write name="threadTag" property="tagID"/>' target="_blank" class="post-tag">
              <bean:write name="threadTag" property="title" />(<bean:write name="threadTag" property="assonum" />)
              </a></span>
              &nbsp;&nbsp;&nbsp;&nbsp;
         </logic:iterate>
-      </span>
        </td></tr></table>
     </td>
 </tr>
@@ -160,7 +158,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 <td  align="right">
 <div class="tres">
 共有 <b><bean:write name="messageListForm" property="numReplies" /></b> 回复(<b><bean:write name="messageListForm" property="numPages" /></b>页) 
-<a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go">Go</a>   
+<a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go">Go</a>   
 <MultiPagesREST:pager actionFormName="messageListForm" page="/thread" paramId="thread" paramName="forumThread" paramProperty="threadId">
 <MultiPagesREST:prev name="&#9668;" />
 <MultiPagesREST:index displayCount="3" />
@@ -262,20 +260,7 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
       var count = <bean:write name="messageListForm" property="count" />;
       var allCount = <bean:write name="messageListForm" property="allCount" />
       document.onkeydown=leftRightgoPageREST;
-   
-      $$('.loadUsersJS').each(function(e){
-        Event.observe(e, 'mouseover', function(event){ 
-    	  loadWLJS(initUsersW, "<%=request.getContextPath()%>");
-    	  });
-       });
-       
-      $$('.loadTagsJS').each(function(e){
-        Event.observe(e, 'mouseover', function(event){ 
-    	  loadWLJS(initTagsW, "<%=request.getContextPath()%>");
-    	  });
-       });
-       
-  
+          
 </script>
 
  <%@ include file="./messageNotfier.jsp" %>

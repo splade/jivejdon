@@ -1344,6 +1344,13 @@ TooltipManager = {
     Windows.addObserver(this);
   },
   
+  showNow: function(element) {   
+    if (TooltipManager.showTimer) 
+      clearTimeout(TooltipManager.showTimer);
+    
+    TooltipManager.showTimer = setTimeout(function() {TooltipManager._showTooltip(element)}, TooltipManager.options.delayOver)           
+  },
+  
   addHTML: function(element, tooltipElement) {
     element = $(element);
     tooltipElement = $(tooltipElement);

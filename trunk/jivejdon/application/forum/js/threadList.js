@@ -1,3 +1,5 @@
+
+
 function lastPost(threadId, messageId){
    var pars = 'messageId=' +messageId ;
    new Ajax.Updater(threadId, contextpath + '/forum/lastPost.shtml', { method: 'get', parameters: pars });
@@ -95,24 +97,26 @@ function  splitLink(link) {
 }
 //pageShow end
 
-var initUsers = function(){
- TooltipManager.init('Users', 
-  {url: contextpath+"/account/accountProfile.shtml?winwidth=250", 
-   options: {method: 'get'}},
-   {className:"mac_os_x", width:260});
-}  
 
-var initLastPost = function(){
+var initTooltipWL = function (e){
+  TooltipManager.init("tooltip", {url: "", options: {method: 'get'}}, {showEffect: Element.show, hideEffect: Element.hide,className: "mac_os_x", width: 250, height: 100});
+  TooltipManager.showNow(e);   
+}
+  
+
+var initLastPost = function(e){
  TooltipManager.init('ThreadLastPost', 
   {url: contextpath+"/query/threadLastPostViewAction.shtml", 
    options: {method: 'get'}},
    {className:"mac_os_x", width:150});
+    TooltipManager.showNow(e);   
 }
 
-var initTags = function(){   
-    TooltipManager.init('Tags', 
-  {url: contextpath+"/query/tt.shtml?tablewidth=400&count=10", 
-   options: {method: 'get'}},
-   {className:"mac_os_x", width:400});  
 
+var initTagsW = function (e){          
+ TooltipManager.init('Tags', 
+  {url: getContextPath() +'/query/tt.shtml?tablewidth=300&count=20', 
+   options: {method: 'get'}},
+   {className:"mac_os_x", width:300});   
+ TooltipManager.showNow(e);   
 }
