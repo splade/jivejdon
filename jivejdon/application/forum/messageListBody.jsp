@@ -15,9 +15,8 @@
         <tr><td>
           <logic:notEmpty name="forumMessage" property="account">
 
-          <span class="loadUsersJS">          
           <html:link page="/profile.jsp" paramId="user" paramName="forumMessage" paramProperty="account.username">
-            <span  class='Users ajax_userId=<bean:write name="forumMessage" property="account.userId"/>' id="users" >                      
+            <span onmouseover="loadWLJSWithP(this, initUsersW)"  class='Users ajax_userId=<bean:write name="forumMessage" property="account.userId"/>' id="users" >                      
               <b> <span  id='author_<bean:write name="forumMessage" property="messageId"/>'>
               <bean:write name="forumMessage" property="account.username" /></span></b>                       
           <br><br/>
@@ -27,7 +26,6 @@
            </span>           
 		  <br/>个人详介按这里<br/>
           </html:link>	
-          </span>
           	  
            <html:link page="/query/threadViewQuery.shtml?queryType=userMessageQueryAction" paramId="user" paramName="forumMessage" paramProperty="account.userId" target="_blank">
            <span class="smallgray"> 发表文章:
@@ -136,14 +134,12 @@
     <logic:equal name="i" value="0"> 
      <tr bgcolor="<%=bgcolor%>"> 
         <td colspan="3">
-        <span  onmouseover="loadWLJS(initTagsW)">
         <html:link page="/query/tagsList.shtml?count=150" target="_blank" title="标签"><html:img page="/images/tag_yellow.png" width="16" height="16" alt="标签" border="0"/></html:link>
         <logic:iterate id="threadTag" name="forumThread" property="tags" >
-           <span  class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
+           <span  onmouseover="loadWLJSWithP(this, initTagsW)" class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
            <a href='<%=request.getContextPath() %>/tags/<bean:write name="threadTag" property="tagID"/>' target="_blank" class="post-tag">
              <bean:write name="threadTag" property="title" />
            </a>
-              </span>
              &nbsp;&nbsp;&nbsp;&nbsp;
         </logic:iterate>
          </span>

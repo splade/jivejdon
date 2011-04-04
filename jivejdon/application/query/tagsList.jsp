@@ -26,7 +26,7 @@
 <table cellpadding="3" cellspacing="0" border="0" width="100%">
 <tr>
     <td class="smallgray" align="center">
-<div class="tres" onmouseover="loadWLJS(nof)">        
+<div class="tres" >        
     <%-- request.setAttribute("paramMaps", qForm.getParamMaps());  in ThreadQueryAction --%>    
     共有<b><bean:write name="tagsListForm" property="allCount"/></b>标签 
 <MultiPages:pager actionFormName="tagsListForm" page="/query/tagsList.shtml"  >
@@ -34,7 +34,7 @@
 <MultiPages:index displayCount="3" />
 <MultiPages:next  name="&#9658;" />
 </MultiPages:pager>
-<a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go">Go</a>
+<a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go">Go</a>
 
 <div id="tooltip_content_go"  style="display:none">
 <div class="tooltip_content">
@@ -55,11 +55,12 @@
 
 <script>
 
-var initTagsW = function (){          
+var initTagsW = function (e){          
  TooltipManager.init('Tags', 
   {url: getContextPath() +'/query/tt.shtml?tablewidth=300&count=20', 
    options: {method: 'get'}},
    {className:"mac_os_x", width:300});   
+TooltipManager.showNow(e);   
 }
 
 </script>
@@ -67,12 +68,11 @@ var initTagsW = function (){
 <tr><td></td><td>包含主题数</td><td>关注</td></tr>
 <logic:iterate id="threadTag" name="tagsListForm" property="list" >
 <tr><td>
-   <span  onmouseover="loadWLJS(initTagsW)">
-  <span  class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
+  <span onmouseover="loadWLJSWithP(this, initTagsW)" class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
     <a href='<%=request.getContextPath() %>/tags/<bean:write name="threadTag" property="tagID"/>' target="_blank" class="post-tag">
              <span class="big18"><bean:write name="threadTag" property="title" /></span>      
     </a>
-   </span></span>
+   </span>
      
    &nbsp;&nbsp;&nbsp;&nbsp;
    </td>
@@ -102,10 +102,10 @@ var initTagsW = function (){
 <table cellpadding="3" cellspacing="0" border="0" width="100%">
 <tr>
     <td class="smallgray" align="center">
-<div class="tres" onmouseover="loadWLJS(nof)">        
+<div class="tres">        
     共有<b><bean:write name="tagsListForm" property="allCount"/></b>标签  
 <MultiPages:pager actionFormName="tagsListForm" page="/query/tagsList.shtml"  >
-<a href="JavaScript:void(0);" class="tooltip html_tooltip_content_go">Go</a>
+<a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go">Go</a>
 <MultiPages:prev name="&#9668;" />
 <MultiPages:index displayCount="3" />
 <MultiPages:next  name="&#9658;" />

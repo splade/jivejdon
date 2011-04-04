@@ -28,9 +28,6 @@ function loadWLJS(myfunc){
      $LAB
      .script(getContextPath() + '/common/js/window_def.js').wait()
      .wait(function(){
-          initTooltipWL();          
-     })     
-     .wait(function(){
           myfunc();          
      })    
   }else
@@ -44,9 +41,6 @@ function loadWLJSWithP(param,myfunc){
   if (typeof(TooltipManager) == 'undefined') {     
      $LAB
      .script(getContextPath() + '/common/js/window_def.js').wait()
-     .wait(function(){
-          initTooltipWL();          
-     }).wait()
      .wait(function(){
           myfunc(param);          
      })    

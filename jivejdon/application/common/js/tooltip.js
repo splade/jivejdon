@@ -222,4 +222,22 @@ TooltipManager = {
     return id ? {ajax: ajax, id: id} : null;
   }
   
+  showNow: function(element, ajaxInfo, tooltipOptions) {
+    TooltipManager.options = Object.extend(TooltipManager.options, tooltipOptions || {});    
+    TooltipManager.ajaxInfo = ajaxInfo;
+      var info = TooltipManager._getInfo(element);
+      if (info.ajax) {
+        element.ajaxId = info.id;
+        element.ajaxInfo = ajaxInfo;
+      }
+      else {
+        element.tooltipElement = $(info.id);
+      }
+   if (TooltipManager.showTimer) 
+      clearTimeout(TooltipManager.showTimer);
+    
+    TooltipManager.showTimer = setTimeout(function() {TooltipManager._showTooltip(element)}, TooltipManager.options.delayOver);
+       
+    Windows.addObserver(this);
+  },
 };

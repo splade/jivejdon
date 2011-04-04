@@ -11,24 +11,26 @@ function loadPrototypeJS(myfunc){
 }
 
 
-
+//initTooltipWL in login.js
 var initTooltipW = function (){
   TooltipManager.init("tooltip", {url: "", options: {method: 'get'}}, {showEffect: Element.show, hideEffect: Element.hide,className: "mac_os_x", width: 250, height: 100});   
 }
 
-
-var initUsersW = function (){
+var initUsersW = function (e){
  TooltipManager.init('Users', 
   {url: getContextPath() +'/account/accountProfile.shtml?winwidth=250', 
    options: {method: 'get'}},
-   {className:"mac_os_x", width:260});   
+   {className:"mac_os_x", width:260});     
+ TooltipManager.showNow(e);
 }
 
-var initTagsW = function (){          
+
+var initTagsW = function (e){          
  TooltipManager.init('Tags', 
   {url: getContextPath() +'/query/tt.shtml?tablewidth=300&count=20', 
    options: {method: 'get'}},
    {className:"mac_os_x", width:300});   
+ TooltipManager.showNow(e);   
 }
 
  //loadWLJS(qtCode) 
