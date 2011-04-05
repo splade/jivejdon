@@ -180,7 +180,10 @@ public class Account {
 	public int getMessageCount() {
 		if (isAnonymous())
 			return 0;
-		return accountMessageVO.getMessageCount(domainEvent);
+		if (domainEvent != null)
+			return accountMessageVO.getMessageCount(domainEvent);
+		else
+			return 0;
 	}
 
 	/**
