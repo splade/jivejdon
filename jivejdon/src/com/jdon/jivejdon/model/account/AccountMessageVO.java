@@ -33,12 +33,16 @@ public class AccountMessageVO {
 	}
 
 	public int getMessageCount(DomainEvents domainEvents) {
-		if (messageCount == -1) {
-			if (messageCountAsyncResult == null) {
-				messageCountAsyncResult = domainEvents.computeAccountMessageCount(account.getUserIdLong());
-			} else {
-				messageCount = (Integer) messageCountAsyncResult.getEventResult();
+		try {
+			if (messageCount == -1) {
+				if (messageCountAsyncResult == null && domainEvents != null) {
+					messageCountAsyncResult = domainEvents.computeAccountMessageCount(account.getUserIdLong());
+				} else {
+					messageCount = (Integer) messageCountAsyncResult.getEventResult();
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return messageCount;
 	}
