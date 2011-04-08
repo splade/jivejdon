@@ -281,6 +281,10 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
 <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
 <!-- JiaThis Button END -->
 
+<div style="display:none">
+<A href="http://www.alexa.com/siteinfo/www.jdon.com"><SCRIPT type='text/javascript' language='JavaScript' src='http://xslt.alexa.com/site_stats/js/s/a?url=www.jdon.com'></SCRIPT></A>
+</div>
+
 <%@include file="footer.jsp"%> 
 
 

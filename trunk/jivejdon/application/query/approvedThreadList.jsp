@@ -2,10 +2,6 @@
 <%@ taglib uri="struts-bean" prefix="bean" %>
 <%@ taglib uri="struts-html" prefix="html" %>
 
-<%  
-   if (!com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(4 * 60 * 60, request, response))
-	   return;
-%>  
 
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!-- /query/threadApprovedNewList.shtml -->

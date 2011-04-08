@@ -3,9 +3,6 @@
 <%@ taglib uri="struts-html" prefix="html" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
-  
-<% com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(5 * 24 * 60 * 60, request, response);
-%>
 <html>
 <head>
 

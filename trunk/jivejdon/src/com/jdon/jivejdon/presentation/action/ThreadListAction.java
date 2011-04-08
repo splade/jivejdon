@@ -26,6 +26,7 @@ import com.jdon.jivejdon.model.Forum;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.query.ResultSort;
 import com.jdon.jivejdon.model.query.specification.ThreadListSpec;
+import com.jdon.jivejdon.presentation.action.util.ForumEtagFilterList;
 import com.jdon.jivejdon.service.ForumMessageQueryService;
 import com.jdon.jivejdon.service.ForumMessageService;
 import com.jdon.jivejdon.service.ForumService;
@@ -37,7 +38,7 @@ import com.jdon.util.UtilValidate;
  * @author <a href="mailto:banq@163.com">banq</a>
  * 
  */
-public class ThreadListAction extends ForumEtagFilter {
+public class ThreadListAction extends ForumEtagFilterList {
 	private final static String module = ThreadListAction.class.getName();
 
 	/*

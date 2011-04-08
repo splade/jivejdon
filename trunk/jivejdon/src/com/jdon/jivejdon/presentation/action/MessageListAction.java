@@ -24,6 +24,7 @@ import com.jdon.controller.WebAppUtil;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumThread;
+import com.jdon.jivejdon.presentation.action.util.ThreadEtagFilter;
 import com.jdon.jivejdon.presentation.form.MessageListForm;
 import com.jdon.jivejdon.service.AccountService;
 import com.jdon.jivejdon.service.ForumMessageQueryService;
