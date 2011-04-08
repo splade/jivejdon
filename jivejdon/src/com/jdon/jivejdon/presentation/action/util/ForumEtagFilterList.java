@@ -13,7 +13,7 @@
  * limitations under the License.
  * 
  */
-package com.jdon.jivejdon.presentation.action;
+package com.jdon.jivejdon.presentation.action.util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,52 +23,48 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.jdon.controller.WebAppUtil;
-import com.jdon.jivejdon.model.ForumThread;
-import com.jdon.jivejdon.service.ForumMessageService;
+import com.jdon.jivejdon.model.Forum;
+import com.jdon.jivejdon.model.ForumMessage;
+import com.jdon.jivejdon.service.ForumService;
 import com.jdon.jivejdon.util.ToolsUtil;
 import com.jdon.strutsutil.ModelListAction;
 import com.jdon.util.UtilValidate;
 
-public abstract class ThreadEtagFilter extends ModelListAction {
+/**
+ * ThreadPopularAction extends ForumEtagFilterList
+ * 
+ * @author banq
+ * 
+ */
+public abstract class ForumEtagFilterList extends ModelListAction {
 	public final static String NEWLASMESSAGE = "NEWLASMESSAGE";
 
 	public ActionForward execute(ActionMapping actionMapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		ForumService forumService = (ForumService) WebAppUtil.getService("forumService", request);
+		String forumId = request.getParameter("forum");
+		if (forumId == null)
+			forumId = request.getParameter("forumId");
+
+		ForumMessage lastpost = null;
+		if ((forumId == null) || !UtilValidate.isInteger(forumId)) {
+			lastpost = ForumUtil.getForumsLastModifiedDate(request);
+		} else {
+			Forum forum = forumService.getForum(new Long(forumId));
+			if (forum == null)
+				return super.execute(actionMapping, actionForm, request, response);
+			lastpost = forum.getForumState().getLastPost();
+		}
+		if (lastpost == null)
+			return super.execute(actionMapping, actionForm, request, response);
 
 		long expire = 10 * 60;
-		if (request.getParameter("nocache") != null) { // for just modified and
-			// view it
-			expire = 0;
-			return super.execute(actionMapping, actionForm, request, response);
-		}
-
-		String threadId = request.getParameter("thread");
-		if ((threadId == null) || (!UtilValidate.isInteger(threadId))) {
-			throw new Exception("thread is null " + threadId);
-		}
-
-		ForumMessageService forumMessageService = (ForumMessageService) WebAppUtil.getService("forumMessageService", request);
-		ForumThread forumThread = forumMessageService.getThread(new Long(threadId));
-		if (forumThread == null)
-			throw new Exception("thread is null " + threadId);
-
-		long modelLastModifiedDate = forumThread.getState().getModifiedDate2();
-		String previousToken = request.getHeader("If-None-Match");
-
-		// // expireFilter not effects jivejdon/thread/xxxx
+		long modelLastModifiedDate = lastpost.getModifiedDate2();
 		if (!ToolsUtil.checkHeaderCache(expire, modelLastModifiedDate, request, response)) {
-			return null;// response is 304
+			return null;
 		}
-		// else { // newLastMessageNotfier.jsp
-		// if (previousToken != null && Long.parseLong(previousToken) <
-		// modelLastModifiedDate) {
-		// request.setAttribute(NEWLASMESSAGE,
-		// forumThread.getState().getLastPost());
-		// response.setStatus(HttpServletResponse.SC_OK);
-		// }
-		// }
-
 		return super.execute(actionMapping, actionForm, request, response);
+
 	}
 
 }

@@ -20,13 +20,14 @@ import javax.servlet.http.HttpServletRequest;
 import com.jdon.controller.WebAppUtil;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.model.Forum;
+import com.jdon.jivejdon.presentation.action.util.ForumEtagFilterList;
 import com.jdon.jivejdon.service.ForumService;
 
 /**
  * @author <a href="mailto:banq@163.com">banq</a>
  * 
  */
-public class ForumListAction extends ForumEtagFilter {
+public class ForumListAction extends ForumEtagFilterList {
 
 	/*
 	 * (non-Javadoc)

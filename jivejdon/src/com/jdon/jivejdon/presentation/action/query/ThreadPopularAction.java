@@ -5,9 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import com.jdon.controller.WebAppUtil;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.model.ForumThread;
+import com.jdon.jivejdon.presentation.action.util.ForumEtagFilterList;
 import com.jdon.jivejdon.service.ForumMessageQueryService;
 import com.jdon.jivejdon.service.ForumMessageService;
-import com.jdon.strutsutil.ModelListAction;
 import com.jdon.util.Debug;
 
 /**
@@ -21,7 +21,7 @@ import com.jdon.util.Debug;
  * @author banq
  * 
  */
-public class ThreadPopularAction extends ModelListAction {
+public class ThreadPopularAction extends ForumEtagFilterList {
 
 	private final static String module = ThreadPopularAction.class.getName();
 
