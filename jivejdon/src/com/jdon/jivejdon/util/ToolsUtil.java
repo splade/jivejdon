@@ -368,7 +368,7 @@ public class ToolsUtil {
 
 	// com.jdon.jivejdon.presentation.filter.ExpiresFilter
 	// but urlrewiter not work for ExpiresFilter.
-	public static boolean setHeaderCache(long adddays, HttpServletRequest request, HttpServletResponse response) {
+	public static boolean setHeaderCache(int adddays, HttpServletRequest request, HttpServletResponse response) {
 		// com.jdon.jivejdon.presentation.filter.ExpiresFilter
 		request.setAttribute("myExpire", adddays);
 
@@ -386,7 +386,7 @@ public class ToolsUtil {
 		return true;
 	}
 
-	public static boolean checkHeaderCache(long adddays, long modelLastModifiedDate, HttpServletRequest request, HttpServletResponse response) {
+	public static boolean checkHeaderCache(int adddays, long modelLastModifiedDate, HttpServletRequest request, HttpServletResponse response) {
 		// com.jdon.jivejdon.presentation.filter.ExpiresFilter
 		request.setAttribute("myExpire", adddays);
 

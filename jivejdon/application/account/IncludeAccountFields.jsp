@@ -28,6 +28,7 @@ function Juge(theForm)
      theForm.username.focus();
      return (false);
   }
+     
   if (theForm.password.value != theForm.password2.value)
   {
      alert("两次密码不一致！");
@@ -59,34 +60,34 @@ function Juge(theForm)
  <table border="0" cellpadding="3" cellspacing="0"  >
                  <tr>
                      <th align="right">用户名:</th>
-                     <td align="left"><html:text property="username" />
+                     <td align="left"><html:text property="username" maxlength="12" />
                       <span class="small2">(英文字符或数字)</span>
                      </td>
   
                 </tr>
                  <tr>
                      <th align="right">密码:</th>
-                     <td align="left"><input type="password" name="password" value=""/></td>
+                     <td align="left"><input type="password" name="password" value="" maxlength="30"/></td>
                  </tr>
                  <tr>
                      <th align="right">确认密码:</th>
-                     <td align="left"><input type="password" name="password2" value=""/></td>
+                     <td align="left"><input type="password" name="password2" value="" maxlength="30"/></td>
                  </tr>
   
 
                  <tr>
                      <th align="right">密码问题:</th>
-                     <td align="left"><html:text property="passwdtype" /></td>
+                     <td align="left"><html:text property="passwdtype" maxlength="30"/></td>
                  </tr>
                  <tr>
                      <th align="right">密码答案:</th>
-                     <td align="left"><html:text property="passwdanswer" /></td>
+                     <td align="left"><html:text property="passwdanswer" maxlength="30"/></td>
                  </tr>
   
                 <tr>
                     <th align="right">Email:
                     </th>
-                    <td align="left"><html:text property="email" />
+                    <td align="left"><html:text property="email" maxlength="20"/>
                     <html:checkbox property="emailVisible"  ><span class="small2">公开</span></html:checkbox>
                     <br>* 忘记密码通过该信箱获得
                     </td>

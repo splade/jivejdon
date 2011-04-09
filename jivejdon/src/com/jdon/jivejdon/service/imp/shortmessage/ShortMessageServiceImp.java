@@ -15,6 +15,8 @@
  */
 package com.jdon.jivejdon.service.imp.shortmessage;
 
+import java.util.Map;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 
@@ -293,9 +295,16 @@ public class ShortMessageServiceImp implements ShortMessageService, MessageListe
 	}
 
 	public void action(DomainMessage eventMessage) {
-		Account account = (Account) eventMessage.getEventSource();
-		int count = checkReceiveShortMessages(account);
-		eventMessage.setEventResult(Integer.valueOf(count));
+		Map commandReqs = (Map) eventMessage.getEventSource();
+		if (commandReqs.get("name").equals("loadNewShortMessageCount")) {
+			Account account = (Account) commandReqs.get("value");
+			int count = checkReceiveShortMessages(account);
+			eventMessage.setEventResult(Integer.valueOf(count));
+		} else if (commandReqs.get("name").equals("sendShortMessage")) {
+			Account account = (Account) commandReqs.get("from");
+			String toUsername = (String) commandReqs.get("to");
+
+		}
 	}
 
 	public int checkReceiveShortMessages() {
