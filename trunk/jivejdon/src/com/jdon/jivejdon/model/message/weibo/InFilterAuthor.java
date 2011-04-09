@@ -17,7 +17,7 @@ package com.jdon.jivejdon.model.message.weibo;
 
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.message.MessageRenderSpecification;
-import com.jdon.jivejdon.model.message.MessageVO;
+import com.jdon.jivejdon.model.message.output.weibo.AuthorNameFormat;
 import com.jdon.jivejdon.model.message.props.InFilterPosterIP;
 import com.jdon.util.Debug;
 
@@ -27,39 +27,31 @@ import com.jdon.util.Debug;
  * @banq , then send a short message to banq
  * 
  * @author banq
+ * @see AuthorNameFormat
  * 
  */
 
 public class InFilterAuthor implements MessageRenderSpecification {
 	private final static String module = InFilterPosterIP.class.getName();
 
-	public final static String PRE_AUTHOR = "@";
+	private AuthorNameFilter authorNameFilter;
+
+	public InFilterAuthor() {
+		this.authorNameFilter = new AuthorNameFilter();
+	}
 
 	public ForumMessage render(ForumMessage message) {
 		try {
-			String username = getUsernameFromBody(message);
+			String username = authorNameFilter.getUsernameFromBody(message);
 			if (username == null)
 				return message;
 
 			if (message.getDomainEvents() != null)
-				message.getDomainEvents().sendShortMessage(message.getAccount(), username);
+				message.getDomainEvents().sendShortMessage(message, username);
 		} catch (Exception e) {
 			Debug.logError("" + e, module);
 		}
 		return message;
-	}
-
-	public String getUsernameFromBody(ForumMessage message) {
-		MessageVO messageVO = message.getMessageVO();
-		if (messageVO.getBody().indexOf(PRE_AUTHOR) == -1)
-			return null;
-
-		String buff2 = messageVO.getBody();
-		String buff = buff2.substring(buff2.indexOf("@"), buff2.length() > 12 ? 12 : buff2.length());
-		String[] as = buff.split("(?i)[^a-zA-Z0-9\u4E00-\u9FA5]");
-		if (as.length < 2)
-			return null;
-		return as[1];
 	}
 
 }

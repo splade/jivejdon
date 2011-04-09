@@ -171,10 +171,10 @@ public class DomainEvents {
 	}
 
 	@Send("shortMessageService")
-	public DomainMessage sendShortMessage(Account account, String toUsername) {
+	public DomainMessage sendShortMessage(ForumMessage message, String toUsername) {
 		Map commandReqs = new HashMap();
 		commandReqs.put("name", "sendShortMessage");
-		commandReqs.put("from", account);
+		commandReqs.put("message", message);
 		commandReqs.put("to", toUsername);
 		return new DomainMessage(commandReqs);
 	}

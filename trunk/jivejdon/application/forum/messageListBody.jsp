@@ -17,8 +17,7 @@
 
           <html:link page="/profile.jsp" paramId="user" paramName="forumMessage" paramProperty="account.username">
             <span onmouseover="loadWLJSWithP(this, initUsersW)"  class='Users ajax_userId=<bean:write name="forumMessage" property="account.userId"/>' id="users" >                      
-              <b> <span  id='author_<bean:write name="forumMessage" property="messageId"/>'>
-              <bean:write name="forumMessage" property="account.username" /></span></b>                       
+              <b> <span  id='author_<bean:write name="forumMessage" property="messageId"/>'><bean:write name="forumMessage" property="account.username" /></span></b>                       
           <br><br/>
            <logic:notEmpty name="forumMessage" property="account.uploadFile">
             <img  src="<%=request.getContextPath() %>/img/uploadShowAction.shtml?oid=<bean:write name="forumMessage" property="account.userId"/>&id=<bean:write name="forumMessage" property="account.uploadFile.id"/>"  border='0' />
