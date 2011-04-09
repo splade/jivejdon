@@ -30,6 +30,7 @@ import com.jdon.domain.message.DomainMessage;
 import com.jdon.domain.message.MessageListener;
 import com.jdon.jivejdon.manager.shortmessage.ShortMessageFactory;
 import com.jdon.jivejdon.model.Account;
+import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.FromShortMessage;
 import com.jdon.jivejdon.model.ShortMessage;
 import com.jdon.jivejdon.model.ToShortMessage;
@@ -295,15 +296,22 @@ public class ShortMessageServiceImp implements ShortMessageService, MessageListe
 	}
 
 	public void action(DomainMessage eventMessage) {
-		Map commandReqs = (Map) eventMessage.getEventSource();
-		if (commandReqs.get("name").equals("loadNewShortMessageCount")) {
-			Account account = (Account) commandReqs.get("value");
-			int count = checkReceiveShortMessages(account);
-			eventMessage.setEventResult(Integer.valueOf(count));
-		} else if (commandReqs.get("name").equals("sendShortMessage")) {
-			Account account = (Account) commandReqs.get("from");
-			String toUsername = (String) commandReqs.get("to");
+		try {
+			Map commandReqs = (Map) eventMessage.getEventSource();
+			if (commandReqs.get("name").equals("loadNewShortMessageCount")) {
+				Account account = (Account) commandReqs.get("value");
+				int count = checkReceiveShortMessages(account);
+				eventMessage.setEventResult(Integer.valueOf(count));
+			} else if (commandReqs.get("name").equals("sendShortMessage")) {
+				ForumMessage message = (ForumMessage) commandReqs.get("message");
+				String toUsername = (String) commandReqs.get("to");
+				if (userIsExists(toUsername) == null)
+					return;
+				factory.createWeiBoShortMessage(message, toUsername);
 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

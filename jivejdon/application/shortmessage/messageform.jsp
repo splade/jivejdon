@@ -34,8 +34,8 @@
 		<tr>
 			<td align="right">发往 <br>
 			</td>
-			<td><html:text property="messageTo" size="40" maxlength="75"
-				tabindex="99" styleId="messageTo"></html:text> <br>
+			<td><html:text property="messageTo" size="12" maxlength="12"
+				tabindex="99" styleId="messageTo"></html:text>(用户名，也可在贴中用“@用户名 (空格)”通知它) <br>
 			</td>
 		</tr>
 		<tr>

@@ -160,7 +160,7 @@ var replyW;
    	 $('formBody').setAttribute("cols", "63");
    	 $('formBody').setAttribute("rows", "14");
    	 
-     $('formBody').value="[quote author="+$("author_" + pmessageId).innerHTML+" date="+$("creationDate_" + pmessageId).innerHTML+"]"+ quotetexts +"[/quote]";
+     $('formBody').value="[quote author=@"+$("author_" + pmessageId).innerHTML+" date="+$("creationDate_" + pmessageId).innerHTML+"]"+ quotetexts +"[/quote]";
    	 var regExNewLine = /<br>/g;
    	 $('formBody').value = $('formBody').value.replace(regExNewLine, "\n");
    	 var regEx = /<[^>]*>/g; 

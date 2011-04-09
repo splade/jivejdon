@@ -214,7 +214,8 @@ password:admin
 9 UploadFileFilter UploadFileFilter 
 10 bodymasking
 11 hotkeys
-12 QuoteRegexFilter
+12 AuthorNameFormat
+13 QuoteRegexFilter
 note: 
 1.由于本体系统防止Spam,请将你的域名或IP加入web.xml的如下配置，否则IP会被禁止，可进入
   数据库，删除setup表中的IP字段：

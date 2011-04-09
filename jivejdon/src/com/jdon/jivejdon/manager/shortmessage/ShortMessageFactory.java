@@ -23,6 +23,7 @@ import com.jdon.annotation.Component;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.model.Account;
+import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ShortMessage;
 import com.jdon.jivejdon.model.ShortMessageState;
 import com.jdon.jivejdon.repository.AccountFactory;
@@ -56,12 +57,15 @@ public class ShortMessageFactory implements Observer {
 
 	protected final AccountFactory accountFactory;
 
+	protected final WeiBoShortMessageParams weiBoShortMessageParams;
+
 	public ShortMessageFactory(ShortMessageDao shortMessageDao, SequenceDao sequenceDao, ShortMessageRepository repository,
-			AccountFactory accountFactory) {
+			AccountFactory accountFactory, WeiBoShortMessageParams weiBoShortMessageParams) {
 		this.shortMessageDao = shortMessageDao;
 		this.sequenceDao = sequenceDao;
 		this.repository = repository;
 		this.accountFactory = accountFactory;
+		this.weiBoShortMessageParams = weiBoShortMessageParams;
 	}
 
 	public boolean sendShortMessage(ShortMessage msg) throws Exception {
@@ -145,6 +149,22 @@ public class ShortMessageFactory implements Observer {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void createWeiBoShortMessage(ForumMessage message, String toUsername) {
+		try {
+			ShortMessage msg = new ShortMessage();
+			msg.setAccount(message.getAccount());
+			msg.setMessageFrom(message.getAccount().getUsername());
+			msg.setMessageTo(toUsername);
+			msg.setMessageTitle(weiBoShortMessageParams.getSubject());
+			msg.setMessageBody(weiBoShortMessageParams.getBody(message));
+			this.sendShortMessage(msg);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }
