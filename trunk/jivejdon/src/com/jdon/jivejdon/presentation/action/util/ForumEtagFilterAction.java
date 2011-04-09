@@ -62,7 +62,7 @@ public class ForumEtagFilterAction extends Action {
 		}
 		if (lastpost == null)
 			return actionMapping.findForward("success");
-		long expire = 10 * 60;
+		int expire = 10 * 60;
 		long modelLastModifiedDate = lastpost.getModifiedDate2();
 		if (!ToolsUtil.checkHeaderCache(expire, modelLastModifiedDate, request, response)) {
 			return null;

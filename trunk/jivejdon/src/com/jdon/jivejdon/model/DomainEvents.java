@@ -15,6 +15,9 @@
  */
 package com.jdon.jivejdon.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 
 import com.jdon.annotation.Introduce;
@@ -161,7 +164,19 @@ public class DomainEvents {
 
 	@Send("shortMessageService")
 	public DomainMessage loadNewShortMessageCount(Account account) {
-		return new DomainMessage(account);
+		Map commandReqs = new HashMap();
+		commandReqs.put("name", "loadNewShortMessageCount");
+		commandReqs.put("value", account);
+		return new DomainMessage(commandReqs);
+	}
+
+	@Send("shortMessageService")
+	public DomainMessage sendShortMessage(Account account, String toUsername) {
+		Map commandReqs = new HashMap();
+		commandReqs.put("name", "sendShortMessage");
+		commandReqs.put("from", account);
+		commandReqs.put("to", toUsername);
+		return new DomainMessage(commandReqs);
 	}
 
 }
