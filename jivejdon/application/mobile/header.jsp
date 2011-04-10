@@ -2,7 +2,7 @@
  <%@ taglib uri="struts-logic" prefix="logic" %>
  <%@ taglib uri="struts-bean" prefix="bean" %>
  <%
-	long adddays =  4 * 60 * 60 * 1000;  
+	int adddays =  4 * 60 * 60 * 1000;  
     com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(adddays, request, response);
 %>
 

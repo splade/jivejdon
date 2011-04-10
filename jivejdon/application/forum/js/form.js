@@ -69,10 +69,16 @@ var uploadW;
    
   function myalert(errorM){
         if (errorM == null) return;
-        infoDiagClose();
-        Dialog.alert(errorM, 
-                {windowParameters: {className: "mac_os_x", width:250, height:200}, okLabel: "   确定  "});
+        alert(errorM);
+        //loadWLJSWithP(errorM, myalertD);
   }
+  
+var myalertD=function(errorM){
+    Dialog.closeInfo();    
+    Dialog.alert(errorM,
+               {width:260, height:150, okLabel: " 确定 "});
+}  
+  
   
     
 
@@ -106,11 +112,11 @@ var uploadW;
 
   var formSubmitcheck = new Boolean(false);   
   var submitting = false; 
-  function checkPost(theForm) {      
+  function checkPost(theForm) {             
      if (!submitting)    
         submitting = true;
      else
-        return;
+        return false;
            
       copyToClipboard($('formBody'));
       closeCopy();
@@ -126,11 +132,13 @@ var uploadW;
            if ((theForm.body.value.length  < bodyMaxLength)){
                   formSubmitcheck = new Boolean(true);
            }else{                   
-                 myalert('请发言内容长度必须小于 ' + bodyMaxLength);                  
+                 myalert('请发言内容长度必须小于 ' + bodyMaxLength);
+                 return false;                  
            }         
       }else{
            myalert("请输入发言标题和发言内容！");
-           window.location.reload();          
+           window.location.reload();       
+           return false;   
       }
       
       return formSubmitcheck;      

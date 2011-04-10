@@ -425,7 +425,7 @@ public class ToolsUtil {
 		response.setHeader("ETag", Long.toString(modelLastModifiedDate));
 	}
 
-	public static boolean setRespHeaderCache(long adddays, HttpServletRequest request, HttpServletResponse response) {
+	public static boolean setRespHeaderCache(int adddays, HttpServletRequest request, HttpServletResponse response) {
 		request.setAttribute("myExpire", adddays);
 
 		long adddaysM = adddays * 1000;

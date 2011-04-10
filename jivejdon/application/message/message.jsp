@@ -65,7 +65,7 @@
 
 <script>
 function loadPostjs(){
-  if (typeof(openReplyWindow) == 'undefined') {
+  if (typeof(openInfoDiag) == 'undefined') {
     $LAB
      .script('<html:rewrite page="/message/js/messageEdit.js"/>').wait()
      .wait(function(){
