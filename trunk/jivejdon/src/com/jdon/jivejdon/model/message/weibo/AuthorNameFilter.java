@@ -28,6 +28,9 @@ public class AuthorNameFilter {
 			if (messageVO.getBody().indexOf(PRE_AUTHOR) == -1)
 				return null;
 
+			if (messageVO.getBody().indexOf("[author]") != -1)
+				return null;
+
 			String body = messageVO.getBody();
 			String buff = body.substring(body.indexOf(PRE_AUTHOR));
 			String[] as = buff.split("(?i)[^a-zA-Z0-9\u4E00-\u9FA5]");
