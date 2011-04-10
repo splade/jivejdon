@@ -88,7 +88,7 @@ var replyW;
   }
   
   function replySubConvert(replyV){         
-  	     var found = replyV.search(/回复:/g);     	 
+  	     var found = replyV.search(/@/g);     	 
     	 if (found != -1){
     	     replyV = doReply(replyV);  
     	     $('replySubject').value = replyV;

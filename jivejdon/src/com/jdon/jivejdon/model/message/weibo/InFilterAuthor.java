@@ -34,14 +34,9 @@ import com.jdon.util.Debug;
 public class InFilterAuthor implements MessageRenderSpecification {
 	private final static String module = InFilterPosterIP.class.getName();
 
-	private AuthorNameFilter authorNameFilter;
-
-	public InFilterAuthor() {
-		this.authorNameFilter = new AuthorNameFilter();
-	}
-
 	public ForumMessage render(ForumMessage message) {
 		try {
+			AuthorNameFilter authorNameFilter = new AuthorNameFilter();
 			String username = authorNameFilter.getUsernameFromBody(message);
 			if (username == null)
 				return message;
