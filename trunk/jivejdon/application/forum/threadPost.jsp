@@ -59,7 +59,7 @@ function shoForumResponse(transport){
 
 <script>
 function loadPostjs(){
-  if (typeof(openReplyWindow) == 'undefined') {
+  if (typeof(openInfoDiag) == 'undefined') {
      $LAB
      .script('<html:rewrite page="/forum/js/threadPost.js"/>').wait()
      .wait(function(){

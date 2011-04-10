@@ -28,7 +28,7 @@
 <script type="text/javascript">
 <!--
 var loadformjs = function(){
-  if (typeof(openUploadWindow) == 'undefined') {
+  if (typeof(checkPost) == 'undefined') {
    $LAB
    .script('<html:rewrite page="/forum/js/form.js"/>').wait()
    .wait(function(){
