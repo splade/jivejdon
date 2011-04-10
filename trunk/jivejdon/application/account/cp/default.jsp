@@ -23,7 +23,7 @@
 	  
 	  <div class="box_mode_2"> 
 	     <div class="title"> 
-		    <div class="title_left"><a href="javascript:loadcontent_reply();">更多作者回复 >></a></div> 		   
+		    <div class="title_left"><a href="javascript:loadcontent_reply();">更多论坛讨论贴 >></a></div> 		   
 		 </div> 
 		 <div class="content"> 	 
              <div class="b_content_title2">
