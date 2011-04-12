@@ -23,6 +23,7 @@ import com.jdon.annotation.Model;
 public class Notification {
 
 	private long id;
+	private long sourceId;
 	private Object source;
 	private String content;
 	private Date createDate;
@@ -39,12 +40,20 @@ public class Notification {
 		this.id = this.hashCode() + createDate.getTime();
 
 		//
-		this.scopeSeconds = 540;
+		this.scopeSeconds = 60;
 		setScopeSeconds(scopeSeconds);
 	}
 
 	public long getId() {
 		return id;
+	}
+
+	public long getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(long sourceId) {
+		this.sourceId = sourceId;
 	}
 
 	public String getContent() {
