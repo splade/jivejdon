@@ -34,7 +34,7 @@ import com.jdon.jivejdon.manager.throttle.hitkey.HitKey3;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyIF;
 import com.jdon.jivejdon.model.attachment.UploadFile;
 import com.jdon.jivejdon.model.message.upload.UploadFileFilter;
-import com.jdon.jivejdon.presentation.filter.SpamFilter;
+import com.jdon.jivejdon.presentation.filter.SpamFilter2;
 import com.jdon.jivejdon.service.UploadService;
 import com.jdon.util.Debug;
 import com.jdon.util.UtilValidate;
@@ -114,7 +114,7 @@ public class UploadShowAction extends Action {
 	}
 
 	private boolean isPermitted(HttpServletRequest request) {
-		Pattern domainPattern = (Pattern) request.getSession().getServletContext().getAttribute(SpamFilter.DP);
+		Pattern domainPattern = (Pattern) request.getSession().getServletContext().getAttribute(SpamFilter2.DP);
 		String referrerUrl = request.getHeader("Referer");
 		if (referrerUrl != null && referrerUrl.length() > 0 && domainPattern.matcher(referrerUrl.toLowerCase()).matches()) {
 			return true;
