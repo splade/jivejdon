@@ -13,10 +13,10 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 			<bean:write name="Notification" property="content" filter="false" />
 			<br>
 			<br>
-			注:进入如发现无新帖，请按浏览器"刷新"
+			注:进入如无新帖，请按浏览器"刷新"
 			<br>
 			<br>
-			<a href="javascript:void(0);" onclick='window.top.disablePopUPWithID(<bean:write name="Notification" property="id" />,<bean:write name="Notification" property="scopeSeconds" />)'>关闭提示</a>
+			<a href="javascript:void(0);" onclick='window.top.disablePopUPWithID(<bean:write name="Notification" property="sourceId" />,<bean:write name="Notification" property="scopeSeconds" />)'>不再需要该贴更新提示</a>
 		  </div>
 <script>
 
@@ -44,7 +44,7 @@ var loadNMJS = function (){
 
 function popNow(){
       if (typeof(window.top.popUpNewMessageWithID) != "undefined")
-            window.top.popUpNewMessageWithID(<bean:write name="Notification" property="id" />);
+            window.top.popUpNewMessageWithID(<bean:write name="Notification" property="sourceId" />);
 }
 
 loadWLJS(loadNMJS());                   

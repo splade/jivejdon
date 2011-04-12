@@ -62,6 +62,7 @@ public class ContentFormatConverter {
 			notification.setContent(body);
 
 			notification.setScopeSeconds(this.notificationLifeCycle);
+			notification.setSourceId(message.getForumThread().getThreadId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
