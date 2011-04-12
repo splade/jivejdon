@@ -32,7 +32,7 @@
 	
 			<init-param>
 				<param-name>referrer.robotCheck.userAgentPattern</param-name>			
-				 <param-value>.*(msn|google|baidu|yahoo).*</param-value> 
+				 <param-value>.*(google|baidu|yahoo|bing|alexa|msn).*</param-value> 
 			</init-param>
 		</filter>
 		
