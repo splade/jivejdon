@@ -4,7 +4,7 @@
 <title>
 <logic:notEmpty  name="title">
   <bean:write name="title" />
-</logic:notEmpty> - Powered by Jdon
+</logic:notEmpty> - Jdon on Java
 </title>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <link rel="shortcut icon" href="<html:rewrite page="/images/favicon.ico"/>" />
