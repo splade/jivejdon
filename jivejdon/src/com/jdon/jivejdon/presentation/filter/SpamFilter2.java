@@ -82,18 +82,19 @@ public class SpamFilter2 implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		if (isPermittedRobot(httpRequest)) {
+			chain.doFilter(request, response);
+			disableSessionOnlines(httpRequest);
+			return;
+		}
+
 		String path = httpRequest.getServletPath();
 		int slash = path.lastIndexOf("/");
 		String id = path.substring(slash + 1, path.length());
 		if (checkSpamHit(id, httpRequest))
 			chain.doFilter(request, response);
-		else {
-			if (isPermittedRobot(httpRequest)) {
-				chain.doFilter(request, response);
-				disableSessionOnlines(httpRequest);
-			} else
-				((HttpServletResponse) response).sendError(503);
-		}
+		else
+			((HttpServletResponse) response).sendError(503);
 
 	}
 
