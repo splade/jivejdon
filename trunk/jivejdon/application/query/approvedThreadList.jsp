@@ -16,11 +16,11 @@
 <div class="linkblock">
 
 	<div class="post-headline">
-	<h2>
+	<h3>
              <a href="<%=request.getContextPath()%>/thread/<bean:write name="forumThread" property="threadId"/>" 
               target="_blank">
              <b><bean:write name="forumThread" property="name" /></b></a>
-     </h2>             
+     </h3>             
    </div> 
    
    <div class="post-byline">   

@@ -15,7 +15,9 @@
  if(top !== self) top.location = self.location;
 
 </script>
-
+<script type="text/javascript">
+window.google_analytics_uacct = "UA-257352-2";
+</script>
 
 <%@ include file="../common/security.jsp" %>
 <%@ include file="../common/loginAccount.jsp" %>
