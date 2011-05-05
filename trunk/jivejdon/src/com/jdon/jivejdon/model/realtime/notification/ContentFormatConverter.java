@@ -58,8 +58,8 @@ public class ContentFormatConverter {
 			PrettyTime t = new PrettyTime(new Locale(locale)); // "ZH"
 			t.setReference(new Date());
 
-			body = t.format(messageCreateDate) + message.getAccount().getUsername() + notifyTitle + " </br> " + newSubscribedUrl;
-			notification.setContent(body);
+			notification.setSubject(t.format(messageCreateDate) + message.getAccount().getUsername() + notifyTitle);
+			notification.setContent(notification.getSubject() + " </br> " + newSubscribedUrl);
 
 			notification.setScopeSeconds(this.notificationLifeCycle);
 			notification.setSourceId(message.getForumThread().getThreadId());

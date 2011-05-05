@@ -19,7 +19,6 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 			<a href="javascript:void(0);" onclick='window.top.disablePopUPWithID(<bean:write name="Notification" property="sourceId" />,<bean:write name="Notification" property="scopeSeconds" />)'>不再需要该贴更新提示</a>
 		  </div>
 <script>
-
 function loadWLJS(myfunc){
   if (typeof(window.top.TooltipManager) == 'undefined') {     
      window.top.$LAB
@@ -42,14 +41,25 @@ var loadNMJS = function (){
        popNow();
 }
 
-function popNow(){
-      if (typeof(window.top.popUpNewMessageWithID) != "undefined")
+function scrlsts() {
+ scrl = scrl.substring(1, scrl.length) + scrl.substring(0, 1);
+ document.title = scrl;
+ setTimeout("scrlsts()", 300);
+}      
+
+function popNow(){     
+      if (typeof(window.top.popUpNewMessageWithID) != "undefined"){
+           if( window.top.readCookie('<bean:write name="Notification" property="id" />') == "disable")
+               return;
+            scrl = ' <bean:write name="Notification" property="subject" /> ';
+            scrlsts(); 
             window.top.popUpNewMessageWithID(<bean:write name="Notification" property="sourceId" />);
+      }
 }
 
 loadWLJS(loadNMJS());                   
-                
-              
+ 
+
             </script>
     
 </logic:notEmpty>
