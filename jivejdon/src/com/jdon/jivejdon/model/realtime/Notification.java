@@ -25,6 +25,7 @@ public class Notification {
 	private long id;
 	private long sourceId;
 	private Object source;
+	private String subject;
 	private String content;
 	private Date createDate;
 
@@ -94,6 +95,14 @@ public class Notification {
 
 	public int getScopeSeconds() {
 		return scopeSeconds;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 	public void setScopeSeconds(int scopeSeconds) {

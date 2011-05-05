@@ -10,11 +10,11 @@ Map<String,String> admobRequiredParams = new HashMap<String,String>();
 Map<String,Boolean> admobControlParams = new HashMap<String,Boolean>();
 Map admobOptionalParams = new HashMap<String,String>();
 
-admobRequiredParams.put("PUBLISHER_ID", "a14dbf9c3865927"); // Required to request ads. To find your Publisher ID, log in to your AdMob account and click on the "Sites & Apps" tab.
-admobRequiredParams.put("ANALYTICS_ID", "UA-257352-2"); // Required to collect Analytics data. To find your Analytics ID, log in to your Analytics account and click on the "Edit" link next to the name of your site.
+admobRequiredParams.put("PUBLISHER_ID", "a14dc1e98f5f5d9"); // Required to request ads. To find your Publisher ID, log in to your AdMob account and click on the "Sites & Apps" tab.
+admobRequiredParams.put("ANALYTICS_ID", "your_analytics_site_id"); // Required to collect Analytics data. To find your Analytics ID, log in to your Analytics account and click on the "Edit" link next to the name of your site.
 admobRequiredParams.put("COOKIE_DOMAIN", null); // If your mobile site uses multiple subdomains, replace "null" with your root domain (e.g. "example.com") to make the AdMob cookie visible across subdomains.
 admobControlParams.put("AD_REQUEST", true);  // To request an ad, set to true.
-admobControlParams.put("ANALYTICS_REQUEST", true); // To enable the collection of analytics data, set to true.
+admobControlParams.put("ANALYTICS_REQUEST", false); // To enable the collection of analytics data, set to true.
 admobControlParams.put("TEST_MODE", false);  // While testing, set to true. When you are ready to make live requests, set to false.
 // Additional optional parameters are available at: http://developer.admob.com/wiki/AdCodeDocumentation    
 // admobOptionalParams.put("title", "Enter Page Title Here"); // Analytics allows you to track site usage based on custom page titles. Enter custom title in this parameter.
