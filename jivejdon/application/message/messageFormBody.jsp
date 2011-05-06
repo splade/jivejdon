@@ -46,8 +46,8 @@ function openUploadWindowStart(url){
        myalert("只有登录后才能打开上传页面");
        return;
     </logic:notPresent>     
-    <logic:present name="principal" > 
-       openUploadWindow(url);
+    <logic:present name="principal" >       
+      loadWLJSWithP(url, openUploadWindow);       
     </logic:present>     
     
  }
@@ -66,6 +66,7 @@ var bodyMaxLength = <bean:write name="messageForm" property="bodyMaxLength"/>;
 <tr>
     <td>&nbsp;</td>
 	<td  align="left">
+	<div onmouseover="loadWLJS(loadformjs)">
     <table cellpadding="0" cellspacing="0" border="0">
     <tr><td>
     	<a href="#" onclick="tag('b');return false;" title="粗体: [b]文本[/b]"
@@ -117,6 +118,7 @@ var bodyMaxLength = <bean:write name="messageForm" property="bodyMaxLength"/>;
        <td><html:img page="/images/blank.gif" width="5" height="1" border="0"/></td>
     </tr>
     </table>
+    </div>
 	</td>
 </tr>
 <tr>

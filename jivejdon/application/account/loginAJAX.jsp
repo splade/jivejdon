@@ -49,8 +49,8 @@ var loggedURL = '<html:rewrite page="/account/protected/logged.jsp"/>';
 var username = readCookie("username");
 if (username != null){
    var password = readCookie("password"); 
-   $('j_username').value = decode64(username);
-   $('j_password').value = decode64(password);      
+   document.getElementById("j_username").value = decode64(username);
+   document.getElementById("j_password").value = decode64(password);      
 }
 </script>
 </logic:notPresent>
