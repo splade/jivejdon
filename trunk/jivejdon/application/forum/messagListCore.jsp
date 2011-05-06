@@ -101,7 +101,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
        &nbsp;<html:link page="/message/messageAction.shtml" paramId="forum.forumId" paramName="forum" paramProperty="forumId">
        <html:img page="/images/newtopic.gif" width="113" height="20" border="0" alt="发表新帖子"/>
        </html:link>
-        &nbsp;<a href="javascript:void(0);" onclick="openReplyWindow('<bean:write name="forumThread" property="rootMessage.messageId" />');">
+        &nbsp;<a href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumThread" property="rootMessage.messageId" />',loadWPostjs)">
         <html:img page="/images/replytopic.gif" width="113" height="20" border="0" alt="回复该主题贴"/></a>
     </td>
 </tr>
@@ -249,6 +249,7 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
 </script>
 </center>
 
+<script type="text/javascript" src="<html:rewrite page="/common/js/prototype.js"/>"></script>
 <script language="javascript" >
    
       hotList();
