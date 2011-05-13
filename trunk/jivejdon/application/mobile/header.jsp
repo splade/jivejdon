@@ -25,6 +25,5 @@
 
 <body leftmargin="0" rightmargin="0" topmargin="0">
 
-<%--
+
 <%@ include file="isNewMessage.jsp" %>
- --%>

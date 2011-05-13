@@ -53,5 +53,5 @@ var scrl = " 论坛有新帖啦... ";
 function scrlsts() {
  scrl = scrl.substring(1, scrl.length) + scrl.substring(0, 1);
  document.title = scrl;
- setTimeout("scrlsts()", 300);
+ setTimeout("scrlsts()", 600);
 }            
