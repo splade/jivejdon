@@ -17,6 +17,6 @@ else if (request.getUserPrincipal() == null){
 if (isloged){
 %>
 <script>
-checkmsg("<%=request.getContextPath() %>/forum/checknewmessage.shtml");
+checkmsg("<%=request.getContextPath() %>/shortmessage/checknewmessage.shtml");
 </script>
 <%} %>

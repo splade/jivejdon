@@ -28,7 +28,7 @@ import com.jdon.util.Debug;
  */
 
 public class ImageFilter implements MessageRenderSpecification {
-	private final static String module = HTMLFilter.class.getName();
+	private final static String module = ImageFilter.class.getName();
 
 	public ForumMessage render(ForumMessage message) {
 		try {
