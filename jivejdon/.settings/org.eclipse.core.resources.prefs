@@ -1,4 +1,4 @@
-#Tue Apr 12 18:07:08 CST 2011
+#Mon May 16 18:04:13 CST 2011
 eclipse.preferences.version=1
 encoding//application/account/js/login.js=UTF-8
 encoding//application/admin/header.jsp=UTF-8
@@ -11,4 +11,4 @@ encoding//application/forum/js/newMessage.js=UTF-8
 encoding//application/forum/js/postreply.js=UTF-8
 encoding//application/forum/js/threadPost.js=UTF-8
 encoding//application/message/js/messageEdit.js=UTF-8
-encoding//application/mobile/mb.js=UTF-8
+encoding//application/mobile/js/mb.js=UTF-8

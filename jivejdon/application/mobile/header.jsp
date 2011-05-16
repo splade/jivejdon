@@ -19,8 +19,7 @@
 </title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="<html:rewrite page="/mobile/mobile.css"/>" type="text/css"> 
-<script language="javascript" src="<html:rewrite page="/mobile/mb.js"/>" ></script>
-
+<script language="javascript" src="<html:rewrite page="/mobile/js/mb.js"/>" ></script>
 </head>
 
 <body leftmargin="0" rightmargin="0" topmargin="0">
