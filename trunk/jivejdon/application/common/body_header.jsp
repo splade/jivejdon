@@ -81,12 +81,15 @@ String oc = Integer.toString(onlinecount.getActiveSessions());
    </html:link>   
 </logic:present>       
 
+&nbsp;&nbsp;<a href="javascript:void(0);"  onclick="window.location.reload()"><html:img page="/images/user_up.gif" width="17" height="17" alt="refresh" border="0" align="absmiddle"/>刷新</a>
+
 <!-- Feedsky FEED发布代码开始 -->
 <!-- FEED自动发现标记开始 -->
 <link title="RSS 2.0" type="application/rss+xml" href="http://feed.feedsky.com/jdon" rel="alternate" />
 <!-- FEED自动发现标记结束 -->
 <a href="http://feed.feedsky.com/jdon" target="_blank"><html:img page="/images/feed-icon-12x12-orange.gif" width="12" height="12" alt="RSS" border="0" align="absmiddle"/></a>
 <!-- Feedsky FEED发布代码结束 -->
+
 </td></tr>
 </table>
 
