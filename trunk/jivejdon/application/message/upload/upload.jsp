@@ -191,10 +191,10 @@ function isImage(field){
 
 <div style="font-size:12px; padding:5px;padding-left:20px;line-height:20px">
 1.附件在本地硬盘上,请用"浏览"选中硬盘上的附件后,按"上传"按钮,最多传三个附件，
-每个最大限制1M以内 <!-- 见struts-config-upload.xml中配置  --> 
+每个最大限制100K以内 <!-- 见struts-config-upload.xml中配置  --> 
 上传附件有效类型:
  <logic:iterate id="fileType" name="upLoadFileForm" property="fileTypes" >
-  <bean:write name="fileType"/>
+  <bean:write name="fileType"/>,
 </logic:iterate> 
 <br>
 2.文件图片在互联网上,在网上附件直接输入url网址。
