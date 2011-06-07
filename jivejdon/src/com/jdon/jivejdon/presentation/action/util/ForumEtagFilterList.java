@@ -58,7 +58,7 @@ public abstract class ForumEtagFilterList extends ModelListAction {
 		if (lastpost == null)
 			return super.execute(actionMapping, actionForm, request, response);
 
-		int expire = 10 * 60;
+		int expire = 2 * 60;
 		long modelLastModifiedDate = lastpost.getModifiedDate2();
 		if (!ToolsUtil.checkHeaderCache(expire, modelLastModifiedDate, request, response)) {
 			return null;
