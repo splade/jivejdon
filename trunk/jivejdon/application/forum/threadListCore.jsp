@@ -56,9 +56,9 @@
              <bean:write name="forumThread" property="name" />                          
              </span></b></a>
              
-             <logic:greaterEqual  name="forumThread" property="state.messageCount" value="15">
+             <logic:greaterEqual  name="forumThread" property="state.messageCount" value="5">
              <script>             
-               document.write(generateLinkString("<%=request.getContextPath()%>", '<bean:write name="forumThread" property="state.messageCount" />', "<bean:write name="forumThread" property="threadId"/>", "15"));
+               document.write(generateLinkString("<%=request.getContextPath()%>", '<bean:write name="forumThread" property="state.messageCount" />', "<bean:write name="forumThread" property="threadId"/>", "5"));
              </script>
              </logic:greaterEqual>
              

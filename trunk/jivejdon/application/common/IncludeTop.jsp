@@ -8,7 +8,7 @@
 <title>
 <logic:notEmpty  name="title">
   <bean:write name="title" />
-</logic:notEmpty> - Powered by Jdon
+</logic:notEmpty> - Thinking In Jdon
 </title>
 
 <%@ include file="./headerBody.jsp" %>
