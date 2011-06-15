@@ -203,5 +203,25 @@ var loadQPostjs =function(mId){
 }
 
 
+var hasDisplayNeedLoad = false;
+function isDisplayNeedLoad(divid){ //need prototype.js
+	  if (hasDisplayNeedLoad) return false;	
+
+      var WindowSize = Class.create({
+        	    width: window.innerWidth || (window.document.documentElement.clientWidth || window.document.body.clientWidth),
+	            height: window.innerHeight || (window.document.documentElement.clientHeight || window.document.body.clientHeight)
+      });		
+	  var ws = new WindowSize();
+	  var winheight = ws.height;     
+	  var arr = $(divid).cumulativeOffset();
+	  var oTop = arr[1];
+	    
+	  var scrolltop=document.body.scrollTop;  
+	  if ((oTop-scrolltop)<winheight ){
+	  	  hasDisplayNeedLoad = true;
+	      return true;
+	  }
+	  return false;
+}
 
 
