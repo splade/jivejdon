@@ -184,16 +184,8 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 <!--  上下主题 结束  -->
 
 <center>
-<!-- advert -->
-<div id="v728902" ></div>
 <div id="hotkeys"></div>
 </center>
-
-<table cellpadding="15" cellspacing="15" border="0" width="728" align="center">
-<tr><td valign="top" >
-<div id="approved"></div>
-</td></tr></table>
-
 
 <table align="center"><tr><td valign="top" >
 <div id="vgad336x280"></div>
@@ -202,6 +194,13 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 <div id=hotList>正在读取，请等待...</div>
 
 </td></tr></table>
+
+
+<table cellpadding="15" cellspacing="15" border="0" width="728" align="center">
+<tr><td valign="top" >
+<div id="approved"></div>
+</td></tr></table>
+
 
 
 
@@ -251,10 +250,21 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
 
 <script type="text/javascript" src="<html:rewrite page="/common/js/prototype.js"/>"></script>
 <script language="javascript" >
-   
-      hotList();
-      hotkeys();
-      approveList();
+
+if (isDisplayNeedLoad('approved')){
+	hotList();
+    hotkeys();
+    approveList();
+}else{ 	 
+   Event.observe(window, 'scroll', function() {
+	 if (isDisplayNeedLoad('approved')){	
+		hotList();
+	    hotkeys();
+	    approveList();
+      }
+   });
+}
+      
 
       var pageURL = '<%=request.getContextPath() %>/thread/<bean:write name="forumThread" property="threadId"/>';
       var start = <bean:write name="messageListForm" property="start" />;
@@ -266,12 +276,9 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
 
  <%@ include file="./messageNotfier.jsp" %>
 
-<jsp:include page="../common/advert.jsp" flush="true">   
-     <jsp:param name="fmt" value="468x60"/>   
-</jsp:include>  
 
 <jsp:include page="../common/advert.jsp" flush="true">   
-     <jsp:param name="fmt" value="728x90x2_loader"/>   
+     <jsp:param name="fmt" value="468x60"/>   
 </jsp:include>  
 
 <jsp:include page="../common/advert.jsp" flush="true">   
@@ -282,9 +289,6 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
 <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
 <!-- JiaThis Button END -->
 
-<div style="display:none">
-<A href="http://www.alexa.com/siteinfo/www.jdon.com"><SCRIPT type='text/javascript' language='JavaScript' src='http://xslt.alexa.com/site_stats/js/s/a?url=www.jdon.com'></SCRIPT></A>
-</div>
 
 <%@include file="footer.jsp"%> 
 
