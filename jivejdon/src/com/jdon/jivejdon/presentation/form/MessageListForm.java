@@ -19,56 +19,55 @@ import com.jdon.strutsutil.ModelListForm;
 
 /**
  * @author <a href="mailto:banqJdon<AT>jdon.com">banq</a>
- *
+ * 
  */
 public class MessageListForm extends ModelListForm {
-	
-	
-	private boolean[] authenticateds;
-	
 
-	public MessageListForm(){
-		this.setCount(15);
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private boolean[] authenticateds;
+
+	public MessageListForm() {
+		this.setCount(5); // default there are #count# messages in one page
 	}
 
 	public boolean getAuthenticated(int index) {
-    	if (authenticateds == null){
-    		authenticateds = new boolean[this.getList().size()];
-    	}
+		if (authenticateds == null) {
+			authenticateds = new boolean[this.getList().size()];
+		}
 		return authenticateds[index];
 	}
-	
-    public boolean[] getAuthenticateds() {
-    	if (authenticateds == null){
-    		authenticateds = new boolean[this.getList().size()];
-    	}
+
+	public boolean[] getAuthenticateds() {
+		if (authenticateds == null) {
+			authenticateds = new boolean[this.getList().size()];
+		}
 		return authenticateds;
 	}
-
-
 
 	public void setAuthenticateds(boolean[] authenticateds) {
 		this.authenticateds = authenticateds;
 	}
 
-
-
 	/**
 	 * @return Returns the numPages.
 	 */
-    public int getNumReplies() { 
-        if (getAllCount() >= 1)
-          return getAllCount() - 1;
-        return 0;
-    }
-  
-    /**
-     * @return Returns the numReplies.
-     */
-    public int getNumPages() {    
-        if (getCount() == 0)
-            return 0;
-        return (int)Math.ceil((double)getAllCount()/(double)getCount());
-    }
-    
+	public int getNumReplies() {
+		if (getAllCount() >= 1)
+			return getAllCount() - 1;
+		return 0;
+	}
+
+	/**
+	 * @return Returns the numReplies.
+	 */
+	public int getNumPages() {
+		if (getCount() == 0)
+			return 0;
+		return (int) Math.ceil((double) getAllCount() / (double) getCount());
+	}
+
 }

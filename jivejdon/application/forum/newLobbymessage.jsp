@@ -51,8 +51,8 @@ function popNow(){
       if (typeof(window.top.popUpNewMessageWithID) != "undefined"){
            if( window.top.readCookie('<bean:write name="Notification" property="id" />') == "disable")
                return;
-            scrl = ' <bean:write name="Notification" property="subject" /> ';
-            scrlsts(); 
+            //scrl = ' <bean:write name="Notification" property="subject" /> ';
+            //scrlsts(); 
             window.top.popUpNewMessageWithID(<bean:write name="Notification" property="sourceId" />);
       }
 }
