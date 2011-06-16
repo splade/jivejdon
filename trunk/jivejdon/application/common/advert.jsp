@@ -28,7 +28,6 @@ SRC="http://www.jdon.org/cn/sales/728x90.html"></iframe>
 </logic:equal>
 
 <logic:equal name="fmt" value="468x60">
-<div id="gad468x60" style="display:none">
 <script type="text/javascript"><!--
 google_ad_client = "pub-2190557680964036";
 /* 468x60, created 8/29/10 */
@@ -39,13 +38,6 @@ google_ad_height = 60;
 </script>
 <script type="text/javascript"
 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-</script>
-</div>
-<script language="javascript">
-if( document.getElementById("advert_468x60") != null )
-{
-	document.getElementById("advert_468x60").innerHTML = document.getElementById("gad468x60").innerHTML;
-}
 </script>
 </logic:equal>
 
@@ -182,7 +174,6 @@ if( document.getElementById("vgad300x250") != null )
 </logic:equal>
 
 <logic:equal name="fmt" value="336x280_2_b">
-<div id="gad336x280" style="display:none">
 <script type="text/javascript"><!--
 google_ad_client = "pub-2190557680964036";
 //336x280, 创建于 07-11-18
@@ -192,13 +183,6 @@ google_ad_height = 280;
 //--></script>
 <script type="text/javascript"
 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-</script>
-</div>
-<script language="javascript">
-if( document.getElementById("vgad336x280") != null )
-{
-  document.getElementById("vgad336x280").innerHTML = document.getElementById("gad336x280").innerHTML;
-}
 </script>
 </logic:equal>
 

@@ -130,7 +130,11 @@ pageContext.setAttribute("title", titleStr);
 <div id=hotList>正在读取，请等待...</div>
 
 </td><td align="center" valign="top" >
-<div id="vgad336x280"></div>
+<div id="vgad336x280">
+<jsp:include page="../common/advert.jsp" flush="true">   
+     <jsp:param name="fmt" value="336x280_2_b"/>   
+</jsp:include> 
+</div>
 
 </td></tr></table>
 

@@ -169,7 +169,11 @@
 <logic:equal name="i" value="0"> 
     <table width="1%" border="0" cellpadding="0" cellspacing="5" > 
     <tr> <td> <!-- advert -->   
-      <div id="advert_468x60"></div>
+      <div id="advert_468x60">
+      <jsp:include page="../common/advert.jsp" flush="true">   
+            <jsp:param name="fmt" value="468x60"/>   
+      </jsp:include>  
+      </div>
     </td></tr></table> 
              
 </logic:equal>

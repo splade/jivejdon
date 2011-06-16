@@ -187,8 +187,14 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 <div id="hotkeys"></div>
 </center>
 
+
+
 <table align="center"><tr><td valign="top" >
-<div id="vgad336x280"></div>
+<div id="vgad336x280">
+<jsp:include page="../common/advert.jsp" flush="true">   
+     <jsp:param name="fmt" value="336x280_2_b"/>   
+</jsp:include>  
+</div>
 
 </td><td  valign="top">
 <div id=hotList>正在读取，请等待...</div>
@@ -250,17 +256,15 @@ document.messageReplyForm.subject.value='<bean:write name="forumThread" property
 
 <script type="text/javascript" src="<html:rewrite page="/common/js/prototype.js"/>"></script>
 <script language="javascript" >
+hotList();
+//hotkeys();
 
 if (isDisplayNeedLoad('approved')){
-	hotList();
-    hotkeys();
     approveList();
 }else{ 	 
    Event.observe(window, 'scroll', function() {
 		setTimeout(function(){
 		 if (isDisplayNeedLoad('approved')){	
-						hotList();
-					    hotkeys();
 					    approveList();
          }			
 		},1500);
@@ -279,13 +283,6 @@ if (isDisplayNeedLoad('approved')){
  <%@ include file="./messageNotfier.jsp" %>
 
 
-<jsp:include page="../common/advert.jsp" flush="true">   
-     <jsp:param name="fmt" value="468x60"/>   
-</jsp:include>  
-
-<jsp:include page="../common/advert.jsp" flush="true">   
-     <jsp:param name="fmt" value="336x280_2_b"/>   
-</jsp:include>  
 
 <!-- JiaThis Button BEGIN -->
 <script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
