@@ -257,11 +257,13 @@ if (isDisplayNeedLoad('approved')){
     approveList();
 }else{ 	 
    Event.observe(window, 'scroll', function() {
-	 if (isDisplayNeedLoad('approved')){	
-		hotList();
-	    hotkeys();
-	    approveList();
-      }
+		setTimeout(function(){
+		 if (isDisplayNeedLoad('approved')){	
+						hotList();
+					    hotkeys();
+					    approveList();
+         }			
+		},1500);
    });
 }
       
