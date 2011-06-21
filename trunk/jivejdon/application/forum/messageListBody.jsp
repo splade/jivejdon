@@ -171,8 +171,8 @@
     <tr> <td> <!-- advert -->   
       <div id="advert_468x60">
       <jsp:include page="../common/advert.jsp" flush="true">   
-            <jsp:param name="fmt" value="468x60"/>   
-      </jsp:include>  
+       <jsp:param name="fmt" value="728x90"/>   
+      </jsp:include>                               
       </div>
     </td></tr></table> 
              

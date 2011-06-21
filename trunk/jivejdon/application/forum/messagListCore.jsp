@@ -36,10 +36,6 @@ pageContext.setAttribute("title", titleStr);
 <!-- 导航区  -->
 <%@include file="nav.jsp"%>
  
-<jsp:include page="../common/advert.jsp" flush="true">   
-     <jsp:param name="fmt" value="728x90"/>   
- </jsp:include>              
-
 <table cellpadding="0" cellspacing="0" width="971" align="center"><tr><td>
 
 <!--  上下主题 start -->
@@ -187,18 +183,14 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 <div id="hotkeys"></div>
 </center>
 
-
-
 <table align="center"><tr><td valign="top" >
+<div id=hotList>正在读取，请等待...</div>
+</td><td  valign="top">
 <div id="vgad336x280">
 <jsp:include page="../common/advert.jsp" flush="true">   
      <jsp:param name="fmt" value="336x280_2_b"/>   
 </jsp:include>  
 </div>
-
-</td><td  valign="top">
-<div id=hotList>正在读取，请等待...</div>
-
 </td></tr></table>
 
 
