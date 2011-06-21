@@ -181,9 +181,6 @@ if (typeof(Ajax) != "undefined"){
 </jsp:include>
 </center>
 
-<jsp:include page="../common/advert.jsp" flush="true">   
-     <jsp:param name="fmt" value="336x280_2_b"/>   
-</jsp:include>  
 
 <%@ include file="./messageNotfier.jsp" %>
 
