@@ -158,8 +158,36 @@ A.a03:hover {text-decoration:none;color:#ff0000;font-size: 12px;}
 
 .title { font-size: 14px; font-weight: bold ; line-height: 144%; color: #009933;}
 .article { font-size: 14px; line-height: 150%; color: #212121;}
-.tpc_content { font-size: 14px; color: #222222; line-height: 150%;}
+.tpc_content { font-size: 14px; font-weight: normal ;color: #222222; line-height: 150%;}
 .home_content { font-size: 13px; color: #333333; line-height: 150%;}
+
+
+.ts-11 {
+	background-color: #ffffff;
+	border: none;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	width: 977px;
+	height: auto;
+}
+
+.ts-11-1 {
+    text-align: center;
+	background-color: #ffffff;
+	border: none;
+	clear: both;
+	display: inline;
+	float: left;
+	margin-left: 1px;
+	margin-top: 1px;
+	padding: 2px;
+	width: 971px;
+	height: auto;
+}
+.gen-2 {
+	clear: both;
+}
 
 
 form {

@@ -58,11 +58,9 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 </logic:empty>
 
 <div class="ts-11">
-<div class="ts-11-1">
-
-<table bgcolor="#CFCFA0"
- cellpadding="3" cellspacing="0" border="0" width="100%" align="center">
-<tr><td align="left">
+	<div class="ts-11-1">
+		<div class="ts-12">
+			<div class="ts-12-1">
 
 <div class="tres">         
 <MultiPagesREST:pager actionFormName="messageListForm" page="/thread" paramId="thread" paramName="forumThread" paramProperty="threadId">
@@ -89,19 +87,19 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
   </div>  
 </div>  
 </div>
-    </td><td >
-    </td>
+
+   </div>
+   <div class="ts-12-2"></div>
+   <div align="right" class="ts-12-3">
     
-    <td align="right" width="250">
        &nbsp;<html:link page="/message/messageAction.shtml" paramId="forum.forumId" paramName="forum" paramProperty="forumId">
        <html:img page="/images/newtopic.gif" width="113" height="20" border="0" alt="发表新帖子"/>
        </html:link>
         &nbsp;<a href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumThread" property="rootMessage.messageId" />',loadWPostjs)">
         <html:img page="/images/replytopic.gif" width="113" height="20" border="0" alt="回复该主题贴"/></a>
-    </td>
-</tr>
-</table>
-
+    </div>
+	<div class="gen-2"></div>
+   </div>
    
 <%
    int row = 1;
@@ -117,13 +115,10 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 
 </logic:iterate>
 
-  
-<table bgcolor="#cccccc"
- cellpadding="1" cellspacing="0" border="0" width="971" align="center">
- <tr bgcolor="#FFFFCC">
-    <td >
-    <table cellpadding="3" cellspacing="0" border="0" width="100%" height="30"  >
-     <tr><td  align="center">
+  <div class="ts-19">
+						<div class="ts-19-1">
+							<div class="ts-20">
+								<div align="center" class="ts-20-1">
         <html:link page="/query/tagsList.shtml?count=150" target="_blank" title="标签"><html:img page="/images/tag_yellow.png" width="16" height="16" alt="标签" border="0"/></html:link>
         <logic:iterate id="threadTag" name="forumThread" property="tags" >
          <span onmouseover="loadWLJSWithP(this, initTagsW)" class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
@@ -132,14 +127,13 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
              </a></span>
              &nbsp;&nbsp;&nbsp;&nbsp;
         </logic:iterate>
-       </td></tr></table>
-    </td>
-</tr>
-<tr bgcolor="#CFCFA0">
-    <td >
-<table cellpadding="3" cellspacing="0" border="0" width="100%" >
-<tr>
-<td>
+       </div>
+								<div class="gen-2"></div>
+							</div>
+						</div>
+						<div class="ts-19-2">
+							<div class="ts-20">
+								<div class="ts-21-1">
 <!-- JiaThis Button BEGIN -->
 <div id="ckepop">
 <a href="http://www.jiathis.com/share/" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank">分享到：</a>
@@ -149,8 +143,8 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 <a class="jiathis_button_tools_4"></a>
 </div>
 <!-- JiaThis Button END -->
-</td>
-<td  align="right">
+	</div>
+<div align="right" class="ts-21-2">
 <div class="tres">
 共有 <b><bean:write name="messageListForm" property="numReplies" /></b> 回复(<b><bean:write name="messageListForm" property="numPages" /></b>页) 
 <a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go">Go</a>   
@@ -161,20 +155,14 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 </MultiPagesREST:pager>
 </div>     
 
-    </td>
-  
-</tr>
-</table>
-    </td>
-</tr>
+   </div>
+		<div class="gen-2"></div></div>
+      <div class="gen-2"></div></div>
+	 <div class="gen-2"></div></div>
+<div class="gen-2"></div></div>
+<div class="gen-2"></div></div>		
+<div class="gen-2"></div></div>
 
-
-</table>
-
-</div>
-<div class="gen-2"></div>
-</div>
-</div>
 <logic:empty name="noheaderfooter">
 <!--  上下主题 start -->
 <%@include file="threadsPrevNext2.jsp"%>
