@@ -57,11 +57,9 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
    <bean:define id="forum" name="forumThread" property="forum" />
 </logic:empty>
 
-<div class="ts-11">
-<div class="ts-11-1">
 
 <table bgcolor="#CFCFA0"
- cellpadding="3" cellspacing="0" border="0" width="100%" align="center">
+ cellpadding="3" cellspacing="0" border="0" width="971" align="center">
 <tr><td align="left">
 
 <div class="tres">         
@@ -172,9 +170,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 </table>
 
 </div>
-<div class="gen-2"></div>
-</div>
-</div>
+
 <logic:empty name="noheaderfooter">
 <!--  上下主题 start -->
 <%@include file="threadsPrevNext2.jsp"%>
