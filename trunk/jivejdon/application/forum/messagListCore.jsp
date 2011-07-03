@@ -191,12 +191,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 </td></tr></table>
 
 
-<table cellpadding="15" cellspacing="15" border="0" width="728" align="center">
-<tr><td valign="top" >
-<div id="approved"></div>
-</td></tr></table>
-
-
+<div id="approved" class="approved" ></div>
 
 
 <html:form action="/query/threadViewQuery.shtml" method="post">

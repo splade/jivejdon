@@ -6,7 +6,6 @@
 
 
 <logic:equal name="fmt" value="728x90">
-<center>
 <script type="text/javascript"><!--
 google_ad_client = "pub-2190557680964036";
 /* 728x90, 创建于 09-8-19 */
@@ -18,13 +17,6 @@ google_ad_height = 90;
 <script type="text/javascript"
 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
-<%--
-<!-- advert -->
-<div id="v728902" ></div>
-<IFRAME  MARGINHEIGHT=2 MARGINWIDTH=2 FRAMEBORDER=0 WIDTH="758" HEIGHT="91"  scrolling="no" 
-SRC="http://www.jdon.org/cn/sales/728x90.html"></iframe>
- --%>
-</center>
 </logic:equal>
 
 <logic:equal name="fmt" value="468x60">

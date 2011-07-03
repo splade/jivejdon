@@ -216,7 +216,9 @@ function isDisplayNeedLoad(divid){ //need prototype.js
 	  var arr = $(divid).cumulativeOffset();
 	  var oTop = arr[1];
 	    
-	  var scrolltop=document.body.scrollTop;  
+	  var scrolltop = document.documentElement.scrollTop ? 
+              document.documentElement.scrollTop : 
+              document.body.scrollTop;	  
 	  if ((oTop-scrolltop)<winheight ){
 	  	  hasDisplayNeedLoad = true;
 	      return true;

@@ -10,9 +10,7 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <link rel="shortcut icon" href="<html:rewrite page="/images/favicon.ico"/>" />
 <link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
-<%-- 
 <link href="<html:rewrite page="/forum/css/messageList.css"/>" rel="stylesheet" type="text/css">
- --%>
 <script type="text/javascript" src="<html:rewrite page="/forum/js/messageList.js"/>"></script>
 <script>
  if(top !== self) top.location = self.location;

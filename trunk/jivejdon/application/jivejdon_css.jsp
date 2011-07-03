@@ -332,46 +332,6 @@ DIV.tres SPAN.disabled {
 	FONT-WEIGHT: lighter;
 }
 
-DIV.digg-row {
-	PADDING-RIGHT: 9px; 
-	PADDING-LEFT: 9px;  
-	PADDING-BOTTOM: 9px; 
-	MARGIN: 0px; 
-	PADDING-TOP: 0px; 
-}
-DIV.digg-row SPAN {
-	PADDING-RIGHT: 0px; 
-	PADDING-LEFT: 0px; 
-	BACKGROUND: url(images/dig.gif) no-repeat; 
-	FLOAT: right; 
-	PADDING-BOTTOM: 0px; 
-	MARGIN: 6px 0px 0px; 
-	WIDTH: 54px; 
-	PADDING-TOP: 0px; 
-	HEIGHT: 70px
-}
-
-.diggArea .diggNum {
-	MARGIN-TOP: 9px; 
-	DISPLAY: block; 
-	COLOR: #653636;
-	FONT-WEIGHT: lighter; 
-	FONT-SIZE: 16px; 
-	WIDTH: 54px; 
-	FONT-FAMILY: Georgia; 
-	HEIGHT: 34px; 
-	TEXT-ALIGN: center
-}
-.diggArea .top8 {
-	padding-top:8px;
-}
-
-.diggArea .diggLink {
-	DISPLAY: block; 
-	WIDTH: 54px; 
-	COLOR: #999; 
-	TEXT-ALIGN: center;
-}
 
 .displaycode {margin-top: 0; margin-bottom: 0; font-family:  Andale Mono, Lucida Console, Monaco, fixed, monospace; font-size: 11px}
 
