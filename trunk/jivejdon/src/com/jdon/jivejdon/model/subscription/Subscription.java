@@ -1,7 +1,11 @@
 package com.jdon.jivejdon.model.subscription;
 
 import com.jdon.annotation.Model;
+import com.jdon.jivejdon.manager.subscription.SubscriptionAction;
+import com.jdon.jivejdon.manager.subscription.SubscriptionActionHolder;
+import com.jdon.jivejdon.manager.subscription.SubscriptionNotify;
 import com.jdon.jivejdon.model.Account;
+import com.jdon.jivejdon.model.subscription.messsage.NotifyMessage;
 import com.jdon.jivejdon.model.subscription.subscribed.Subscribed;
 
 @Model
@@ -15,11 +19,11 @@ public class Subscription {
 
 	private String creationDate;
 
-	private boolean sendmsg;
-
-	private boolean sendemail;
+	private SubscriptionActionHolder subscriptionActionHolder;
 
 	public Subscription() {
+		subscriptionActionHolder = new SubscriptionActionHolder();
+
 	}
 
 	public Account getAccount() {
@@ -60,23 +64,36 @@ public class Subscription {
 		this.creationDate = creationDate;
 	}
 
-	public boolean isSendmsg() {
-		return sendmsg;
-	}
-
-	public void setSendmsg(boolean sendmsg) {
-		this.sendmsg = sendmsg;
-	}
-
-	public boolean isSendemail() {
-		return sendemail;
-	}
-
-	public void setSendemail(boolean sendemail) {
-		this.sendemail = sendemail;
-	}
-
 	public void updateSubscriptionCount(int count) {
 		subscribed.updateSubscriptionCount(count);
 	}
+
+	// for Jsp set/get see subAccountList.jsp
+	public boolean getActionType(String actionClassS) {
+		Class actionCalss = null;
+		try {
+			actionCalss = Class.forName(actionClassS);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return subscriptionActionHolder.hasActionType(actionCalss);
+	}
+
+	public SubscriptionActionHolder getSubscriptionActionHolder() {
+		return subscriptionActionHolder;
+	}
+
+	public void setSubscriptionActionHolder(SubscriptionActionHolder subscriptionActionHolder) {
+		this.subscriptionActionHolder = subscriptionActionHolder;
+	}
+
+	public void addAction(SubscriptionAction subscriptionAction) {
+		subscriptionActionHolder.addAction(subscriptionAction);
+	}
+
+	public void doAction(NotifyMessage notifyMessage, SubscriptionNotify subscriptionNotify) {
+		this.subscriptionActionHolder.doAction(notifyMessage, subscriptionNotify);
+
+	}
+
 }

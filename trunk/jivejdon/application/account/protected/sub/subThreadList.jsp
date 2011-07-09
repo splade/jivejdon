@@ -79,10 +79,10 @@
         
 				</td>
 				<td class="contact" align="center" >
-				    <html:checkbox name="subscription" property="sendmsg" disabled="true"/>
+				    <html:checkbox name="subscription" property="actionType(com.jdon.jivejdon.manager.subscription.action.ShortMsgAction)" disabled="true"/>
 				</td>
 				<td class="contact" align="center" >
-				   <html:checkbox name="subscription" property="sendemail" disabled="true"/>
+				   <html:checkbox name="subscription" property="actionType(com.jdon.jivejdon.manager.subscription.action.EmailAction)" disabled="true"/>
 				</td>
 				<td class="contact" align="center" >
 				<logic:present name="isOwner" >

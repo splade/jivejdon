@@ -22,6 +22,7 @@ import com.jdon.controller.events.EventModel;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.manager.TreeManager;
 import com.jdon.jivejdon.manager.subscription.SubscribedFactory;
+import com.jdon.jivejdon.manager.subscription.action.ShortMsgAction;
 import com.jdon.jivejdon.model.Forum;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumMessageReply;
@@ -54,9 +55,9 @@ public class MessageKernel {
 
 	protected SubscriptionRepository subscriptionRepository;
 
-	public MessageKernel(MessageRepository messageRepository, ForumMessageQueryService forumMessageQueryService,
-			ForumFactory forumAbstractFactory, TreeManager treeManager, MessageTransactionPersistence messageTransactionPersistence,
-			TagRepository tagRepository, SubscriptionRepository subscriptionRepository) {
+	public MessageKernel(MessageRepository messageRepository, ForumMessageQueryService forumMessageQueryService, ForumFactory forumAbstractFactory,
+			TreeManager treeManager, MessageTransactionPersistence messageTransactionPersistence, TagRepository tagRepository,
+			SubscriptionRepository subscriptionRepository) {
 		this.messageRepository = messageRepository;
 		this.forumMessageQueryService = forumMessageQueryService;
 		this.forumAbstractFactory = forumAbstractFactory;
@@ -136,7 +137,7 @@ public class MessageKernel {
 		try {
 			Subscription sub = new Subscription();
 			sub.setAccount(forumMessage.getAccount());
-			sub.setSendmsg(true);
+			sub.addAction(new ShortMsgAction());
 			Subscribed subscribed = SubscribedFactory.createTransient(ThreadSubscribed.TYPE, forumMessage.getForumThread().getThreadId());
 			sub.setSubscribed(subscribed);
 			subscriptionRepository.createSubscription(sub);

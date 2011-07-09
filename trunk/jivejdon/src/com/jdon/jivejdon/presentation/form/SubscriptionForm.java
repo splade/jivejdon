@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.struts.action.ActionMapping;
 
 import com.jdon.jivejdon.manager.subscription.SubscribedFactory;
+import com.jdon.jivejdon.manager.subscription.SubscriptionActionHolder;
+import com.jdon.jivejdon.manager.subscription.action.EmailAction;
+import com.jdon.jivejdon.manager.subscription.action.ShortMsgAction;
 import com.jdon.jivejdon.model.subscription.subscribed.Subscribed;
 
 public class SubscriptionForm extends BaseForm {
@@ -25,11 +28,10 @@ public class SubscriptionForm extends BaseForm {
 
 	private String creationDate;
 
-	private boolean sendmsg;
-
-	private boolean sendemail;
+	private SubscriptionActionHolder subscriptionActionHolder;
 
 	public SubscriptionForm() {
+		this.subscriptionActionHolder = new SubscriptionActionHolder();
 	}
 
 	public Long getSubscribeId() {
@@ -93,19 +95,25 @@ public class SubscriptionForm extends BaseForm {
 	}
 
 	public boolean isSendmsg() {
-		return sendmsg;
+		return subscriptionActionHolder.hasActionType(ShortMsgAction.class);
 	}
 
 	public void setSendmsg(boolean sendmsg) {
-		this.sendmsg = sendmsg;
+		if (sendmsg)
+			subscriptionActionHolder.addAction(new ShortMsgAction());
+		else
+			subscriptionActionHolder.removeActionType(ShortMsgAction.class);
 	}
 
 	public boolean isSendemail() {
-		return sendemail;
+		return subscriptionActionHolder.hasActionType(EmailAction.class);
 	}
 
 	public void setSendemail(boolean sendemail) {
-		this.sendemail = sendemail;
+		if (sendemail)
+			subscriptionActionHolder.addAction(new EmailAction());
+		else
+			subscriptionActionHolder.removeActionType(EmailAction.class);
 	}
 
 	public int getSubscribeType() {
@@ -114,6 +122,14 @@ public class SubscriptionForm extends BaseForm {
 
 	public void setSubscribeType(int subscribeType) {
 		this.subscribeType = subscribeType;
+	}
+
+	public SubscriptionActionHolder getSubscriptionActionHolder() {
+		return subscriptionActionHolder;
+	}
+
+	public void setSubscriptionActionHolder(SubscriptionActionHolder subscriptionActionHolder) {
+		this.subscriptionActionHolder = subscriptionActionHolder;
 	}
 
 	public void doValidate(ActionMapping mapping, HttpServletRequest request, List errors) {
