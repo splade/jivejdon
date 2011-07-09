@@ -8,6 +8,7 @@ import com.jdon.controller.events.EventModel;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.manager.email.ValidateCodeEmail;
+import com.jdon.jivejdon.manager.subscription.action.EmailAction;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.subscription.Subscription;
 import com.jdon.jivejdon.model.subscription.subscribed.AccountSubscribed;
@@ -62,7 +63,7 @@ public class SubscriptionServiceImp implements SubscriptionService {
 				em.setErrors(Constants.EXISTED_ERROR);
 				return;
 			}
-			if (subscription.isSendemail() && !subscription.getAccount().isEmailValidate()) {
+			if (subscription.getSubscriptionActionHolder().hasActionType(EmailAction.class) && !subscription.getAccount().isEmailValidate()) {
 				validateCodeEmail.send(subscription.getAccount());
 			}
 			subscriptionRepository.createSubscription(subscription);

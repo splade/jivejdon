@@ -11,6 +11,8 @@ import org.apache.log4j.Logger;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.manager.subscription.SubscribedFactory;
+import com.jdon.jivejdon.manager.subscription.action.EmailAction;
+import com.jdon.jivejdon.manager.subscription.action.ShortMsgAction;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.subscription.Subscription;
 import com.jdon.jivejdon.model.subscription.subscribed.Subscribed;
@@ -53,8 +55,8 @@ public class SubscriptionDaoSql implements SubscriptionDao {
 			queryParams.add(saveDateTime);
 			subscription.setCreationDate(displayDateTime);
 
-			queryParams.add(subscription.isSendmsg());
-			queryParams.add(subscription.isSendemail());
+			queryParams.add(subscription.getSubscriptionActionHolder().hasActionType(ShortMsgAction.class));
+			queryParams.add(subscription.getSubscriptionActionHolder().hasActionType(EmailAction.class));
 
 			jdbcTempSource.getJdbcTemp().operate(queryParams, ADD_SUB);
 
@@ -120,10 +122,13 @@ public class SubscriptionDaoSql implements SubscriptionDao {
 		ret.setCreationDate(constants.getDateTimeDisp(saveDateTime));
 
 		Boolean sendmsg = (Boolean) map.get("sendmsg");
-		ret.setSendmsg(sendmsg);
+		if (sendmsg)
+			ret.addAction(new ShortMsgAction());
 
 		Boolean sendemail = (Boolean) map.get("sendemail");
-		ret.setSendemail(sendemail);
+		if (sendemail) {
+			ret.addAction(new EmailAction(ret));
+		}
 
 		return ret;
 	}
