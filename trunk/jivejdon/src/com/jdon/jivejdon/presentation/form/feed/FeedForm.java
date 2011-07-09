@@ -6,10 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.action.ActionMapping;
 
+import com.jdon.jivejdon.presentation.form.BaseForm;
 import com.jdon.jivejdon.presentation.form.SkinUtils;
-import com.jdon.model.ModelForm;
 
-public class FeedForm extends ModelForm {
+public class FeedForm extends BaseForm {
 
 	/**
 	 * 

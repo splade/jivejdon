@@ -67,7 +67,7 @@
     </action>	
     
     <action name="feedForm" path="/forum/feed/feedbackAction" type="com.jdon.strutsutil.ServiceMethodAction"
-	  scope="request" validate="false" >
+	  scope="request" validate="true" >
       <forward name="send" path="/forum/feed/result.jsp"/>		
     </action>
     
