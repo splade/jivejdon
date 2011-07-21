@@ -1,6 +1,5 @@
 package com.jdon.jivejdon.model.subscription.messsage;
 
-import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ShortMessage;
 import com.jdon.jivejdon.model.subscription.Subscription;
@@ -63,9 +62,8 @@ public class AccountNotifyMessage implements NotifyMessage {
 	public void fullfillNotifyMessage(Subscribed subscribed) {
 		ForumMessage forumMessage = (ForumMessage) subscribed.getSubscribed()[1];
 		String newSubscribedUrl = StringUtil.replace(getNotifyUrlTemp(), "threadId", forumMessage.getForumThread().getThreadId().toString());
-		shortMessage.setMessageBody(shortMessage.getMessageTitle() + ":" + subscribed.getName() + "  " + "<br> <a href='" + newSubscribedUrl
-				+ "' target=_blank>" + newSubscribedUrl + "</a> ");
-		shortMessage.setMessageTitle(shortMessage.getMessageTitle() + ":" + subscribed.getName());
+		shortMessage.setMessageBody(" <a href='" + newSubscribedUrl + "' target=_blank>" + newSubscribedUrl + "</a> ");
+		shortMessage.setMessageTitle(shortMessage.getMessageTitle() + "-" + subscribed.getName());
 	}
 
 }

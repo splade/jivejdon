@@ -56,5 +56,8 @@
 	<classpathentry kind="lib" path="lib/time/ocpsoft-pretty-time-1.0.6.jar"/>
 	<classpathentry kind="lib" path="lib/xebia-servlet-extras-1.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/urlrewrite/urlrewrite-3.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/weibo/weibo4j-1.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/weibo/commons-codec.jar"/>
+	<classpathentry kind="lib" path="lib/weibo/commons-httpclient-3.1.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

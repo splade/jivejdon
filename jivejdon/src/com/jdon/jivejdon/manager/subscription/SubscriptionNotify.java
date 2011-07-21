@@ -9,6 +9,7 @@ import com.jdon.domain.message.DomainMessage;
 import com.jdon.domain.message.MessageListener;
 import com.jdon.jivejdon.manager.email.SubscriptionEmail;
 import com.jdon.jivejdon.manager.shortmessage.ShortMessageFactory;
+import com.jdon.jivejdon.manager.weibo.SinaWeboSubmitter;
 import com.jdon.jivejdon.model.subscription.Subscription;
 import com.jdon.jivejdon.model.subscription.messsage.NotifyMessage;
 import com.jdon.jivejdon.model.subscription.subscribed.Subscribed;
@@ -25,14 +26,16 @@ public class SubscriptionNotify implements MessageListener {
 
 	private AccountFactory accountFactory;
 	public SubscriptionEmail subscriptionEmail;
+	public SinaWeboSubmitter sinaWeboSubmitter;
 
 	public SubscriptionNotify(SubscriptionDao subscriptionDao, ShortMessageFactory shortMessageFactory, AccountFactory accountFactory,
-			SubscriptionEmail subscriptionEmail, NotifyMessageFactory notifyMessageFactory) {
+			SubscriptionEmail subscriptionEmail, NotifyMessageFactory notifyMessageFactory, SinaWeboSubmitter sinaWeboSubmitter) {
 		this.subscriptionDao = subscriptionDao;
 		this.shortMessageFactory = shortMessageFactory;
 		this.accountFactory = accountFactory;
 		this.subscriptionEmail = subscriptionEmail;
 		this.notifyMessageFactory = notifyMessageFactory;
+		this.sinaWeboSubmitter = sinaWeboSubmitter;
 
 	}
 

@@ -158,21 +158,21 @@
 
 		<component name="tagNotifyMessage"
 			class="com.jdon.jivejdon.model.subscription.messsage.TagNotifyMessage">
-			<constructor value="您关注的标签有新内容  在自己博客'我的关注'中取消 " />
+			<constructor value="您关注的标签有新主题 " />
 			<constructor value="http://www.jdon.com/jivejdon/tags/tagId" />
 			<constructor value="admin" />
 		</component>
 
 		<component name="threadNotifyMessage"
 			class="com.jdon.jivejdon.model.subscription.messsage.ThreadNotifyMessage">
-			<constructor value="您关注的主题贴有新内容 在自己博客'我的关注'中取消 " />
+			<constructor value="您关注的主题贴有新回复  " />
 			<constructor value="http://www.jdon.com/jivejdon/thread/threadId#messageId" />
 			<constructor value="admin" />
 		</component>
 		
 		<component name="accountNotifyMessage"
 			class="com.jdon.jivejdon.model.subscription.messsage.AccountNotifyMessage">
-			<constructor value="您关注的作者发言了 在自己博客'我的关注'中取消 " />
+			<constructor value="您关注的作者有新主题贴   " />
 			<constructor value="http://www.jdon.com/jivejdon/thread/threadId" />
 			<constructor value="admin" />
 		</component>
@@ -195,6 +195,12 @@
 			class="com.jdon.jivejdon.manager.shortmessage.WeiBoShortMessageParams">
 			<constructor value="有贴提到你：" />
     	    <constructor value="在 &lt;a href=/jivejdon/thread/nav/threadId/messageId#messageId target=_blank   &gt; subject &lt;/a&gt; 帖子中提到了你，去看看吧。" />
+		</component>
+		
+			<component name="weiboOAuthParamVO"
+			class="com.jdon.jivejdon.manager.weibo.WeiboOAuthParamVO">
+			<constructor value="2992793524" /><!-- CONSUMER_KEY -->
+    	    <constructor value="91c4c67f5a84e9cca4b394f42c78f4a4" /> <!--  CONSUMER_SECRET -->
 		</component>
 
 	</services>

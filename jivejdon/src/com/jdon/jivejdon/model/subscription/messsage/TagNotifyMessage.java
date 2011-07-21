@@ -45,8 +45,7 @@ public class TagNotifyMessage implements NotifyMessage {
 		ForumThread thread = (ForumThread) subscribed.getSubscribed()[1];
 		// http://www.jdon.com/jivejdon/thread/threadId#messageId
 		String newSubscribedUrl = StringUtil.replace(getNotifyUrlTemp(), "tagId", tag.getTagID().toString());
-		String body = shortMessage.getMessageTitle() + "<br> <a href='" + newSubscribedUrl + "' target=_blank>" + thread.getName() + "</a> ";
-		body = body + ":" + thread.getName();
+		String body = " <a href='" + newSubscribedUrl + "' target=_blank>" + thread.getName() + "</a> ";
 		shortMessage.setMessageBody(body);
 		shortMessage.setMessageTitle(shortMessage.getMessageTitle() + ":" + subscribed.getName());
 	}

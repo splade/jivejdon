@@ -20,6 +20,7 @@
 	<property name="urlrewrite.dir" value="lib/urlrewrite" />
 	<property name="rsslib.dir" value="lib/rsslib" />
 	<property name="timelib.dir" value="lib/time" />
+	<property name="weibolib.dir" value="lib/weibo" />
 	
 	
 
@@ -118,6 +119,7 @@
 			<fileset dir="${urlrewrite.dir}"/>
 			<fileset dir="${rsslib.dir}"/>
 			<fileset dir="${timelib.dir}"/>
+			<fileset dir="${weibolib.dir}"/>			
 			<fileset dir="${lib.dir}">
 			  <include name="*.jar" />
 			</fileset>

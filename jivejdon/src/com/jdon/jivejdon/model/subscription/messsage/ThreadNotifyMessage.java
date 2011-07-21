@@ -45,7 +45,8 @@ public class ThreadNotifyMessage implements NotifyMessage {
 		// http://www.jdon.com/jivejdon/thread/threadId#messageId
 		String newSubscribedUrl = StringUtil.replace(getNotifyUrlTemp(), "threadId", forumThread.getThreadId().toString());
 		newSubscribedUrl = StringUtil.replace(newSubscribedUrl, "messageId", forumThread.getState().getLastPost().getMessageId().toString());
-		String body = shortMessage.getMessageTitle() + "<br> <a href='" + newSubscribedUrl + "' target=_blank>" + forumThread.getName() + "</a>";
+		String body = " <a href='" + newSubscribedUrl + "' target=_blank>" + forumThread.getState().getLastPost().getMessageVO().getSubject()
+				+ "</a>";
 		shortMessage.setMessageBody(body);
 		shortMessage.setMessageTitle(shortMessage.getMessageTitle() + ":" + subscribed.getName());
 
