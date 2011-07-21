@@ -15,7 +15,6 @@
  */
 package com.jdon.jivejdon.service.imp.account;
 
-
 import com.jdon.controller.events.EventModel;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.Constants;
@@ -71,8 +70,9 @@ public abstract class AccountServiceImp implements AccountService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.framework.samples.jpetstore.service.AccountService#insertAccount
-	 *      (com.jdon.framework.samples.jpetstore.domain.Account)
+	 * @see
+	 * com.jdon.framework.samples.jpetstore.service.AccountService#insertAccount
+	 * (com.jdon.framework.samples.jpetstore.domain.Account)
 	 */
 
 	public void createAccount(EventModel em) {
@@ -106,15 +106,17 @@ public abstract class AccountServiceImp implements AccountService {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.jdon.framework.samples.jpetstore.service.AccountService#updateAccount
-	 *      (com.jdon.framework.samples.jpetstore.domain.Account)
-	 */
 	public void updateAccount(Account accountInput) throws Exception {
 		Debug.logVerbose("enter updateAccount", module);
+
 		try {
+			Account checkAccount = getAccount(accountInput.getUserIdLong());
+			if (checkAccount == null)
+				return;
+			if (checkAccount.isEmailValidate()) {
+				accountInput.setEmail(checkAccount.getEmail());
+			}
+
 			jtaTransactionUtil.beginTransaction();
 			accountInput.setPassword(ToolsUtil.hash(accountInput.getPassword()));
 			accountDao.updateAccount(accountInput);

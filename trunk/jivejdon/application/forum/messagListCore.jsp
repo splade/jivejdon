@@ -213,7 +213,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 </center>
 
 <table align="center"><tr><td valign="top" >
-<div id=hotList>正在读取，请等待...</div>
+<div id=newPosts>正在读取，请等待...</div>
 </td><td  valign="top">
 <div id="vgad336x280">
 <jsp:include page="../common/advert.jsp" flush="true">   
@@ -279,7 +279,7 @@ for(var i=0; i<f.length; i++){
    f[i].innerHTML += $("post_titleright").innerHTML ;
 }
 
-hotList();
+newpostList();
 //hotkeys();
 
 
