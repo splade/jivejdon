@@ -20,6 +20,8 @@
 
 <table class="contacts" width="600" cellpadding=3 cellspacing=0 border=1  align="center">
   <tr  bgcolor="#C3C3C3">
+            <td class="contactDept" align="center" width="2">
+			</td>
 			<td class="contactDept" align="center">
 				作者ID
 			</td>
@@ -32,14 +34,21 @@
 			<td class="contactDept" align="center" >
 				邮件
 			</td>
-			<td class="contactDept" align="center" width="2">
+			<td class="contactDept" align="center" >
+				新浪微博
 			</td>
+			
 			
 		</tr>
 		<logic:iterate id="subscription" name="subscriptionListForm" property="list"
 			indexId="i">
-			<bean:define id="subscribed" name="subscription" property="subscribed"></bean:define>
+			<bean:define id="subscribed" name="subscription" property="subscribed"></bean:define>			
 			<tr bgcolor="#ffffff">
+			   <td class="contact" align="center" >
+				<logic:present name="isOwner" >
+				 <input type="radio" name="subscriptionId" value="<bean:write name="subscription" property="subscriptionId" />" >
+				 </logic:present>
+				</td>
 				<td class="contact" align="center" >
 					<a href="<%=request.getContextPath()%>/blog/<bean:write name="subscribed" property="name"/>" 
               target="_blank">
@@ -56,10 +65,9 @@
 				   <html:checkbox name="subscription" property="actionType(com.jdon.jivejdon.manager.subscription.action.EmailAction)" disabled="true"/>
 				</td>
 				<td class="contact" align="center" >
-				<logic:present name="isOwner" >
-				 <input type="radio" name="subscriptionId" value="<bean:write name="subscription" property="subscriptionId" />" >
-				 </logic:present>
+				   <html:checkbox name="subscription" property="actionType(com.jdon.jivejdon.manager.subscription.action.SinaWeiboAction)" disabled="true"/>
 				</td>
+				
 			</tr>
 		</logic:iterate>
 	</table>

@@ -20,17 +20,10 @@
 
 <table class="contacts" width="600" cellpadding=3 cellspacing=0 border=1  align="center">
   <tr  bgcolor="#C3C3C3">
+              <td class="contactDept" align="center" width="2">
+			</td>
 			<td class="contactDept" align="center">
 				主题标题
-			</td>
-			<td class="contactDept" align="center">
-				回复
-			</td>
-			<td class="contactDept" align="center">
-				作者
-			</td>
-			<td class="contactDept" align="center" width="150">
-				最后回复
 			</td>
 			<td class="contactDept" align="center">
 				消息
@@ -38,8 +31,10 @@
 			<td class="contactDept" align="center" >
 				邮件
 			</td>
-			<td class="contactDept" align="center" width="2">
+			<td class="contactDept" align="center" >
+				新浪微博
 			</td>
+			
 			
 		</tr>
 		<logic:iterate id="subscription" name="subscriptionListForm" property="list"
@@ -47,36 +42,17 @@
 			<bean:define id="subscribed" name="subscription" property="subscribed"></bean:define>
 			<bean:define id="forumThread" name="subscribed" property="forumThread"></bean:define>
 			<tr bgcolor="#ffffff">
+			    <td class="contact" align="center" >
+				<logic:present name="isOwner" >
+				 <input type="radio" name="subscriptionId" value="<bean:write name="subscription" property="subscriptionId" />" >
+				 </logic:present>
+				</td>
+				
 				<td class="contact" align="center" >
 					<a href="<%=request.getContextPath()%>/thread/<bean:write name="subscribed" property="subscribeId"/>" 
               target="_blank">
 						<bean:write name="subscribed" property="name" />
 					</a>
-				</td>
-				<td class="contact" align="center" >
-					<bean:write name="forumThread" property="state.messageCount" /> 
-				</td>
-				<td class="contact" align="center" >
-					<bean:write name="forumThread" property="rootMessage.account.username" />
-				</td>
-					<td class="contact" align="center" >
-				    
-		<logic:notEmpty name="forumThread" property="state.lastPost">
-            <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>
-            <span  class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >
-            <bean:write name="lastPost" property="modifiedDate" />
-            </span>
-            <br> by:
-            <logic:equal name="lastPost" property="root" value="true">
-                   <a href='<%=request.getContextPath()%>/thread/<bean:write name="lastPost" property="forumThread.threadId" />' target="_blank" >                    
-            </logic:equal>
-            <logic:equal name="lastPost" property="root" value="false">
-                   <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="lastPost" property="forumThread.threadId" />/<bean:write name="lastPost" property="messageId" />#<bean:write name="lastPost" property="messageId" />' target="_blank"  rel="nofollow"> 
-            </logic:equal>
-                    <span class='Users ajax_userId=<bean:write name="lastPost" property="account.userId"/>' >
-                    <bean:write name="lastPost" property="account.username" /></span></a>
-        </logic:notEmpty>
-        
 				</td>
 				<td class="contact" align="center" >
 				    <html:checkbox name="subscription" property="actionType(com.jdon.jivejdon.manager.subscription.action.ShortMsgAction)" disabled="true"/>
@@ -85,10 +61,9 @@
 				   <html:checkbox name="subscription" property="actionType(com.jdon.jivejdon.manager.subscription.action.EmailAction)" disabled="true"/>
 				</td>
 				<td class="contact" align="center" >
-				<logic:present name="isOwner" >
-				 <input type="radio" name="subscriptionId" value="<bean:write name="subscription" property="subscriptionId" />" >
-				 </logic:present>
+				   <html:checkbox name="subscription" property="actionType(com.jdon.jivejdon.manager.subscription.action.SinaWeiboAction)" disabled="true"/>
 				</td>
+				
 			</tr>
 		</logic:iterate>
 	</table>

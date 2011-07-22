@@ -5,6 +5,7 @@ import com.jdon.annotation.Introduce;
 import com.jdon.annotation.pointcut.Around;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.model.subscription.Subscription;
+import com.jdon.jivejdon.repository.Userconnector;
 import com.jdon.jivejdon.repository.dao.sql.JdbcTempSource;
 import com.jdon.jivejdon.repository.dao.sql.SubscriptionDaoSql;
 import com.jdon.jivejdon.service.util.ContainerUtil;
@@ -13,8 +14,8 @@ import com.jdon.jivejdon.service.util.ContainerUtil;
 @Introduce("modelCache")
 public class SubscriptionDaoCache extends SubscriptionDaoSql {
 
-	public SubscriptionDaoCache(JdbcTempSource jdbcTempSource, ContainerUtil containerUtil, Constants constants) {
-		super(jdbcTempSource, constants, containerUtil);
+	public SubscriptionDaoCache(JdbcTempSource jdbcTempSource, ContainerUtil containerUtil, Constants constants, Userconnector userconnectorSql) {
+		super(jdbcTempSource, constants, containerUtil, userconnectorSql);
 
 	}
 

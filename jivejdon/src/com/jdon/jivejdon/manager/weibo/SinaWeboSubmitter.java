@@ -46,6 +46,8 @@ public class SinaWeboSubmitter {
 
 	public final WeiboOAuthParamVO weiboOAuthParamVO;
 
+	public SinaWeiboUserPwd sinaWeiboUserPwd;
+
 	public SinaWeboSubmitter(WeiboOAuthParamVO weiboOAuthParamVO) {
 		super();
 		this.weiboOAuthParamVO = weiboOAuthParamVO;
@@ -56,7 +58,7 @@ public class SinaWeboSubmitter {
 			RequestToken requestToken = request("xml");
 			HttpClient http = new HttpClient();
 			PostParameter[] postParameters = new PostParameter[] { new PostParameter("oauth_callback", "xml"),
-					new PostParameter("userId", weiboOAuthParamVO.getUserId()), new PostParameter("passwd", weiboOAuthParamVO.getPasswd()) };
+					new PostParameter("userId", sinaWeiboUserPwd.getUserId()), new PostParameter("passwd", sinaWeiboUserPwd.getPasswd()) };
 			Response response = http.get(requestToken.getAuthorizationURL());
 			response = http.post(requestToken.getAuthorizationURL(), postParameters);
 
@@ -157,10 +159,18 @@ public class SinaWeboSubmitter {
 
 	public static void main(String[] args) throws Exception {
 		WeiboOAuthParamVO weiboOAuthParamVO = new WeiboOAuthParamVO("2992793524", "91c4c67f5a84e9cca4b394f42c78f4a4");
-		weiboOAuthParamVO.setUserId("banq");
-		weiboOAuthParamVO.setPasswd("xxxxx");// modify passwd
 		SinaWeboSubmitter weiboAction = new SinaWeboSubmitter(weiboOAuthParamVO);
+		weiboAction.setSinaWeiboUserPwd(new SinaWeiboUserPwd("banq", "xxxxx"));
 		weiboAction.submitWeibo("test");
 
 	}
+
+	public SinaWeiboUserPwd getSinaWeiboUserPwd() {
+		return sinaWeiboUserPwd;
+	}
+
+	public void setSinaWeiboUserPwd(SinaWeiboUserPwd sinaWeiboUserPwd) {
+		this.sinaWeiboUserPwd = sinaWeiboUserPwd;
+	}
+
 }

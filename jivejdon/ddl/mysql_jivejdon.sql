@@ -205,3 +205,9 @@ CREATE TABLE `subscription` (
 
 insert into jiveID values (6, 100);
 
+create table userconnector (
+	userId varchar (100),
+	conntype varchar (100),
+	connuser  varchar (100),
+	connpasswd varchar (100)		
+); 

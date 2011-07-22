@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.struts.action.ActionMapping;
 
 import com.jdon.jivejdon.model.Account;
+import com.jdon.jivejdon.util.ToolsUtil;
 import com.jdon.model.ModelForm;
 
 /**
@@ -86,7 +87,7 @@ public class ShortMessageForm extends BaseForm {
 	}
 
 	public String getFilterMessageBody() {
-		return messageBody;
+		return ToolsUtil.convertURL(messageBody);
 	}
 
 	public void setMessageBody(String messageBody) {
