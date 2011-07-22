@@ -11,6 +11,7 @@ import com.jdon.jivejdon.manager.subscription.SubscriptionActionHolder;
 import com.jdon.jivejdon.manager.subscription.action.EmailAction;
 import com.jdon.jivejdon.manager.subscription.action.ShortMsgAction;
 import com.jdon.jivejdon.model.subscription.subscribed.Subscribed;
+import com.jdon.jivejdon.presentation.form.weibo.SinaweiboForm;
 
 public class SubscriptionForm extends BaseForm {
 	/**
@@ -30,8 +31,11 @@ public class SubscriptionForm extends BaseForm {
 
 	private SubscriptionActionHolder subscriptionActionHolder;
 
+	private SinaweiboForm sinaweiboForm;
+
 	public SubscriptionForm() {
 		this.subscriptionActionHolder = new SubscriptionActionHolder();
+		this.sinaweiboForm = new SinaweiboForm();
 	}
 
 	public Long getSubscribeId() {
@@ -125,11 +129,20 @@ public class SubscriptionForm extends BaseForm {
 	}
 
 	public SubscriptionActionHolder getSubscriptionActionHolder() {
-		return subscriptionActionHolder;
+		return sinaweiboForm.pack(subscriptionActionHolder);
 	}
 
 	public void setSubscriptionActionHolder(SubscriptionActionHolder subscriptionActionHolder) {
+		sinaweiboForm.unpack(subscriptionActionHolder);
 		this.subscriptionActionHolder = subscriptionActionHolder;
+	}
+
+	public SinaweiboForm getSinaweiboForm() {
+		return sinaweiboForm;
+	}
+
+	public void setSinaweiboForm(SinaweiboForm sinaweiboForm) {
+		this.sinaweiboForm = sinaweiboForm;
 	}
 
 	public void doValidate(ActionMapping mapping, HttpServletRequest request, List errors) {

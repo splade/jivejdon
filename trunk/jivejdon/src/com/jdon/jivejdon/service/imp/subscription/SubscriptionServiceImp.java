@@ -9,12 +9,15 @@ import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.manager.email.ValidateCodeEmail;
 import com.jdon.jivejdon.manager.subscription.action.EmailAction;
+import com.jdon.jivejdon.manager.subscription.action.SinaWeiboAction;
+import com.jdon.jivejdon.manager.weibo.SinaWeiboUserPwd;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.subscription.Subscription;
 import com.jdon.jivejdon.model.subscription.subscribed.AccountSubscribed;
 import com.jdon.jivejdon.model.subscription.subscribed.TagSubscribed;
 import com.jdon.jivejdon.model.subscription.subscribed.ThreadSubscribed;
 import com.jdon.jivejdon.repository.SubscriptionRepository;
+import com.jdon.jivejdon.repository.Userconnector;
 import com.jdon.jivejdon.service.SubscriptionService;
 import com.jdon.jivejdon.service.util.SessionContextUtil;
 
@@ -32,12 +35,15 @@ public class SubscriptionServiceImp implements SubscriptionService {
 
 	protected ValidateCodeEmail validateCodeEmail;
 
+	protected Userconnector userconnector;
+
 	public SubscriptionServiceImp(SessionContextUtil sessionContextUtil, SubscriptionRepository subscriptionRepository,
-			ValidateCodeEmail validateCodeEmail) {
+			ValidateCodeEmail validateCodeEmail, Userconnector userconnector) {
 		super();
 		this.subscriptionRepository = subscriptionRepository;
 		this.sessionContextUtil = sessionContextUtil;
 		this.validateCodeEmail = validateCodeEmail;
+		this.userconnector = userconnector;
 	}
 
 	public Account getloginAccount() {
@@ -67,6 +73,12 @@ public class SubscriptionServiceImp implements SubscriptionService {
 				validateCodeEmail.send(subscription.getAccount());
 			}
 			subscriptionRepository.createSubscription(subscription);
+			if (subscription.getSubscriptionActionHolder().hasActionType(SinaWeiboAction.class)) {
+				SinaWeiboAction sinaWeiboAction = (SinaWeiboAction) subscription.getSubscriptionActionHolder().getActionType(SinaWeiboAction.class);
+				SinaWeiboUserPwd sinaWeiboUserPwd = sinaWeiboAction.getSinaWeiboUserPwd();
+				sinaWeiboUserPwd.setType(Long.toString(subscription.getSubscriptionId()));
+				userconnector.saveSinaWeiboUserconn(subscription.getAccount().getUserId(), sinaWeiboAction.getSinaWeiboUserPwd());
+			}
 			subscription = getSubscription(subscription.getSubscriptionId());
 			subscription.updateSubscriptionCount(1);
 		} catch (Exception e) {
@@ -87,6 +99,9 @@ public class SubscriptionServiceImp implements SubscriptionService {
 		Subscription subscription = getSubscription(subscriptionp.getSubscriptionId());
 		if (subscription != null) {
 			subscriptionRepository.deleteSubscription(subscription);
+			if (subscription.getSubscriptionActionHolder().hasActionType(SinaWeiboAction.class)) {
+				userconnector.removeSinaWeiboUserconn(subscription.getAccount().getUserId(), Long.toString(subscription.getSubscriptionId()));
+			}
 			subscription.updateSubscriptionCount(-1);
 		}
 

@@ -39,6 +39,17 @@ public class SubscriptionActionHolder {
 		return false;
 	}
 
+	public SubscriptionAction getActionType(Class actionClass) {
+		if (actionClass == null)
+			return null;
+		for (SubscriptionAction subaction : subscriptionActions) {
+			if (subaction.getClass().isAssignableFrom(actionClass)) {
+				return subaction;
+			}
+		}
+		return null;
+	}
+
 	public boolean removeActionType(Class actionClass) {
 		if (actionClass == null)
 			return false;

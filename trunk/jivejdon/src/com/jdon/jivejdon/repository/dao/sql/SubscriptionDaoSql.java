@@ -13,9 +13,12 @@ import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.manager.subscription.SubscribedFactory;
 import com.jdon.jivejdon.manager.subscription.action.EmailAction;
 import com.jdon.jivejdon.manager.subscription.action.ShortMsgAction;
+import com.jdon.jivejdon.manager.subscription.action.SinaWeiboAction;
+import com.jdon.jivejdon.manager.weibo.SinaWeiboUserPwd;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.subscription.Subscription;
 import com.jdon.jivejdon.model.subscription.subscribed.Subscribed;
+import com.jdon.jivejdon.repository.Userconnector;
 import com.jdon.jivejdon.repository.dao.SubscriptionDao;
 import com.jdon.jivejdon.service.util.ContainerUtil;
 import com.jdon.jivejdon.util.ToolsUtil;
@@ -30,11 +33,50 @@ public class SubscriptionDaoSql implements SubscriptionDao {
 
 	protected PageIteratorSolver pageIteratorSolver;
 
-	public SubscriptionDaoSql(JdbcTempSource jdbcTempSource, Constants constants, ContainerUtil containerUtil) {
+	protected Userconnector userconnectorSql;
+
+	public SubscriptionDaoSql(JdbcTempSource jdbcTempSource, Constants constants, ContainerUtil containerUtil, Userconnector userconnectorSql) {
 		this.jdbcTempSource = jdbcTempSource;
 		this.constants = constants;
+		this.userconnectorSql = userconnectorSql;
 		this.pageIteratorSolver = new PageIteratorSolver(jdbcTempSource.getDataSource(), containerUtil.getCacheManager());
 
+	}
+
+	private Subscription createSub(Map map) {
+		Subscription ret = new Subscription();
+		ret.setSubscriptionId((Long) map.get("subscriptionID"));
+
+		String userId = (String) map.get("userId");
+		Account accountin = new Account();
+		accountin.setUserId(userId);
+		ret.setAccount(accountin);
+
+		Integer subscribeType = (Integer) map.get("subscribedtype");
+		Long subscribeID = (Long) map.get("subscribedID");
+
+		ret.setSubscribed(SubscribedFactory.createTransient(subscribeType.intValue(), subscribeID));
+
+		String saveDateTime = ((String) map.get("creationDate")).trim();
+		ret.setCreationDate(constants.getDateTimeDisp(saveDateTime));
+
+		Boolean sendmsg = (Boolean) map.get("sendmsg");
+		if (sendmsg)
+			ret.addAction(new ShortMsgAction());
+
+		Boolean sendemail = (Boolean) map.get("sendemail");
+		if (sendemail) {
+			ret.addAction(new EmailAction(ret));
+		}
+
+		SinaWeiboUserPwd sinaWeiboUserPwd = userconnectorSql.loadSinaWeiboUserconn(userId, Long.toString(ret.getSubscriptionId()));
+		if (sinaWeiboUserPwd != null) {
+			SinaWeiboAction sinaWeiboAction = new SinaWeiboAction(sinaWeiboUserPwd);
+			sinaWeiboAction.setSubscription(ret);
+			ret.addAction(sinaWeiboAction);
+		}
+
+		return ret;
 	}
 
 	public void createSubscription(Subscription subscription) {
@@ -101,35 +143,6 @@ public class SubscriptionDaoSql implements SubscriptionDao {
 		} catch (Exception se) {
 			logger.error(se);
 		}
-		return ret;
-	}
-
-	private Subscription createSub(Map map) {
-		Subscription ret = new Subscription();
-		ret.setSubscriptionId((Long) map.get("subscriptionID"));
-
-		String userId = (String) map.get("userId");
-		Account accountin = new Account();
-		accountin.setUserId(userId);
-		ret.setAccount(accountin);
-
-		Integer subscribeType = (Integer) map.get("subscribedtype");
-		Long subscribeID = (Long) map.get("subscribedID");
-
-		ret.setSubscribed(SubscribedFactory.createTransient(subscribeType.intValue(), subscribeID));
-
-		String saveDateTime = ((String) map.get("creationDate")).trim();
-		ret.setCreationDate(constants.getDateTimeDisp(saveDateTime));
-
-		Boolean sendmsg = (Boolean) map.get("sendmsg");
-		if (sendmsg)
-			ret.addAction(new ShortMsgAction());
-
-		Boolean sendemail = (Boolean) map.get("sendemail");
-		if (sendemail) {
-			ret.addAction(new EmailAction(ret));
-		}
-
 		return ret;
 	}
 

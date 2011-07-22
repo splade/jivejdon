@@ -436,4 +436,21 @@ public class ToolsUtil {
 		response.addDateHeader("Expires", System.currentTimeMillis() + adddaysM);
 		return true;
 	}
+
+	public static String convertURL(String s) {
+		Pattern patt = Pattern
+				.compile("(?i)\\b((?:https?://|www\\d{0,3}[.]|[a-z0-9.\\-]+[.][a-z]{2,4}/)(?:[^\\s()<>]+|\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\))+(?:\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\)|[^\\s`!()\\[\\]{};:\'\".,<>???“”‘’]))");
+		Matcher matcher = patt.matcher(s);
+		if (matcher.find()) {
+			if (matcher.group(1).startsWith("http://")) {
+				return matcher.replaceAll("<a href=\"$1\">$1</a>");
+			} else {
+				return matcher.replaceAll("<a href=\"http://$1\">$1</a>");
+			}
+		} else {
+			return s;
+		}
+
+	}
+
 }

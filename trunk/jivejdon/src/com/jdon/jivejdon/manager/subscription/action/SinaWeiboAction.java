@@ -17,20 +17,19 @@ package com.jdon.jivejdon.manager.subscription.action;
 
 import com.jdon.jivejdon.manager.subscription.SubscriptionAction;
 import com.jdon.jivejdon.manager.subscription.SubscriptionNotify;
+import com.jdon.jivejdon.manager.weibo.SinaWeiboUserPwd;
 import com.jdon.jivejdon.model.subscription.Subscription;
 import com.jdon.jivejdon.model.subscription.messsage.NotifyMessage;
 
-public class WeiboAction implements SubscriptionAction {
+public class SinaWeiboAction implements SubscriptionAction {
 
 	private Subscription subscription;
 
-	public WeiboAction(Subscription subscription) {
-		super();
-		this.subscription = subscription;
-	}
+	private final SinaWeiboUserPwd sinaWeiboUserPwd;
 
-	public WeiboAction() {
+	public SinaWeiboAction(SinaWeiboUserPwd sinaWeiboUserPwd) {
 		super();
+		this.sinaWeiboUserPwd = sinaWeiboUserPwd;
 	}
 
 	public void exec(NotifyMessage notifyMessage, SubscriptionNotify subscriptionNotify) {
@@ -38,11 +37,23 @@ public class WeiboAction implements SubscriptionAction {
 			System.err.print("subscription is null in WeiboAction");
 			return;
 		}
-		// todo
-
-		subscriptionNotify.sinaWeboSubmitter.weiboOAuthParamVO.setUserId("");
-		subscriptionNotify.sinaWeboSubmitter.weiboOAuthParamVO.setPasswd("");
+		if (sinaWeiboUserPwd.isEmpty()) {
+			return;
+		}
+		subscriptionNotify.sinaWeboSubmitter.setSinaWeiboUserPwd(sinaWeiboUserPwd);
 		subscriptionNotify.sinaWeboSubmitter.submitWeibo(notifyMessage.getShortMessage().getMessageBody());
+	}
+
+	public SinaWeiboUserPwd getSinaWeiboUserPwd() {
+		return sinaWeiboUserPwd;
+	}
+
+	public Subscription getSubscription() {
+		return subscription;
+	}
+
+	public void setSubscription(Subscription subscription) {
+		this.subscription = subscription;
 	}
 
 }

@@ -20,11 +20,13 @@
 
 <table class="contacts" width="600" cellpadding=3 cellspacing=0 border=1  align="center">
   <tr  bgcolor="#C3C3C3">
+            <td class="contactDept" align="center" width="2">
+			</td>  
 			<td class="contactDept" align="center">
-				标签
+				关注的标签
 			</td>
 			<td class="contactDept" align="center">
-				主题总数
+				标签中主题数
 			</td>
 			<td class="contactDept" align="center">
 				消息
@@ -32,8 +34,10 @@
 			<td class="contactDept" align="center" >
 				邮件
 			</td>
-			<td class="contactDept" align="center" width="2">
+			<td class="contactDept" align="center" >
+				新浪微博
 			</td>
+			
 			
 		</tr>
 		<logic:iterate id="subscription" name="subscriptionListForm" property="list"
@@ -41,26 +45,36 @@
 			<bean:define id="subscribed" name="subscription" property="subscribed"></bean:define>
 			<bean:define id="tag" name="subscribed" property="tag"></bean:define>
 			<tr bgcolor="#ffffff">
+			<td class="contact" align="center" >
+				<logic:present name="isOwner" >
+				 <input type="radio" name="subscriptionId" value="<bean:write name="subscription" property="subscriptionId" />" >
+				 </logic:present>
+				</td>
+				
 				<td class="contact" align="center" >
 					<a href="<%=request.getContextPath()%>/tags/<bean:write name="subscribed" property="subscribeId"/>" 
               target="_blank">
 						<bean:write name="subscribed" property="name" />
 					</a>
 				</td>
+				
 				<td class="contact" align="center" >
 					<bean:write name="tag" property="assonum" /> 
 				</td>
+				
 				<td class="contact" align="center" >
 				    <html:checkbox name="subscription" property="actionType(com.jdon.jivejdon.manager.subscription.action.ShortMsgAction)" disabled="true"/>
 				</td>
+				
 				<td class="contact" align="center" >
 				   <html:checkbox name="subscription" property="actionType(com.jdon.jivejdon.manager.subscription.action.EmailAction)" disabled="true"/>
 				</td>
+				
 				<td class="contact" align="center" >
-				<logic:present name="isOwner" >
-				 <input type="radio" name="subscriptionId" value="<bean:write name="subscription" property="subscriptionId" />" >
-				 </logic:present>
+				   <html:checkbox name="subscription" property="actionType(com.jdon.jivejdon.manager.subscription.action.SinaWeiboAction)" disabled="true"/>
 				</td>
+				
+				
 			</tr>
 		</logic:iterate>
 	</table>

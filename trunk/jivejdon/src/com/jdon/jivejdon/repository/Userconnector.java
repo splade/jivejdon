@@ -13,17 +13,16 @@
  * limitations under the License.
  * 
  */
-package com.jdon.jivejdon.manager.weibo;
+package com.jdon.jivejdon.repository;
 
-public class WeiboOAuthParamVO {
+import com.jdon.jivejdon.manager.weibo.SinaWeiboUserPwd;
 
-	public final String CONSUMER_KEY;
-	public final String CONSUMER_SECRET;
+public interface Userconnector {
 
-	public WeiboOAuthParamVO(String cONSUMER_KEY, String cONSUMER_SECRET) {
-		super();
-		CONSUMER_KEY = cONSUMER_KEY;
-		CONSUMER_SECRET = cONSUMER_SECRET;
-	}
+	public abstract void saveSinaWeiboUserconn(String userId, SinaWeiboUserPwd sinaWeiboUserPwd);
+
+	public abstract void removeSinaWeiboUserconn(String userId, String type);
+
+	public abstract SinaWeiboUserPwd loadSinaWeiboUserconn(String userId, String type);
 
 }
