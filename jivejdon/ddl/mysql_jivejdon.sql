@@ -211,3 +211,4 @@ create table userconnector (
 	connuser  varchar (100),
 	connpasswd varchar (100)		
 ); 
+CREATE INDEX userId ON userconnector (userId, conntype);
