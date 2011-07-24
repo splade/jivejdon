@@ -47,7 +47,7 @@ public class TagNotifyMessage implements NotifyMessage {
 		String newSubscribedUrl = StringUtil.replace(getNotifyUrlTemp(), "tagId", tag.getTagID().toString());
 		String body = thread.getName() + ":" + newSubscribedUrl;
 		shortMessage.setMessageBody(body);
-		shortMessage.setMessageTitle(shortMessage.getMessageTitle() + ":" + subscribed.getName());
+		shortMessage.setMessageTitle(subscribed.getName() + ":" + shortMessage.getMessageTitle());
 	}
 
 	public ShortMessage getShortMessage() {
