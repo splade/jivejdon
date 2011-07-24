@@ -18,23 +18,27 @@ package com.jdon.jivejdon.manager.subscription;
 import com.jdon.annotation.Component;
 import com.jdon.jivejdon.model.subscription.Subscription;
 import com.jdon.jivejdon.model.subscription.messsage.AccountNotifyMessage;
+import com.jdon.jivejdon.model.subscription.messsage.ForumNotifyMessage;
 import com.jdon.jivejdon.model.subscription.messsage.NotifyMessage;
 import com.jdon.jivejdon.model.subscription.messsage.TagNotifyMessage;
 import com.jdon.jivejdon.model.subscription.messsage.ThreadNotifyMessage;
 import com.jdon.jivejdon.model.subscription.subscribed.AccountSubscribed;
+import com.jdon.jivejdon.model.subscription.subscribed.ForumSubscribed;
 import com.jdon.jivejdon.model.subscription.subscribed.TagSubscribed;
 import com.jdon.jivejdon.model.subscription.subscribed.ThreadSubscribed;
 
 @Component
 public class NotifyMessageFactory {
 
+	private ForumNotifyMessage forumNotifyMessageTemp;
 	private ThreadNotifyMessage threadNotifyMessageTemp;
 	private TagNotifyMessage tagNotifyMessageTemp;
 	private AccountNotifyMessage accountNotifyMessageTemp;
 
-	public NotifyMessageFactory(ThreadNotifyMessage threadNotifyMessageTemp, TagNotifyMessage tagNotifyMessageTemp,
-			AccountNotifyMessage accountNotifyMessageTemp) {
+	public NotifyMessageFactory(ForumNotifyMessage forumNotifyMessageTemp, ThreadNotifyMessage threadNotifyMessageTemp,
+			TagNotifyMessage tagNotifyMessageTemp, AccountNotifyMessage accountNotifyMessageTemp) {
 		super();
+		this.forumNotifyMessageTemp = forumNotifyMessageTemp;
 		this.threadNotifyMessageTemp = threadNotifyMessageTemp;
 		this.tagNotifyMessageTemp = tagNotifyMessageTemp;
 		this.accountNotifyMessageTemp = accountNotifyMessageTemp;
@@ -42,7 +46,11 @@ public class NotifyMessageFactory {
 
 	public NotifyMessage create(Subscription subscription) {
 		int subscribeType = subscription.getSubscribeType();
-		if (subscribeType == ThreadSubscribed.TYPE) {
+		if (subscribeType == ForumSubscribed.TYPE) {
+			ForumNotifyMessage sm = forumNotifyMessageTemp.clone();
+			sm.setSubscription(subscription);
+			return sm;
+		} else if (subscribeType == ThreadSubscribed.TYPE) {
 			ThreadNotifyMessage sm = threadNotifyMessageTemp.clone();
 			sm.setSubscription(subscription);
 			return sm;

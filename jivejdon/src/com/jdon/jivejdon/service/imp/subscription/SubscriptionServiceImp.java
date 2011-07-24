@@ -14,6 +14,7 @@ import com.jdon.jivejdon.manager.weibo.SinaWeiboUserPwd;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.subscription.Subscription;
 import com.jdon.jivejdon.model.subscription.subscribed.AccountSubscribed;
+import com.jdon.jivejdon.model.subscription.subscribed.ForumSubscribed;
 import com.jdon.jivejdon.model.subscription.subscribed.TagSubscribed;
 import com.jdon.jivejdon.model.subscription.subscribed.ThreadSubscribed;
 import com.jdon.jivejdon.repository.SubscriptionRepository;
@@ -122,6 +123,10 @@ public class SubscriptionServiceImp implements SubscriptionService {
 
 	public PageIterator getSubscriptionsForThread(String userId, int start, int count) {
 		return subscriptionRepository.getSubscriptionDao().getSubscriptions(getloginAccount().getUserId(), ThreadSubscribed.TYPE, start, count);
+	}
+
+	public PageIterator getSubscriptionsForForum(String userId, int start, int count) {
+		return subscriptionRepository.getSubscriptionDao().getSubscriptions(getloginAccount().getUserId(), ForumSubscribed.TYPE, start, count);
 	}
 
 	/**

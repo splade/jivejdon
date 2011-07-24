@@ -81,6 +81,9 @@ function loadAcJS(thisId){
                  <a href="<%=request.getContextPath()%>/<bean:write name="forum" property="forumId" />">                
                       <b><bean:write name="forum" property="name" /></b>
                  </a>
+                   <a title="关注本论坛" href="<%=request.getContextPath()%>/account/protected/sub/subAction.shtml?subscribeType=0&subscribeId=<bean:write name="forum" property="forumId" />"  rel="nofollow">
+                      <html:img page="/images/user_add.gif" width="18" height="18" alt="关注本论坛" border="0" /></a>                                     
+
                 <br>
                 <span class="home_content" ><bean:write name="forum" property="description" filter="false"/></span>
             </td>

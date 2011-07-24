@@ -23,7 +23,9 @@ import org.compass.annotations.SearchableId;
 import org.compass.annotations.SearchableProperty;
 
 import com.jdon.annotation.Model;
+import com.jdon.annotation.model.Inject;
 import com.jdon.jivejdon.Constants;
+import com.jdon.jivejdon.model.subscription.subscribed.ForumSubscribed;
 
 /**
  * @author <a href="mailto:banq@163.com">banq</a>
@@ -54,6 +56,9 @@ public class Forum extends ForumModel {
 	private volatile ForumState forumState;
 
 	private HotKeys hotKeys;
+
+	@Inject
+	private DomainEvents domainEvents;
 
 	public Forum() {
 		forumState = new ForumState(this);
@@ -186,6 +191,7 @@ public class Forum extends ForumModel {
 		forumState.addMessageCount();
 		forumState.setLastPost(forumMessageReply);
 		forumMessageReply.setForum(this);
+		this.domainEvents.subscriptionNotify(new ForumSubscribed(this));
 	}
 
 	public synchronized void updateNewMessage(ForumMessage forumMessage) {
@@ -198,6 +204,15 @@ public class Forum extends ForumModel {
 		forumState.addMessageCount();
 		forumState.setLastPost(topicForumMessage);
 		topicForumMessage.setForum(this);
+		this.domainEvents.subscriptionNotify(new ForumSubscribed(this));
+	}
+
+	public DomainEvents getDomainEvents() {
+		return domainEvents;
+	}
+
+	public void setDomainEvents(DomainEvents domainEvents) {
+		this.domainEvents = domainEvents;
 	}
 
 }

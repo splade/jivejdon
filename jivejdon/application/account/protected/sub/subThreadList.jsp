@@ -1,6 +1,7 @@
 <%@ taglib uri="struts-logic" prefix="logic" %>
 <%@ taglib uri="struts-bean" prefix="bean" %>
 <%@ taglib uri="struts-html" prefix="html" %>
+<%@ taglib uri="/WEB-INF/MultiPages.tld" prefix="MultiPages" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="../../../common/security.jsp" %>
 <%@ include file="../../../common/loginAccount.jsp" %>
@@ -15,7 +16,7 @@
   
 </logic:present>
 
-<form action="" method="POST" name="listForm" >
+<form action="" method="POST" name="listForm1" >
 <input type="hidden" name="subscribeType" value="1">
 
 <table class="contacts" width="600" cellpadding=3 cellspacing=0 border=1  align="center">
@@ -82,8 +83,8 @@
 	</table>
 	<center>
 	<logic:present name="isOwner" >
-	 <input type="submit" name="edit" value="编辑选择的关注" onclick="return editAction('listForm','subscriptionId');" >
-      <input type="submit" name="delete" value="删除选择的关注" onclick="return delAction('listForm','subscriptionId');" >
+	 <input type="submit" name="edit" value="编辑选择的关注" onclick="return editAction('listForm1','subscriptionId');" >
+      <input type="submit" name="delete" value="删除选择的关注" onclick="return delAction('listForm1','subscriptionId');" >
  
      <br></br>
            加入新关注方法：点按任意帖子的右上面图标<html:img page="/images/user_add.gif" width="18" height="18" alt="关注本主题 有新回复自动通知我" border="0" />就可加入。   
