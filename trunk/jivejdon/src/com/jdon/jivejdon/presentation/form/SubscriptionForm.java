@@ -147,9 +147,9 @@ public class SubscriptionForm extends BaseForm {
 
 	public void doValidate(ActionMapping mapping, HttpServletRequest request, List errors) {
 		if (!this.getAction().equals("delete")) {
-			if (subscribeType == 0) {
-				errors.add("subscribeType is required.");
-			}
+			// if (subscribeType == 0) {
+			// errors.add("subscribeType is required.");
+			// }
 
 			if (subscribeId == null) {
 				errors.add("subscribeId is required.");

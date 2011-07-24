@@ -21,11 +21,18 @@
 			<forward name="failure" path="/common/permError.jsp" />
 		</action>
 		
+		<action path="/account/protected/sub/subForumList"
+			type="com.jdon.jivejdon.presentation.action.sub.SubForumListAction"
+			name="subscriptionListForm" scope="request" validate="false">
+			<forward name="success" path="/account/protected/sub/subForumList.jsp" />
+		</action>
+		
 		<action path="/account/protected/sub/subThreadList"
 			type="com.jdon.jivejdon.presentation.action.sub.SubThreadListAction"
 			name="subscriptionListForm" scope="request" validate="false">
 			<forward name="success" path="/account/protected/sub/subThreadList.jsp" />
 		</action>
+		
 
 		<action path="/account/protected/sub/subTagList"
 			type="com.jdon.jivejdon.presentation.action.sub.SubTagListAction" name="subscriptionListForm"

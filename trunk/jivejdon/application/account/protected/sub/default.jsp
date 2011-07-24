@@ -8,6 +8,23 @@
 
 
    <div class="mainarea_right"> 
+   
+      <div class="box_mode_2"> 
+	     <div class="title"> 
+		    <div class="title_left">我关注的论坛</div> 
+		    <div class="title_right"> <a href="<%=request.getContextPath()%>/forum/post.jsp">
+            <html:img page="/images/newtopic.gif" width="113" height="20" border="0" alt="发表新帖子"/></a></div> 
+		 </div> 
+		 <div class="content"> 	 
+             <div class="b_content_title2">
+                <div id=forum >正在读取，请等待...</div>
+             </div>
+
+            <div class="b_content_line"></div>			 
+		 </div> 
+	  </div> 
+	  
+	  
       <div class="box_mode_2"> 
 	     <div class="title"> 
 		    <div class="title_left">我关注的主题</div> 
@@ -53,6 +70,10 @@
 
 <script>
 
+function loadSubForumList(){
+    var pars = "userId=<bean:write name="accountProfileForm" property="account.userId"/>" ;
+    new Ajax.Updater('forum', '<%=request.getContextPath()%>/account/protected/sub/subForumList.shtml', { method: 'get', parameters: pars  });
+}
 
   function loadSubThreadList(){
         var pars = "userId=<bean:write name="accountProfileForm" property="account.userId"/>" ;
@@ -69,6 +90,7 @@
         new Ajax.Updater('author', '<%=request.getContextPath()%>/account/protected/sub/subAccountList.shtml', { method: 'get', parameters: pars  });
    }
    
+   loadSubForumList();
    loadSubThreadList();
    loadSubTagList();
    loadAuthor();

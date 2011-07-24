@@ -15,6 +15,9 @@
  */
 package com.jdon.jivejdon.model;
 
+import com.jdon.jivejdon.model.subscription.SubscribedState;
+import com.jdon.jivejdon.model.subscription.subscribed.ForumSubscribed;
+
 /**
  * Forum State ValueObject this is a embeded class in Forum.
  * 
@@ -37,10 +40,13 @@ public class ForumState {
 
 	private Forum forum;
 
+	private SubscribedState subscribedState;
+
 	public ForumState(Forum forum) {
 		super();
 		this.forum = forum;
 		lastPost = new ForumMessage();
+		this.subscribedState = new SubscribedState(new ForumSubscribed(forum));
 	}
 
 	/**
@@ -91,6 +97,14 @@ public class ForumState {
 
 	public Forum getForum() {
 		return forum;
+	}
+
+	public void updateSubscriptionCount(int count) {
+		subscribedState.update(count);
+	}
+
+	public int getSubscriptionCount() {
+		return subscribedState.getSubscriptionCount(this.forum.getDomainEvents());
 	}
 
 }

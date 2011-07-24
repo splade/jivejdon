@@ -2,6 +2,7 @@ package com.jdon.jivejdon.manager.subscription;
 
 import com.jdon.annotation.Component;
 import com.jdon.jivejdon.model.Account;
+import com.jdon.jivejdon.model.Forum;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.ThreadTag;
 import com.jdon.jivejdon.model.subscription.Subscription;
@@ -9,6 +10,7 @@ import com.jdon.jivejdon.model.subscription.messsage.AccountNotifyMessage;
 import com.jdon.jivejdon.model.subscription.messsage.TagNotifyMessage;
 import com.jdon.jivejdon.model.subscription.messsage.ThreadNotifyMessage;
 import com.jdon.jivejdon.model.subscription.subscribed.AccountSubscribed;
+import com.jdon.jivejdon.model.subscription.subscribed.ForumSubscribed;
 import com.jdon.jivejdon.model.subscription.subscribed.Subscribed;
 import com.jdon.jivejdon.model.subscription.subscribed.TagSubscribed;
 import com.jdon.jivejdon.model.subscription.subscribed.ThreadSubscribed;
@@ -32,7 +34,11 @@ public class SubscribedFactory {
 	}
 
 	public static Subscribed createTransient(int subscribeType, Long subscribeId) {
-		if (subscribeType == ThreadSubscribed.TYPE) {
+		if (subscribeType == ForumSubscribed.TYPE) {
+			Forum forum = new Forum();
+			forum.setForumId(subscribeId);
+			return new ForumSubscribed(forum);
+		} else if (subscribeType == ThreadSubscribed.TYPE) {
 			ForumThread thread = new ForumThread();
 			thread.setThreadId(subscribeId);
 			return new ThreadSubscribed(thread);
@@ -52,7 +58,9 @@ public class SubscribedFactory {
 	public void embedFull(Subscription subscription) {
 		int subscribeType = subscription.getSubscribeType();
 		Subscribed subscribed = subscription.getSubscribed();
-		if (subscribeType == ThreadSubscribed.TYPE) {
+		if (subscribeType == ForumSubscribed.TYPE) {
+			((ForumSubscribed) subscribed).setForum(forumAbstractFactory.getForum(subscribed.getSubscribeId()));
+		} else if (subscribeType == ThreadSubscribed.TYPE) {
 			try {
 				((ThreadSubscribed) subscribed).setForumThread(forumAbstractFactory.getThread(subscribed.getSubscribeId()));
 			} catch (Exception e) {

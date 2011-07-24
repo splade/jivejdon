@@ -22,4 +22,6 @@ public interface SubscriptionService {
 
 	public PageIterator getSubscriptionsForThread(String userId, int start, int count);
 
+	public PageIterator getSubscriptionsForForum(String userId, int start, int count);
+
 }
