@@ -283,6 +283,14 @@ public class AccountDaoSql implements AccountDao {
 		return pageIteratorSolver.getPageIterator(GET_ALL_ITEMS_ALLCOUNT, GET_ALL_ITEMS, "", start, count);
 	}
 
+	public PageIterator getAccountByNameLike(String username, int start, int count) {
+		logger.debug("enter getAccounts");
+		String GET_ALL_ITEMS_ALLCOUNT = "select count(1) from jiveUser where username like '" + username + "'";
+		String GET_ALL_ITEMS = "select userID from jiveUser  where username like '" + username + "'";
+		return pageIteratorSolver.getPageIterator(GET_ALL_ITEMS_ALLCOUNT, GET_ALL_ITEMS, "", start, count);
+
+	}
+
 	public void clearCache() {
 		pageIteratorSolver.clearCache();
 	}

@@ -34,6 +34,11 @@
     </td>
 </tr>
 </table>
+<bean:parameter  name="username" id="username" value=""/>
+<html:form action="/admin/user/userListAction.shtml" method="post" >
+查询用户名为<input type="text" name="username" value="<bean:write name="username"/>"/>
+ <html:submit value=" 查询 " property="btnsearch" />
+</html:form>
 
 <table bgcolor="#999999" cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr><td> 

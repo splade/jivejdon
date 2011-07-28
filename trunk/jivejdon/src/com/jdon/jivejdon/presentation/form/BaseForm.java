@@ -41,7 +41,9 @@ public abstract class BaseForm extends ModelForm {
 		request.setAttribute("errors", errorList);
 		if (!errorList.isEmpty()) {
 			actionErrors = new ActionErrors();
-			actionErrors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage("system.error"));
+			for (Object error : errorList) {
+				actionErrors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage((String) error));
+			}
 		}
 		return actionErrors;
 	}

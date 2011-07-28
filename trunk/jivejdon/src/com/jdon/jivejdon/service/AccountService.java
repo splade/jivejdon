@@ -28,6 +28,8 @@ public interface AccountService {
 
 	com.jdon.jivejdon.model.Account getAccountByName(String username);
 
+	PageIterator getAccountByNameLike(String username, int start, int count);
+
 	void createAccount(EventModel em);
 
 	void updateAccount(EventModel em);

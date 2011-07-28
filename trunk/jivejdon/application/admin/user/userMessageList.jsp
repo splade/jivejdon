@@ -30,6 +30,12 @@
  <input name="username" type="hidden" value="<bean:write name="username"/>"/>
  <input type="submit" value=" 删除该用户所有帖子 "/>
 </form>
+<form action="<%=request.getContextPath()%>/admin/user/removeAccountForm.shtml?action=delete" method="post" onsubmit="return delConfirm()">
+ <input name="username" type="hidden" value="<bean:write name="username"/>"/>
+ <input type="submit" value=" 删除该用户基本资料 "/>
+</form>
+
+
 
 <table cellpadding="3" cellspacing="0" border="0" width="100%">
 <tr>

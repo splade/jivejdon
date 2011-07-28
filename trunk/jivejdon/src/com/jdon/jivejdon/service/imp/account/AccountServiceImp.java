@@ -56,6 +56,10 @@ public abstract class AccountServiceImp implements AccountService {
 		return accountDao.getAccountByName(username);
 	}
 
+	public PageIterator getAccountByNameLike(String username, int start, int count) {
+		return accountDao.getAccountByNameLike(username, start, count);
+	}
+
 	public Account getAccount(Long userId) {
 		return accountDao.getAccount(userId.toString());
 	}
