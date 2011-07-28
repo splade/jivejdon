@@ -10,6 +10,7 @@
 
 <html:hidden property="action" value="delete" />
 <html:hidden property="userId" />
+<html:hidden property="username" />
 
 <font size="-1"><b>确认用户删除操作</b></font><p>
 <ul>

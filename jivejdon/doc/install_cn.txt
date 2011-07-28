@@ -276,4 +276,5 @@ get方式乱码问题解决：jbossweb-tomcat5sar/server.xml的conntector增加m
 
 道友JiveJdon4 配置安装成功步骤： http://www.jdon.com/jivejdon/thread/38522
 
-
+eclipse application_zh_CN.properties 中文编辑插件
+在eclipse的install new software输入http://propedit.sourceforge.jp/eclipse/updates/

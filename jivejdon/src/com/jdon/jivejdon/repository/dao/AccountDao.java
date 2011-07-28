@@ -42,6 +42,8 @@ public interface AccountDao {
 
 	Account getAccountByName(String username);
 
+	PageIterator getAccountByNameLike(String username, int start, int count);
+
 	Account getAccountByEmail(String email);
 
 	void createAccount(Account account) throws Exception;

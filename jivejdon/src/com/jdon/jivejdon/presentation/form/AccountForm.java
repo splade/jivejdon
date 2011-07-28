@@ -132,37 +132,51 @@ public class AccountForm extends BaseForm {
 		this.emailVisible = emailVisible;
 	}
 
+	private boolean checkOnePerIP(HttpServletRequest request, String username) {
+		String chkKey = "REGISTER" + request.getRemoteAddr().substring(0, 8);
+		String usernameO = (String) request.getSession().getServletContext().getAttribute(chkKey);
+		if (usernameO == null) {
+			request.getSession().getServletContext().setAttribute(chkKey, username);
+			return false;
+		}
+		return true;
+	}
+
 	public void doValidate(ActionMapping mapping, HttpServletRequest request, List errors) {
 		if ((getAction() == null) || ModelForm.EDIT_STR.equals(getAction()) || ModelForm.CREATE_STR.equals(getAction())) {
 			if (ModelForm.CREATE_STR.equals(getAction())) {
 				// setStatus("OK");
-				addErrorIfStringEmpty(errors, "username is required.", getUsername());
+				addErrorIfStringEmpty(errors, "username.required", getUsername());
 				if (getPassword() == null || getPassword().length() < 1 || !getPassword().equals(getPassword2())) {
-					errors.add("Passwords did not match or were not provided.  Matching passwords are required.");
+					errors.add("password.check");
+				}
+
+				if (checkOnePerIP(request, getUsername())) {
+					errors.add("only.register.one.times");
 				}
 			}
 
 			if (getPassword() != null && getPassword().length() > 0) {
 				if (!getPassword().equals(getPassword2())) {
-					errors.add("Passwords did not match.");
+					errors.add("password.check");
 				}
 			}
-			addErrorIfStringEmpty(errors, "Email address is required.", getEmail());
+			addErrorIfStringEmpty(errors, "email.emailcheck", getEmail());
 
 			if (!UtilValidate.isAlphanumeric(this.getUsername())) {
-				errors.add("username must be English letters (A .. Z, a..z) and numbers");
+				errors.add("username.alphanumeric");
 			}
 
 			if (this.getUsername() != null && this.getUsername().length() > 20) {
-				errors.add("username lengt must less 20");
+				errors.add("username.toolong");
 			}
 
 			if (!UtilValidate.isEmail(this.getEmail())) {
-				errors.add("email format is not correct");
+				errors.add("email.emailcheck");
 			}
 
 			if (!SkinUtils.verifyRegisterCode(registerCode, request)) {
-				errors.add("registerCode  dismatch");
+				errors.add("registerCode.dismatch");
 			}
 		}
 
