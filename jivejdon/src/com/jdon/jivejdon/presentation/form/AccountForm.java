@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.validator.EmailValidator;
 import org.apache.struts.action.ActionMapping;
 
 import com.jdon.model.ModelForm;
@@ -132,29 +133,10 @@ public class AccountForm extends BaseForm {
 		this.emailVisible = emailVisible;
 	}
 
-	private boolean checkOnePerIP(HttpServletRequest request, String username) {
-		String chkKey = "REGISTER" + request.getRemoteAddr().substring(0, 8);
-		String usernameO = (String) request.getSession().getServletContext().getAttribute(chkKey);
-		if (usernameO == null) {
-			request.getSession().getServletContext().setAttribute(chkKey, username);
-			return false;
-		}
-		return true;
-	}
-
 	public void doValidate(ActionMapping mapping, HttpServletRequest request, List errors) {
 		if ((getAction() == null) || ModelForm.EDIT_STR.equals(getAction()) || ModelForm.CREATE_STR.equals(getAction())) {
-			if (ModelForm.CREATE_STR.equals(getAction())) {
-				// setStatus("OK");
-				addErrorIfStringEmpty(errors, "username.required", getUsername());
-				if (getPassword() == null || getPassword().length() < 1 || !getPassword().equals(getPassword2())) {
-					errors.add("password.check");
-				}
 
-				if (checkOnePerIP(request, getUsername())) {
-					errors.add("only.register.one.times");
-				}
-			}
+			addErrorIfStringEmpty(errors, "username.required", getUsername());
 
 			if (getPassword() != null && getPassword().length() > 0) {
 				if (!getPassword().equals(getPassword2())) {
@@ -171,13 +153,14 @@ public class AccountForm extends BaseForm {
 				errors.add("username.toolong");
 			}
 
-			if (!UtilValidate.isEmail(this.getEmail())) {
+			if (!EmailValidator.getInstance().isValid(this.getEmail())) {
 				errors.add("email.emailcheck");
 			}
 
 			if (!SkinUtils.verifyRegisterCode(registerCode, request)) {
 				errors.add("registerCode.dismatch");
 			}
+
 		}
 
 	}

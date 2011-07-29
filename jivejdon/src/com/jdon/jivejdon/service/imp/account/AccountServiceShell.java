@@ -16,11 +16,17 @@
  */
 package com.jdon.jivejdon.service.imp.account;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import com.jdon.annotation.intercept.SessionContextAcceptable;
 import com.jdon.annotation.intercept.Stateful;
+import com.jdon.container.pico.Startable;
 import com.jdon.container.visitor.data.SessionContext;
 import com.jdon.controller.events.EventModel;
 import com.jdon.jivejdon.Constants;
@@ -36,7 +42,7 @@ import com.jdon.util.Debug;
 import com.jdon.util.StringUtil;
 
 @Stateful
-public class AccountServiceShell extends AccountServiceImp {
+public class AccountServiceShell extends AccountServiceImp implements Startable {
 	private final static String module = AccountServiceShell.class.getName();
 
 	protected SessionContextUtil sessionContextUtil;
@@ -48,6 +54,8 @@ public class AccountServiceShell extends AccountServiceImp {
 	private ForgotPasswdEmail forgotPasswdEmail;
 
 	private Map<String, Integer> cachedforgetPasswdEmails = new HashMap(1);
+	private List cachedOneTimes = new ArrayList();
+	private static ScheduledExecutorService scheduExec = Executors.newScheduledThreadPool(1);
 
 	public AccountServiceShell(AccountDao accountDao, SequenceDao sequenceDao, SessionContextUtil sessionContextUtil,
 			JtaTransactionUtil jtaTransactionUtil, ResourceAuthorization resourceAuthorization, ForgotPasswdEmail forgotPasswdEmail) {
@@ -57,8 +65,36 @@ public class AccountServiceShell extends AccountServiceImp {
 		this.forgotPasswdEmail = forgotPasswdEmail;
 	}
 
+	public void start() {
+		Runnable task = new Runnable() {
+			public void run() {
+				cachedOneTimes.clear();
+			}
+		};
+		// per ten hour
+		scheduExec.scheduleWithFixedDelay(task, 60, 60 * 60 * 10, TimeUnit.SECONDS);
+	}
+
+	public void stop() {
+		cachedOneTimes.clear();
+		scheduExec.shutdown();
+		scheduExec = null;
+	}
+
 	public Account getloginAccount() {
 		return sessionContextUtil.getLoginAccount(sessionContext);
+	}
+
+	public void createAccount(EventModel em) {
+		String ip = sessionContextUtil.getClientIP(sessionContext);
+		String chkKey = "REGISTER" + ip.substring(0, 8);
+		if (this.cachedOneTimes.contains(chkKey)) {
+			em.setErrors("only.register.one.times");
+		} else {
+			super.createAccount(em);
+			if (em.getErrors() == null || em.getErrors().isEmpty())
+				this.cachedOneTimes.add(chkKey);
+		}
 	}
 
 	public Account getAccountByName(String username) {
@@ -107,6 +143,18 @@ public class AccountServiceShell extends AccountServiceImp {
 	}
 
 	public void forgetPasswd(EventModel em) {
+		String chkKey = "REGISTER" + sessionContextUtil.getClientIP(sessionContext).substring(0, 8);
+		if (this.cachedOneTimes.contains(chkKey)) {
+			em.setErrors("only.register.one.times");
+		} else {
+			forgetPasswdAction(em);
+			if (em.getErrors() == null || em.getErrors().isEmpty())
+				this.cachedOneTimes.add(chkKey);
+		}
+	}
+
+	public void forgetPasswdAction(EventModel em) {
+
 		Account accountParam = (Account) em.getModelIF();
 		if (cachedforgetPasswdEmails.isEmpty())
 			cachedforgetPasswdEmails.put(accountParam.getEmail(), 1);
