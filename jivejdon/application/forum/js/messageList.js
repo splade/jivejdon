@@ -178,7 +178,7 @@ function hotList(){
 }
 
 function newpostList(){
-	   var pars = "count=10&length=10&tablewidth=400";
+	   var pars = "count=12&length=12&tablewidth=400";
 	   new Ajax.Updater('newPosts', getContextPath() +'/query/popularlist.shtml', { method: 'get', parameters: pars });   
 }
 

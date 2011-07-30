@@ -16,33 +16,23 @@
  */
 package com.jdon.jivejdon.service.imp.account;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 import com.jdon.annotation.intercept.SessionContextAcceptable;
 import com.jdon.annotation.intercept.Stateful;
-import com.jdon.container.pico.Startable;
 import com.jdon.container.visitor.data.SessionContext;
 import com.jdon.controller.events.EventModel;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.auth.ResourceAuthorization;
+import com.jdon.jivejdon.manager.account.AccountManager;
 import com.jdon.jivejdon.manager.email.ForgotPasswdEmail;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.repository.dao.AccountDao;
 import com.jdon.jivejdon.repository.dao.SequenceDao;
 import com.jdon.jivejdon.service.util.JtaTransactionUtil;
 import com.jdon.jivejdon.service.util.SessionContextUtil;
-import com.jdon.jivejdon.util.ToolsUtil;
 import com.jdon.util.Debug;
-import com.jdon.util.StringUtil;
 
 @Stateful
-public class AccountServiceShell extends AccountServiceImp implements Startable {
+public class AccountServiceShell extends AccountServiceImp {
 	private final static String module = AccountServiceShell.class.getName();
 
 	protected SessionContextUtil sessionContextUtil;
@@ -51,34 +41,15 @@ public class AccountServiceShell extends AccountServiceImp implements Startable 
 
 	protected ResourceAuthorization resourceAuthorization;
 
-	private ForgotPasswdEmail forgotPasswdEmail;
+	private AccountManager accountManager;
 
-	private Map<String, Integer> cachedforgetPasswdEmails = new HashMap(1);
-	private List cachedOneTimes = new ArrayList();
-	private static ScheduledExecutorService scheduExec = Executors.newScheduledThreadPool(1);
-
-	public AccountServiceShell(AccountDao accountDao, SequenceDao sequenceDao, SessionContextUtil sessionContextUtil,
+	public AccountServiceShell(AccountManager accountManager, AccountDao accountDao, SequenceDao sequenceDao, SessionContextUtil sessionContextUtil,
 			JtaTransactionUtil jtaTransactionUtil, ResourceAuthorization resourceAuthorization, ForgotPasswdEmail forgotPasswdEmail) {
 		super(accountDao, sequenceDao, jtaTransactionUtil);
 		this.sessionContextUtil = sessionContextUtil;
 		this.resourceAuthorization = resourceAuthorization;
-		this.forgotPasswdEmail = forgotPasswdEmail;
-	}
+		this.accountManager = accountManager;
 
-	public void start() {
-		Runnable task = new Runnable() {
-			public void run() {
-				cachedOneTimes.clear();
-			}
-		};
-		// per ten hour
-		scheduExec.scheduleWithFixedDelay(task, 60, 60 * 60 * 10, TimeUnit.SECONDS);
-	}
-
-	public void stop() {
-		cachedOneTimes.clear();
-		scheduExec.shutdown();
-		scheduExec = null;
 	}
 
 	public Account getloginAccount() {
@@ -88,12 +59,13 @@ public class AccountServiceShell extends AccountServiceImp implements Startable 
 	public void createAccount(EventModel em) {
 		String ip = sessionContextUtil.getClientIP(sessionContext);
 		String chkKey = "REGISTER" + ip.substring(0, 8);
-		if (this.cachedOneTimes.contains(chkKey)) {
+		if (accountManager.contains(chkKey)) {
 			em.setErrors("only.register.one.times");
 		} else {
 			super.createAccount(em);
 			if (em.getErrors() == null || em.getErrors().isEmpty())
-				this.cachedOneTimes.add(chkKey);
+				accountManager.addChkKey(chkKey);
+
 		}
 	}
 
@@ -144,54 +116,12 @@ public class AccountServiceShell extends AccountServiceImp implements Startable 
 
 	public void forgetPasswd(EventModel em) {
 		String chkKey = "REGISTER" + sessionContextUtil.getClientIP(sessionContext).substring(0, 8);
-		if (this.cachedOneTimes.contains(chkKey)) {
+		if (accountManager.contains(chkKey)) {
 			em.setErrors("only.register.one.times");
 		} else {
-			forgetPasswdAction(em);
+			accountManager.forgetPasswdAction(em);
 			if (em.getErrors() == null || em.getErrors().isEmpty())
-				this.cachedOneTimes.add(chkKey);
-		}
-	}
-
-	public void forgetPasswdAction(EventModel em) {
-
-		Account accountParam = (Account) em.getModelIF();
-		if (cachedforgetPasswdEmails.isEmpty())
-			cachedforgetPasswdEmails.put(accountParam.getEmail(), 1);
-		else if (!cachedforgetPasswdEmails.containsKey(accountParam.getEmail())) {
-			em.setErrors(Constants.NOT_FOUND);
-			return;
-		} else {
-			int count = cachedforgetPasswdEmails.get(accountParam.getEmail());
-			if (count > 2 || count == 0) {
-				em.setErrors(Constants.NOT_FOUND);
-				return;
-			} else {
-				count++;
-				cachedforgetPasswdEmails.put(accountParam.getEmail(), count);
-			}
-		}
-
-		Account account = null;
-		try {
-			account = accountDao.getAccountByEmail(accountParam.getEmail());
-			if (account == null) {
-				em.setErrors(Constants.NOT_FOUND);
-				return;
-			}
-			if ((account.getPasswdanswer().equalsIgnoreCase(accountParam.getPasswdanswer()))
-					&& (account.getPasswdtype().equalsIgnoreCase(accountParam.getPasswdtype()))) {
-				String newpasswd = StringUtil.getPassword(8);
-				account.setPassword(ToolsUtil.hash(newpasswd));
-				accountDao.updateAccount(account);
-				forgotPasswdEmail.send(account, newpasswd);
-			} else {
-				em.setErrors(Constants.NOT_FOUND);
-				return;
-			}
-
-		} catch (Exception e) {
-			em.setErrors(Constants.ERRORS);
+				accountManager.addChkKey(chkKey);
 		}
 	}
 
