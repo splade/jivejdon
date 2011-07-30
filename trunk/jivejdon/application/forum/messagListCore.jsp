@@ -279,10 +279,15 @@ for(var i=0; i<f.length; i++){
    f[i].innerHTML += $("post_titleright").innerHTML ;
 }
 
-newpostList();
+var pageURL = '<%=request.getContextPath() %>/thread/<bean:write name="forumThread" property="threadId"/>';
+var start = <bean:write name="messageListForm" property="start" />;
+var count = <bean:write name="messageListForm" property="count" />;
+var allCount = <bean:write name="messageListForm" property="allCount" />
+document.onkeydown=leftRightgoPageREST;
+
+//below need prototype.js
+stickyList();
 //hotkeys();
-
-
 
 if (isDisplayNeedLoad('approved')){
     approveList();
@@ -295,13 +300,6 @@ if (isDisplayNeedLoad('approved')){
 		},1500);
    });
 }
-      
-
-      var pageURL = '<%=request.getContextPath() %>/thread/<bean:write name="forumThread" property="threadId"/>';
-      var start = <bean:write name="messageListForm" property="start" />;
-      var count = <bean:write name="messageListForm" property="count" />;
-      var allCount = <bean:write name="messageListForm" property="allCount" />
-      document.onkeydown=leftRightgoPageREST;
           
 </script>
 
