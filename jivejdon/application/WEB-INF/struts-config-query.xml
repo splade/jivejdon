@@ -65,7 +65,8 @@
 	<action path="/query/popularlist" type="com.jdon.jivejdon.presentation.action.query.ThreadPopularAction"
       name="threadListForm" scope="request" validate="false">
       <forward name="success" path="/query/others/popularlist.jsp"/>      
-    </action>	   
+    </action>
+    
     
 	<action path="/query/hotKeys" type="com.jdon.jivejdon.presentation.action.tag.HotKeyListAction" 
        parameter="method" scope="request"  validate="false">
@@ -141,6 +142,12 @@
       validate="false">
       <forward name="success" path="/query/approvedThreadList.jsp"/>
     </action>
+    
+    <action path="/query/stickyList" type="com.jdon.jivejdon.presentation.action.query.StickyThreadList"
+      name="threadListForm" scope="request" validate="false">
+      <forward name="success" path="/query/others/stickyList.jsp"/>      
+    </action>	   
+    
     
     <!--  /query/tagSubsCount.shtml?method=computeSubscriptionNumbers  computeSubscriptionNumbers is OtherService's method  
     <action path="/query/tagSubsCount" type="com.jdon.strutsutil.ServiceMethodAction"

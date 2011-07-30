@@ -61,4 +61,6 @@ public interface ForumMessageQueryService {
 	PageIterator popularThreads(int popularThreadsWindow, int count);
 
 	int locateTheMessage(Long threadId, Long messageId, int count);
+
+	Collection getStickyThreadList();
 }

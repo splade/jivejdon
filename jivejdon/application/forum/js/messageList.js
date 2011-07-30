@@ -173,7 +173,7 @@ function approveList(){
 function hotList(){
    if (typeof(Ajax) != "undefined"){
         var pars = "";
-        new Ajax.Updater('hotList', getContextPath() +'/hot/180_400_10_10.html', { method: 'get', parameters: pars });
+        new Ajax.Updater('newPosts', getContextPath() +'/hot/180_400_10_10.html', { method: 'get', parameters: pars });
    }
 }
 
@@ -181,6 +181,12 @@ function newpostList(){
 	   var pars = "count=12&length=12&tablewidth=400";
 	   new Ajax.Updater('newPosts', getContextPath() +'/query/popularlist.shtml', { method: 'get', parameters: pars });   
 }
+
+function stickyList(){
+	   var pars = "count=10&length=10&tablewidth=400";
+	   new Ajax.Updater('newPosts', getContextPath() +'/query/stickyList.shtml', { method: 'get', parameters: pars });   
+}
+
 
 var loadWPostjs =function(mId){  
   if (typeof(openReplyWindow) == 'undefined') {

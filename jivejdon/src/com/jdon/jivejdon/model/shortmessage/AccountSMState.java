@@ -34,12 +34,15 @@ public class AccountSMState implements Observer {
 	}
 
 	public int getNewShortMessageCount() {
-		if (newShortMessageCount == -1) {
+		if (newShortMessageCount == -1 && account.getDomainEvent() != null) {
 			if (countAsyncResult == null) {
 				countAsyncResult = account.getDomainEvent().loadNewShortMessageCount(account);
 				return 0;// first time donot return the value;
-			} else
-				newShortMessageCount = (Integer) countAsyncResult.getEventResult();
+			} else {
+				Object asynResult = countAsyncResult.getEventResult();
+				if (asynResult != null)
+					newShortMessageCount = (Integer) asynResult;
+			}
 		}
 		return newShortMessageCount;
 	}
