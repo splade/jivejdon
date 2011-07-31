@@ -1,6 +1,8 @@
 package com.jdon.jivejdon.presentation.action.query;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,21 +14,24 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.jdon.controller.WebAppUtil;
+import com.jdon.controller.model.PageIterator;
+import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.query.ResultSort;
 import com.jdon.jivejdon.model.query.specification.ApprovedListSpec;
 import com.jdon.jivejdon.presentation.form.ThreadListForm;
+import com.jdon.jivejdon.service.AccountService;
 import com.jdon.jivejdon.service.ForumMessageQueryService;
 import com.jdon.jivejdon.util.ToolsUtil;
 
 public class ThreadApprovedNewListAction extends Action {
 	private final static Logger logger = Logger.getLogger(ThreadQueryAction.class);
 
+	private List approvedThreadList = new ArrayList();
+
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		logger.debug("enter ThreadApprovedNewListAction");
 		ThreadListForm threadListForm = (ThreadListForm) form;
-		ForumMessageQueryService forumMessageQueryService = (ForumMessageQueryService) WebAppUtil.getService("forumMessageQueryService", request);
-
 		ResultSort resultSort = new ResultSort();
 		resultSort.setOrder_DESCENDING();
 		ApprovedListSpec approvedListSpec = new ApprovedListSpec();
@@ -37,7 +42,7 @@ public class ThreadApprovedNewListAction extends Action {
 			approvedListSpec.setNeedCount(needCount);
 		}
 
-		Collection<ForumThread> list = forumMessageQueryService.getApprovedThreads(approvedListSpec);
+		Collection<ForumThread> list = getApprovedThreads(approvedListSpec, request);
 		threadListForm.setList(list);
 		if (list.size() == 0)
 			return mapping.findForward("success");
@@ -49,6 +54,54 @@ public class ThreadApprovedNewListAction extends Action {
 			return null;
 		}
 		return mapping.findForward("success");
+	}
+
+	public Collection<ForumThread> getApprovedThreads(ApprovedListSpec approvedListSpec, HttpServletRequest request) {
+		if (!approvedThreadList.isEmpty())
+			return approvedThreadList;
+		logger.debug("not found it in cache, create it");
+		Collection<ForumThread> resultSorteds = loadApprovedThreads(approvedListSpec, request);
+		if (resultSorteds.size() > 0) {
+			approvedThreadList.addAll(resultSorteds);
+			logger.debug("resultSorteds() == " + resultSorteds.size());
+		} else {
+			logger.debug("resultSorteds.size() == 0");
+		}
+		return resultSorteds;
+	}
+
+	public List<ForumThread> loadApprovedThreads(ApprovedListSpec approvedListSpec, HttpServletRequest request) {
+		List<ForumThread> resultSorteds = new ArrayList(approvedListSpec.getNeedCount());
+		try {
+			int i = 0;
+			int start = 0;
+			int count = 100;
+			ForumMessageQueryService forumMessageQueryService = (ForumMessageQueryService) WebAppUtil.getService("forumMessageQueryService", request);
+			AccountService accountService = (AccountService) WebAppUtil.getService("accountService", request);
+			while (i < approvedListSpec.getNeedCount()) {
+				PageIterator pi = forumMessageQueryService.getThreads(start, count, approvedListSpec);
+				if (!pi.hasNext())
+					break;
+
+				while (pi.hasNext()) {
+					Long threadId = (Long) pi.next();
+					ForumThread thread = forumMessageQueryService.getThread(threadId);
+					Long userId = thread.getRootMessage().getAccount().getUserIdLong();
+					Account account = accountService.getAccount(userId);
+					if (approvedListSpec.isApproved(thread, account) && i < approvedListSpec.getNeedCount()) {
+						resultSorteds.add(thread);
+						i++;
+					}
+					if (i >= approvedListSpec.getNeedCount()) {
+						break;
+					}
+				}
+				start = start + count;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultSorteds;
 	}
 
 }

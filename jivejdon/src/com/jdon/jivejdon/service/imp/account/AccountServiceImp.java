@@ -20,7 +20,8 @@ import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.auth.Role;
-import com.jdon.jivejdon.repository.dao.AccountDao;
+import com.jdon.jivejdon.repository.AccountFactory;
+import com.jdon.jivejdon.repository.AccountRepository;
 import com.jdon.jivejdon.repository.dao.SequenceDao;
 import com.jdon.jivejdon.repository.dao.util.OldUpdateNewUtil;
 import com.jdon.jivejdon.service.AccountService;
@@ -36,7 +37,9 @@ import com.jdon.util.task.TaskEngine;
 public abstract class AccountServiceImp implements AccountService {
 	private final static String module = AccountServiceImp.class.getName();
 
-	protected AccountDao accountDao;
+	protected AccountFactory accountFactory;
+
+	protected AccountRepository accountRepository;
 
 	private SequenceDao sequenceDao;
 
@@ -44,8 +47,10 @@ public abstract class AccountServiceImp implements AccountService {
 
 	private OldUpdateNewUtil oldUpdateNewUtil;
 
-	public AccountServiceImp(AccountDao accountDao, SequenceDao sequenceDao, JtaTransactionUtil jtaTransactionUtil) {
-		this.accountDao = accountDao;
+	public AccountServiceImp(AccountFactory accountFactory, AccountRepository accountRepository, SequenceDao sequenceDao,
+			JtaTransactionUtil jtaTransactionUtil) {
+		this.accountFactory = accountFactory;
+		this.accountRepository = accountRepository;
 		this.sequenceDao = sequenceDao;
 		this.jtaTransactionUtil = jtaTransactionUtil;
 		// this.oldUpdateNewUtil = oldUpdateNewUtil;
@@ -53,15 +58,23 @@ public abstract class AccountServiceImp implements AccountService {
 	}
 
 	public Account getAccountByName(String username) {
-		return accountDao.getAccountByName(username);
+		Account accountIn = new Account();
+		accountIn.setUsername(username);
+		return accountFactory.getFullAccount(accountIn);
+	}
+
+	public Account getAccountByEmail(String email) {
+		Account accountIn = new Account();
+		accountIn.setEmail(email);
+		return accountFactory.getFullAccount(accountIn);
 	}
 
 	public PageIterator getAccountByNameLike(String username, int start, int count) {
-		return accountDao.getAccountByNameLike(username, start, count);
+		return accountRepository.getAccountByNameLike(username, start, count);
 	}
 
 	public Account getAccount(Long userId) {
-		return accountDao.getAccount(userId.toString());
+		return accountFactory.getFullAccount(userId.toString());
 	}
 
 	/**
@@ -83,11 +96,11 @@ public abstract class AccountServiceImp implements AccountService {
 		Account account = (Account) em.getModelIF();
 		Debug.logVerbose("createAccount username=" + account.getUsername(), module);
 		try {
-			if (accountDao.getAccountByEmail(account.getEmail()) != null) {
+			if (accountFactory.getFullAccountForEmail(account.getEmail()) != null) {
 				em.setErrors(Constants.EMAIL_EXISTED);
 				return;
 			}
-			if (accountDao.getAccountByName(account.getUsername()) != null) {
+			if (accountFactory.getFullAccountForUsername(account.getUsername()) != null) {
 				em.setErrors(Constants.USERNAME_EXISTED);
 				return;
 			}
@@ -101,7 +114,7 @@ public abstract class AccountServiceImp implements AccountService {
 
 			account.setPassword(ToolsUtil.hash(account.getPassword()));
 
-			accountDao.createAccount(account);
+			accountRepository.createAccount(account);
 			jtaTransactionUtil.commitTransaction();
 		} catch (Exception e) {
 			Debug.logError(" createAccount error : " + e, module);
@@ -123,7 +136,7 @@ public abstract class AccountServiceImp implements AccountService {
 
 			jtaTransactionUtil.beginTransaction();
 			accountInput.setPassword(ToolsUtil.hash(accountInput.getPassword()));
-			accountDao.updateAccount(accountInput);
+			accountRepository.updateAccount(accountInput);
 			jtaTransactionUtil.commitTransaction();
 		} catch (Exception e) {
 			Debug.logError(" updateAccount error : " + e, module);
@@ -135,7 +148,7 @@ public abstract class AccountServiceImp implements AccountService {
 	public void deleteAccount(Account account) throws Exception {
 		try {
 			jtaTransactionUtil.beginTransaction();
-			accountDao.deleteAccount(account);
+			accountRepository.deleteAccount(account);
 			jtaTransactionUtil.commitTransaction();
 		} catch (Exception e) {
 			Debug.logError(" deleteAccount error : " + e, module);
@@ -150,7 +163,7 @@ public abstract class AccountServiceImp implements AccountService {
 	 * @see com.jdon.jivejdon.service.AccountService#getAccounts(int, int)
 	 */
 	public PageIterator getAccounts(int start, int count) {
-		return accountDao.getAccounts(start, count);
+		return accountRepository.getAccounts(start, count);
 	}
 
 	public void update() {

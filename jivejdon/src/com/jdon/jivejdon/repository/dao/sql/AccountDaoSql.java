@@ -22,14 +22,13 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.annotation.Introduce;
-import com.jdon.annotation.pointcut.Around;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.model.Account;
+import com.jdon.jivejdon.repository.AccountRepository;
 import com.jdon.jivejdon.repository.builder.AccountInitFactory;
 import com.jdon.jivejdon.repository.dao.AccountDao;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 import com.jdon.jivejdon.util.ToolsUtil;
 import com.jdon.model.query.PageIteratorSolver;
 
@@ -37,8 +36,8 @@ import com.jdon.model.query.PageIteratorSolver;
  * @author <a href="mailto:banqJdon<AT>jdon.com">banq</a>
  * 
  */
-@Introduce("modelCache")
-public class AccountDaoSql implements AccountDao {
+
+public abstract class AccountDaoSql implements AccountDao, AccountRepository {
 	private final static Logger logger = Logger.getLogger(AccountDaoSql.class);
 
 	private JdbcTempSource jdbcTempSource;
@@ -64,7 +63,6 @@ public class AccountDaoSql implements AccountDao {
 	 * get the account from database, we cache the account object by using
 	 * SessionContext
 	 */
-	@Around()
 	public Account getAccount(String userId) {
 		logger.debug("enter getAccount");
 		String LOAD_USER_BY_ID = "SELECT userID,username,passwordHash,name,nameVisible,email,emailVisible,"
@@ -118,7 +116,6 @@ public class AccountDaoSql implements AccountDao {
 	 * 
 	 * @see com.jdon.jivejdon.dao.AccountDao#getAccountByName(java.lang.String)
 	 */
-	@Around()
 	public Account getAccountByName(String username) {
 		logger.debug("enter getAccountByName for username=" + username);
 		String LOAD_USER_BY_USERNAME = "SELECT userID,username,passwordHash,name,nameVisible,email,emailVisible,"
@@ -128,7 +125,6 @@ public class AccountDaoSql implements AccountDao {
 		return fetchAccount(queryParams, LOAD_USER_BY_USERNAME);
 	}
 
-	@Around()
 	public Account getAccountByEmail(String email) {
 		logger.debug("enter getAccountByName");
 		String LOAD_USER_BY_USERNAME = "SELECT userID,username,passwordHash,name,nameVisible,email,emailVisible,"

@@ -32,7 +32,7 @@ import com.jdon.jivejdon.repository.TagRepository;
 import com.jdon.jivejdon.repository.UploadRepository;
 import com.jdon.jivejdon.repository.dao.MessageDaoFacade;
 import com.jdon.jivejdon.repository.dao.PropertyDao;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 import com.jdon.treepatterns.TreeNodeFactory;
 import com.jdon.treepatterns.TreeNodeVisitable;
 import com.jdon.treepatterns.TreeVisitor;

@@ -14,15 +14,15 @@ public class ApprovedListSpec extends ThreadListSpec {
 		sorttableName = "creationDate";
 	}
 
-	public boolean isApproved(ForumThread thread) {
-		if (isGoodBlog(thread) || isExcelledDiscuss(thread)) {
+	public boolean isApproved(ForumThread thread, Account account) {
+		if (isGoodBlog(thread, account) || isExcelledDiscuss(thread)) {
 			return true;
 		} else
 			return false;
 	}
 
-	protected boolean isGoodBlog(ForumThread thread) {
-		return (hasTags(thread) && isGoodAuthor(thread, 10) && isDigged(thread, 1) && hasReply(thread, 1));
+	protected boolean isGoodBlog(ForumThread thread, Account account) {
+		return (hasTags(thread) && isGoodAuthor(account, 10) && isDigged(thread, 1) && hasReply(thread, 1));
 	}
 
 	protected boolean isExcelledDiscuss(ForumThread thread) {
@@ -38,9 +38,8 @@ public class ApprovedListSpec extends ThreadListSpec {
 			return false;
 	}
 
-	private boolean isGoodAuthor(ForumThread thread, int throttle) {
-		Account account = thread.getRootMessage().getAccount();
-		if (account.getMessageCount() >= throttle)
+	private boolean isGoodAuthor(Account account, int throttle) {
+		if (account.getMessageCountNow() >= throttle)
 			return true;
 		else
 			return false;

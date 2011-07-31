@@ -29,7 +29,8 @@ import com.jdon.controller.events.EventModel;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.manager.email.ForgotPasswdEmail;
 import com.jdon.jivejdon.model.Account;
-import com.jdon.jivejdon.repository.dao.AccountDao;
+import com.jdon.jivejdon.repository.AccountFactory;
+import com.jdon.jivejdon.repository.AccountRepository;
 import com.jdon.jivejdon.util.ToolsUtil;
 import com.jdon.util.StringUtil;
 
@@ -43,14 +44,17 @@ public class AccountManager implements Startable {
 
 	private ForgotPasswdEmail forgotPasswdEmail;
 
-	private AccountDao accountDao;
+	private AccountRepository accountRepository;
 
-	public AccountManager(AccountDao accountDao, ForgotPasswdEmail forgotPasswdEmail) {
+	protected AccountFactory accountFactory;
+
+	public AccountManager(AccountFactory accountFactory, AccountRepository accountRepository, ForgotPasswdEmail forgotPasswdEmail) {
 		super();
 		this.cachedforgetPasswdEmails = new HashMap(1);
 		this.cachedOneTimes = new ArrayList();
 		this.forgotPasswdEmail = forgotPasswdEmail;
-		this.accountDao = accountDao;
+		this.accountRepository = accountRepository;
+		this.accountFactory = accountFactory;
 	}
 
 	public void start() {
@@ -98,7 +102,7 @@ public class AccountManager implements Startable {
 
 		Account account = null;
 		try {
-			account = accountDao.getAccountByEmail(accountParam.getEmail());
+			account = accountFactory.getFullAccount(accountParam);
 			if (account == null) {
 				em.setErrors(Constants.NOT_FOUND);
 				return;
@@ -107,7 +111,7 @@ public class AccountManager implements Startable {
 					&& (account.getPasswdtype().equalsIgnoreCase(accountParam.getPasswdtype()))) {
 				String newpasswd = StringUtil.getPassword(8);
 				account.setPassword(ToolsUtil.hash(newpasswd));
-				accountDao.updateAccount(account);
+				accountRepository.updateAccount(account);
 				forgotPasswdEmail.send(account, newpasswd);
 			} else {
 				em.setErrors(Constants.NOT_FOUND);

@@ -28,7 +28,7 @@ import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.model.Property;
 import com.jdon.jivejdon.repository.dao.PropertyDao;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 import com.jdon.model.query.PageIteratorSolver;
 import com.jdon.util.UtilValidate;
 

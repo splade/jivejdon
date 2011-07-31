@@ -18,7 +18,7 @@ package com.jdon.jivejdon.manager.query;
 import com.jdon.annotation.Component;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.repository.dao.MessageQueryDao;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 
 @Component
 public class LocateMessageInThread {

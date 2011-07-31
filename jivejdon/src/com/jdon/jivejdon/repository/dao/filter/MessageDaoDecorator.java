@@ -31,7 +31,7 @@ import com.jdon.jivejdon.repository.dao.sql.JdbcTempSource;
 import com.jdon.jivejdon.repository.dao.sql.MessageDaoSql;
 import com.jdon.jivejdon.repository.dao.util.MessagePageIteratorSolver;
 import com.jdon.jivejdon.repository.search.MessageSearchProxy;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 import com.jdon.model.ModelKey;
 import com.jdon.model.query.PageIteratorSolver;
 

@@ -49,8 +49,7 @@
 		
 	  
 		<!--  relation with the micro container  start-->
-		<component name="containerUtil"
-			class="com.jdon.jivejdon.service.util.ContainerUtil"/>
+		
 
         <component name="sessionContextUtil"
 			class="com.jdon.jivejdon.service.util.SessionContextUtil"/>

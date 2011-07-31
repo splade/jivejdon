@@ -29,7 +29,7 @@ import com.jdon.jivejdon.model.attachment.UploadInfoVO;
 import com.jdon.jivejdon.model.message.upload.UploadHelper;
 import com.jdon.jivejdon.repository.ForumFactory;
 import com.jdon.jivejdon.repository.UploadRepository;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 
 @Component("slideImageQueryManager")
 public class SlideImageQueryManager {

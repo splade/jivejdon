@@ -14,7 +14,7 @@ import com.jdon.jivejdon.repository.dao.AccountDao;
 import com.jdon.jivejdon.repository.dao.sql.AccountSSOSql;
 import com.jdon.jivejdon.repository.dao.sql.JdbcTempSSOSource;
 import com.jdon.jivejdon.repository.dao.sql.JdbcTempSource;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 import com.jdon.jivejdon.util.ToolsUtil;
 
 public class OldUpdateNewUtil implements Runnable {

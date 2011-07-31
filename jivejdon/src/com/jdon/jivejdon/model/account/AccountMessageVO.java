@@ -34,13 +34,23 @@ public class AccountMessageVO {
 
 	public int getMessageCount(DomainEvents domainEvents) {
 		try {
-			if (messageCount == -1) {
-				if (messageCountAsyncResult == null && domainEvents != null) {
+			if (messageCount == -1 && domainEvents != null) {
+				if (messageCountAsyncResult == null) {
 					messageCountAsyncResult = domainEvents.computeAccountMessageCount(account.getUserIdLong());
 				} else {
 					messageCount = (Integer) messageCountAsyncResult.getEventResult();
 				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return messageCount;
+	}
+
+	public int getMessageCountNow(DomainEvents domainEvents) {
+		try {
+			messageCountAsyncResult = domainEvents.computeAccountMessageCount(account.getUserIdLong());
+			messageCount = (Integer) messageCountAsyncResult.getEventResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

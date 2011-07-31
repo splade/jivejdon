@@ -30,7 +30,7 @@
 			class="com.jdon.jivejdon.repository.dao.filter.UploadFileDaoCache"/>
 				
 		<component name="accountDao"
-			class="com.jdon.jivejdon.repository.dao.sql.AccountDaoSql"/>
+			class="com.jdon.jivejdon.repository.dao.filter.AccountDaoCache"/>
 		
 		<component name="accountSSOSql"
 			class="com.jdon.jivejdon.repository.dao.sql.AccountSSOSql"/>

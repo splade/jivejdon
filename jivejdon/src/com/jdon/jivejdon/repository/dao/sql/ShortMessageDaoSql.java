@@ -30,7 +30,7 @@ import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.ShortMessage;
 import com.jdon.jivejdon.model.ShortMessageState;
 import com.jdon.jivejdon.repository.dao.ShortMessageDao;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 import com.jdon.model.query.PageIteratorSolver;
 
 /**

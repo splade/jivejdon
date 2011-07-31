@@ -13,7 +13,7 @@ import com.jdon.jivejdon.repository.UploadRepository;
 import com.jdon.jivejdon.repository.dao.PropertyDao;
 import com.jdon.jivejdon.repository.dao.SequenceDao;
 import com.jdon.jivejdon.repository.dao.UploadFileDao;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 
 public class UploadRepositoryDao implements UploadRepository {
 	private final static Logger logger = Logger.getLogger(UploadRepositoryDao.class);

@@ -16,7 +16,7 @@ import com.jdon.jivejdon.model.query.QueryCriteria;
 import com.jdon.jivejdon.repository.AccountFactory;
 import com.jdon.jivejdon.repository.ForumFactory;
 import com.jdon.jivejdon.repository.dao.MessageQueryDao;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 
 public class HotThreadQueryManager {
 	 private final static Logger logger = Logger.getLogger(HotThreadQueryManager.class);

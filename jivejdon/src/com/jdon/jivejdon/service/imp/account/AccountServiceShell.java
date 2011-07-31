@@ -25,7 +25,8 @@ import com.jdon.jivejdon.auth.ResourceAuthorization;
 import com.jdon.jivejdon.manager.account.AccountManager;
 import com.jdon.jivejdon.manager.email.ForgotPasswdEmail;
 import com.jdon.jivejdon.model.Account;
-import com.jdon.jivejdon.repository.dao.AccountDao;
+import com.jdon.jivejdon.repository.AccountFactory;
+import com.jdon.jivejdon.repository.AccountRepository;
 import com.jdon.jivejdon.repository.dao.SequenceDao;
 import com.jdon.jivejdon.service.util.JtaTransactionUtil;
 import com.jdon.jivejdon.service.util.SessionContextUtil;
@@ -43,9 +44,10 @@ public class AccountServiceShell extends AccountServiceImp {
 
 	private AccountManager accountManager;
 
-	public AccountServiceShell(AccountManager accountManager, AccountDao accountDao, SequenceDao sequenceDao, SessionContextUtil sessionContextUtil,
-			JtaTransactionUtil jtaTransactionUtil, ResourceAuthorization resourceAuthorization, ForgotPasswdEmail forgotPasswdEmail) {
-		super(accountDao, sequenceDao, jtaTransactionUtil);
+	public AccountServiceShell(AccountFactory accountFactory, AccountRepository accountRepository, AccountManager accountManager,
+			SequenceDao sequenceDao, SessionContextUtil sessionContextUtil, JtaTransactionUtil jtaTransactionUtil,
+			ResourceAuthorization resourceAuthorization, ForgotPasswdEmail forgotPasswdEmail) {
+		super(accountFactory, accountRepository, sequenceDao, jtaTransactionUtil);
 		this.sessionContextUtil = sessionContextUtil;
 		this.resourceAuthorization = resourceAuthorization;
 		this.accountManager = accountManager;

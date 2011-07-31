@@ -14,7 +14,7 @@ import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.AccountProfile;
 import com.jdon.jivejdon.model.Property;
 import com.jdon.jivejdon.repository.AccountFactory;
-import com.jdon.jivejdon.repository.dao.AccountDao;
+import com.jdon.jivejdon.repository.AccountRepository;
 import com.jdon.jivejdon.repository.dao.PropertyDao;
 import com.jdon.jivejdon.service.AccountProfileService;
 import com.jdon.util.UtilValidate;
@@ -24,13 +24,14 @@ public class AccountProfileServiceImp implements AccountProfileService {
 	private final static Logger logger = Logger.getLogger(AccountProfileServiceImp.class);
 
 	private PropertyDao propertyDao;
-	private AccountDao accountDao;
 	private ValidateCodeEmail validateCodeEmail;
 	private AccountFactory accountFactory;
+	protected AccountRepository accountRepository;
 
-	public AccountProfileServiceImp(AccountFactory accountFactory, AccountDao accountDao, PropertyDao propertyDao, ValidateCodeEmail validateCodeEmail) {
+	public AccountProfileServiceImp(AccountFactory accountFactory, AccountRepository accountRepository, PropertyDao propertyDao,
+			ValidateCodeEmail validateCodeEmail) {
 		this.propertyDao = propertyDao;
-		this.accountDao = accountDao;
+		this.accountRepository = accountRepository;
 		this.validateCodeEmail = validateCodeEmail;
 		this.accountFactory = accountFactory;
 	}
@@ -76,7 +77,7 @@ public class AccountProfileServiceImp implements AccountProfileService {
 			if (validateCodeEmail.emailValidate(account.getUserId(), accountProfiler.getValidateCode())) {
 				logger.debug("emailValidate passed =" + account.getUserId());
 				account.setEmailValidate(true);
-				accountDao.updateAccountEmailValidate(account);
+				accountRepository.updateAccountEmailValidate(account);
 			} else
 				em.setErrors(Constants.ERRORS);
 		} catch (Exception e) {

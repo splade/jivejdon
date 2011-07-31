@@ -23,4 +23,8 @@ public interface AccountFactory {
 
 	public abstract Account getFullAccount(String userId);
 
+	Account getFullAccountForEmail(String email);
+
+	Account getFullAccountForUsername(String username);
+
 }
