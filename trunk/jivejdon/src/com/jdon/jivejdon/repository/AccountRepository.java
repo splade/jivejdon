@@ -1,5 +1,5 @@
 /*
- * Copyright 2003-2005 the original author or authors.
+ * Copyright 2003-2009 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,36 +13,12 @@
  * limitations under the License.
  * 
  */
-package com.jdon.jivejdon.repository.dao;
+package com.jdon.jivejdon.repository;
 
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.model.Account;
 
-/**
- * @author <a href="mailto:banqJdon<AT>jdon.com">banq</a>
- * 
- */
-public interface AccountDao {
-	/**
-	 * this for login
-	 * 
-	 * @param username
-	 * @param password
-	 * @return Account or null
-	 */
-	Account getAccount(String username, String password);
-
-	/**
-	 * this for service, not open
-	 * 
-	 * @param userId
-	 * @return account
-	 */
-	Account getAccount(String userId);
-
-	Account getAccountByName(String username);
-
-	Account getAccountByEmail(String email);
+public interface AccountRepository {
 
 	PageIterator getAccountByNameLike(String username, int start, int count);
 

@@ -20,7 +20,7 @@ import com.jdon.annotation.pointcut.Around;
 import com.jdon.jivejdon.model.attachment.UploadFile;
 import com.jdon.jivejdon.repository.dao.sql.JdbcTempSource;
 import com.jdon.jivejdon.repository.dao.sql.UploadFileDaoSql;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 
 /**
  * @author banq(http://www.jdon.com)

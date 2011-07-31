@@ -25,7 +25,7 @@ import com.jdon.jivejdon.model.ForumState;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.ForumThreadState;
 import com.jdon.jivejdon.repository.ForumFactory;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 
 public class ForumAbstractFactory implements ForumFactory {
 	private final static Logger logger = Logger.getLogger(ForumAbstractFactory.class);

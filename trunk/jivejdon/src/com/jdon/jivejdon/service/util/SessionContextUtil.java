@@ -21,6 +21,7 @@ import com.jdon.container.visitor.data.SessionContext;
 import com.jdon.container.visitor.data.SessionContextSetup;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.repository.AccountFactory;
+import com.jdon.jivejdon.util.ContainerUtil;
 
 /**
  * @author <a href="mailto:banq@163.com">banq</a>

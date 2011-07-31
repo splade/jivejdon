@@ -23,7 +23,7 @@ import com.jdon.jivejdon.repository.dao.sql.JdbcTempSource;
 import com.jdon.jivejdon.repository.dao.sql.MessageQueryDaoSql;
 import com.jdon.jivejdon.repository.dao.util.MessagePageIteratorSolver;
 import com.jdon.jivejdon.repository.search.MessageSearchProxy;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 
 /**
  * @author banq(http://www.jdon.com)

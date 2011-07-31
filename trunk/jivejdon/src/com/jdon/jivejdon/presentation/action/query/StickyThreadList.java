@@ -15,7 +15,9 @@
  */
 package com.jdon.jivejdon.presentation.action.query;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,17 +28,22 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.jdon.controller.WebAppUtil;
+import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.model.ForumThread;
+import com.jdon.jivejdon.model.proptery.ThreadPropertys;
 import com.jdon.jivejdon.presentation.form.ThreadListForm;
-import com.jdon.jivejdon.service.ForumMessageQueryService;
+import com.jdon.jivejdon.service.ForumMessageService;
+import com.jdon.jivejdon.service.PropertyService;
 import com.jdon.jivejdon.util.ToolsUtil;
 
 public class StickyThreadList extends Action {
 
+	private List stickyThreadList = new ArrayList();
+
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ThreadListForm threadListForm = (ThreadListForm) form;
-		ForumMessageQueryService forumMessageQueryService = (ForumMessageQueryService) WebAppUtil.getService("forumMessageQueryService", request);
-		Collection list = forumMessageQueryService.getStickyThreadList();
+
+		Collection list = getStickyThreadList(request);
 		threadListForm.setList(list);
 
 		ForumThread newThread = (ForumThread) list.toArray()[0];
@@ -47,6 +54,24 @@ public class StickyThreadList extends Action {
 		}
 		return mapping.findForward("success");
 
+	}
+
+	public Collection getStickyThreadList(HttpServletRequest request) {
+		if (!stickyThreadList.isEmpty())
+			return stickyThreadList;
+		PropertyService propertyService = (PropertyService) WebAppUtil.getService("propertyService", request);
+		ForumMessageService forumMessageService = (ForumMessageService) WebAppUtil.getService("forumMessageService", request);
+		try {
+			PageIterator stickyids = propertyService.getThreadIdsByNameAndValue(ThreadPropertys.UISTATE, ThreadPropertys.STICKY_ALL);
+			while (stickyids.hasNext()) {
+				Long id = (Long) stickyids.next();
+				ForumThread thread = forumMessageService.getThread(id);
+				stickyThreadList.add(thread);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return stickyThreadList;
 	}
 
 }

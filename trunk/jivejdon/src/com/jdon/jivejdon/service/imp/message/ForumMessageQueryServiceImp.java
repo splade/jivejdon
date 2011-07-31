@@ -2,7 +2,6 @@ package com.jdon.jivejdon.service.imp.message;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,24 +11,20 @@ import com.jdon.annotation.Service;
 import com.jdon.annotation.Singleton;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.manager.TreeManager;
-import com.jdon.jivejdon.manager.query.ApprovedThreadQueryManager;
 import com.jdon.jivejdon.manager.query.HotThreadQueryManager;
 import com.jdon.jivejdon.manager.query.LocateMessageInThread;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumThread;
-import com.jdon.jivejdon.model.proptery.ThreadPropertys;
 import com.jdon.jivejdon.model.query.MessageSearchSpec;
 import com.jdon.jivejdon.model.query.MultiCriteria;
 import com.jdon.jivejdon.model.query.QueryCriteria;
 import com.jdon.jivejdon.model.query.ResultSort;
-import com.jdon.jivejdon.model.query.specification.ApprovedListSpec;
 import com.jdon.jivejdon.model.query.specification.ThreadListSpec;
 import com.jdon.jivejdon.repository.AccountFactory;
 import com.jdon.jivejdon.repository.ForumFactory;
 import com.jdon.jivejdon.repository.dao.MessageQueryDao;
 import com.jdon.jivejdon.service.ForumMessageQueryService;
-import com.jdon.jivejdon.service.PropertyService;
 
 @Singleton
 @Service("forumMessageQueryService")
@@ -42,30 +37,20 @@ public class ForumMessageQueryServiceImp implements ForumMessageQueryService {
 
 	protected final HotThreadQueryManager queryManager;
 
-	protected final ApprovedThreadQueryManager approvedThreadQueryManager;
-
 	protected final TreeManager treeManager;
 
 	protected final ForumFactory forumBuilder;
 
 	protected final LocateMessageInThread locateMessageInThread;
 
-	protected final PropertyService propertyService;
-
-	private List stickyThreadList;
-
 	public ForumMessageQueryServiceImp(MessageQueryDao messageQueryDaoy, AccountFactory accountFactory, HotThreadQueryManager queryManager,
-			TreeManager treeManager, ForumFactory forumBuilder, ApprovedThreadQueryManager bestThreadQueryManager,
-			LocateMessageInThread locateMessageInThread, PropertyService propertyService) {
+			TreeManager treeManager, ForumFactory forumBuilder, LocateMessageInThread locateMessageInThread) {
 		this.accountFactory = accountFactory;
 		this.queryManager = queryManager;
 		this.messageQueryDao = messageQueryDaoy;
 		this.treeManager = treeManager;
 		this.forumBuilder = forumBuilder;
-		this.approvedThreadQueryManager = bestThreadQueryManager;
 		this.locateMessageInThread = locateMessageInThread;
-		this.propertyService = propertyService;
-		this.stickyThreadList = new ArrayList();
 	}
 
 	/**
@@ -238,16 +223,16 @@ public class ForumMessageQueryServiceImp implements ForumMessageQueryService {
 		return messageQueryDao.getThreads(forumId, start, count, resultSort);
 	}
 
-	public Collection<ForumThread> getApprovedThreads(ApprovedListSpec approvedListSpec) {
-		return approvedThreadQueryManager.getApprovedThreads(approvedListSpec);
-	}
-
 	public PageIterator getThreads(int start, int count, ThreadListSpec threadListSpec) {
 		return messageQueryDao.getThreads(start, count, threadListSpec);
 	}
 
-	private ForumThread getThread(Long threadId) throws Exception {
-		return forumBuilder.getThread(threadId);
+	public ForumThread getThread(Long threadId) {
+		try {
+			return forumBuilder.getThread(threadId);
+		} catch (Exception e) {
+			return null;
+		}
 
 	}
 
@@ -344,22 +329,6 @@ public class ForumMessageQueryServiceImp implements ForumMessageQueryService {
 
 	public int locateTheMessage(Long threadId, Long messageId, int count) {
 		return locateMessageInThread.locateTheMessage(threadId, messageId, count);
-	}
-
-	public Collection getStickyThreadList() {
-		if (!stickyThreadList.isEmpty())
-			return stickyThreadList;
-		try {
-			PageIterator stickyids = propertyService.getThreadIdsByNameAndValue(ThreadPropertys.UISTATE, ThreadPropertys.STICKY_ALL);
-			while (stickyids.hasNext()) {
-				Long id = (Long) stickyids.next();
-				ForumThread thread = getThread(id);
-				stickyThreadList.add(thread);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return stickyThreadList;
 	}
 
 }

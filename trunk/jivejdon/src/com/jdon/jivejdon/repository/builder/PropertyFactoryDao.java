@@ -27,7 +27,7 @@ import com.jdon.jivejdon.model.Property;
 import com.jdon.jivejdon.model.util.CachedCollection;
 import com.jdon.jivejdon.repository.PropertyFactory;
 import com.jdon.jivejdon.repository.dao.PropertyDao;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 import com.jdon.util.UtilValidate;
 
 public class PropertyFactoryDao implements PropertyFactory {

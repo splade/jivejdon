@@ -30,7 +30,7 @@ import com.jdon.jivejdon.model.ThreadTag;
 import com.jdon.jivejdon.model.query.specification.TaggedThreadListSpec;
 import com.jdon.jivejdon.repository.dao.SequenceDao;
 import com.jdon.jivejdon.repository.dao.TagDao;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 import com.jdon.model.query.PageIteratorSolver;
 
 public class TagDaoSql implements TagDao {

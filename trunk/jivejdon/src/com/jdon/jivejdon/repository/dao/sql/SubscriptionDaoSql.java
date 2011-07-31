@@ -20,7 +20,7 @@ import com.jdon.jivejdon.model.subscription.Subscription;
 import com.jdon.jivejdon.model.subscription.subscribed.Subscribed;
 import com.jdon.jivejdon.repository.Userconnector;
 import com.jdon.jivejdon.repository.dao.SubscriptionDao;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 import com.jdon.jivejdon.util.ToolsUtil;
 import com.jdon.model.query.PageIteratorSolver;
 

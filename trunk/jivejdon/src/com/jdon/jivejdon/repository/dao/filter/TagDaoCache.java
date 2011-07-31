@@ -22,7 +22,7 @@ import com.jdon.jivejdon.model.ThreadTag;
 import com.jdon.jivejdon.repository.dao.SequenceDao;
 import com.jdon.jivejdon.repository.dao.sql.JdbcTempSource;
 import com.jdon.jivejdon.repository.dao.sql.TagDaoSql;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 
 @Introduce("modelCache")
 public class TagDaoCache extends TagDaoSql {

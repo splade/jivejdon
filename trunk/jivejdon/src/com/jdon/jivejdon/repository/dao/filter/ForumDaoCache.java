@@ -24,7 +24,7 @@ import com.jdon.jivejdon.model.Forum;
 import com.jdon.jivejdon.repository.builder.MessageInitFactory;
 import com.jdon.jivejdon.repository.dao.sql.ForumDaoSql;
 import com.jdon.jivejdon.repository.dao.sql.JdbcTempSource;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 
 /**
  * Cache Decorator

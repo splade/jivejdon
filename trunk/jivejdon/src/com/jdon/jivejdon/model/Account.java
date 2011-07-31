@@ -186,6 +186,15 @@ public class Account {
 			return 0;
 	}
 
+	public int getMessageCountNow() {
+		if (isAnonymous())
+			return 0;
+		if (domainEvent != null)
+			return accountMessageVO.getMessageCountNow(domainEvent);
+		else
+			return 0;
+	}
+
 	/**
 	 * @return Returns the passwdanswer.
 	 */

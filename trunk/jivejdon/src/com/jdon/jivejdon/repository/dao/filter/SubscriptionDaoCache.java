@@ -8,7 +8,7 @@ import com.jdon.jivejdon.model.subscription.Subscription;
 import com.jdon.jivejdon.repository.Userconnector;
 import com.jdon.jivejdon.repository.dao.sql.JdbcTempSource;
 import com.jdon.jivejdon.repository.dao.sql.SubscriptionDaoSql;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 
 @Component("subscriptionDaoCache")
 @Introduce("modelCache")

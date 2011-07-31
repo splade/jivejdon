@@ -21,7 +21,7 @@ import com.jdon.jivejdon.model.ForumMessageReply;
 import com.jdon.jivejdon.model.message.MessageVO;
 import com.jdon.jivejdon.model.query.MessageSearchSpec;
 import com.jdon.jivejdon.repository.dao.sql.MessageUtilSQL;
-import com.jdon.jivejdon.service.util.ContainerUtil;
+import com.jdon.jivejdon.util.ContainerUtil;
 
 public class MessageSearchProxy implements Startable {
 	private final static Logger logger = Logger.getLogger(MessageSearchProxy.class);

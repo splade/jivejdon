@@ -85,10 +85,11 @@
 	</service>	
 	
     <service ref="accountService">
+       <!-- 
     	<method name="getAccount">
     		<role>Moderator</role>
 			<role>Admin</role>
-		</method>    
+		</method>  -->    
     	<method name="getAccountByName">
 			<role>User</role>
 			<role>Admin</role>
