@@ -206,8 +206,8 @@
 		
 			<component name="weiboOAuthParamVO"
 			class="com.jdon.jivejdon.manager.weibo.WeiboOAuthParamVO">
-			<constructor value="2299894210" /><!-- CONSUMER_KEY -->
-    	    <constructor value="191b3411c5f126176b98e1be26b02233" /> <!--  CONSUMER_SECRET -->
+			<constructor value="2879276008" /><!-- CONSUMER_KEY -->
+    	    <constructor value="8af8248a4cd6bf389685e6d3907349f0" /> <!--  CONSUMER_SECRET -->
 		</component>
 
 	</services>
