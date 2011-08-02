@@ -33,3 +33,6 @@
 <a title="CSDN网摘" href="JavaScript:d=window.top.document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&u='+escape(d.location.href)+'&c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();"  >
 <img src="<%=request.getContextPath()%>/images/cn3.gif" width="16" height="16" border="0" alt="CSDN网摘"/></a>
 
+
+<p >
+<a href="http://www.jdon.com/followus.html" target="_blank" ><b style="font-size: 12">更多关注方式 </b></a>
