@@ -17,7 +17,6 @@ package com.jdon.jivejdon.presentation.action.query;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +26,9 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.jdon.cache.LRUCache;
 import com.jdon.controller.WebAppUtil;
+import com.jdon.controller.cache.Cache;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.proptery.ThreadPropertys;
@@ -38,7 +39,7 @@ import com.jdon.jivejdon.util.ToolsUtil;
 
 public class StickyThreadList extends Action {
 
-	private List stickyThreadList = new ArrayList();
+	private Cache stickyThreadList = new LRUCache("approvedCache.xml");;
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ThreadListForm threadListForm = (ThreadListForm) form;
@@ -57,21 +58,30 @@ public class StickyThreadList extends Action {
 	}
 
 	public Collection getStickyThreadList(HttpServletRequest request) {
-		if (!stickyThreadList.isEmpty())
-			return stickyThreadList;
+		Collection<ForumThread> results;
+		if (stickyThreadList.contain(StickyThreadList.class)) {
+			results = (Collection) stickyThreadList.get(StickyThreadList.class);
+			if (!results.isEmpty())
+				return results;
+		}
+
+		results = new ArrayList();
 		PropertyService propertyService = (PropertyService) WebAppUtil.getService("propertyService", request);
 		ForumMessageService forumMessageService = (ForumMessageService) WebAppUtil.getService("forumMessageService", request);
 		try {
 			PageIterator stickyids = propertyService.getThreadIdsByNameAndValue(ThreadPropertys.UISTATE, ThreadPropertys.STICKY_ALL);
+
 			while (stickyids.hasNext()) {
 				Long id = (Long) stickyids.next();
 				ForumThread thread = forumMessageService.getThread(id);
-				stickyThreadList.add(thread);
+				results.add(thread);
 			}
+			stickyThreadList.put(StickyThreadList.class, results);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return stickyThreadList;
+		return results;
 	}
 
 }

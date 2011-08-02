@@ -13,7 +13,9 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.jdon.cache.LRUCache;
 import com.jdon.controller.WebAppUtil;
+import com.jdon.controller.cache.Cache;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.ForumThread;
@@ -25,9 +27,9 @@ import com.jdon.jivejdon.service.ForumMessageQueryService;
 import com.jdon.jivejdon.util.ToolsUtil;
 
 public class ThreadApprovedNewListAction extends Action {
-	private final static Logger logger = Logger.getLogger(ThreadQueryAction.class);
+	private final static Logger logger = Logger.getLogger(ThreadApprovedNewListAction.class);
 
-	private List approvedThreadList = new ArrayList();
+	private Cache approvedThreadList = new LRUCache("approvedCache.xml");;
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		logger.debug("enter ThreadApprovedNewListAction");
@@ -57,12 +59,17 @@ public class ThreadApprovedNewListAction extends Action {
 	}
 
 	public Collection<ForumThread> getApprovedThreads(ApprovedListSpec approvedListSpec, HttpServletRequest request) {
-		if (!approvedThreadList.isEmpty())
-			return approvedThreadList;
+		Collection<ForumThread> resultSorteds;
+		if (approvedThreadList.contain(ThreadApprovedNewListAction.class)) {
+			resultSorteds = (Collection) approvedThreadList.get(ThreadApprovedNewListAction.class);
+			if (!resultSorteds.isEmpty())
+				return resultSorteds;
+		}
+
 		logger.debug("not found it in cache, create it");
-		Collection<ForumThread> resultSorteds = loadApprovedThreads(approvedListSpec, request);
+		resultSorteds = loadApprovedThreads(approvedListSpec, request);
 		if (resultSorteds.size() > 0) {
-			approvedThreadList.addAll(resultSorteds);
+			approvedThreadList.put(ThreadApprovedNewListAction.class, resultSorteds);
 			logger.debug("resultSorteds() == " + resultSorteds.size());
 		} else {
 			logger.debug("resultSorteds.size() == 0");
