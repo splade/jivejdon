@@ -22,17 +22,17 @@ public class ApprovedListSpec extends ThreadListSpec {
 	}
 
 	protected boolean isGoodBlog(ForumThread thread, Account account) {
-		return (hasTags(thread) && isGoodAuthor(account, 10) && isDigged(thread, 1) && hasReply(thread, 1));
+		return (hasTags(thread, 1) && isGoodAuthor(account, 10) && isDigged(thread, 1) && hasReply(thread, 1));
 	}
 
 	protected boolean isExcelledDiscuss(ForumThread thread) {
-		return (hasTags(thread) && isDigged(thread, 3) && hasReply(thread, 3));
+		return (hasTags(thread, 2) && isDigged(thread, 3) && hasReply(thread, 3));
 
 	}
 
-	private boolean hasTags(ForumThread thread) {
+	private boolean hasTags(ForumThread thread, int throttle) {
 		Collection tags = thread.getTags();
-		if (tags != null && tags.size() >= 1)
+		if (tags != null && tags.size() >= throttle)
 			return true;
 		else
 			return false;
