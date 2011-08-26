@@ -30,6 +30,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import weibo4j.Status;
+import weibo4j.User;
 import weibo4j.Weibo;
 import weibo4j.WeiboException;
 import weibo4j.http.AccessToken;
@@ -71,6 +72,34 @@ public class SinaWeboSubmitter {
 		} catch (Exception e) {
 			logger.error("submitWeibo error:" + e);
 		}
+
+	}
+
+	public boolean verfiyUser(String userId, String password) {
+		boolean valide = false;
+		try {
+			RequestToken requestToken = request("xml");
+			HttpClient http = new HttpClient();
+			PostParameter[] postParameters = new PostParameter[] { new PostParameter("oauth_callback", "xml"), new PostParameter("userId", userId),
+					new PostParameter("passwd", password) };
+			Response response = http.get(requestToken.getAuthorizationURL());
+			response = http.post(requestToken.getAuthorizationURL(), postParameters);
+
+			StringReader reader = new StringReader(response.asString());
+			InputSource inputSource = new InputSource(reader);
+			Map map = readXML(inputSource);
+
+			AccessToken accessToken = requstAccessToken(requestToken, (String) map.get("oauth_verifier"));
+			Weibo weibo = new Weibo();
+			weibo.setToken(accessToken.getToken(), accessToken.getTokenSecret());
+
+			User user = weibo.verifyCredentials();
+			if (user != null)
+				valide = true;
+		} catch (Exception e) {
+			logger.error("submitWeibo error:" + e);
+		}
+		return valide;
 
 	}
 
@@ -158,10 +187,11 @@ public class SinaWeboSubmitter {
 	}
 
 	public static void main(String[] args) throws Exception {
-		WeiboOAuthParamVO weiboOAuthParamVO = new WeiboOAuthParamVO("2992793524", "91c4c67f5a84e9cca4b394f42c78f4a4");
-		SinaWeboSubmitter weiboAction = new SinaWeboSubmitter(weiboOAuthParamVO);
-		weiboAction.setSinaWeiboUserPwd(new SinaWeiboUserPwd("banq", "xxxxx"));
-		weiboAction.submitWeibo("test");
+
+		WeiboOAuthParamVO weiboOAuthParamVO = new WeiboOAuthParamVO("2879276008", "8af8248a4cd6bf389685e6d3907349f0");
+		SinaWeboSubmitter sinaWeboSubmitter = new SinaWeboSubmitter(weiboOAuthParamVO);
+		if (sinaWeboSubmitter.verfiyUser("wback@sina.cn", "weibobackup"))
+			System.out.print("ok");
 
 	}
 

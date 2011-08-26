@@ -55,7 +55,7 @@
 <br>
 <html:checkbox name="subscriptionForm" property="sendemail"/>您关注的有新内容时，是否以发送邮件通知？选中本项，需要验证注册Email。                      
 <br>
-<html:checkbox name="subscriptionForm" property="sinaweiboForm.sinaweibo"/>您关注的有新内容时，给您发条新浪微博，需要输入微博的用户名和密码。                      
+<html:checkbox name="subscriptionForm" property="sinaweiboForm.sinaweibo"/>您关注的有新内容时，给您发条新浪微博，需要输入微博的用户名和密码，保存时将验证有效性。                      
  <ul><li>微博用户: <html:text name="subscriptionForm" property="sinaweiboForm.userId"/>    </li>
      <li>微博密码: <html:password name="subscriptionForm" property="sinaweiboForm.passwd"/>  </li>
  </ul>
