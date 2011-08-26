@@ -10,6 +10,7 @@ import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.manager.email.ValidateCodeEmail;
 import com.jdon.jivejdon.manager.subscription.action.EmailAction;
 import com.jdon.jivejdon.manager.subscription.action.SinaWeiboAction;
+import com.jdon.jivejdon.manager.weibo.SinaWeboSubmitter;
 import com.jdon.jivejdon.manager.weibo.SinaWeiboUserPwd;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.subscription.Subscription;
@@ -36,14 +37,17 @@ public class SubscriptionServiceImp implements SubscriptionService {
 
 	protected ValidateCodeEmail validateCodeEmail;
 
+	protected SinaWeboSubmitter sinaWeboSubmitter;
+
 	protected Userconnector userconnector;
 
 	public SubscriptionServiceImp(SessionContextUtil sessionContextUtil, SubscriptionRepository subscriptionRepository,
-			ValidateCodeEmail validateCodeEmail, Userconnector userconnector) {
+			ValidateCodeEmail validateCodeEmail, SinaWeboSubmitter sinaWeboSubmitter, Userconnector userconnector) {
 		super();
 		this.subscriptionRepository = subscriptionRepository;
 		this.sessionContextUtil = sessionContextUtil;
 		this.validateCodeEmail = validateCodeEmail;
+		this.sinaWeboSubmitter = sinaWeboSubmitter;
 		this.userconnector = userconnector;
 	}
 
@@ -75,10 +79,12 @@ public class SubscriptionServiceImp implements SubscriptionService {
 			}
 			subscriptionRepository.createSubscription(subscription);
 			if (subscription.getSubscriptionActionHolder().hasActionType(SinaWeiboAction.class)) {
+
 				SinaWeiboAction sinaWeiboAction = (SinaWeiboAction) subscription.getSubscriptionActionHolder().getActionType(SinaWeiboAction.class);
 				SinaWeiboUserPwd sinaWeiboUserPwd = sinaWeiboAction.getSinaWeiboUserPwd();
 				sinaWeiboUserPwd.setType(Long.toString(subscription.getSubscriptionId()));
-				userconnector.saveSinaWeiboUserconn(subscription.getAccount().getUserId(), sinaWeiboAction.getSinaWeiboUserPwd());
+				if (sinaWeboSubmitter.verfiyUser(sinaWeiboUserPwd.getUserId(), sinaWeiboUserPwd.getPasswd()))
+					userconnector.saveSinaWeiboUserconn(subscription.getAccount().getUserId(), sinaWeiboAction.getSinaWeiboUserPwd());
 			}
 			subscription = getSubscription(subscription.getSubscriptionId());
 			subscription.updateSubscriptionCount(1);
