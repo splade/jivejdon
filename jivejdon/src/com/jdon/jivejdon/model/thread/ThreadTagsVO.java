@@ -18,7 +18,7 @@ package com.jdon.jivejdon.model.thread;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.jdon.async.message.EventMessage;
+import com.jdon.domain.message.DomainMessage;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.ThreadTag;
 import com.jdon.jivejdon.model.subscription.subscribed.TagSubscribed;
@@ -77,7 +77,7 @@ public class ThreadTagsVO {
 	private void reloadChangedTags() {
 		reload = false;
 		// this event maybe run before last evnet:changeTags
-		EventMessage message = this.forumThread.getDomainEvent().loadTags(forumThread);
+		DomainMessage message = this.forumThread.getDomainEvent().loadTags(forumThread);
 		this.tags = (Collection) message.getEventResult();
 		setTags(this.tags);
 

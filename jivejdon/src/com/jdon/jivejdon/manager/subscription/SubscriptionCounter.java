@@ -15,13 +15,13 @@
  */
 package com.jdon.jivejdon.manager.subscription;
 
-import com.jdon.annotation.Component;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.repository.dao.SubscriptionDao;
 
-@Component("subscriptionCounter")
-public class SubscriptionCounter implements MessageListener {
+@Consumer("subscriptionCounter")
+public class SubscriptionCounter implements DomainEventHandler {
 
 	private SubscriptionDao subscriptionDao;
 
@@ -30,10 +30,11 @@ public class SubscriptionCounter implements MessageListener {
 		this.subscriptionDao = subscriptionDao;
 	}
 
-	public void action(DomainMessage eventMessage) {
-		Long subscribeId = (Long) eventMessage.getEventSource();
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+
+		Long subscribeId = (Long) event.getDomainMessage().getEventSource();
 		int count = subscriptionDao.getSubscriptionsForsubscribedCount(subscribeId);
-		eventMessage.setEventResult(count);
+		event.getDomainMessage().setEventResult(count);
 	}
 
 }

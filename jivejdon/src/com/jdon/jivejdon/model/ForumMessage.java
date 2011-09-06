@@ -26,7 +26,7 @@ import org.compass.annotations.SearchableReference;
 
 import com.jdon.annotation.Model;
 import com.jdon.annotation.model.Inject;
-import com.jdon.async.message.EventMessage;
+import com.jdon.domain.message.DomainMessage;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.model.attachment.Attachment;
 import com.jdon.jivejdon.model.message.MessageDigVo;
@@ -150,7 +150,7 @@ public class ForumMessage extends ForumModel implements Cloneable {
 	}
 
 	public synchronized void reloadMessageVOOrignal() {
-		EventMessage em = domainEvents.reloadMessageVO(this);
+		DomainMessage em = domainEvents.reloadMessageVO(this);
 		messageVO = (MessageVO) em.getEventResult();
 		setMessageVO(messageVO);
 	}
@@ -161,10 +161,18 @@ public class ForumMessage extends ForumModel implements Cloneable {
 
 	public synchronized void addReplyMessage(ForumMessageReply forumMessageReply) {
 		try {
+			// basic construct
 			this.domainEvents.loadAccount(forumMessageReply);
-
-			createReplyMessage(forumMessageReply);
-			// forumMessageReply = (ForumMessageReply) em.getEventResult();
+			forumMessageReply.setParentMessage(this);
+			forumMessageReply.setForumThread(this.getForumThread());
+			forumMessageReply.setForum(this.getForum());
+			long now = System.currentTimeMillis();
+			String saveDateTime = ToolsUtil.dateToMillis(now);
+			String displayDateTime = Constants.getDefaultDateTimeDisp(saveDateTime);
+			forumMessageReply.setCreationDate(displayDateTime);
+			forumMessageReply.setModifiedDate(displayDateTime);
+			// basic construt over
+			this.domainEvents.addReplyMessage(forumMessageReply);
 
 			forumThread.addNewMessage(this, forumMessageReply);
 
@@ -177,21 +185,6 @@ public class ForumMessage extends ForumModel implements Cloneable {
 		} catch (Exception e) {
 			Debug.logError(" addReplyMessage error:" + e + this.messageId, module);
 		}
-	}
-
-	private void createReplyMessage(ForumMessageReply forumMessageReply) {
-		forumMessageReply.setParentMessage(this);
-		forumMessageReply.setForum(getForum());
-		forumMessageReply.setForumThread(getForumThread());
-
-		long now = System.currentTimeMillis();
-		String saveDateTime = ToolsUtil.dateToMillis(now);
-		String displayDateTime = Constants.getDefaultDateTimeDisp(saveDateTime);
-		forumMessageReply.setCreationDate(displayDateTime);
-
-		forumMessageReply.setModifiedDate(displayDateTime);
-
-		this.domainEvents.addReplyMessage(forumMessageReply);
 	}
 
 	public synchronized void update(ForumMessage newForumMessageInputparamter) {

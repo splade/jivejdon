@@ -59,5 +59,6 @@
 	<classpathentry kind="lib" path="lib/weibo/weibo4j-1.2.0.jar" sourcepath="/weibo4j"/>
 	<classpathentry kind="lib" path="lib/weibo/commons-codec.jar"/>
 	<classpathentry kind="lib" path="lib/weibo/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jf/disruptor-2.0.2.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

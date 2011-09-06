@@ -192,7 +192,8 @@ public abstract class MessageDaoSql implements MessageDao {
 			jdbcTempSource.getJdbcTemp().operate(queryParams, INSERT_MESSAGE);
 		} catch (Exception e) {
 			logger.error(e);
-			throw new Exception("messageId=" + forumMessage.getMessageId() + " happend " + e);
+			throw new Exception("messageId=" + forumMessage.getMessageId() + " happend " + forumMessage.getForum().getForumId() + e);
+
 		}
 	}
 
@@ -271,8 +272,9 @@ public abstract class MessageDaoSql implements MessageDao {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.jivejdon.dao.MessageDao#updateMessage(com.jdon.jivejdon.model
-	 *      .ForumMessage)
+	 * @see
+	 * com.jdon.jivejdon.dao.MessageDao#updateMessage(com.jdon.jivejdon.model
+	 * .ForumMessage)
 	 */
 	public void updateMessage(ForumMessage forumMessage) throws Exception {
 		String SAVE_MESSAGE = "";
@@ -307,8 +309,9 @@ public abstract class MessageDaoSql implements MessageDao {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.jivejdon.dao.MessageDao#deleteMessage(com.jdon.jivejdon.model
-	 *      .ForumMessage)
+	 * @see
+	 * com.jdon.jivejdon.dao.MessageDao#deleteMessage(com.jdon.jivejdon.model
+	 * .ForumMessage)
 	 */
 	public void deleteMessage(Long forumMessageId) throws Exception {
 		String DELETE_MESSAGE = "DELETE FROM jiveMessage WHERE messageID=?";

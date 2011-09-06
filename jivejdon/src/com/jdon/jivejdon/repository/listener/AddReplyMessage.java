@@ -17,38 +17,41 @@ package com.jdon.jivejdon.repository.listener;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.annotation.Component;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
-import com.jdon.jivejdon.manager.filter.OutFilterManager;
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.ForumMessageReply;
 import com.jdon.jivejdon.repository.ForumFactory;
 import com.jdon.jivejdon.service.imp.message.MessageTransactionPersistence;
 
-@Component("addReplyMessage")
-public class AddReplyMessage implements MessageListener {
+/**
+ * topic addReplyMessage has three DomainEventHandlers: AddReplyMessage;
+ * AddReplyMessageRefresher AddReplyMessageSearchFile
+ * 
+ * these DomainEventHandlers run by the alphabetical(字母排列先后运行) of their class
+ * name
+ * 
+ * 
+ * @author banq
+ * 
+ */
+@Consumer("addReplyMessage")
+public class AddReplyMessage implements DomainEventHandler {
 	private final static Logger logger = Logger.getLogger(SaveMessage.class);
 
 	protected MessageTransactionPersistence messageTransactionPersistence;
 	protected ForumFactory forumAbstractFactory;
-	protected OutFilterManager outFilterManager;
 
-	public AddReplyMessage(MessageTransactionPersistence messageTransactionPersistence, ForumFactory forumAbstractFactory,
-			OutFilterManager outFilterManager) {
+	public AddReplyMessage(MessageTransactionPersistence messageTransactionPersistence, ForumFactory forumAbstractFactory) {
 		super();
 		this.messageTransactionPersistence = messageTransactionPersistence;
 		this.forumAbstractFactory = forumAbstractFactory;
-		this.outFilterManager = outFilterManager;
 	}
 
-	public void action(DomainMessage eventMessage) {
-		ForumMessageReply forumMessageReply = (ForumMessageReply) eventMessage.getEventSource();
-		if (forumMessageReply == null)
-			return;
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+		ForumMessageReply forumMessageReply = (ForumMessageReply) event.getDomainMessage().getEventSource();
 		try {
 			messageTransactionPersistence.insertReplyMessage(forumMessageReply);
-			// load the new message into cache, prepare for next GET request
-			forumAbstractFactory.getMessage(forumMessageReply.getMessageId());
 		} catch (Exception e) {
 			logger.error(e);
 		}

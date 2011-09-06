@@ -21,25 +21,40 @@ import com.jdon.annotation.Consumer;
 import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.ForumMessage;
+import com.jdon.jivejdon.model.ForumMessageReply;
+import com.jdon.jivejdon.repository.ForumFactory;
 import com.jdon.jivejdon.service.imp.message.MessageTransactionPersistence;
 
-@Consumer("saveMessage")
-public class SaveMessage implements DomainEventHandler {
+/**
+ * topic addReplyMessage has three DomainEventHandlers: AddReplyMessage;
+ * AddReplyMessageRefresher AddReplyMessageSearchFile
+ * 
+ * these DomainEventHandlers run by the alphabetical(字母排列先后运行) of their class
+ * name
+ * 
+ * @author banq
+ * 
+ */
+@Consumer("addReplyMessage")
+public class AddReplyMessageRefresher implements DomainEventHandler {
 	private final static Logger logger = Logger.getLogger(SaveMessage.class);
 
 	protected MessageTransactionPersistence messageTransactionPersistence;
+	protected ForumFactory forumAbstractFactory;
 
-	public SaveMessage(MessageTransactionPersistence messageTransactionPersistence) {
+	public AddReplyMessageRefresher(MessageTransactionPersistence messageTransactionPersistence, ForumFactory forumAbstractFactory) {
 		super();
 		this.messageTransactionPersistence = messageTransactionPersistence;
+		this.forumAbstractFactory = forumAbstractFactory;
 	}
 
 	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-		ForumMessage forumMessage = (ForumMessage) event.getDomainMessage().getEventSource();
-		if (forumMessage == null)
-			return;
+		ForumMessageReply forumMessageReply = (ForumMessageReply) event.getDomainMessage().getEventSource();
 		try {
-			messageTransactionPersistence.updateMessage(forumMessage);
+			// load the new message into cache, prepare for next GET request
+			ForumMessage forumMessage = forumAbstractFactory.getMessage(forumMessageReply.getMessageId());
+			event.getDomainMessage().setEventResult(forumMessage);
+			event.getDomainMessage().setEventSource(forumMessage);
 		} catch (Exception e) {
 			logger.error(e);
 		}

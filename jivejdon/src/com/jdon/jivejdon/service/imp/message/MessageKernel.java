@@ -163,6 +163,7 @@ public class MessageKernel {
 				return;
 			}
 			parentMessage.addReplyMessage(forumMessageReply);
+			//
 			// messageTransactionPersistence.insertReplyMessage(em);
 
 			// ForumMessageReply forumMessageReply = (ForumMessageReply)

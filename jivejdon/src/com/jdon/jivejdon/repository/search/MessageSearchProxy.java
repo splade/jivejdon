@@ -23,7 +23,7 @@ import com.jdon.jivejdon.model.query.MessageSearchSpec;
 import com.jdon.jivejdon.repository.dao.sql.MessageUtilSQL;
 import com.jdon.jivejdon.util.ContainerUtil;
 
-public class MessageSearchProxy implements Startable {
+public class MessageSearchProxy implements Startable, MessageSearchRepository {
 	private final static Logger logger = Logger.getLogger(MessageSearchProxy.class);
 	private Compass compass;
 
@@ -84,8 +84,8 @@ public class MessageSearchProxy implements Startable {
 			 * config.setSetting("compass.jndi.enable", "true");
 			 * config.setSetting
 			 * ("compass.engine.store.jdbc.connection.provider.class",
-			 * "org.compass.core.lucene.engine.store.jdbc.ExternalDataSourceProvider" );
-			 * ExternalDataSourceProvider.setDataSource(ds);
+			 * "org.compass.core.lucene.engine.store.jdbc.ExternalDataSourceProvider"
+			 * ); ExternalDataSourceProvider.setDataSource(ds);
 			 * 
 			 * 
 			 * TableToResourceMapping folderMapping = new
@@ -144,6 +144,14 @@ public class MessageSearchProxy implements Startable {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.search.MessageSearchRepository#createMessage
+	 * (com.jdon.jivejdon.model.ForumMessage)
+	 */
+	@Override
 	public void createMessage(ForumMessage forumMessage) throws Exception {
 		logger.debug("MessageSearchProxy.createMessage");
 		CompassSession session = compass.openSession();
@@ -162,6 +170,13 @@ public class MessageSearchProxy implements Startable {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.jivejdon.repository.search.MessageSearchRepository#
+	 * createMessageReply(com.jdon.jivejdon.model.ForumMessageReply)
+	 */
+	@Override
 	public void createMessageReply(ForumMessageReply forumMessageReply) throws Exception {
 		logger.debug("MessageSearchProxy.createMessageReply");
 		CompassSession session = compass.openSession();
@@ -182,6 +197,14 @@ public class MessageSearchProxy implements Startable {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.search.MessageSearchRepository#updateMessage
+	 * (com.jdon.jivejdon.model.ForumMessage)
+	 */
+	@Override
 	public void updateMessage(ForumMessage forumMessage) throws Exception {
 		logger.debug("MessageSearchProxy.updateMessage");
 		CompassSession session = compass.openSession();
@@ -209,6 +232,14 @@ public class MessageSearchProxy implements Startable {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.search.MessageSearchRepository#deleteMessage
+	 * (java.lang.Long)
+	 */
+	@Override
 	public void deleteMessage(Long forumMessageId) throws Exception {
 		logger.debug("MessageSearchProxy.deleteMessage");
 		CompassSession session = compass.openSession();
@@ -228,11 +259,12 @@ public class MessageSearchProxy implements Startable {
 		}
 	}
 
-	/**
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param iquery
-	 * @return MessageSearchSpec Collection include highlight subject and body
-	 * @throws Exception
+	 * @see
+	 * com.jdon.jivejdon.repository.search.MessageSearchRepository#find(java
+	 * .lang.String, int, int)
 	 */
 	public Collection find(String query, int start, int count) {
 		logger.debug("MessageSearchProxy.find");
@@ -282,6 +314,12 @@ public class MessageSearchProxy implements Startable {
 		return result;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.jivejdon.repository.search.MessageSearchRepository#
+	 * findThreadsAllCount(java.lang.String)
+	 */
 	public int findThreadsAllCount(String query) {
 		logger.debug("findThreadsAllCount.find");
 		CompassSession session = compass.openSession();
@@ -303,6 +341,13 @@ public class MessageSearchProxy implements Startable {
 		return allCount;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.search.MessageSearchRepository#findThread
+	 * (java.lang.String, int, int)
+	 */
 	public Collection findThread(String query, int start, int count) {
 		logger.debug("MessageSearchProxy.find");
 		Collection result = new ArrayList();
@@ -367,6 +412,12 @@ public class MessageSearchProxy implements Startable {
 		return newStart;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.jivejdon.repository.search.MessageSearchRepository#
+	 * getMessageSearchSpec(java.lang.Long)
+	 */
 	public MessageSearchSpec getMessageSearchSpec(Long messageId) {
 		MessageSearchSpec mss = (MessageSearchSpec) containerUtil.getModelFromCache(messageId, MessageSearchSpec.class);
 		if ((mss == null)) {

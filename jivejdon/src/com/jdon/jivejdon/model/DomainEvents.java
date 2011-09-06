@@ -131,8 +131,8 @@ public class DomainEvents {
 	}
 
 	@Send("addChildZToThreadTree")
-	public DomainMessage addChildZToThreadTree(ForumThread forumThread) {
-		return new DomainMessage(forumThread);
+	public DomainMessage addChildZToThreadTree(ForumMessageReply forumMessageReply) {
+		return new DomainMessage(forumMessageReply);
 	}
 
 	@Send(value = "loadAccount", asyn = false)

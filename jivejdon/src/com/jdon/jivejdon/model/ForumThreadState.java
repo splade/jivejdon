@@ -143,6 +143,8 @@ public class ForumThreadState {
 	}
 
 	public long getModifiedDate2() {
+		if (modifiedDate == null)
+			return 0;
 		Date mdate = Constants.parseDateTime(modifiedDate);
 		return mdate.getTime();
 	}

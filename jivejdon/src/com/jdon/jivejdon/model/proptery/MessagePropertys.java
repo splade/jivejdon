@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import com.jdon.async.message.EventMessage;
+import com.jdon.domain.message.DomainMessage;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.Property;
 
@@ -66,7 +66,7 @@ public class MessagePropertys {
 
 	public Collection getPropertys() {
 		if (reload && forumMessage != null) {
-			EventMessage message = this.forumMessage.getDomainEvents().loadMessageProperties(forumMessage);
+			DomainMessage message = this.forumMessage.getDomainEvents().loadMessageProperties(forumMessage);
 			this.propertys = (Collection) message.getEventResult();
 			reload = false;
 		}

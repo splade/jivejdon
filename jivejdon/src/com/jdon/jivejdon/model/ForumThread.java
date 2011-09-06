@@ -277,7 +277,7 @@ public class ForumThread extends ForumModel {
 			// AccountSubscribed(forumMessageReply.getAccount()));
 
 			// async exec add tree that cost more performance.
-			this.domainEvents.addChildZToThreadTree(this);
+			this.domainEvents.addChildZToThreadTree(forumMessageReply);
 		} catch (Exception e) {
 			System.err.print("error in forumThread:" + this.threadId + " " + e);
 		}

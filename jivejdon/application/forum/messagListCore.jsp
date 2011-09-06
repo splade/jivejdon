@@ -68,8 +68,10 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 <MultiPagesREST:index displayCount="3" />
 <MultiPagesREST:next  name="&#9658;" />
 </MultiPagesREST:pager>
+<logic:greaterThan name="messageListForm" property="numPages" value="1">
 <a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go"><span class="pageGo">Go</span></a>
-共有 <b><bean:write name="messageListForm" property="numReplies" /></b> 回复(<b><bean:write name="messageListForm" property="numPages" /></b>页) 
+有<b><bean:write name="messageListForm" property="numPages" /></b>页
+</logic:greaterThan>
 阅读<bean:write name="forumThread" property="state.viewCount" />次 
 <logic:greaterThan name="forumThread" property="state.subscriptionCount" value="0">
      <bean:write name="forumThread" property="state.subscriptionCount"/>人关注
@@ -182,8 +184,10 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 </td>
 <td  align="right">
 <div class="tres">
-共有 <b><bean:write name="messageListForm" property="numReplies" /></b> 回复(<b><bean:write name="messageListForm" property="numPages" /></b>页) 
-<a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go">Go</a>   
+<logic:greaterThan name="messageListForm" property="numPages" value="1">
+有<b><bean:write name="messageListForm" property="numPages" /></b>页
+<a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go">Go</a>
+</logic:greaterThan>    
 <MultiPagesREST:pager actionFormName="messageListForm" page="/thread" paramId="thread" paramName="forumThread" paramProperty="threadId">
 <MultiPagesREST:prev name="&#9668;" />
 <MultiPagesREST:index displayCount="3" />
