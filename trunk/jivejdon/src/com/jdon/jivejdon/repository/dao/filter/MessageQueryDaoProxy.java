@@ -22,7 +22,7 @@ import com.jdon.jivejdon.repository.dao.AccountDao;
 import com.jdon.jivejdon.repository.dao.sql.JdbcTempSource;
 import com.jdon.jivejdon.repository.dao.sql.MessageQueryDaoSql;
 import com.jdon.jivejdon.repository.dao.util.MessagePageIteratorSolver;
-import com.jdon.jivejdon.repository.search.MessageSearchProxy;
+import com.jdon.jivejdon.repository.search.MessageSearchRepository;
 import com.jdon.jivejdon.util.ContainerUtil;
 
 /**
@@ -34,11 +34,11 @@ public class MessageQueryDaoProxy extends MessageQueryDaoSql {
 	public static final String Message_Name = "Message_Name";
 	public static final String Thread_Name = "Thread_Name";
 
-	private MessageSearchProxy messageSearchProxy;
+	private MessageSearchRepository messageSearchProxy;
 	private ContainerUtil containerUtil;
 
 	public MessageQueryDaoProxy(ContainerUtil containerUtil, JdbcTempSource jdbcTempSource, MessagePageIteratorSolver messagePageIteratorSolver,
-			AccountDao accountDao, MessageSearchProxy messageSearchProxy) {
+			AccountDao accountDao, MessageSearchRepository messageSearchProxy) {
 		super(jdbcTempSource, messagePageIteratorSolver);
 		this.messageSearchProxy = messageSearchProxy;
 		this.containerUtil = containerUtil;

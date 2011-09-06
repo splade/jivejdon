@@ -19,13 +19,13 @@ import java.util.Collection;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
+import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.repository.dao.PropertyDao;
 
-public class LoadMessageProperties implements MessageListener {
+public class LoadMessageProperties implements DomainEventHandler {
 	private final static Logger logger = Logger.getLogger(LoadMessageProperties.class);
 
 	private final PropertyDao propertyDao;
@@ -35,13 +35,14 @@ public class LoadMessageProperties implements MessageListener {
 		this.propertyDao = propertyDao;
 	}
 
-	public void action(DomainMessage eventMessage) {
-		ForumMessage forumMessage = (ForumMessage) eventMessage.getEventSource();
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+
+		ForumMessage forumMessage = (ForumMessage) event.getDomainMessage().getEventSource();
 		if (forumMessage == null)
 			return;
 		try {
 			Collection propertys = propertyDao.getProperties(Constants.MESSAGE, forumMessage.getMessageId());
-			eventMessage.setEventResult(propertys);
+			event.getDomainMessage().setEventResult(propertys);
 		} catch (Exception e) {
 			logger.error(e);
 		}

@@ -17,24 +17,22 @@ package com.jdon.jivejdon.manager.listener;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.annotation.Component;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.ForumMessageReply;
-import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.treepatterns.model.TreeModel;
 
-@Component("addChildZToThreadTree")
-public class AddChildZToThreadTree implements MessageListener {
+@Consumer("addChildZToThreadTree")
+public class AddChildZToThreadTree implements DomainEventHandler {
 	private final static Logger logger = Logger.getLogger(AddChildZToThreadTree.class);
 
-	public void action(DomainMessage eventMessage) {
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
 		try {
-			ForumThread forumThread = (ForumThread) eventMessage.getEventSource();
-			ForumMessageReply forumMessage = (ForumMessageReply) forumThread.getState().getLastPost();
+			ForumMessageReply forumMessageReply = (ForumMessageReply) event.getDomainMessage().getEventSource();
 
-			TreeModel treeModel = forumThread.getState().getTreeModel();
-			treeModel.addChild(forumMessage.getParentMessage().getMessageId(), forumMessage.getMessageId());
+			TreeModel treeModel = forumMessageReply.getForumThread().getState().getTreeModel();
+			treeModel.addChild(forumMessageReply.getParentMessage().getMessageId(), forumMessageReply.getMessageId());
 		} catch (Exception e) {
 			logger.error(e);
 		}

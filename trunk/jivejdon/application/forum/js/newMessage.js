@@ -9,7 +9,7 @@
   
   function popUpNewMessage(){
    if (newMessageW == null) {
-       newMessageW = new Window({className: "mac_os_x", width:250, height:150, title: " 20秒后自动关闭 ", closable: false}); 
+       newMessageW = new Window({className: "mac_os_x", width:250, height:150, title: " 10秒后自动关闭 ", closable: false}); 
        newMessageW.setContent("isNewMessage",false, false);                  
        newMessageW.showCenter();	
        
@@ -25,7 +25,7 @@
       Windows.addObserver(myObserver);  	 
 	} else
 	  newMessageW.showCenter();
-	setTimeout(clearPopUP, 20*1000);	
+	setTimeout(clearPopUP, 10*1000);	
    }     
       
    

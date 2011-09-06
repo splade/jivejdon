@@ -17,14 +17,14 @@ package com.jdon.jivejdon.repository.listener;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.annotation.Component;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.repository.MessageRepository;
 
-@Component("updateMessageProperties")
-public class UpdateMessageProperties implements MessageListener {
+@Consumer("updateMessageProperties")
+public class UpdateMessageProperties implements DomainEventHandler {
 	private final static Logger logger = Logger.getLogger(UpdateMessageProperties.class);
 
 	private final MessageRepository messageRepository;
@@ -34,8 +34,8 @@ public class UpdateMessageProperties implements MessageListener {
 		this.messageRepository = messageRepository;
 	}
 
-	public void action(DomainMessage eventMessage) {
-		ForumMessage forumMessage = (ForumMessage) eventMessage.getEventSource();
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+		ForumMessage forumMessage = (ForumMessage) event.getDomainMessage().getEventSource();
 		if (forumMessage == null)
 			return;
 		try {

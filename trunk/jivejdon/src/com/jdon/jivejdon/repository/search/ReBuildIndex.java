@@ -18,7 +18,7 @@ public class ReBuildIndex implements Runnable {
 
 	private boolean busy = false;
 
-	private MessageSearchProxy messageSearchProxy;
+	private MessageSearchRepository messageSearchProxy;
 
 	private ForumFactory forumAbstractFactory;
 

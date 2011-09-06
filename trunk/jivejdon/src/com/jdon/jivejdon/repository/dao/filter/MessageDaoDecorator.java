@@ -30,7 +30,7 @@ import com.jdon.jivejdon.repository.dao.UploadFileDao;
 import com.jdon.jivejdon.repository.dao.sql.JdbcTempSource;
 import com.jdon.jivejdon.repository.dao.sql.MessageDaoSql;
 import com.jdon.jivejdon.repository.dao.util.MessagePageIteratorSolver;
-import com.jdon.jivejdon.repository.search.MessageSearchProxy;
+import com.jdon.jivejdon.repository.search.MessageSearchRepository;
 import com.jdon.jivejdon.util.ContainerUtil;
 import com.jdon.model.ModelKey;
 import com.jdon.model.query.PageIteratorSolver;
@@ -46,10 +46,10 @@ public class MessageDaoDecorator extends MessageDaoSql {
 	private final static Logger logger = Logger.getLogger(MessageDaoDecorator.class);
 
 	protected PageIteratorSolver pageIteratorSolver;
-	protected MessageSearchProxy messageSearchProxy;
+	protected MessageSearchRepository messageSearchProxy;
 
 	public MessageDaoDecorator(MessagePageIteratorSolver messagePageIteratorSolver, JdbcTempSource jdbcTempSource, ContainerUtil containerUtil,
-			AccountDao accountDao, PropertyDao propertyDao, UploadFileDao uploadFileDao, MessageSearchProxy messageSearchProxy,
+			AccountDao accountDao, PropertyDao propertyDao, UploadFileDao uploadFileDao, MessageSearchRepository messageSearchProxy,
 			MessageInitFactory messageFactory, Constants constants) {
 		super(jdbcTempSource, messageFactory, constants);
 		this.pageIteratorSolver = messagePageIteratorSolver.getPageIteratorSolver();
@@ -80,7 +80,8 @@ public class MessageDaoDecorator extends MessageDaoSql {
 
 	public void createMessageReply(ForumMessageReply forumMessageReply) throws Exception {
 		super.createMessageReply(forumMessageReply);
-		messageSearchProxy.createMessageReply(forumMessageReply);
+		// AddReplyMessageSearchFile do it
+		// messageSearchProxy.createMessageReply(forumMessageReply);
 
 		// refresh the batch inquiry cache
 		pageIteratorSolver.clearCache();
@@ -88,7 +89,8 @@ public class MessageDaoDecorator extends MessageDaoSql {
 
 	public void updateMessage(ForumMessage forumMessage) throws Exception {
 		super.updateMessage(forumMessage);
-		messageSearchProxy.updateMessage(forumMessage);
+		// SaveMessageSearch do it
+		// messageSearchProxy.updateMessage(forumMessage);
 
 		// refresh the batch inquiry cache
 		pageIteratorSolver.clearCache();

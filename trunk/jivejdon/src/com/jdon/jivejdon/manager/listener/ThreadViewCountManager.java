@@ -11,10 +11,10 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.annotation.Component;
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.container.pico.Startable;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
+import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.Property;
@@ -30,8 +30,8 @@ import com.jdon.jivejdon.repository.dao.PropertyDao;
  * 
  */
 
-@Component("threadViewCountManager")
-public class ThreadViewCountManager implements MessageListener, Startable {
+@Consumer("threadViewCountManager")
+public class ThreadViewCountManager implements DomainEventHandler, Startable {
 	private final static Logger logger = Logger.getLogger(ThreadViewCountManager.class);
 
 	private ConcurrentMap<Long, ViewCounter> concurrentHashMap = new ConcurrentHashMap<Long, ViewCounter>();
@@ -90,8 +90,8 @@ public class ThreadViewCountManager implements MessageListener, Startable {
 		}
 	}
 
-	public void action(DomainMessage eventMessage) {
-		ViewCounter viewCounter = (ViewCounter) eventMessage.getEventSource();
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+		ViewCounter viewCounter = (ViewCounter) event.getDomainMessage().getEventSource();
 		Long threadId = viewCounter.getThread().getThreadId();
 		viewCounter.getLock().writeLock().lock();
 		try {

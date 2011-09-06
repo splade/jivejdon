@@ -1,7 +1,7 @@
 package com.jdon.jivejdon.manager.email;
 
 import com.jdon.async.EventProcessor;
-import com.jdon.async.observer.ObservableAdapter;
+import com.jdon.async.task.ObservableAdapter;
 import com.jdon.jivejdon.util.EmailTask;
 
 public class EmailHelper {

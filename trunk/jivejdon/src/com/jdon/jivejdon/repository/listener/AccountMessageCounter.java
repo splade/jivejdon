@@ -17,13 +17,13 @@ package com.jdon.jivejdon.repository.listener;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.annotation.Component;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.repository.dao.MessageQueryDao;
 
-@Component("accountMessageCounter")
-public class AccountMessageCounter implements MessageListener {
+@Consumer("accountMessageCounter")
+public class AccountMessageCounter implements DomainEventHandler {
 	private final static Logger logger = Logger.getLogger(AccountMessageCounter.class);
 	private MessageQueryDao messageQueryDao;
 
@@ -32,10 +32,11 @@ public class AccountMessageCounter implements MessageListener {
 		this.messageQueryDao = messageQueryDao;
 	}
 
-	public void action(DomainMessage eventMessage) {
-		Long userId = (Long) eventMessage.getEventSource();
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+
+		Long userId = (Long) event.getDomainMessage().getEventSource();
 		int count = messageQueryDao.getMessageCountOfUser(userId);
-		eventMessage.setEventResult(count);
+		event.getDomainMessage().setEventResult(count);
 	}
 
 }

@@ -4,9 +4,9 @@ import java.util.Collection;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.annotation.Component;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.manager.email.SubscriptionEmail;
 import com.jdon.jivejdon.manager.shortmessage.ShortMessageFactory;
 import com.jdon.jivejdon.manager.weibo.SinaWeboSubmitter;
@@ -16,8 +16,8 @@ import com.jdon.jivejdon.model.subscription.subscribed.Subscribed;
 import com.jdon.jivejdon.repository.AccountFactory;
 import com.jdon.jivejdon.repository.dao.SubscriptionDao;
 
-@Component("subscriptionNotify")
-public class SubscriptionNotify implements MessageListener {
+@Consumer("subscriptionNotify")
+public class SubscriptionNotify implements DomainEventHandler {
 	private final static Logger logger = Logger.getLogger(SubscriptionNotify.class);
 
 	private SubscriptionDao subscriptionDao;
@@ -39,8 +39,9 @@ public class SubscriptionNotify implements MessageListener {
 
 	}
 
-	public void action(DomainMessage eventMessage) {
-		Subscribed subscribed = (Subscribed) eventMessage.getEventSource();
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+
+		Subscribed subscribed = (Subscribed) event.getDomainMessage().getEventSource();
 		logger.debug("subscribed action " + subscribed.getName());
 		sendSub(subscribed);
 

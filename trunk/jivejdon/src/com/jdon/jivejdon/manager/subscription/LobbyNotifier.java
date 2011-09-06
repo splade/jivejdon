@@ -15,14 +15,14 @@
  */
 package com.jdon.jivejdon.manager.subscription;
 
-import com.jdon.annotation.Component;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.realtime.Lobby;
 import com.jdon.jivejdon.model.realtime.Notification;
 
-@Component("lobbyNotify")
-public class LobbyNotifier implements MessageListener {
+@Consumer("lobbyNotify")
+public class LobbyNotifier implements DomainEventHandler {
 
 	private final Lobby lobby;
 
@@ -32,8 +32,8 @@ public class LobbyNotifier implements MessageListener {
 	}
 
 	@Override
-	public void action(DomainMessage eventMessage) {
-		Notification notification = (Notification) eventMessage.getEventSource();
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+		Notification notification = (Notification) event.getDomainMessage().getEventSource();
 		lobby.addNotification(notification);
 	}
 
