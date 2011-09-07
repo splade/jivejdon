@@ -15,15 +15,15 @@
  */
 package com.jdon.jivejdon.repository.listener;
 
-import com.jdon.annotation.Component;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.repository.dao.MessageQueryDao;
 import com.jdon.treepatterns.model.TreeModel;
 
-@Component("loadTreeModel")
-public class LoadTreeModel implements MessageListener {
+@Consumer("loadTreeModel")
+public class LoadTreeModel implements DomainEventHandler {
 
 	private final MessageQueryDao messageQueryDao;
 
@@ -32,10 +32,10 @@ public class LoadTreeModel implements MessageListener {
 		this.messageQueryDao = messageQueryDao;
 	}
 
-	public void action(DomainMessage eventMessage) {
-		ForumThread forumThread = (ForumThread) eventMessage.getEventSource();
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+		ForumThread forumThread = (ForumThread) event.getDomainMessage().getEventSource();
 		TreeModel treeModel = messageQueryDao.getTreeModel(forumThread.getThreadId(), forumThread.getRootMessage().getMessageId());
-		eventMessage.setEventResult(treeModel);
+		event.getDomainMessage().setEventResult(treeModel);
 		forumThread.getState().setTreeModel(treeModel);
 	}
 

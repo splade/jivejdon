@@ -90,6 +90,11 @@
 	
 	<action path="/query/taggedThreadList" type="com.jdon.jivejdon.presentation.action.query.TaggedThreadListAction" 
        name="threadListForm" scope="request"  validate="false">
+		 <forward name="success" path="/query/taggedThread-tags.shtml"/>
+	</action>
+	
+		<action path="/query/taggedThread-tags" type="com.jdon.jivejdon.presentation.action.query.TagsListAction" 
+       name="tagsListForm" scope="request"  validate="false">
 		 <forward name="success" path="/query/taggedThreadList.jsp"/>
 	</action>
 	

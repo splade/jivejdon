@@ -15,15 +15,15 @@
  */
 package com.jdon.jivejdon.repository.listener;
 
-import com.jdon.annotation.Component;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.message.MessageVO;
 import com.jdon.jivejdon.repository.builder.ForumAbstractFactory;
 
-@Component("reloadMessageVO")
-public class ReloadMessageVO implements MessageListener {
+@Consumer("reloadMessageVO")
+public class ReloadMessageVO implements DomainEventHandler {
 
 	private final ForumAbstractFactory forumAbstractFactory;
 
@@ -32,10 +32,10 @@ public class ReloadMessageVO implements MessageListener {
 		this.forumAbstractFactory = forumAbstractFactory;
 	}
 
-	public void action(DomainMessage eventMessage) {
-		ForumMessage forumMessage = (ForumMessage) eventMessage.getEventSource();
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+		ForumMessage forumMessage = (ForumMessage) event.getDomainMessage().getEventSource();
 		MessageVO messageVO = forumAbstractFactory.messageDirector.getMessageVO(forumMessage.getMessageId());
-		eventMessage.setEventResult(messageVO);
+		event.getDomainMessage().setEventResult(messageVO);
 
 	}
 
