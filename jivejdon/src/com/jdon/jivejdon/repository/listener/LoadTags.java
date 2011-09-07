@@ -17,14 +17,14 @@ package com.jdon.jivejdon.repository.listener;
 
 import java.util.Collection;
 
-import com.jdon.annotation.Component;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.repository.TagRepository;
 
-@Component("loadTags")
-public class LoadTags implements MessageListener {
+@Consumer("loadTags")
+public class LoadTags implements DomainEventHandler {
 
 	private final TagRepository tagRepository;
 
@@ -33,11 +33,11 @@ public class LoadTags implements MessageListener {
 		this.tagRepository = tagRepository;
 	}
 
-	public void action(DomainMessage eventMessage) {
-		ForumThread forumThread = (ForumThread) eventMessage.getEventSource();
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+		ForumThread forumThread = (ForumThread) event.getDomainMessage().getEventSource();
 		try {
 			Collection tags = tagRepository.getThreadTags(forumThread.getThreadId());
-			eventMessage.setEventResult(tags);
+			event.getDomainMessage().setEventResult(tags);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

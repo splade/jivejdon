@@ -73,7 +73,8 @@
     </td>
 </tr>
 </table>
-<div  style="width:80%;background-color:#FFFFFF;margin-left: auto;margin-right: auto;">
+<div  style="width:971px; margin:0 auto;">
+<div  style="width:80%;background-color:#FFFFFF;margin-left: auto;margin-right: auto; float: left;">
  
 <logic:iterate indexId="i"   id="forumThread" name="threadListForm" property="list" >
 
@@ -103,18 +104,7 @@
         <bean:write name="forumThread" property="rootMessage.messageVO.shortBody[200]" />[...]
     </span>
    </p>                
-    
-<script>
-
-var initTagsW = function (e){          
- TooltipManager.init('Tags', 
-  {url: getContextPath() +'/query/tt.shtml?tablewidth=300&count=20', 
-   options: {method: 'get'}},
-   {className:"mac_os_x", width:300});   
-TooltipManager.showNow(e);   
-}
-
-</script>
+  
 
     <div class="post-footer">标签分类:
       <logic:iterate id="threadTag" name="forumThread" property="tags" >
@@ -136,7 +126,34 @@ TooltipManager.showNow(e);
   </div>
 </logic:iterate>
 
+  
 </div>
+<div  style="width:20%; float: right;">
+tagged:<br>
+<logic:iterate id="threadTag" name="tagsListForm" property="list" >
+
+  <span onmouseover="loadWLJSWithP(this, initTagsW)" class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
+    <a href='<%=request.getContextPath() %>/tags/<bean:write name="threadTag" property="tagID"/>' target="_blank" class="post-tag">
+             <span class="big18"><bean:write name="threadTag" property="title" /></span>      
+    </a>
+   </span>
+     
+
+<a href="<%=request.getContextPath()%>/account/protected/sub/subAction.shtml?subscribeType=2&subscribeId=<bean:write name="threadTag" property="tagID"/>"
+ target="_blank" title="当本标签有新内容加入 自动通知我"  rel="nofollow">
+ <html:img page="/images/user_add.gif" width="18" height="18" alt="关注本标签 有新回复自动通知我" border="0" />
+ </a>
+<span id='count_<bean:write name="threadTag" property="tagID"/>'></span>
+<br>
+</logic:iterate>
+
+</div>
+</div>
+<script type="text/javascript" src="<html:rewrite page="/common/js/tags.js"/>"></script>
+<script>
+  getTagSubCount('<%=request.getContextPath()%>', '<bean:write name="threadTag" property="subscriptionCount"/>', '<bean:write name="threadTag" property="tagID"/>');
+</script>
+
 <table cellpadding="3" cellspacing="0" border="0" width="100%">
 <tr>
     <td class="smallgray" align="center">
@@ -157,6 +174,17 @@ TooltipManager.showNow(e);
 </logic:present>
 
 
+<script>
+
+var initTagsW = function (e){          
+ TooltipManager.init('Tags', 
+  {url: getContextPath() +'/query/tt.shtml?tablewidth=300&count=20', 
+   options: {method: 'get'}},
+   {className:"mac_os_x", width:300});   
+TooltipManager.showNow(e);   
+}
+
+</script>
 <%@ include file="searchInputView.jsp" %>
 
 <%@ include file="queryInputView.jsp" %>

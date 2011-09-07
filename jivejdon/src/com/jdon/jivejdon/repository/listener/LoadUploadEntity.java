@@ -17,14 +17,14 @@ package com.jdon.jivejdon.repository.listener;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.annotation.Component;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.attachment.UploadFile;
 import com.jdon.jivejdon.repository.dao.UploadFileDao;
 
-@Component("loadUploadEntity")
-public class LoadUploadEntity implements MessageListener {
+@Consumer("loadUploadEntity")
+public class LoadUploadEntity implements DomainEventHandler {
 	private final static Logger logger = Logger.getLogger(LoadUploadEntity.class);
 	private final UploadFileDao uploadFileDao;
 
@@ -33,11 +33,11 @@ public class LoadUploadEntity implements MessageListener {
 		this.uploadFileDao = uploadFileDao;
 	}
 
-	public void action(DomainMessage eventMessage) {
-		UploadFile uploadFile = (UploadFile) eventMessage.getEventSource();
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+		UploadFile uploadFile = (UploadFile) event.getDomainMessage().getEventSource();
 		try {
 			byte[] bytes = uploadFileDao.loadUploadEntity(uploadFile.getId());
-			eventMessage.setEventResult(bytes);
+			event.getDomainMessage().setEventResult(bytes);
 		} catch (Exception e) {
 			logger.error(e);
 		}

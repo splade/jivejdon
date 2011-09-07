@@ -25,6 +25,7 @@ import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.repository.dao.PropertyDao;
 
+//no use
 public class LoadMessageProperties implements DomainEventHandler {
 	private final static Logger logger = Logger.getLogger(LoadMessageProperties.class);
 

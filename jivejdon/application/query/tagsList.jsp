@@ -84,11 +84,6 @@ TooltipManager.showNow(e);
  <html:img page="/images/user_add.gif" width="18" height="18" alt="关注本标签 有新回复自动通知我" border="0" />
  </a>
 <span id='count_<bean:write name="threadTag" property="tagID"/>'></span>
-<script type="text/javascript" src="<html:rewrite page="/common/js/tags.js"/>"></script>
-<script>
-  getTagSubCount('<%=request.getContextPath()%>', '<bean:write name="threadTag" property="subscriptionCount"/>', '<bean:write name="threadTag" property="tagID"/>');
-</script>
-
  
  
  </td>
@@ -96,6 +91,11 @@ TooltipManager.showNow(e);
 </logic:iterate>
 
 </table>
+
+<script type="text/javascript" src="<html:rewrite page="/common/js/tags.js"/>"></script>
+<script>
+  getTagSubCount('<%=request.getContextPath()%>', '<bean:write name="threadTag" property="subscriptionCount"/>', '<bean:write name="threadTag" property="tagID"/>');
+</script>
 
 
 

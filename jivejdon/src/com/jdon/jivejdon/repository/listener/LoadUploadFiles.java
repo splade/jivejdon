@@ -19,13 +19,13 @@ import java.util.Collection;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.annotation.Component;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.repository.UploadRepository;
 
-@Component("loadUploadFiles")
-public class LoadUploadFiles implements MessageListener {
+@Consumer("loadUploadFiles")
+public class LoadUploadFiles implements DomainEventHandler {
 	private final static Logger logger = Logger.getLogger(LoadUploadFiles.class);
 
 	private final UploadRepository uploadRepository;
@@ -35,11 +35,11 @@ public class LoadUploadFiles implements MessageListener {
 		this.uploadRepository = uploadRepository;
 	}
 
-	public void action(DomainMessage eventMessage) {
-		Long parentId = (Long) eventMessage.getEventSource();
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+		Long parentId = (Long) event.getDomainMessage().getEventSource();
 		try {
 			Collection uploads = uploadRepository.getUploadFiles(parentId.toString());
-			eventMessage.setEventResult(uploads);
+			event.getDomainMessage().setEventResult(uploads);
 		} catch (Exception e) {
 			logger.error(e);
 		}
