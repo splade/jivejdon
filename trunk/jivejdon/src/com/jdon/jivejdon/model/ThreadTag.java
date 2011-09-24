@@ -31,7 +31,7 @@ public class ThreadTag {
 	private SubscribedState subscribedState;
 
 	@Inject
-	private DomainEvents domainEvents;
+	private BusinessRole domainEvents;
 
 	public ThreadTag() {
 		this.title = "";
@@ -74,11 +74,11 @@ public class ThreadTag {
 		return this.subscribedState.getSubscriptionCount(domainEvents);
 	}
 
-	public DomainEvents getDomainEvents() {
+	public BusinessRole getDomainEvents() {
 		return domainEvents;
 	}
 
-	public void setDomainEvents(DomainEvents domainEvents) {
+	public void setDomainEvents(BusinessRole domainEvents) {
 		this.domainEvents = domainEvents;
 	}
 

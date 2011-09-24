@@ -53,7 +53,7 @@ public class Account {
 	private Attachment attachment;
 
 	@Inject
-	private DomainEvents domainEvent;
+	private BusinessRole domainEvent;
 
 	private Reward reward;
 
@@ -281,11 +281,11 @@ public class Account {
 		this.emailValidate = emailValidate;
 	}
 
-	public DomainEvents getDomainEvent() {
+	public BusinessRole getDomainEvent() {
 		return domainEvent;
 	}
 
-	public void setDomainEvent(DomainEvents domainEvent) {
+	public void setDomainEvent(BusinessRole domainEvent) {
 		this.domainEvent = domainEvent;
 	}
 

@@ -17,7 +17,7 @@ package com.jdon.jivejdon.model.attachment;
 
 import com.jdon.annotation.model.Inject;
 import com.jdon.domain.message.DomainMessage;
-import com.jdon.jivejdon.model.DomainEvents;
+import com.jdon.jivejdon.model.BusinessRole;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.message.upload.UploadHelper;
 
@@ -32,7 +32,7 @@ public class UploadFile extends com.jdon.strutsutil.file.UploadFile {
 	private UploadHelper uploadHelper;
 
 	@Inject
-	private DomainEvents domainEvents;
+	private BusinessRole domainEvents;
 
 	private DomainMessage imgDataAsyncResult;
 
@@ -89,11 +89,11 @@ public class UploadFile extends com.jdon.strutsutil.file.UploadFile {
 		}
 	}
 
-	public DomainEvents getDomainEvents() {
+	public BusinessRole getDomainEvents() {
 		return domainEvents;
 	}
 
-	public void setDomainEvents(DomainEvents domainEvents) {
+	public void setDomainEvents(BusinessRole domainEvents) {
 		this.domainEvents = domainEvents;
 	}
 

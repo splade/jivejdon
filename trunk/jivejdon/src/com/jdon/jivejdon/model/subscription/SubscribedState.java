@@ -16,7 +16,7 @@
 package com.jdon.jivejdon.model.subscription;
 
 import com.jdon.domain.message.DomainMessage;
-import com.jdon.jivejdon.model.DomainEvents;
+import com.jdon.jivejdon.model.BusinessRole;
 import com.jdon.jivejdon.model.subscription.subscribed.Subscribed;
 
 /**
@@ -47,7 +47,7 @@ public class SubscribedState {
 	 * 
 	 * @return
 	 */
-	public int getSubscriptionCount(DomainEvents domainEvents) {
+	public int getSubscriptionCount(BusinessRole domainEvents) {
 		if (subscriptionCount == -1) {
 			if (subCount == null) {
 				subCount = domainEvents.computeSubscriptionNumbers(subscribed.getSubscribeId());

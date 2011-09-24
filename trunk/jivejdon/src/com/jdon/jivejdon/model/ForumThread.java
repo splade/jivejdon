@@ -84,7 +84,7 @@ public class ForumThread extends ForumModel {
 	private volatile ForumThreadState state;
 
 	@Inject
-	private DomainEvents domainEvents;
+	private BusinessRole domainEvents;
 
 	/**
 	 * normal can be cached reused
@@ -334,11 +334,11 @@ public class ForumThread extends ForumModel {
 		getState().setViewCount(count);
 	}
 
-	public void setDomainEvent(DomainEvents domainEvent) {
+	public void setDomainEvent(BusinessRole domainEvent) {
 		this.domainEvents = domainEvent;
 	}
 
-	public DomainEvents getDomainEvent() {
+	public BusinessRole getDomainEvent() {
 		return domainEvents;
 	}
 

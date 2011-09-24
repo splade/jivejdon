@@ -30,9 +30,15 @@ import com.jdon.jivejdon.model.realtime.Notification;
 import com.jdon.jivejdon.model.subscription.subscribed.Subscribed;
 import com.jdon.jivejdon.model.thread.ViewCounter;
 
+/**
+ * this is the Role of DCI. and is domain events publisher
+ * 
+ * @author banq
+ * 
+ */
 @Introduce("message")
-public class DomainEvents {
-	private final static Logger logger = Logger.getLogger(DomainEvents.class);
+public class BusinessRole {
+	private final static Logger logger = Logger.getLogger(BusinessRole.class);
 
 	@Send("subscriptionCounter")
 	public DomainMessage computeSubscriptionNumbers(Long subscribeId) {

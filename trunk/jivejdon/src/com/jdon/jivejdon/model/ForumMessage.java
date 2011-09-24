@@ -81,7 +81,7 @@ public class ForumMessage extends ForumModel implements Cloneable {
 	private MessageDigVo messageDigVo;
 
 	@Inject
-	private DomainEvents domainEvents;
+	private BusinessRole domainEvents;
 
 	private boolean replyNotify;
 
@@ -202,7 +202,7 @@ public class ForumMessage extends ForumModel implements Cloneable {
 		}
 	}
 
-	private void updateMessage(ForumMessage newForumMessageInputparamter) {
+	private void updateMessage(ForumMessage newForumMessageInputparamter) throws Exception {
 		setMessageVO(newForumMessageInputparamter.getMessageVO());
 		this.messagePropertys.updatePropertys(newForumMessageInputparamter.messagePropertys.exportPropertys());
 		setOperator(newForumMessageInputparamter.getOperator());
@@ -297,11 +297,11 @@ public class ForumMessage extends ForumModel implements Cloneable {
 		this.messagePropertys.importPropertys(propertys);
 	}
 
-	public DomainEvents getDomainEvents() {
+	public BusinessRole getDomainEvents() {
 		return domainEvents;
 	}
 
-	public void setDomainEvents(DomainEvents domainEvents) {
+	public void setDomainEvents(BusinessRole domainEvents) {
 		this.domainEvents = domainEvents;
 	}
 

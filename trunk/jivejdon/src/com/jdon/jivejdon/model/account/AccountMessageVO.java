@@ -17,7 +17,7 @@ package com.jdon.jivejdon.model.account;
 
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.jivejdon.model.Account;
-import com.jdon.jivejdon.model.DomainEvents;
+import com.jdon.jivejdon.model.BusinessRole;
 
 public class AccountMessageVO {
 
@@ -32,7 +32,7 @@ public class AccountMessageVO {
 		this.account = account;
 	}
 
-	public int getMessageCount(DomainEvents domainEvents) {
+	public int getMessageCount(BusinessRole domainEvents) {
 		try {
 			if (messageCount == -1 && domainEvents != null) {
 				if (messageCountAsyncResult == null) {
@@ -47,7 +47,7 @@ public class AccountMessageVO {
 		return messageCount;
 	}
 
-	public int getMessageCountNow(DomainEvents domainEvents) {
+	public int getMessageCountNow(BusinessRole domainEvents) {
 		try {
 			messageCountAsyncResult = domainEvents.computeAccountMessageCount(account.getUserIdLong());
 			messageCount = (Integer) messageCountAsyncResult.getEventResult();
