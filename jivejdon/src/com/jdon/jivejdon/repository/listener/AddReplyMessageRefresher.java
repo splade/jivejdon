@@ -54,7 +54,6 @@ public class AddReplyMessageRefresher implements DomainEventHandler {
 			// load the new message into cache, prepare for next GET request
 			ForumMessage forumMessage = forumAbstractFactory.getMessage(forumMessageReply.getMessageId());
 			event.getDomainMessage().setEventResult(forumMessage);
-			event.getDomainMessage().setEventSource(forumMessage);
 		} catch (Exception e) {
 			logger.error(e);
 		}

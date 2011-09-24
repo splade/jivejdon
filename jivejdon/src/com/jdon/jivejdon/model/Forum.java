@@ -58,7 +58,7 @@ public class Forum extends ForumModel {
 	private HotKeys hotKeys;
 
 	@Inject
-	private DomainEvents domainEvents;
+	private BusinessRole domainEvents;
 
 	public Forum() {
 		forumState = new ForumState(this);
@@ -207,11 +207,11 @@ public class Forum extends ForumModel {
 		this.domainEvents.subscriptionNotify(new ForumSubscribed(this));
 	}
 
-	public DomainEvents getDomainEvents() {
+	public BusinessRole getDomainEvents() {
 		return domainEvents;
 	}
 
-	public void setDomainEvents(DomainEvents domainEvents) {
+	public void setDomainEvents(BusinessRole domainEvents) {
 		this.domainEvents = domainEvents;
 	}
 

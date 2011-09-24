@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="JiveJdon 4.4" default="all" basedir=".">
+<project name="JiveJdon 4.5" default="all" basedir=".">
 
 	<target name="all" depends="war">
 		
@@ -110,19 +110,20 @@
 		<copy todir="${devwebapp}/WEB-INF/classes" >
 			<fileset dir="${classes.dir}"/>
 		</copy>
-		<copy todir="${devwebapp}/WEB-INF/lib">
-			<fileset dir="${lib.dir}/jdontree">
-				<include name="**/*.jar" />
-			</fileset>
-		</copy>
-		<copy todir="${devwebapp}/WEB-INF/lib" >
+		<copy todir="${devwebapp}/WEB-INF/lib" >			
 			<fileset dir="${urlrewrite.dir}"/>
 			<fileset dir="${rsslib.dir}"/>
 			<fileset dir="${timelib.dir}"/>
-			<fileset dir="${weibolib.dir}"/>			
-			<fileset dir="${lib.dir}">
-			  <include name="*.jar" />
-			</fileset>
+			<fileset dir="${weibolib.dir}"/>
+			<fileset dir="${strutslib.dir}"/>			
+			<fileset dir="${lib.dir}/javamail"/>
+			<fileset dir="${lib.dir}/jdontree"/>
+			<fileset dir="${lib.dir}/jf"/>			
+			<fileset dir="${lib.dir}/upload"/>
+			<fileset dir="${lib.dir}/mysql"/>
+			<fileset dir="${lib.dir}/expires"/>
+			<fileset dir="${slib.dir}"/>
+			<fileset dir="${lib.dir}/jfa"/>	
 			
 
 		</copy>

@@ -63,7 +63,6 @@ public class ThreadViewCountManager implements MessageListener, Startable {
 	}
 
 	public void writeDB() {
-
 		Set s = concurrentHashMap.entrySet();
 		for (Iterator i = s.iterator(); i.hasNext();) {
 			Map.Entry<Long, ViewCounter> m = (Map.Entry) i.next();

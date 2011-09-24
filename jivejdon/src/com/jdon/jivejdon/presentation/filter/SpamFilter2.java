@@ -66,7 +66,7 @@ public class SpamFilter2 implements Filter {
 			try {
 				domainPattern = Pattern.compile(domainPatternStr);
 				if (domainPattern != null)
-					config.getServletContext().setAttribute(this.DP, domainPattern);
+					config.getServletContext().setAttribute(SpamFilter2.DP, domainPattern);
 			} catch (Exception e) {
 				log.error("Error parsingreferrer.domain.namePattern value '" + domainPattern, e);
 			}

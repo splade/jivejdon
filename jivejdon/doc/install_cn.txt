@@ -23,66 +23,8 @@ ddl/mysql_security.sql 导入==>数据库 security （以后专门用于SSO登�
 (4)任何涉及创建数据库的地方都选择Utf-8, phpMyadmin中创建jivejdon数据库时，都要选择utf-8-general-c  
   
 以下步骤可以选择JBoss安装或Tomcat安装。JiveJdon 4.2以后缺省安装在Tomcat  
-###################################################################################################
-（一）JBoss环境安装 :  JDK 5.0 + JBoss 4.0.5 + MySQL 4/5，
-1. 下载JBoss 
 
-
-2. 将数据表结构导入到数据库中，需要授权给用户，这里假定是banq,见下面mysql-ds.xml
-GRANT ALL PRIVILEGES ON *.* TO banq@localhost IDENTIFIED BY '225034ba或你自己的密码' WITH GRANT OPTION;
-
-  
-3. 配置JBoss,
-    (1).配置struts,将strutslib/*.jar cpoy to jboss/server/default/lib
-    (2).配置JdonFramework, 将项目lib目录下jdonFramework.jar(还有辅助包aopalliance.jar/commons-pool-1.2.jar/jdom.jar/log4j.jar/picocontainer-1.1.jar
-       拷贝到jboss/server/default/lib，如果是非JBoss，参考JdonFramework安装手册安装JdonFramework
-    (3) 配置Compass 将searchlib目录下包括子目录的所有jar包拷贝到jboss/server/default/lib目录下
-    (3).配置MySQLJDBC驱动jar包，将本项目lib/mysql-connector-javaxxx.jar拷贝到jboss/server/default/lib  5.1版本MySQL要用5.1
-    (4).修改 jbossweb-tomcat5sar/server.xml的conntector增加maxSavePostSize="-1" URIEncoding="UTF-8"
-
-4. 配置JBoss的Datasouce JNDI:
-   将本项目的mysql-ds.xml 拷贝到jboss/server/default/deploy,根据你数据库配置修改 mysql-ds.xml,
-   需要修改数据库的用户名和密码:
-    <user-name>你的数据库用户名</user-name>
-    <password>你的数据库密码</password>
-    
-   JiveJdon.war包中WEB-INF/jboss.web.xml中JNDI配置指向mysql-ds.xml的JNDI
-  
-   
-5. 配置JBoss的安全机制，
-    将下面配置加入jboss/server/default/conf/login-config.xml文件中
-       <application-policy name = "SecurityRealm">
-       <authentication>
-          <login-module code = "org.jboss.security.auth.spi.DatabaseServerLoginModule"  flag = "required">
-             <module-option name = "dsJndiName">java:/Security</module-option>
-             <module-option name="principalsQuery">SELECT password AS Password FROM user WHERE name = ?</module-option>
-             <module-option name="rolesQuery">SELECT RL.name AS Roles, 'Roles' AS RoleGroups FROM role as RL, user as U ,  users_roles as RU WHERE U.userid = RU.userid and RU.roleid = RL.roleid  and U.name = ?</module-option>
-                <module-option name="debug">true</module-option>
-              <module-option name="hashAlgorithm">MD5</module-option>
-              <module-option name="hashEncoding">hex</module-option>
-          </login-module>
-       </authentication>
-  </application-policy>    
-
-
-6.将目录_wars下的jivejdon.war拷贝到JBoss/server/default/deploy下，启动jBoss 
-http://localhost:8080/jivejdon
-
-注意：因为本论坛内置了防爬虫攻击安全机制，为正常运行，需要将jivejdon.war中WEB-INF/web.xml中referrer.domain.name的值http://www.jdon.com/改为
-你的域名，或将referrer.test.name值改为http://127.0.0.1或http://localhost
-或到数据表setup中清除相应IP记录
-  
-JBoss与Tomcat主要区别是JTA事务支持，保证数据库多个表操作严格一致性，通过下面步骤激活JTA操作：
-该步骤需要用winrar打开jivejdon.war，修改com.jdon.jivejdon.service.service.xml中的事务配置,因为tomcat不支持JTA，所以需要把JTA改成JDBC
-<!-- Tansaction JNDI   -->
-        <component name="jtaTransactionUtil"
-			class="com.jdon.jivejdon.service.util.JtaTransactionUtil">
-			 <constructor value="JTA"/> <!-- <constructor value="JDBC"/> -->
-	        <constructor value="java:/TransactionManager"/>
-        </component>
-
-###################################################################################################
-（二）Tomcat环境安装
+（一）Tomcat环境安装
 
 下载Tomcat环境JiveJdon原始版作为参考
 http://www.jdon.com/jdonframework/download/apache-tomcat-6.0.26-jivejdon4.1.rar 
@@ -119,8 +61,8 @@ catalina.sh中再加入：JAVA_OPTS="$JAVA_OPTS -Djava.security.auth.login.confi
 
 
 
-(2)下载http://www.jdon.com/jdonframework/download/jdonlib.rar
-解压jdonlib/lib/*.jar所有jar，拷贝到tomcat/lib目录下
+(2)将mysql数据库JDBC驱动包如mysql-connector-java-5.0.8-bin.jar拷贝到 
+拷贝到tomcat/lib目录下，也也可以包jivejdon(WEB-INF/lib/*.jar)需要的所有*.jar包都拷贝其下。
 
 (3)在conf/server.xml的Host之前加入:
         
@@ -191,7 +133,65 @@ catalina.sh中再加入：JAVA_OPTS="$JAVA_OPTS -Djava.security.auth.login.confi
 注意：如果使用XAMPP(http://www.jdon.com/jivejdon/thread/38671)中tomcat
 注意其tomcat/jre下Java版本，JiveJdon必须是Jre1.6以上，可下载JDK1.6版本，用JRE
 目录覆盖其jre目录即可
+###################################################################################################
+（一）JBoss环境安装 :  JDK 5.0 + JBoss 4.0.5 + MySQL 4/5，
+1. 下载JBoss 
 
+
+2. 将数据表结构导入到数据库中，需要授权给用户，这里假定是banq,见下面mysql-ds.xml
+GRANT ALL PRIVILEGES ON *.* TO banq@localhost IDENTIFIED BY '225034ba或你自己的密码' WITH GRANT OPTION;
+
+  
+3. 配置JBoss,
+    (1).配置struts,将strutslib/*.jar cpoy to jboss/server/default/lib
+    (2).配置JdonFramework, 将项目lib目录下jdonFramework.jar(还有辅助包aopalliance.jar/commons-pool-1.2.jar/jdom.jar/log4j.jar/picocontainer-1.1.jar
+       拷贝到jboss/server/default/lib，如果是非JBoss，参考JdonFramework安装手册安装JdonFramework
+    (3) 配置Compass 将searchlib目录下包括子目录的所有jar包拷贝到jboss/server/default/lib目录下
+    (3).配置MySQLJDBC驱动jar包，将本项目lib/mysql-connector-javaxxx.jar拷贝到jboss/server/default/lib  5.1版本MySQL要用5.1
+    (4).修改 jbossweb-tomcat5sar/server.xml的conntector增加maxSavePostSize="-1" URIEncoding="UTF-8"
+
+4. 配置JBoss的Datasouce JNDI:
+   将本项目的mysql-ds.xml 拷贝到jboss/server/default/deploy,根据你数据库配置修改 mysql-ds.xml,
+   需要修改数据库的用户名和密码:
+    <user-name>你的数据库用户名</user-name>
+    <password>你的数据库密码</password>
+    
+   JiveJdon.war包中WEB-INF/jboss.web.xml中JNDI配置指向mysql-ds.xml的JNDI
+  
+   
+5. 配置JBoss的安全机制，
+    将下面配置加入jboss/server/default/conf/login-config.xml文件中
+       <application-policy name = "SecurityRealm">
+       <authentication>
+          <login-module code = "org.jboss.security.auth.spi.DatabaseServerLoginModule"  flag = "required">
+             <module-option name = "dsJndiName">java:/Security</module-option>
+             <module-option name="principalsQuery">SELECT password AS Password FROM user WHERE name = ?</module-option>
+             <module-option name="rolesQuery">SELECT RL.name AS Roles, 'Roles' AS RoleGroups FROM role as RL, user as U ,  users_roles as RU WHERE U.userid = RU.userid and RU.roleid = RL.roleid  and U.name = ?</module-option>
+                <module-option name="debug">true</module-option>
+              <module-option name="hashAlgorithm">MD5</module-option>
+              <module-option name="hashEncoding">hex</module-option>
+          </login-module>
+       </authentication>
+  </application-policy>    
+
+
+6.将目录_wars下的jivejdon.war拷贝到JBoss/server/default/deploy下，启动jBoss 
+http://localhost:8080/jivejdon
+
+注意：因为本论坛内置了防爬虫攻击安全机制，为正常运行，需要将jivejdon.war中WEB-INF/web.xml中referrer.domain.name的值http://www.jdon.com/改为
+你的域名，或将referrer.test.name值改为http://127.0.0.1或http://localhost
+或到数据表setup中清除相应IP记录
+  
+JBoss与Tomcat主要区别是JTA事务支持，保证数据库多个表操作严格一致性，通过下面步骤激活JTA操作：
+该步骤需要用winrar打开jivejdon.war，修改com.jdon.jivejdon.service.service.xml中的事务配置,因为tomcat不支持JTA，所以需要把JTA改成JDBC
+<!-- Tansaction JNDI   -->
+        <component name="jtaTransactionUtil"
+			class="com.jdon.jivejdon.service.util.JtaTransactionUtil">
+			 <constructor value="JTA"/> <!-- <constructor value="JDBC"/> -->
+	        <constructor value="java:/TransactionManager"/>
+        </component>
+
+###################################################################################################
 ##########################################################################################################
 （三）运行配置
 browse: 

@@ -20,8 +20,8 @@ import org.apache.log4j.Logger;
 import com.jdon.annotation.Component;
 import com.jdon.container.visitor.data.SessionContextSetup;
 import com.jdon.controller.cache.CacheManager;
-import com.jdon.model.ModelKey;
-import com.jdon.model.ModelManager;
+import com.jdon.domain.model.cache.ModelKey;
+import com.jdon.domain.model.cache.ModelManager;
 
 /**
  * @author <a href="mailto:banq@163.com">banq</a>
