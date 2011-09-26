@@ -17,13 +17,12 @@ package com.jdon.jivejdon.repository.listener;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.annotation.Consumer;
 import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.attachment.UploadFile;
 import com.jdon.jivejdon.repository.dao.UploadFileDao;
 
-@Consumer("loadUploadEntity")
+//@Consumer("loadUploadEntity")
 public class LoadUploadEntity implements DomainEventHandler {
 	private final static Logger logger = Logger.getLogger(LoadUploadEntity.class);
 	private final UploadFileDao uploadFileDao;

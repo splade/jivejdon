@@ -41,8 +41,7 @@ public class InFilterAuthor implements MessageRenderSpecification {
 			if (username == null)
 				return message;
 
-			if (message.getDomainEvents() != null)
-				message.getDomainEvents().sendShortMessage(message, username);
+			message.shortMPublisherRole.sendShortMessage(message, username);
 		} catch (Exception e) {
 			Debug.logError("" + e, module);
 		}

@@ -30,8 +30,6 @@ import com.jdon.treepatterns.model.TreeModel;
  * 
  */
 public class ForumThreadState {
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * the number of messages in the thread. This includes the root message. So,
 	 * to find the number of replies to the root message, subtract one from the
@@ -96,7 +94,7 @@ public class ForumThreadState {
 	// http://forums.sun.com/thread.jspa?threadID=666377
 	public void addViewCount(String ip) {
 		viewCounter.addViewCount(ip);
-		this.forumThread.getDomainEvent().refreshThreadCount(viewCounter);
+		this.forumThread.lazyLoaderRole.refreshThreadCount(viewCounter);
 	}
 
 	public void setViewCount(int count) {
@@ -154,7 +152,7 @@ public class ForumThreadState {
 	}
 
 	public int getSubscriptionCount() {
-		return subscribedState.getSubscriptionCount(this.forumThread.getDomainEvent());
+		return subscribedState.getSubscriptionCount(this.forumThread.lazyLoaderRole);
 	}
 
 	public void updateSubscriptionCount(int count) {

@@ -41,7 +41,7 @@ public class Attachment {
 	public UploadFile getUploadFile() {
 		try {
 			if ((uploadFile == null && eventMessage == null)) {
-				eventMessage = account.getDomainEvent().loadUploadFiles(account.getUserIdLong());
+				eventMessage = account.lazyLoaderRole.loadUploadFiles(account.getUserId());
 				loadUploadFile();
 
 			}
@@ -67,7 +67,7 @@ public class Attachment {
 	}
 
 	public void updateUploadFile() {
-		eventMessage = account.getDomainEvent().loadUploadFiles(account.getUserIdLong());
+		eventMessage = account.lazyLoaderRole.loadUploadFiles(account.getUserId());
 		reload = true;
 	}
 

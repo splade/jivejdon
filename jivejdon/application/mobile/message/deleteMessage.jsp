@@ -41,7 +41,7 @@
 <br>
 <br> 
 IP: <bean:write name="parentMessage" property="postip" />
- <form action="<%=request.getContextPath()%>/common/BanIP.jsp" method="post" target="_blank">
+ <form action="<%=request.getContextPath()%>/admin/user/banIPAction.shtml" method="post" >
           <input name="ip" type="hidden" value="<bean:write name="parentMessage" property="postip" />"/>
           <input type="submit" value="屏蔽用户IP"/>
 </form>  

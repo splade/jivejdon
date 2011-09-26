@@ -13,8 +13,21 @@
  * limitations under the License.
  * 
  */
-package com.jdon.jivejdon.model.subscription;
+package com.jdon.jivejdon.model.realtime;
 
-public class SubscriptionEventRole {
+import com.jdon.annotation.model.Send;
+import com.jdon.domain.message.DomainMessage;
+
+public interface LobbyPublisherRoleIF {
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.model.realtime.LobbyPublisherRoleIF#notifyLobby(com
+	 * .jdon.jivejdon.model.realtime.Notification)
+	 */
+	@Send("lobbyNotify")
+	public abstract DomainMessage notifyLobby(Notification notification);
 
 }

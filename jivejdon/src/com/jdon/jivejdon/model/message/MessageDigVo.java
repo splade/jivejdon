@@ -23,14 +23,14 @@ public class MessageDigVo {
 
 	public int getDigCount() {
 		if (number == -1) {
-			preloadDigCount();			
+			preloadDigCount();
 		}
 		return number;
 	}
 
 	public void preloadDigCount() {
-		if (digCountAsyncResult == null){
-			digCountAsyncResult = message.getDomainEvents().loadMessageDigCount(message.getMessageId());
+		if (digCountAsyncResult == null) {
+			digCountAsyncResult = message.lazyLoaderRole.loadMessageDigCount(message.getMessageId());
 			number = (Integer) digCountAsyncResult.getEventResult();
 		}
 
@@ -41,7 +41,23 @@ public class MessageDigVo {
 			preloadDigCount();
 		}
 		number = number + 1;
-		message.getDomainEvents().addMessageDigCount(new DigDataBag(message.getMessageId(), number));
+		message.repositoryRole.addMessageDigCount(this);
+	}
+
+	public ForumMessage getMessage() {
+		return message;
+	}
+
+	public void setMessage(ForumMessage message) {
+		this.message = message;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 }

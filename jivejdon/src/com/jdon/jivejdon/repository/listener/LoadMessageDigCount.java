@@ -24,7 +24,6 @@ public class LoadMessageDigCount implements DomainEventHandler {
 			event.getDomainMessage().setEventResult(0);
 		else {
 			String number = p.getValue();
-
 			event.getDomainMessage().setEventResult(Integer.valueOf(number));
 		}
 

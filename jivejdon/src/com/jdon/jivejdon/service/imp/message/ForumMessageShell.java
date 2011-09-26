@@ -103,7 +103,7 @@ public class ForumMessageShell implements ForumMessageService {
 			return;
 		try {
 
-			Long mIDInt = messageKernel.getNextId(Constants.MESSAGE);
+			Long mIDInt = forumBuilder.getNextId(Constants.MESSAGE);
 			forumMessage.setMessageId(mIDInt);
 
 			// upload
@@ -115,8 +115,6 @@ public class ForumMessageShell implements ForumMessageService {
 				messageKernel.addTopicMessage(em);
 			}
 
-			forumMessage = messageKernel.getMessage(forumMessage.getMessageId());
-			em.setModelIF(forumMessage);
 		} catch (Exception e) {
 			logger.error(e);
 			em.setErrors(Constants.ERRORS);
@@ -135,7 +133,7 @@ public class ForumMessageShell implements ForumMessageService {
 		if (!prepareCreate(forumMessageReply))
 			return;
 		try {
-			Long mIDInt = messageKernel.getNextId(Constants.MESSAGE);
+			Long mIDInt = this.forumBuilder.getNextId(Constants.MESSAGE);
 			forumMessageReply.setMessageId(mIDInt);
 
 			Collection uploads = uploadService.getAllUploadFiles(sessionContext);

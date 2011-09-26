@@ -18,6 +18,7 @@ package com.jdon.jivejdon.model;
 
 import com.jdon.annotation.Model;
 import com.jdon.annotation.model.Inject;
+import com.jdon.jivejdon.model.repository.LazyLoaderRole;
 import com.jdon.jivejdon.model.subscription.SubscribedState;
 import com.jdon.jivejdon.model.subscription.subscribed.TagSubscribed;
 
@@ -31,7 +32,7 @@ public class ThreadTag {
 	private SubscribedState subscribedState;
 
 	@Inject
-	private BusinessRole domainEvents;
+	private LazyLoaderRole domainEvents;
 
 	public ThreadTag() {
 		this.title = "";
@@ -74,11 +75,11 @@ public class ThreadTag {
 		return this.subscribedState.getSubscriptionCount(domainEvents);
 	}
 
-	public BusinessRole getDomainEvents() {
+	public LazyLoaderRole getDomainEvents() {
 		return domainEvents;
 	}
 
-	public void setDomainEvents(BusinessRole domainEvents) {
+	public void setDomainEvents(LazyLoaderRole domainEvents) {
 		this.domainEvents = domainEvents;
 	}
 

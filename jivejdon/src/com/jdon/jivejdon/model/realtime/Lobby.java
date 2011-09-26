@@ -16,6 +16,7 @@
 package com.jdon.jivejdon.model.realtime;
 
 import com.jdon.annotation.Component;
+import com.jdon.annotation.model.OnEvent;
 import com.jdon.jivejdon.model.realtime.notification.ContentFormatConverter;
 
 @Component("lobby")
@@ -27,6 +28,7 @@ public class Lobby {
 		notificationLocator = new NotificationLocator(contentFormatConverter);
 	}
 
+	@OnEvent("lobbyNotify")
 	public void addNotification(Notification notification) {
 		notificationLocator.addNotification(notification);
 	}

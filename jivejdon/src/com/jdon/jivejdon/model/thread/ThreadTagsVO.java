@@ -70,14 +70,14 @@ public class ThreadTagsVO {
 		Collection newtags = convert(tagTitles);
 		this.lasttags = this.tags;
 		setTags(newtags);
-		this.forumThread.getDomainEvent().changeTags(forumThread);
+		forumThread.repositoryRole.changeTags(forumThread);
 		reload = true;
 	}
 
 	private void reloadChangedTags() {
 		reload = false;
 		// this event maybe run before last evnet:changeTags
-		DomainMessage message = this.forumThread.getDomainEvent().loadTags(forumThread);
+		DomainMessage message = this.forumThread.lazyLoaderRole.loadTags(forumThread.getThreadId());
 		this.tags = (Collection) message.getEventResult();
 		setTags(this.tags);
 
@@ -90,7 +90,7 @@ public class ThreadTagsVO {
 			ThreadTag tag = (ThreadTag) o;
 			if (!this.lasttags.contains(tag))
 				// changeTags will notify subscription
-				this.forumThread.getDomainEvent().subscriptionNotify(new TagSubscribed(tag, forumThread));
+				this.forumThread.subPublisherRole.subscriptionNotify(new TagSubscribed(tag, forumThread));
 		}
 	}
 

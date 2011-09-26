@@ -19,7 +19,6 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.controller.events.EventModel;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.manager.MessageDeletor;
 import com.jdon.jivejdon.model.Forum;
@@ -55,8 +54,8 @@ public class MessageRepositoryDao extends ThreadRepositoryDao implements Message
 
 	protected PropertyDao propertyDao;
 
-	public MessageRepositoryDao(MessageDaoFacade messageDaoFacade, ForumFactory forumBuilder, ContainerUtil containerUtil, TagRepository tagRepository,
-			UploadRepository uploadRepository, PropertyDao propertyDao) {
+	public MessageRepositoryDao(MessageDaoFacade messageDaoFacade, ForumFactory forumBuilder, ContainerUtil containerUtil,
+			TagRepository tagRepository, UploadRepository uploadRepository, PropertyDao propertyDao) {
 		super(messageDaoFacade);
 		this.messageDaoFacade = messageDaoFacade;
 		this.forumBuilder = forumBuilder;
@@ -65,53 +64,15 @@ public class MessageRepositoryDao extends ThreadRepositoryDao implements Message
 		this.propertyDao = propertyDao;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.MessageRepository#initMessage(com.jdon.controller.events.EventModel)
-	 */
-	public ForumMessage initMessage(EventModel em) {
-		logger.debug(" enter service: initMessage ");
-		ForumMessage forumMessage = (ForumMessage) em.getModelIF();
-		try {
-			if (forumMessage.getForum() == null) {
-				logger.error(" no Forum in this ForumMessage");
-				return forumMessage;
-			}
-			Long forumId = forumMessage.getForum().getForumId();
-			logger.debug(" paremter forumId =" + forumId);
-			Forum forum = forumBuilder.getForum(forumId);
-			forumMessage.setForum(forum);
-		} catch (Exception e) {
-			logger.error(e);
-		}
-		return forumMessage;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.MessageRepository#initReplyMessage(com.jdon.controller.events.EventModel)
-	 */
-	public ForumMessage initReplyMessage(EventModel em) {
-		logger.debug(" enter service: initReplyMessage ");
-		ForumMessageReply forumMessageReply = (ForumMessageReply) initMessage(em);
-		try {
-			Long pmessageId = forumMessageReply.getParentMessage().getMessageId();
-			if (pmessageId == null) {
-				logger.error(" no the parentMessage.messageId parameter");
-				return null;
-			}
-			ForumMessage pMessage = forumBuilder.getMessage(pmessageId);
-			forumMessageReply.setParentMessage(pMessage);
-			forumMessageReply.getMessageVO().setSubject(pMessage.getMessageVO().getSubject());
-		} catch (Exception e) {
-			logger.error(e);
-		}
-		return forumMessageReply;
-	}
-
 	/*
 	 * create the topic message
 	 */
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.MessageRepository#createTopicMessage(com.jdon.jivejdon.model.ForumMessage)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.MessageRepository#createTopicMessage(com
+	 * .jdon.jivejdon.model.ForumMessage)
 	 */
 	public void createTopicMessage(ForumMessage forumMessage) throws Exception {
 		try {
@@ -140,8 +101,12 @@ public class MessageRepositoryDao extends ThreadRepositoryDao implements Message
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.MessageRepository#createReplyMessage(com.jdon.jivejdon.model.ForumMessageReply)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.MessageRepository#createReplyMessage(com
+	 * .jdon.jivejdon.model.ForumMessageReply)
 	 */
 	public void createReplyMessage(ForumMessageReply forumMessageReply) throws Exception {
 		try {
@@ -167,8 +132,12 @@ public class MessageRepositoryDao extends ThreadRepositoryDao implements Message
 	 * the message that has been updated. there are two kinds of parameters: the
 	 * primary key /new entity data in DTO ForumMessage of the method patameter
 	 */
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.MessageRepository#updateMessage(com.jdon.jivejdon.model.ForumMessage)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.MessageRepository#updateMessage(com.jdon
+	 * .jivejdon.model.ForumMessage)
 	 */
 	public void updateMessage(ForumMessage forumMessage) throws Exception {
 		logger.debug(" enter updateMessage id =" + forumMessage.getMessageId());
@@ -186,8 +155,12 @@ public class MessageRepositoryDao extends ThreadRepositoryDao implements Message
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.MessageRepository#updateMessageProperties(com.jdon.jivejdon.model.ForumMessage)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.MessageRepository#updateMessageProperties
+	 * (com.jdon.jivejdon.model.ForumMessage)
 	 */
 	public void updateMessageProperties(ForumMessage forumMessage) throws Exception {
 		try {
@@ -200,8 +173,12 @@ public class MessageRepositoryDao extends ThreadRepositoryDao implements Message
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.MessageRepository#deleteMessageComposite(com.jdon.jivejdon.model.ForumMessage)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.MessageRepository#deleteMessageComposite
+	 * (com.jdon.jivejdon.model.ForumMessage)
 	 */
 	public void deleteMessageComposite(ForumMessage delforumMessage) throws Exception {
 		Long key = delforumMessage.getMessageId();
@@ -226,8 +203,12 @@ public class MessageRepositoryDao extends ThreadRepositoryDao implements Message
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.MessageRepository#deleteMessage(java.lang.Long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.MessageRepository#deleteMessage(java.lang
+	 * .Long)
 	 */
 	public void deleteMessage(Long messageId) throws Exception {
 		try {
@@ -242,7 +223,9 @@ public class MessageRepositoryDao extends ThreadRepositoryDao implements Message
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.jdon.jivejdon.repository.MessageRepository#getNextId(int)
 	 */
 	public synchronized Long getNextId(int idType) throws Exception {
@@ -253,17 +236,21 @@ public class MessageRepositoryDao extends ThreadRepositoryDao implements Message
 			logger.error(e);
 			throw new Exception(e);
 		}
-		
+
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.jdon.jivejdon.repository.MessageRepository#getForumBuilder()
 	 */
 	public ForumFactory getForumBuilder() {
 		return forumBuilder;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.jdon.jivejdon.repository.MessageRepository#getMessageDaoFacade()
 	 */
 	public MessageDaoFacade getMessageDaoFacade() {

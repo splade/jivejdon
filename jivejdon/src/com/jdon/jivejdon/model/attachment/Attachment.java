@@ -43,7 +43,7 @@ public class Attachment {
 
 	public void updateUploadFiles(Collection uploadFiles) {
 		this.uploadFiles = uploadFiles;
-		eventMessage = this.forumMessage.getDomainEvents().saveUploadFiles(forumMessage);
+		eventMessage = this.forumMessage.repositoryRole.saveUploadFiles(forumMessage);
 		this.reload = true;
 	}
 
