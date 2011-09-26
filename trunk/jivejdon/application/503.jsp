@@ -25,8 +25,8 @@ if (!errorBlocker.checkRate(request.getRemoteAddr(), 10))
 <form action="<%=request.getContextPath() %>/verifySpammer" name="vform">
 <input type="hidden" name="fromURL" id="fromURL" value="">
 <br>1. 输入验证码(输入时出现)通过后立即可访问：<input type="text" name="registerCode" size="10"
-				maxlength="10" onfocus="document.getElementById('theImg').src='<%=request.getContextPath()%>/account/registerCodeAction'">
-				 <img id="theImg" src="<%=request.getContextPath()%>/images/white_pix.gif" border="0" />
+				maxlength="10" >
+				 <img id="theImg" src="<%=request.getContextPath()%>/account/registerCodeAction" border="0" />
         <input type="button" value="验证" onclick="verify()">				 
 <p>
 <br>2.人工帮助(处理有时间延迟)：<a href='javascript:contactAdmin()'>按这里报告管理员</a>

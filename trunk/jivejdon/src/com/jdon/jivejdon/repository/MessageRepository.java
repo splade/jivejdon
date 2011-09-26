@@ -15,19 +15,11 @@
  */
 package com.jdon.jivejdon.repository;
 
-import com.jdon.controller.events.EventModel;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumMessageReply;
 import com.jdon.jivejdon.repository.dao.MessageDaoFacade;
 
 public interface MessageRepository {
-
-	/**
-	 * get the full forum in forumMessage, and return it.
-	 */
-	public abstract ForumMessage initMessage(EventModel em);
-
-	public abstract ForumMessage initReplyMessage(EventModel em);
 
 	/*
 	 * create the topic message

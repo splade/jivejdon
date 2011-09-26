@@ -52,7 +52,7 @@ public class MessagePropertys {
 	public void updatePropertys(Collection propertys) {
 		if (propertys != null && forumMessage != null) {
 			this.propertys = propertys;
-			this.forumMessage.getDomainEvents().updateMessageProperties(forumMessage);
+			this.forumMessage.repositoryRole.updateMessageProperties(forumMessage);
 		}
 	}
 
@@ -66,7 +66,7 @@ public class MessagePropertys {
 
 	public Collection getPropertys() {
 		if (reload && forumMessage != null) {
-			DomainMessage message = this.forumMessage.getDomainEvents().loadMessageProperties(forumMessage);
+			DomainMessage message = this.forumMessage.lazyLoaderRole.loadMessageProperties(forumMessage);
 			this.propertys = (Collection) message.getEventResult();
 			reload = false;
 		}

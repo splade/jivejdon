@@ -15,13 +15,13 @@
  */
 package com.jdon.jivejdon.manager.subscription;
 
-import com.jdon.annotation.Consumer;
 import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.realtime.Lobby;
 import com.jdon.jivejdon.model.realtime.Notification;
 
-@Consumer("lobbyNotify")
+//@Consumer("lobbyNotify")
+//@see Lobby.addNotification @OnEvent("lobbyNotify")
 public class LobbyNotifier implements DomainEventHandler {
 
 	private final Lobby lobby;

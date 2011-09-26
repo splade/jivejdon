@@ -25,6 +25,7 @@ import com.jdon.jivejdon.model.ForumState;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.ForumThreadState;
 import com.jdon.jivejdon.repository.ForumFactory;
+import com.jdon.jivejdon.repository.dao.SequenceDao;
 import com.jdon.jivejdon.util.ContainerUtil;
 
 public class ForumAbstractFactory implements ForumFactory {
@@ -39,11 +40,13 @@ public class ForumAbstractFactory implements ForumFactory {
 	protected final ForumBuilder forumBuilder;
 	protected final ContainerUtil containerUtil;
 
+	private final SequenceDao sequenceDao;
+
 	// define in manager.xml
 	public final EventProcessor eventProcessor;
 
 	public ForumAbstractFactory(MessageBuilder messageBuilder, ThreadBuilder threadBuilder, ForumBuilder forumBuilder, ContainerUtil containerUtil,
-			EventProcessor eventProcessor) {
+			EventProcessor eventProcessor, SequenceDao sequenceDao) {
 		this.containerUtil = containerUtil;
 		this.messageBuilder = messageBuilder;
 		this.messageBuilder.setForumAbstractFactory(this);
@@ -54,6 +57,7 @@ public class ForumAbstractFactory implements ForumFactory {
 		this.forumBuilder = forumBuilder;
 
 		this.eventProcessor = eventProcessor;
+		this.sequenceDao = sequenceDao;
 
 		this.forumDirector = new ForumDirector(this, forumBuilder);
 		this.messageDirector = new MessageDirector(messageBuilder);
@@ -61,36 +65,56 @@ public class ForumAbstractFactory implements ForumFactory {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.builder.ForumFactory#getForum(java.lang.Long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.builder.ForumFactory#getForum(java.lang.
+	 * Long)
 	 */
 	public Forum getForum(Long forumId) {
 		return forumDirector.getForum(forumId);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.builder.ForumFactory#getMessageWithPropterty(java.lang.Long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.builder.ForumFactory#getMessageWithPropterty
+	 * (java.lang.Long)
 	 */
 	public ForumMessage getMessageWithPropterty(Long messageId) {
 		return messageDirector.getMessageWithPropterty(messageId);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.builder.ForumFactory#getMessage(java.lang.Long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.builder.ForumFactory#getMessage(java.lang
+	 * .Long)
 	 */
 	public ForumMessage getMessage(Long messageId) {
 		return messageDirector.getMessage(messageId);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.builder.ForumFactory#getThread(java.lang.Long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.builder.ForumFactory#getThread(java.lang
+	 * .Long)
 	 */
 	public ForumThread getThread(Long threadId) throws Exception {
 		return threadDirector.getThread(threadId);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.builder.ForumFactory#reloadThreadState(com.jdon.jivejdon.model.ForumThread)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.builder.ForumFactory#reloadThreadState(com
+	 * .jdon.jivejdon.model.ForumThread)
 	 */
 	public void reloadThreadState(ForumThread forumThread) throws Exception {
 		try {
@@ -111,14 +135,29 @@ public class ForumAbstractFactory implements ForumFactory {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.builder.ForumFactory#reloadhForumState(java.lang.Long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.builder.ForumFactory#reloadhForumState(java
+	 * .lang.Long)
 	 */
 	public void reloadhForumState(Long forumId) throws Exception {
 		Forum forum = getForum(forumId);
 		ForumState forumState = new ForumState(forum);
 		forum.setForumState(forumState);
 		forumBuilder.buildState(forum, null, null, messageDirector);
+	}
+
+	public Long getNextId(final int idType) throws Exception {
+		try {
+			return sequenceDao.getNextId(idType);
+		} catch (Exception e) {
+			String error = e + " getNextId ";
+			logger.error(error);
+			throw new Exception(error);
+		}
+
 	}
 
 }

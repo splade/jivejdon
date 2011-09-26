@@ -20,9 +20,12 @@ import java.util.Collection;
 
 import com.jdon.annotation.Model;
 import com.jdon.annotation.model.Inject;
+import com.jdon.jivejdon.manager.listener.TreeModelRole;
+import com.jdon.jivejdon.model.realtime.LobbyPublisherRoleIF;
 import com.jdon.jivejdon.model.realtime.Notification;
-import com.jdon.jivejdon.model.subscription.subscribed.AccountSubscribed;
-import com.jdon.jivejdon.model.subscription.subscribed.Subscribed;
+import com.jdon.jivejdon.model.repository.LazyLoaderRole;
+import com.jdon.jivejdon.model.repository.RepositoryRole;
+import com.jdon.jivejdon.model.subscription.SubPublisherRoleIF;
 import com.jdon.jivejdon.model.subscription.subscribed.ThreadSubscribed;
 import com.jdon.jivejdon.model.thread.ThreadTagsVO;
 import com.jdon.treepatterns.model.TreeModel;
@@ -84,7 +87,19 @@ public class ForumThread extends ForumModel {
 	private volatile ForumThreadState state;
 
 	@Inject
-	private BusinessRole domainEvents;
+	public LazyLoaderRole lazyLoaderRole;
+
+	@Inject
+	public SubPublisherRoleIF subPublisherRole;
+
+	@Inject
+	public LobbyPublisherRoleIF lobbyPublisherRole;
+
+	@Inject
+	public RepositoryRole repositoryRole;
+
+	@Inject
+	public TreeModelRole treeModelRole;
 
 	/**
 	 * normal can be cached reused
@@ -230,6 +245,10 @@ public class ForumThread extends ForumModel {
 		return this.threadTagsVO.getTagTitles();
 	}
 
+	public void tagsSubscriptionNotify() {
+		threadTagsVO.subscriptionNotify();
+	}
+
 	public boolean isRoot(ForumMessage message) {
 		try {
 			if (message.getMessageId().longValue() == getRootMessage().getMessageId().longValue())
@@ -237,23 +256,6 @@ public class ForumThread extends ForumModel {
 		} catch (Exception e) {
 		}
 		return false;
-	}
-
-	public synchronized void addTopicMessage(ForumMessage forumMessage) {
-		forumMessage.getForum().addNewThread(forumMessage);
-
-		Notification notification = new Notification();
-		notification.setSource(forumMessage);
-		this.domainEvents.notifyLobby(notification);
-
-		Subscribed accountSubscribed = new AccountSubscribed(forumMessage.getAccount());
-		accountSubscribed.addSubscribed(forumMessage);
-		// notify the author's fans
-		this.domainEvents.subscriptionNotify(accountSubscribed);
-
-		// notify the tag's fans
-		this.threadTagsVO.subscriptionNotify();
-
 	}
 
 	public synchronized void addNewMessage(ForumMessage forumMessageParent, ForumMessageReply forumMessageReply) {
@@ -270,14 +272,14 @@ public class ForumThread extends ForumModel {
 
 			Notification notification = new Notification();
 			notification.setSource(forumMessageReply);
-			this.domainEvents.notifyLobby(notification);
+			lobbyPublisherRole.notifyLobby(notification);
 
-			this.domainEvents.subscriptionNotify(new ThreadSubscribed(this));
+			subPublisherRole.subscriptionNotify(new ThreadSubscribed(this));
 			// this.domainEvent.subscriptionNotify(new
 			// AccountSubscribed(forumMessageReply.getAccount()));
 
 			// async exec add tree that cost more performance.
-			this.domainEvents.addChildZToThreadTree(forumMessageReply);
+			treeModelRole.addChildZToThreadTree(forumMessageReply);
 		} catch (Exception e) {
 			System.err.print("error in forumThread:" + this.threadId + " " + e);
 		}
@@ -287,7 +289,7 @@ public class ForumThread extends ForumModel {
 		if ((isRoot(forumMessage)) && (forumMessage.isLeaf())) {
 			setForum(newForum);
 			forumMessage.setForum(newForum);
-			this.domainEvents.moveMessage(forumMessage);
+			repositoryRole.moveMessage(forumMessage);
 		}
 	}
 
@@ -332,14 +334,6 @@ public class ForumThread extends ForumModel {
 
 	public void setViewCount(int count) {
 		getState().setViewCount(count);
-	}
-
-	public void setDomainEvent(BusinessRole domainEvent) {
-		this.domainEvents = domainEvent;
-	}
-
-	public BusinessRole getDomainEvent() {
-		return domainEvents;
 	}
 
 }

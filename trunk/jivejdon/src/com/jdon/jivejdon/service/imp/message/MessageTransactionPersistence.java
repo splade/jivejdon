@@ -1,10 +1,9 @@
 package com.jdon.jivejdon.service.imp.message;
 
-import javax.transaction.TransactionManager;
-
 import org.apache.log4j.Logger;
 
-import com.jdon.controller.events.EventModel;
+import com.jdon.annotation.Component;
+import com.jdon.annotation.model.OnEvent;
 import com.jdon.jivejdon.model.Forum;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumMessageReply;
@@ -13,6 +12,7 @@ import com.jdon.jivejdon.repository.TagRepository;
 import com.jdon.jivejdon.repository.builder.MessageRepositoryDao;
 import com.jdon.jivejdon.service.util.JtaTransactionUtil;
 
+@Component
 public class MessageTransactionPersistence {
 	private final static Logger logger = Logger.getLogger(MessageTransactionPersistence.class);
 
@@ -30,9 +30,9 @@ public class MessageTransactionPersistence {
 		this.forumAbstractFactory = forumAbstractFactory;
 	}
 
-	public void insertTopicMessage(EventModel em) throws Exception {
+	@OnEvent("addTopicMessage")
+	public ForumMessage insertTopicMessage(ForumMessage forumMessage) throws Exception {
 		logger.debug("enter createTopicMessage");
-		ForumMessage forumMessage = (ForumMessage) em.getModelIF();
 		try {
 			jtaTransactionUtil.beginTransaction();
 			messageRepository.createTopicMessage(forumMessage);
@@ -44,6 +44,7 @@ public class MessageTransactionPersistence {
 			logger.error(error);
 			throw new Exception(error);
 		}
+		return forumMessage;
 	}
 
 	public void insertReplyMessage(ForumMessageReply forumMessageReply) throws Exception {
@@ -96,7 +97,8 @@ public class MessageTransactionPersistence {
 		}
 	}
 
-	public void deleteMessage(ForumMessage delforumMessage) throws Exception {
+	@OnEvent("deleteMessage")
+	public ForumMessage deleteMessage(ForumMessage delforumMessage) throws Exception {
 		logger.debug("enter deleteMessage");
 		try {
 			jtaTransactionUtil.beginTransaction();
@@ -117,8 +119,8 @@ public class MessageTransactionPersistence {
 			String error = e + " deleteMessage forumMessageId=" + delforumMessage.getMessageId();
 			logger.error(error);
 			throw new Exception(error);
-
 		}
+		return delforumMessage;
 	}
 
 }

@@ -17,9 +17,9 @@ package com.jdon.jivejdon.model.attachment;
 
 import com.jdon.annotation.model.Inject;
 import com.jdon.domain.message.DomainMessage;
-import com.jdon.jivejdon.model.BusinessRole;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.message.upload.UploadHelper;
+import com.jdon.jivejdon.model.repository.LazyLoaderRole;
 
 /**
  * @author banq(http://www.jdon.com)
@@ -32,7 +32,7 @@ public class UploadFile extends com.jdon.strutsutil.file.UploadFile {
 	private UploadHelper uploadHelper;
 
 	@Inject
-	private BusinessRole domainEvents;
+	private LazyLoaderRole domainEvents;
 
 	private DomainMessage imgDataAsyncResult;
 
@@ -70,7 +70,7 @@ public class UploadFile extends com.jdon.strutsutil.file.UploadFile {
 
 	public void preloadData() {
 		if (imgDataAsyncResult == null && domainEvents != null)
-			imgDataAsyncResult = this.domainEvents.loadUploadEntity(this);
+			imgDataAsyncResult = this.domainEvents.loadUploadEntity(this.getId());
 	}
 
 	public boolean isValid(int oid) {
@@ -89,11 +89,11 @@ public class UploadFile extends com.jdon.strutsutil.file.UploadFile {
 		}
 	}
 
-	public BusinessRole getDomainEvents() {
+	public LazyLoaderRole getDomainEvents() {
 		return domainEvents;
 	}
 
-	public void setDomainEvents(BusinessRole domainEvents) {
+	public void setDomainEvents(LazyLoaderRole domainEvents) {
 		this.domainEvents = domainEvents;
 	}
 

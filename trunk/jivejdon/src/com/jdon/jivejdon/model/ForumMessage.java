@@ -33,6 +33,9 @@ import com.jdon.jivejdon.model.message.MessageDigVo;
 import com.jdon.jivejdon.model.message.MessageRenderSpecification;
 import com.jdon.jivejdon.model.message.MessageVO;
 import com.jdon.jivejdon.model.proptery.MessagePropertys;
+import com.jdon.jivejdon.model.repository.LazyLoaderRole;
+import com.jdon.jivejdon.model.repository.RepositoryRole;
+import com.jdon.jivejdon.model.shortmessage.ShortMPublisherRole;
 import com.jdon.jivejdon.util.ToolsUtil;
 import com.jdon.util.Debug;
 
@@ -80,10 +83,16 @@ public class ForumMessage extends ForumModel implements Cloneable {
 
 	private MessageDigVo messageDigVo;
 
-	@Inject
-	private BusinessRole domainEvents;
-
 	private boolean replyNotify;
+
+	@Inject
+	public LazyLoaderRole lazyLoaderRole;
+
+	@Inject
+	public RepositoryRole repositoryRole;
+
+	@Inject
+	public ShortMPublisherRole shortMPublisherRole;
 
 	public ForumMessage() {
 		this.messageVO = new MessageVO();
@@ -150,7 +159,7 @@ public class ForumMessage extends ForumModel implements Cloneable {
 	}
 
 	public synchronized void reloadMessageVOOrignal() {
-		DomainMessage em = domainEvents.reloadMessageVO(this);
+		DomainMessage em = lazyLoaderRole.reloadMessageVO(this);
 		messageVO = (MessageVO) em.getEventResult();
 		setMessageVO(messageVO);
 	}
@@ -162,7 +171,6 @@ public class ForumMessage extends ForumModel implements Cloneable {
 	public synchronized void addReplyMessage(ForumMessageReply forumMessageReply) {
 		try {
 			// basic construct
-			this.domainEvents.loadAccount(forumMessageReply);
 			forumMessageReply.setParentMessage(this);
 			forumMessageReply.setForumThread(this.getForumThread());
 			forumMessageReply.setForum(this.getForum());
@@ -171,8 +179,9 @@ public class ForumMessage extends ForumModel implements Cloneable {
 			String displayDateTime = Constants.getDefaultDateTimeDisp(saveDateTime);
 			forumMessageReply.setCreationDate(displayDateTime);
 			forumMessageReply.setModifiedDate(displayDateTime);
-			// basic construt over
-			this.domainEvents.addReplyMessage(forumMessageReply);
+			// basic construt over Message has setted in Account
+			// this.lazyLoaderRole.loadAccount(forumMessageReply);
+			repositoryRole.addReplyMessage(forumMessageReply);
 
 			forumThread.addNewMessage(this, forumMessageReply);
 
@@ -194,7 +203,7 @@ public class ForumMessage extends ForumModel implements Cloneable {
 			ForumThread forumThread = this.getForumThread();
 			forumThread.update(this);
 
-			this.domainEvents.saveMessage(this);// save this message
+			repositoryRole.saveMessage(this);// save this message
 			// to db
 			this.applyFilters();
 		} catch (Exception e) {
@@ -234,10 +243,9 @@ public class ForumMessage extends ForumModel implements Cloneable {
 
 		this.getForumThread().update(this);
 
-		this.domainEvents.updateMessageProperties(this);
+		repositoryRole.updateMessageProperties(this);
 
-		if (!masked)
-			this.reloadMessageVOOrignal();
+		this.reloadMessageVOOrignal();
 		this.applyFilters();
 	}
 
@@ -295,14 +303,6 @@ public class ForumMessage extends ForumModel implements Cloneable {
 
 	public void importPropertys(Collection propertys) {
 		this.messagePropertys.importPropertys(propertys);
-	}
-
-	public BusinessRole getDomainEvents() {
-		return domainEvents;
-	}
-
-	public void setDomainEvents(BusinessRole domainEvents) {
-		this.domainEvents = domainEvents;
 	}
 
 	/**

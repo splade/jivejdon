@@ -13,30 +13,30 @@
  * limitations under the License.
  * 
  */
-package com.jdon.jivejdon.repository.listener;
+package com.jdon.jivejdon.manager.listener;
+
+import org.apache.log4j.Logger;
 
 import com.jdon.annotation.Consumer;
 import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.domain.message.DomainEventHandler;
-import com.jdon.jivejdon.model.ForumThread;
-import com.jdon.jivejdon.repository.dao.MessageQueryDao;
+import com.jdon.jivejdon.model.ForumMessageReply;
 import com.jdon.treepatterns.model.TreeModel;
 
-@Consumer("loadTreeModel")
-public class LoadTreeModel implements DomainEventHandler {
-
-	private final MessageQueryDao messageQueryDao;
-
-	public LoadTreeModel(MessageQueryDao messageQueryDao) {
-		super();
-		this.messageQueryDao = messageQueryDao;
-	}
+@Consumer("addChildZToThreadTree")
+public class TreeModelRoleImp implements DomainEventHandler {
+	private final static Logger logger = Logger.getLogger(TreeModelRoleImp.class);
 
 	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-		ForumThread forumThread = (ForumThread) event.getDomainMessage().getEventSource();
-		TreeModel treeModel = messageQueryDao.getTreeModel(forumThread.getThreadId(), forumThread.getRootMessage().getMessageId());
-		event.getDomainMessage().setEventResult(treeModel);
-		forumThread.getState().setTreeModel(treeModel);
+		try {
+			ForumMessageReply forumMessageReply = (ForumMessageReply) event.getDomainMessage().getEventSource();
+
+			TreeModel treeModel = forumMessageReply.getForumThread().getState().getTreeModel();
+			treeModel.addChild(forumMessageReply.getParentMessage().getMessageId(), forumMessageReply.getMessageId());
+		} catch (Exception e) {
+			logger.error(e);
+		}
+
 	}
 
 }

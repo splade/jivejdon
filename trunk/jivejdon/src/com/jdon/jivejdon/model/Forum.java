@@ -25,6 +25,8 @@ import org.compass.annotations.SearchableProperty;
 import com.jdon.annotation.Model;
 import com.jdon.annotation.model.Inject;
 import com.jdon.jivejdon.Constants;
+import com.jdon.jivejdon.model.repository.LazyLoaderRole;
+import com.jdon.jivejdon.model.subscription.SubPublisherRoleIF;
 import com.jdon.jivejdon.model.subscription.subscribed.ForumSubscribed;
 
 /**
@@ -34,6 +36,11 @@ import com.jdon.jivejdon.model.subscription.subscribed.ForumSubscribed;
 @Searchable
 @Model
 public class Forum extends ForumModel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@SearchableId
 	private Long forumId;
@@ -58,7 +65,10 @@ public class Forum extends ForumModel {
 	private HotKeys hotKeys;
 
 	@Inject
-	private BusinessRole domainEvents;
+	public SubPublisherRoleIF publisherRole;
+
+	@Inject
+	public LazyLoaderRole lazyLoaderRole;
 
 	public Forum() {
 		forumState = new ForumState(this);
@@ -191,7 +201,7 @@ public class Forum extends ForumModel {
 		forumState.addMessageCount();
 		forumState.setLastPost(forumMessageReply);
 		forumMessageReply.setForum(this);
-		this.domainEvents.subscriptionNotify(new ForumSubscribed(this));
+		this.publisherRole.subscriptionNotify(new ForumSubscribed(this));
 	}
 
 	public synchronized void updateNewMessage(ForumMessage forumMessage) {
@@ -204,15 +214,7 @@ public class Forum extends ForumModel {
 		forumState.addMessageCount();
 		forumState.setLastPost(topicForumMessage);
 		topicForumMessage.setForum(this);
-		this.domainEvents.subscriptionNotify(new ForumSubscribed(this));
-	}
-
-	public BusinessRole getDomainEvents() {
-		return domainEvents;
-	}
-
-	public void setDomainEvents(BusinessRole domainEvents) {
-		this.domainEvents = domainEvents;
+		this.publisherRole.subscriptionNotify(new ForumSubscribed(this));
 	}
 
 }

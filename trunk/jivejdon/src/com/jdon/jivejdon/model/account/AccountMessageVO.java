@@ -17,7 +17,7 @@ package com.jdon.jivejdon.model.account;
 
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.jivejdon.model.Account;
-import com.jdon.jivejdon.model.BusinessRole;
+import com.jdon.jivejdon.model.repository.LazyLoaderRole;
 
 public class AccountMessageVO {
 
@@ -32,11 +32,11 @@ public class AccountMessageVO {
 		this.account = account;
 	}
 
-	public int getMessageCount(BusinessRole domainEvents) {
+	public int getMessageCount(LazyLoaderRole domainEvents) {
 		try {
 			if (messageCount == -1 && domainEvents != null) {
 				if (messageCountAsyncResult == null) {
-					messageCountAsyncResult = domainEvents.computeAccountMessageCount(account.getUserIdLong());
+					messageCountAsyncResult = domainEvents.loadAccountMessageCount(account.getUserIdLong());
 				} else {
 					messageCount = (Integer) messageCountAsyncResult.getEventResult();
 				}
@@ -47,9 +47,9 @@ public class AccountMessageVO {
 		return messageCount;
 	}
 
-	public int getMessageCountNow(BusinessRole domainEvents) {
+	public int getMessageCountNow(LazyLoaderRole domainEvents) {
 		try {
-			messageCountAsyncResult = domainEvents.computeAccountMessageCount(account.getUserIdLong());
+			messageCountAsyncResult = domainEvents.loadAccountMessageCount(account.getUserIdLong());
 			messageCount = (Integer) messageCountAsyncResult.getEventResult();
 		} catch (Exception e) {
 			e.printStackTrace();

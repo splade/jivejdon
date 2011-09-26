@@ -25,8 +25,6 @@ import com.jdon.jivejdon.model.subscription.subscribed.ForumSubscribed;
  * 
  */
 public class ForumState {
-	private static final long serialVersionUID = 1L;
-
 	private int threadCount = 0;
 
 	/**
@@ -104,7 +102,7 @@ public class ForumState {
 	}
 
 	public int getSubscriptionCount() {
-		return subscribedState.getSubscriptionCount(this.forum.getDomainEvents());
+		return subscribedState.getSubscriptionCount(this.forum.lazyLoaderRole);
 	}
 
 }

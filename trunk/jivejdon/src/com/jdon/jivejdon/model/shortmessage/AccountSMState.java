@@ -34,9 +34,9 @@ public class AccountSMState implements Observer {
 	}
 
 	public int getNewShortMessageCount() {
-		if (newShortMessageCount == -1 && account.getDomainEvent() != null) {
+		if (newShortMessageCount == -1 && account.lazyLoaderRole != null) {
 			if (countAsyncResult == null) {
-				countAsyncResult = account.getDomainEvent().loadNewShortMessageCount(account);
+				countAsyncResult = account.lazyLoaderRole.loadNewShortMessageCount(account);
 				return 0;// first time donot return the value;
 			} else {
 				Object asynResult = countAsyncResult.getEventResult();
@@ -58,7 +58,7 @@ public class AccountSMState implements Observer {
 	}
 
 	public void reload() {
-		countAsyncResult = account.getDomainEvent().loadNewShortMessageCount(account);
+		countAsyncResult = account.lazyLoaderRole.loadNewShortMessageCount(account);
 		newShortMessageCount = -1;
 	}
 

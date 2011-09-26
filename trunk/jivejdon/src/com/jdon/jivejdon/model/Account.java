@@ -10,6 +10,7 @@ import com.jdon.jivejdon.model.account.AccountMessageVO;
 import com.jdon.jivejdon.model.account.Attachment;
 import com.jdon.jivejdon.model.attachment.UploadFile;
 import com.jdon.jivejdon.model.auth.Role;
+import com.jdon.jivejdon.model.repository.LazyLoaderRole;
 import com.jdon.jivejdon.model.shortmessage.AccountSMState;
 import com.jdon.jivejdon.model.subscription.SubscribedState;
 import com.jdon.jivejdon.model.subscription.subscribed.AccountSubscribed;
@@ -53,7 +54,7 @@ public class Account {
 	private Attachment attachment;
 
 	@Inject
-	private BusinessRole domainEvent;
+	public LazyLoaderRole lazyLoaderRole;
 
 	private Reward reward;
 
@@ -180,8 +181,8 @@ public class Account {
 	public int getMessageCount() {
 		if (isAnonymous())
 			return 0;
-		if (domainEvent != null)
-			return accountMessageVO.getMessageCount(domainEvent);
+		if (lazyLoaderRole != null)
+			return accountMessageVO.getMessageCount(lazyLoaderRole);
 		else
 			return 0;
 	}
@@ -189,8 +190,8 @@ public class Account {
 	public int getMessageCountNow() {
 		if (isAnonymous())
 			return 0;
-		if (domainEvent != null)
-			return accountMessageVO.getMessageCountNow(domainEvent);
+		if (lazyLoaderRole != null)
+			return accountMessageVO.getMessageCountNow(lazyLoaderRole);
 		else
 			return 0;
 	}
@@ -281,17 +282,9 @@ public class Account {
 		this.emailValidate = emailValidate;
 	}
 
-	public BusinessRole getDomainEvent() {
-		return domainEvent;
-	}
-
-	public void setDomainEvent(BusinessRole domainEvent) {
-		this.domainEvent = domainEvent;
-	}
-
 	public int getSubscriptionCount() {
-		if (this.domainEvent != null)
-			return this.subscribedState.getSubscriptionCount(this.domainEvent);
+		if (this.lazyLoaderRole != null)
+			return this.subscribedState.getSubscriptionCount(this.lazyLoaderRole);
 		else
 			return -1;
 	}

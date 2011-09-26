@@ -19,12 +19,11 @@ import java.util.Collection;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.annotation.Consumer;
 import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.repository.UploadRepository;
 
-@Consumer("loadUploadFiles")
+//@Consumer("loadUploadFiles")
 public class LoadUploadFiles implements DomainEventHandler {
 	private final static Logger logger = Logger.getLogger(LoadUploadFiles.class);
 

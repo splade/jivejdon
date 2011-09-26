@@ -17,13 +17,12 @@ package com.jdon.jivejdon.repository.listener;
 
 import java.util.Collection;
 
-import com.jdon.annotation.Consumer;
 import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.repository.TagRepository;
 
-@Consumer("loadTags")
+//@Consumer("loadTags")
 public class LoadTags implements DomainEventHandler {
 
 	private final TagRepository tagRepository;

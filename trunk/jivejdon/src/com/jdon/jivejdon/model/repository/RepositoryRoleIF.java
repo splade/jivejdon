@@ -13,25 +13,17 @@
  * limitations under the License.
  * 
  */
-package com.jdon.jivejdon.repository;
+package com.jdon.jivejdon.model.repository;
 
-import com.jdon.jivejdon.model.Forum;
+import com.jdon.annotation.model.Send;
+import com.jdon.domain.message.DomainMessage;
 import com.jdon.jivejdon.model.ForumMessage;
-import com.jdon.jivejdon.model.ForumThread;
 
-public interface ForumFactory {
+public interface RepositoryRoleIF {
 
-	public abstract Forum getForum(Long forumId);
+	@Send("addTopicMessage")
+	public abstract DomainMessage addTopicMessage(ForumMessage forumMessage);
 
-	public abstract ForumMessage getMessageWithPropterty(Long messageId);
+	DomainMessage deleteMessage(ForumMessage forumMessage);
 
-	public abstract ForumMessage getMessage(Long messageId);
-
-	public abstract ForumThread getThread(Long threadId) throws Exception;
-
-	public abstract void reloadThreadState(ForumThread forumThread) throws Exception;
-
-	public abstract void reloadhForumState(Long forumId) throws Exception;
-
-	public Long getNextId(final int idType) throws Exception;
 }

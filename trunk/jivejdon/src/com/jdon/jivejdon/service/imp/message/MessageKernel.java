@@ -20,21 +20,13 @@ import org.apache.log4j.Logger;
 import com.jdon.annotation.Component;
 import com.jdon.controller.events.EventModel;
 import com.jdon.controller.model.PageIterator;
-import com.jdon.jivejdon.manager.TreeManager;
-import com.jdon.jivejdon.manager.subscription.SubscribedFactory;
-import com.jdon.jivejdon.manager.subscription.action.ShortMsgAction;
 import com.jdon.jivejdon.model.Forum;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumMessageReply;
 import com.jdon.jivejdon.model.ForumThread;
+import com.jdon.jivejdon.model.dci.ThreadManagerContext;
 import com.jdon.jivejdon.model.query.MultiCriteria;
-import com.jdon.jivejdon.model.subscription.Subscription;
-import com.jdon.jivejdon.model.subscription.subscribed.Subscribed;
-import com.jdon.jivejdon.model.subscription.subscribed.ThreadSubscribed;
 import com.jdon.jivejdon.repository.ForumFactory;
-import com.jdon.jivejdon.repository.MessageRepository;
-import com.jdon.jivejdon.repository.SubscriptionRepository;
-import com.jdon.jivejdon.repository.TagRepository;
 import com.jdon.jivejdon.service.ForumMessageQueryService;
 
 /**
@@ -49,33 +41,52 @@ public class MessageKernel {
 
 	protected ForumFactory forumAbstractFactory;
 
-	protected MessageTransactionPersistence messageTransactionPersistence;
+	private final ThreadManagerContext threadManagerContext;
 
-	protected MessageRepository messageRepository;
-
-	protected SubscriptionRepository subscriptionRepository;
-
-	public MessageKernel(MessageRepository messageRepository, ForumMessageQueryService forumMessageQueryService, ForumFactory forumAbstractFactory,
-			TreeManager treeManager, MessageTransactionPersistence messageTransactionPersistence, TagRepository tagRepository,
-			SubscriptionRepository subscriptionRepository) {
-		this.messageRepository = messageRepository;
+	public MessageKernel(ForumMessageQueryService forumMessageQueryService, ForumFactory forumAbstractFactory,
+			ThreadManagerContext threadManagerContext) {
 		this.forumMessageQueryService = forumMessageQueryService;
 		this.forumAbstractFactory = forumAbstractFactory;
-		this.messageTransactionPersistence = messageTransactionPersistence;
-		this.subscriptionRepository = subscriptionRepository;
+		this.threadManagerContext = threadManagerContext;
 	}
 
 	/**
 	 * get the full forum in forumMessage, and return it.
 	 */
 	public ForumMessage initMessage(EventModel em) {
-		logger.debug("enter initMessage");
-		return messageRepository.initMessage(em);
+		logger.debug(" enter service: initMessage ");
+		ForumMessage forumMessage = (ForumMessage) em.getModelIF();
+		try {
+			if (forumMessage.getForum() == null) {
+				logger.error(" no Forum in this ForumMessage");
+				return forumMessage;
+			}
+			Long forumId = forumMessage.getForum().getForumId();
+			logger.debug(" paremter forumId =" + forumId);
+			Forum forum = forumAbstractFactory.getForum(forumId);
+			forumMessage.setForum(forum);
+		} catch (Exception e) {
+			logger.error(e);
+		}
+		return forumMessage;
 	}
 
 	public ForumMessage initReplyMessage(EventModel em) {
-		logger.debug("enter initReplyMessage");
-		return messageRepository.initReplyMessage(em);
+		logger.debug(" enter service: initReplyMessage ");
+		ForumMessageReply forumMessageReply = (ForumMessageReply) initMessage(em);
+		try {
+			Long pmessageId = forumMessageReply.getParentMessage().getMessageId();
+			if (pmessageId == null) {
+				logger.error(" no the parentMessage.messageId parameter");
+				return null;
+			}
+			ForumMessage pMessage = forumAbstractFactory.getMessage(pmessageId);
+			forumMessageReply.setParentMessage(pMessage);
+			forumMessageReply.getMessageVO().setSubject(pMessage.getMessageVO().getSubject());
+		} catch (Exception e) {
+			logger.error(e);
+		}
+		return forumMessageReply;
 	}
 
 	/*
@@ -104,47 +115,12 @@ public class MessageKernel {
 
 	}
 
-	public Long getNextId(final int idType) throws Exception {
-		try {
-			return messageRepository.getNextId(idType);
-		} catch (Exception e) {
-			String error = e + " getNextId ";
-			logger.error(error);
-			throw new Exception(error);
-		}
-
-	}
-
 	/*
 	 * create the topic message
 	 */
 	public void addTopicMessage(EventModel em) throws Exception {
-		messageTransactionPersistence.insertTopicMessage(em);
-
 		ForumMessage forumMessage = (ForumMessage) em.getModelIF();
-		boolean replynotify = forumMessage.isReplyNotify();
-
-		forumMessage = getMessage(forumMessage.getMessageId());
-		forumMessage.getForumThread().addTopicMessage(forumMessage);
-
-		// if enable reply notify, so the author is the thread's fans
-		if (replynotify) {
-			createSubscription(forumMessage);
-		}
-	}
-
-	private void createSubscription(ForumMessage forumMessage) {
-		try {
-			Subscription sub = new Subscription();
-			sub.setAccount(forumMessage.getAccount());
-			sub.addAction(new ShortMsgAction());
-			Subscribed subscribed = SubscribedFactory.createTransient(ThreadSubscribed.TYPE, forumMessage.getForumThread().getThreadId());
-			sub.setSubscribed(subscribed);
-			subscriptionRepository.createSubscription(sub);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		threadManagerContext.create(forumMessage);
 	}
 
 	/**
@@ -163,20 +139,6 @@ public class MessageKernel {
 				return;
 			}
 			parentMessage.addReplyMessage(forumMessageReply);
-			//
-			// messageTransactionPersistence.insertReplyMessage(em);
-
-			// ForumMessageReply forumMessageReply = (ForumMessageReply)
-			// em.getModelIF();
-			// ForumMessage forumMessageParent =
-			// getMessage(forumMessageReply.getParentMessage().getMessageId());
-			// forumMessageReply = (ForumMessageReply)
-			// getMessage(forumMessageReply.getMessageId());
-			// ensure all messages have single ForumThread object existed in
-			// cache.
-			// ForumThread forumThread =
-			// this.getThread(forumMessageReply.getForumThread().getThreadId());
-			// forumThread.addNewMessage(forumMessageParent, forumMessageReply);
 		} catch (Exception e) {
 			logger.error(e);
 			throw new Exception(e);
@@ -226,22 +188,9 @@ public class MessageKernel {
 	 * delete a message and not inlcude its childern
 	 */
 	public void deleteMessage(ForumMessage delforumMessage) throws Exception {
-		try {
-			messageTransactionPersistence.deleteMessage(delforumMessage);
-			// update memory
-			if (!delforumMessage.getForumThread().isRoot(delforumMessage)) {// this
-				// thread
-				// is be
-				// deleted
-				// only
-				ForumThread forumThread = this.getThread(delforumMessage.getForumThread().getThreadId());
-				this.forumAbstractFactory.reloadThreadState(forumThread);// refresh
-			} else
-				this.forumAbstractFactory.reloadhForumState(delforumMessage.getForum().getForumId());
-		} catch (Exception e) {
-			logger.error(e);
-			throw new Exception(e);
-		}
+		delforumMessage = this.getMessage(delforumMessage.getMessageId());
+		if (delforumMessage != null)
+			this.threadManagerContext.delete(delforumMessage);
 
 	}
 
@@ -279,14 +228,6 @@ public class MessageKernel {
 				deleteMessage(message);
 			}
 		}
-	}
-
-	public MessageRepository getMessageRepository() {
-		return messageRepository;
-	}
-
-	public void setMessageRepository(MessageRepository messageRepository) {
-		this.messageRepository = messageRepository;
 	}
 
 	public ForumMessageQueryService getForumMessageQueryService() {
