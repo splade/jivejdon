@@ -25,118 +25,124 @@ import org.apache.struts.action.ActionMapping;
 
 import com.jdon.jivejdon.model.ForumState;
 
-
 /**
  * @author <a href="mailto:banq@163.com">banq </a>
- *  
+ * 
  */
 public class ForumForm extends BaseForm {
-    private Long forumId;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4469462027018353982L;
 
-    private String name;
+	private Long forumId;
 
-    private String description;
+	private String name;
 
-    private String creationDate;
+	private String description;
 
-    private String modifiedDate;
+	private String creationDate;
 
-    private Collection propertys = new ArrayList();  
-    
-    private ForumState forumState;    
-    
-    public ForumForm(){
-    }
+	private String modifiedDate;
 
-    /**
-     * @return Returns the creationDate.
-     */
-    public String getCreationDate() {
-        return creationDate;
-    }
+	private Collection propertys = new ArrayList();
 
-    /**
-     * @param creationDate
-     *            The creationDate to set.
-     */
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
+	private ForumState forumState;
 
-    /**
-     * @return Returns the description.
-     */
-    public String getDescription() {
-        return description;
-    }
+	public ForumForm() {
+	}
 
-    /**
-     * @param description
-     *            The description to set.
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * @return Returns the creationDate.
+	 */
+	public String getCreationDate() {
+		return creationDate;
+	}
 
+	/**
+	 * @param creationDate
+	 *            The creationDate to set.
+	 */
+	public void setCreationDate(String creationDate) {
+		this.creationDate = creationDate;
+	}
 
-    
-    
-    /**
-     * @return Returns the forumId.
-     */
-    public Long getForumId() {
-        return forumId;
-    }
-    /**
-     * @param forumId The forumId to set.
-     */
-    public void setForumId(Long forumId) {
-        this.forumId = forumId;
-    }
-    /**
-     * @return Returns the modifiedDate.
-     */
-    public String getModifiedDate() {        
-        return modifiedDate;
-    }
+	/**
+	 * @return Returns the description.
+	 */
+	public String getDescription() {
+		return description;
+	}
 
-    /**
-     * @param modifiedDate
-     *            The modifiedDate to set.
-     */
-    public void setModifiedDate(String modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
+	/**
+	 * @param description
+	 *            The description to set.
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    /**
-     * @return Returns the name.
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * @return Returns the forumId.
+	 */
+	public Long getForumId() {
+		return forumId;
+	}
 
-    /**
-     * @param name
-     *            The name to set.
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+	/**
+	 * @param forumId
+	 *            The forumId to set.
+	 */
+	public void setForumId(Long forumId) {
+		this.forumId = forumId;
+	}
 
-    /**
-     * @return Returns the propertys.
-     */
-    public Collection getPropertys() {
-        return propertys;
-    }
-    /**
-     * @param propertys The propertys to set.
-     */
-    public void setPropertys(Collection propertys) {
-        this.propertys = propertys;
-    }
-    
-    public ForumState getForumState() {
+	/**
+	 * @return Returns the modifiedDate.
+	 */
+	public String getModifiedDate() {
+		return modifiedDate;
+	}
+
+	/**
+	 * @param modifiedDate
+	 *            The modifiedDate to set.
+	 */
+	public void setModifiedDate(String modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	/**
+	 * @return Returns the name.
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            The name to set.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return Returns the propertys.
+	 */
+	public Collection getPropertys() {
+		return propertys;
+	}
+
+	/**
+	 * @param propertys
+	 *            The propertys to set.
+	 */
+	public void setPropertys(Collection propertys) {
+		this.propertys = propertys;
+	}
+
+	public ForumState getForumState() {
 		return forumState;
 	}
 
@@ -145,9 +151,9 @@ public class ForumForm extends BaseForm {
 	}
 
 	public void doValidate(ActionMapping mapping, HttpServletRequest request, List errors) {
-        if (!this.getAction().equals("delete"))
-        addErrorIfStringEmpty(errors, "forum name is required.", getName());
+		if (!this.getAction().equals("delete"))
+			addErrorIfStringEmpty(errors, "forum name is required.", getName());
 
-    }
+	}
 
 }

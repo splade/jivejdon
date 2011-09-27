@@ -21,8 +21,6 @@ import com.jdon.util.UtilValidate;
 
 @Model
 public class ShortMessage {
-	private static final long serialVersionUID = -7427295813326087296L;
-
 	public final static int MESSAGE_MAX_COUNT = 100;
 
 	// ID

@@ -17,7 +17,6 @@ package com.jdon.jivejdon.repository;
 
 import java.util.Collection;
 
-import com.jdon.annotation.model.OnEvent;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.ThreadTag;
@@ -42,7 +41,6 @@ public interface TagRepository {
 
 	public abstract Collection getThreadTags(ForumThread forumThread);
 
-	@OnEvent("loadTags")
 	public abstract Collection getThreadTags(Long forumThreadId);
 
 	public abstract void updateThreadTag(ThreadTag threadTag) throws Exception;

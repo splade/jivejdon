@@ -17,36 +17,39 @@ package com.jdon.jivejdon.presentation.action.query;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
-
 import com.jdon.controller.WebAppUtil;
-import com.jdon.controller.model.ModelIF;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.service.TagService;
 import com.jdon.strutsutil.ModelListAction;
 
 /**
  * @author <a href="mailto:banq@163.com">banq</a>
- *
+ * 
  */
 public class TagsListAction extends ModelListAction {
-    private final static Logger logger = Logger.getLogger(TagsListAction.class);
-    
-    /* (non-Javadoc)
-     * @see com.jdon.strutsutil.ModelListAction#getPageIterator(javax.servlet.http.HttpServletRequest, int, int)
-     */
-    public PageIterator getPageIterator(HttpServletRequest request, int start, int count) {
-    	TagService othersService = (TagService) WebAppUtil.getService("othersService", request);
-        return othersService.getThreadTags(start, count);
-    }
 
-    /* (non-Javadoc)
-     * @see com.jdon.strutsutil.ModelListAction#findModelByKey(javax.servlet.http.HttpServletRequest, java.lang.Object)
-     */
-    public Object findModelIFByKey(HttpServletRequest request, Object key) {
-    	TagService othersService = (TagService) WebAppUtil.getService("othersService", request);
-    	return othersService.getThreadTag((Long)key);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.strutsutil.ModelListAction#getPageIterator(javax.servlet.http
+	 * .HttpServletRequest, int, int)
+	 */
+	public PageIterator getPageIterator(HttpServletRequest request, int start, int count) {
+		TagService othersService = (TagService) WebAppUtil.getService("othersService", request);
+		return othersService.getThreadTags(start, count);
+	}
 
-   
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.strutsutil.ModelListAction#findModelByKey(javax.servlet.http
+	 * .HttpServletRequest, java.lang.Object)
+	 */
+	public Object findModelIFByKey(HttpServletRequest request, Object key) {
+		TagService othersService = (TagService) WebAppUtil.getService("othersService", request);
+		return othersService.getThreadTag((Long) key);
+	}
+
 }

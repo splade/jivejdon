@@ -27,16 +27,21 @@ import org.apache.struts.action.ActionMapping;
 import com.jdon.jivejdon.model.Property;
 
 public class PropertysForm extends BaseForm {
-	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Collection propertys;
-	
+
 	private int maxSize = 50;
-	
+
 	public PropertysForm() {
 		propertys = new ArrayList();
-		for(int i=0; i<maxSize; i++){
+		for (int i = 0; i < maxSize; i++) {
 			propertys.add(new Property());
-		} 
+		}
 	}
 
 	public int getMaxSize() {
@@ -47,32 +52,26 @@ public class PropertysForm extends BaseForm {
 		this.maxSize = maxSize;
 	}
 
-
-
-
 	public Collection getPropertys() {
 		return propertys;
 	}
-	
+
 	public Property getProperty(int index) {
-		return (Property)((List)propertys).get(index);
+		return (Property) ((List) propertys).get(index);
 	}
-	
+
 	public void setProperty(int index, Property property) {
 		propertys.add(property);
-    }
-
+	}
 
 	public void setPropertys(Collection propertys) {
 		this.propertys = propertys;
 	}
-	
 
 	public void doValidate(ActionMapping mapping, HttpServletRequest request, List errors) {
-		 if (getPropertys().size() > maxSize) {
-                 errors.add("max length is " + maxSize);
-         }
-	 }
-		   
+		if (getPropertys().size() > maxSize) {
+			errors.add("max length is " + maxSize);
+		}
+	}
 
 }

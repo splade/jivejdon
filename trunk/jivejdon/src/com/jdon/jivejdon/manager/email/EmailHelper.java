@@ -5,7 +5,6 @@ import com.jdon.async.task.ObservableAdapter;
 import com.jdon.jivejdon.util.EmailTask;
 
 public class EmailHelper {
-	private final static String module = EmailHelper.class.getName();
 
 	private EventProcessor ep;
 

@@ -18,13 +18,11 @@ import com.jdon.jivejdon.model.message.weibo.AuthorNameFilter;
 public class QuoteRegexFilter implements MessageRenderSpecification {
 	private List<RegexFilter> filters = new ArrayList<RegexFilter>();
 
-	private AuthorNameFilter authorNameFilter;
-
 	public QuoteRegexFilter() {
 		filters.add(new SummarytFilter());
 		filters.add(new FromFilter());
 		filters.add(new AuthorDateFilter());
-		this.authorNameFilter = new AuthorNameFilter();
+		new AuthorNameFilter();
 	}
 
 	@Override

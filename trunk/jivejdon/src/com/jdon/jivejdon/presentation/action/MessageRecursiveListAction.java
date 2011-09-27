@@ -22,7 +22,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
 import com.jdon.controller.WebAppUtil;
-import com.jdon.controller.model.ModelIF;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.service.ForumMessageQueryService;
@@ -32,43 +31,49 @@ import com.jdon.strutsutil.ModelListForm;
 
 /**
  * @author <a href="mailto:banqJdon<AT>jdon.com">banq</a>
- *
+ * 
  */
 public class MessageRecursiveListAction extends ModelListAction {
-    private final static Logger logger = Logger.getLogger(MessageRecursiveListAction.class);
-    
-    /* (non-Javadoc)
-     * @see com.jdon.strutsutil.ModelListAction#getPageIterator(javax.servlet.http.HttpServletRequest, int, int)
-     */
-    public PageIterator getPageIterator(HttpServletRequest request, int start, int count) {
-    	ForumMessageQueryService forumMessageQueryService = (ForumMessageQueryService) WebAppUtil.getService("forumMessageQueryService", request);
-        String messageId = request.getParameter("messageId");
-        if (messageId == null){
-            logger.error(" getPageIterator error : messageId is null");  
-            return new PageIterator();
-        }
-        return forumMessageQueryService.getRecursiveMessages(new Long(messageId), start, count);    
-    }
+	private final static Logger logger = Logger.getLogger(MessageRecursiveListAction.class);
 
-    /* (non-Javadoc)
-     * @see com.jdon.strutsutil.ModelListAction#findModelByKey(javax.servlet.http.HttpServletRequest, java.lang.Object)
-     */
-    public Object findModelIFByKey(HttpServletRequest request, Object key) {
-        ForumMessageService forumMessageService = (ForumMessageService) WebAppUtil.getService("forumMessageService", request);
-        return forumMessageService.getMessage((Long)key);
-    }
-    
-    public void customizeListForm(ActionMapping actionMapping,
-            ActionForm actionForm, HttpServletRequest request,
-            ModelListForm modelListForm) throws Exception {
-        ForumMessageService forumMessageService = (ForumMessageService) WebAppUtil.getService("forumMessageService", request);
-        String messageId = request.getParameter("messageId");
-        if (messageId == null){
-            logger.error("customizeListForm error : messageId is null");            
-        }
-        ForumMessage forumParentMessage = forumMessageService.getMessage(new Long(messageId));
-        modelListForm.setOneModel(forumParentMessage);
-    }
-    
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.strutsutil.ModelListAction#getPageIterator(javax.servlet.http
+	 * .HttpServletRequest, int, int)
+	 */
+	public PageIterator getPageIterator(HttpServletRequest request, int start, int count) {
+		ForumMessageQueryService forumMessageQueryService = (ForumMessageQueryService) WebAppUtil.getService("forumMessageQueryService", request);
+		String messageId = request.getParameter("messageId");
+		if (messageId == null) {
+			logger.error(" getPageIterator error : messageId is null");
+			return new PageIterator();
+		}
+		return forumMessageQueryService.getRecursiveMessages(new Long(messageId), start, count);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.strutsutil.ModelListAction#findModelByKey(javax.servlet.http
+	 * .HttpServletRequest, java.lang.Object)
+	 */
+	public Object findModelIFByKey(HttpServletRequest request, Object key) {
+		ForumMessageService forumMessageService = (ForumMessageService) WebAppUtil.getService("forumMessageService", request);
+		return forumMessageService.getMessage((Long) key);
+	}
+
+	public void customizeListForm(ActionMapping actionMapping, ActionForm actionForm, HttpServletRequest request, ModelListForm modelListForm)
+			throws Exception {
+		ForumMessageService forumMessageService = (ForumMessageService) WebAppUtil.getService("forumMessageService", request);
+		String messageId = request.getParameter("messageId");
+		if (messageId == null) {
+			logger.error("customizeListForm error : messageId is null");
+		}
+		ForumMessage forumParentMessage = forumMessageService.getMessage(new Long(messageId));
+		modelListForm.setOneModel(forumParentMessage);
+	}
 
 }

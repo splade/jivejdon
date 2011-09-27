@@ -17,13 +17,11 @@ package com.jdon.jivejdon.repository;
 
 import java.util.Collection;
 
-import com.jdon.annotation.model.OnEvent;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.model.attachment.UploadFile;
 
 public interface UploadRepository {
 
-	@OnEvent("loadUploadFiles")
 	public abstract Collection getUploadFiles(String parentId);
 
 	public abstract UploadFile getSingleUploadFile(String parentId);

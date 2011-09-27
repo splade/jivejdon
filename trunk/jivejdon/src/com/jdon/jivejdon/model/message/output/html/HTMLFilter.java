@@ -27,8 +27,6 @@ import com.jdon.util.Debug;
 public class HTMLFilter implements MessageRenderSpecification {
 	private final static String module = HTMLFilter.class.getName();
 
-	private static final char[] QUOTE_ENCODE = "&quot;".toCharArray();
-	private static final char[] AMP_ENCODE = "&amp;".toCharArray();
 	private static final char[] LT_ENCODE = "&lt;".toCharArray();
 	private static final char[] GT_ENCODE = "&gt;".toCharArray();
 

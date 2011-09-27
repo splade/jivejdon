@@ -65,7 +65,6 @@ public class ForumMessageQueryServiceImp implements ForumMessageQueryService {
 			logger.error("the messageId  don't existed: " + messageId);
 			return new PageIterator();
 		}
-		int allCount = 0;
 		List sublist = null;
 		try {
 			List childernList = treeManager.getRecursiveChildren(forumMessage);

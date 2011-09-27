@@ -41,8 +41,6 @@ public class UpLoadFileForm extends BaseForm {
 
 	private UploadHelper uploadHelper;
 
-	private String contentType;
-
 	private String id;
 
 	private String description;
@@ -55,19 +53,9 @@ public class UpLoadFileForm extends BaseForm {
 
 	private String tempId;
 
-	private byte[] data;
-
 	private String path;
 
 	private boolean authenticated = true;
-
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
-	}
-
-	public void setData(byte[] data) {
-		this.data = data;
-	}
 
 	public boolean isAuthenticated() {
 		return authenticated;

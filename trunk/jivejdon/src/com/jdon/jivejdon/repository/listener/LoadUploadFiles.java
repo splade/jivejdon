@@ -16,33 +16,57 @@
 package com.jdon.jivejdon.repository.listener;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.async.disruptor.EventDisruptor;
-import com.jdon.domain.message.DomainEventHandler;
+import com.jdon.annotation.Component;
+import com.jdon.annotation.model.OnEvent;
+import com.jdon.domain.dci.RoleAssigner;
+import com.jdon.jivejdon.model.attachment.UploadFile;
 import com.jdon.jivejdon.repository.UploadRepository;
+import com.jdon.jivejdon.repository.dao.UploadFileDao;
 
-//@Consumer("loadUploadFiles")
-public class LoadUploadFiles implements DomainEventHandler {
+@Component
+public class LoadUploadFiles {
 	private final static Logger logger = Logger.getLogger(LoadUploadFiles.class);
 
 	private final UploadRepository uploadRepository;
 
-	public LoadUploadFiles(UploadRepository uploadRepository) {
+	private final UploadFileDao uploadFileDao;
+
+	private final RoleAssigner roleAssigner;
+
+	public LoadUploadFiles(UploadRepository uploadRepository, RoleAssigner roleAssigner, UploadFileDao uploadFileDao) {
 		super();
 		this.uploadRepository = uploadRepository;
+		this.roleAssigner = roleAssigner;
+		this.uploadFileDao = uploadFileDao;
 	}
 
-	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-		Long parentId = (Long) event.getDomainMessage().getEventSource();
+	@OnEvent("loadUploadFiles")
+	public UploadFile loadUploadFile(String parentId) {
+		UploadFile uploadFile = null;
 		try {
-			Collection uploads = uploadRepository.getUploadFiles(parentId.toString());
-			event.getDomainMessage().setEventResult(uploads);
+			Collection uploads = uploadRepository.getUploadFiles(parentId);
+
+			Iterator iter = uploads.iterator();
+			if (iter.hasNext()) {
+				uploadFile = (UploadFile) iter.next();
+				roleAssigner.assignDomainEvents(uploadFile);
+				// call LoadUploadEntity
+				uploadFile.preloadData();
+			}
+
 		} catch (Exception e) {
 			logger.error(e);
 		}
+		return uploadFile;
+	}
 
+	@OnEvent("loadUploadEntity")
+	public byte[] LoadUploadEntity(String objectId) {
+		return uploadFileDao.loadUploadEntity(objectId);
 	}
 
 }

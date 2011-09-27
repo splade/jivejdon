@@ -119,20 +119,6 @@ public class SpamFilter2 implements Filter {
 		return false;
 	}
 
-	private boolean isPermitted(HttpServletRequest request) {
-		String referrerUrl = request.getHeader("Referer");
-		if (domainPattern != null) {
-			if (referrerUrl != null && referrerUrl.length() > 0 && domainPattern.matcher(referrerUrl.toLowerCase()).matches()) {
-				return true;
-			}
-		}
-
-		// String clinetIp = request.getRemoteAddr();
-		// if ((clinetIp !=null) && (clinetIp.indexOf("127.0.0.1") != -1))
-		// return true; //if localhost debug, skip;
-		return false;
-	}
-
 	private void disableSessionOnlines(HttpServletRequest httpRequest) {
 		HttpSession session = httpRequest.getSession(false);
 		if (session != null)

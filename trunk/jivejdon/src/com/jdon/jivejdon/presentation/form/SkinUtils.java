@@ -21,35 +21,34 @@ import javax.servlet.http.HttpSession;
 import com.jdon.util.StringUtil;
 
 public class SkinUtils {
-    private final static String module = SkinUtils.class.getName();
 
-    private static String RegisterCODE = "CODE";
+	private static String RegisterCODE = "CODE";
 
-    public static String getRegisterCode(HttpServletRequest request, HttpServletResponse response) {
-        String registerCode = "1234";
-        try {
-            HttpSession session = request.getSession();
-            registerCode = StringUtil.getPassword(4, "0123456789");
-            session.setAttribute(RegisterCODE, registerCode);
-        } catch (Exception ex) {
-            System.err.println(" getRegisterCode error : " + registerCode + ": " + ex);
-        }
-        return registerCode;
-    }
+	public static String getRegisterCode(HttpServletRequest request, HttpServletResponse response) {
+		String registerCode = "1234";
+		try {
+			HttpSession session = request.getSession();
+			registerCode = StringUtil.getPassword(4, "0123456789");
+			session.setAttribute(RegisterCODE, registerCode);
+		} catch (Exception ex) {
+			System.err.println(" getRegisterCode error : " + registerCode + ": " + ex);
+		}
+		return registerCode;
+	}
 
-    public static boolean verifyRegisterCode(String registerCodeIn, HttpServletRequest request) {
-        boolean isTrue = false;
-        String registerCode = "1234";
-        try {
-            HttpSession session = request.getSession();
-            registerCode = (String) session.getAttribute(RegisterCODE);
-            if ((registerCode != null) && (registerCodeIn != null) && (registerCodeIn.equalsIgnoreCase(registerCode)))
-                isTrue = true;
-        } catch (Exception ex) {
-            System.err.println(" verifyRegisterCode : " + ex);
-        }
+	public static boolean verifyRegisterCode(String registerCodeIn, HttpServletRequest request) {
+		boolean isTrue = false;
+		String registerCode = "1234";
+		try {
+			HttpSession session = request.getSession();
+			registerCode = (String) session.getAttribute(RegisterCODE);
+			if ((registerCode != null) && (registerCodeIn != null) && (registerCodeIn.equalsIgnoreCase(registerCode)))
+				isTrue = true;
+		} catch (Exception ex) {
+			System.err.println(" verifyRegisterCode : " + ex);
+		}
 
-        return isTrue;
-    }
+		return isTrue;
+	}
 
 }

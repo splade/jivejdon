@@ -49,7 +49,7 @@ public class ForumSubscribed implements Subscribed {
 
 	@Override
 	public int getSubscribeType() {
-		return this.TYPE;
+		return ForumSubscribed.TYPE;
 	}
 
 	@Override

@@ -21,7 +21,7 @@ import com.jdon.annotation.Consumer;
 import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.ForumMessage;
-import com.jdon.jivejdon.service.imp.message.MessageTransactionPersistence;
+import com.jdon.jivejdon.repository.MessageTransactionPersistence;
 
 @Consumer("saveMessage")
 public class SaveMessage implements DomainEventHandler {

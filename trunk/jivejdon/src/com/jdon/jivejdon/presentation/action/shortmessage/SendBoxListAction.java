@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 
 import com.jdon.controller.WebAppUtil;
-import com.jdon.controller.model.ModelIF;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.service.ShortMessageService;
 import com.jdon.strutsutil.ModelListAction;
@@ -41,23 +40,22 @@ import com.jdon.strutsutil.ModelListAction;
  * @version 1.0
  */
 public class SendBoxListAction extends ModelListAction {
-	
+
 	private static Logger logger = Logger.getLogger(SendBoxListAction.class);
 
 	@Override
 	public Object findModelIFByKey(HttpServletRequest request, Object key) {
 		logger.debug("getPageIterator()");
 		ShortMessageService service = (ShortMessageService) WebAppUtil.getService("shortMessageService", request);
-		
-		return service.getFromShortMessage((Long)key);
+
+		return service.getFromShortMessage((Long) key);
 	}
 
 	@Override
-	public PageIterator getPageIterator(HttpServletRequest request, int start,
-			int count) {
+	public PageIterator getPageIterator(HttpServletRequest request, int start, int count) {
 		logger.debug("findModelIFByKey()");
 		ShortMessageService service = (ShortMessageService) WebAppUtil.getService("shortMessageService", request);
-		
+
 		return service.getSendShortMessages(start, count);
 	}
 

@@ -19,7 +19,6 @@ package com.jdon.jivejdon.presentation.action.admin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -29,13 +28,11 @@ import com.jdon.controller.WebAppUtil;
 import com.jdon.jivejdon.manager.filter.InputSwitcherIF;
 
 public class InputSwitcherAction extends Action {
-	private final static Logger logger = Logger.getLogger(InputSwitcherAction.class);
-	
 	public ActionForward execute(ActionMapping actionMapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) {
 		String actionS = request.getParameter("method");
 		if ((actionS != null) && (actionS.equalsIgnoreCase("save"))) {
 			save(actionMapping, actionForm, request, response);
-		} else {//no delete,maybe list or add
+		} else {// no delete,maybe list or add
 			load(actionMapping, actionForm, request, response);
 		}
 		return actionMapping.findForward(actionS);
@@ -45,16 +42,16 @@ public class InputSwitcherAction extends Action {
 		InputSwitcherIF inputSwitcher = (InputSwitcherIF) WebAppUtil.getComponentInstance("inputSwitcher", request);
 		if (inputSwitcher.isInputPermit())
 			request.setAttribute("des", inputSwitcher.getDes());
-		
+
 	}
 
 	public void save(ActionMapping actionMapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response) {
-		String inputSwitcherS = request.getParameter("inputSwitcher") ;
-		String des = request.getParameter("des") ;
+		String inputSwitcherS = request.getParameter("inputSwitcher");
+		String des = request.getParameter("des");
 		InputSwitcherIF inputSwitcher = (InputSwitcherIF) WebAppUtil.getComponentInstance("inputSwitcher", request);
 		if ((inputSwitcherS != null) && (inputSwitcherS.equals("on")))
 			inputSwitcher.setInputPermit(true, des);
-		else 
+		else
 			inputSwitcher.setInputPermit(false, des);
 	}
 

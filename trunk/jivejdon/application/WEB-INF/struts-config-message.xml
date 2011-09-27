@@ -146,7 +146,8 @@
     <action path="/forum/stickyList" type="com.jdon.jivejdon.presentation.action.StickyListAction" 
         scope="request"  validate="false">
 		 <forward name="success" path="/forum/stickyThreadList.jsp"/>
-	</action>	
+	</action>
+		
     	
   </action-mappings>
   <controller maxFileSize="100K" />

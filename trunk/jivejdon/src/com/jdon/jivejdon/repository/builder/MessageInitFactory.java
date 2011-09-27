@@ -46,6 +46,15 @@ public class MessageInitFactory {
 				parentMessage.setMessageId(pID);
 				((ForumMessageReply) forumMessage).setParentMessage(parentMessage);
 			}
+			Object o = map.get("userID");
+			if (o != null) {
+				com.jdon.jivejdon.model.Account account = new com.jdon.jivejdon.model.Account();
+				account.setUserIdLong((Long) o);
+				forumMessage.setAccount(account);
+			} else {
+				System.err.print("messageId=" + messageId + " no userID in DB");
+				return forumMessage;
+			}
 
 			forumMessage.setMessageId(messageId);
 			MessageVO messageVO = createMessageVOCore(messageId, map);
@@ -68,12 +77,6 @@ public class MessageInitFactory {
 			forum.setForumId((Long) map.get("forumID"));
 			forumMessage.setForum(forum);
 
-			com.jdon.jivejdon.model.Account account = new com.jdon.jivejdon.model.Account();
-			forumMessage.setAccount(account);
-			Object o = map.get("userID");
-			if (o != null) {
-				account.setUserIdLong((Long) o);
-			}
 			// lazy load
 			// forumMessage.setPropertys(propertyDaoSql.getAllPropertys(Constants.MESSAGE,
 			// messageId));

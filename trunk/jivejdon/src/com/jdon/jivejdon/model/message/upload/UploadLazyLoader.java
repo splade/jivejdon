@@ -1,5 +1,5 @@
 /*
- * Copyright 2003-2005 the original author or authors.
+ * Copyright 2003-2009 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,24 +13,23 @@
  * limitations under the License.
  * 
  */
-package com.jdon.jivejdon.auth;
+package com.jdon.jivejdon.model.message.upload;
 
-/**
- * @author <a href="mailto:banqJdon<AT>jdon.com">banq</a>
- * 
- */
-public class NoPermissionException extends Exception {
+import com.jdon.annotation.Introduce;
+import com.jdon.annotation.model.Send;
+import com.jdon.domain.message.DomainMessage;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -993888989954970549L;
+@Introduce("message")
+public class UploadLazyLoader {
 
-	public NoPermissionException() {
-		super();
+	@Send("loadUploadEntity")
+	public DomainMessage loadUploadEntity(String objectId) {
+		return new DomainMessage(objectId);
 	}
 
-	public NoPermissionException(String msg) {
-		super(msg);
+	@Send("loadUploadFiles")
+	public DomainMessage loadUploadFiles(String parentId) {
+		return new DomainMessage(parentId);
 	}
+
 }

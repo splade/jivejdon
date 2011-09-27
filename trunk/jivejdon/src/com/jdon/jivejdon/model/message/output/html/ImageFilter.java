@@ -48,10 +48,8 @@ public class ImageFilter implements MessageRenderSpecification {
 		Pattern p = Pattern.compile(patt);
 		Matcher m = p.matcher(str);
 		StringBuffer sb = new StringBuffer();
-		int i = 0;
 		boolean result = m.find();
 		while (result) {
-			i++;
 			m.appendReplacement(sb, "<img src=\"" + m.group(2) + "\" border='0' >");
 			result = m.find();
 		}

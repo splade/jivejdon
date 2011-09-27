@@ -23,7 +23,7 @@ import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumMessageReply;
 import com.jdon.jivejdon.repository.ForumFactory;
-import com.jdon.jivejdon.service.imp.message.MessageTransactionPersistence;
+import com.jdon.jivejdon.repository.MessageTransactionPersistence;
 
 /**
  * topic addReplyMessage has three DomainEventHandlers: AddReplyMessage;

@@ -15,60 +15,46 @@
  */
 package com.jdon.jivejdon.model.account;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.attachment.UploadFile;
 
 public class Attachment {
 
-	// for upload files lazyload
-	private UploadFile uploadFile;
-
 	private DomainMessage eventMessage;
 
 	private Account account;
-
-	private boolean reload;
 
 	public Attachment(Account account) {
 		super();
 		this.account = account;
 	}
 
+	/**
+	 * * <logic:notEmpty name="forumMessage" property="account.uploadFile"> <img
+	 * src=
+	 * "<%=request.getContextPath() %>/img/uploadShowAction.shtml?oid=<bean:write name="
+	 * forumMessage
+	 * " property="account.userId"/>&id=<bean:write name="forumMessage
+	 * " property="account.uploadFile.id"/>" border='0' /> </logic:notEmpty>
+	 * 
+	 * 
+	 * @return
+	 */
 	public UploadFile getUploadFile() {
-		try {
-			if ((uploadFile == null && eventMessage == null)) {
-				eventMessage = account.lazyLoaderRole.loadUploadFiles(account.getUserId());
-				loadUploadFile();
-
-			}
-			if (reload) {
-				loadUploadFile();
-				reload = false;
-			}
-		} catch (Exception e) {
-		}
+		UploadFile uploadFile = null;
+		if (eventMessage == null) {
+			// logic:notEmpty name="forumMessage" property="account.uploadFile"
+			eventMessage = account.uploadLazyLoader.loadUploadFiles(account.getUserId());
+		} else
+			// id=<bean:write
+			// name="forumMessage property="account.uploadFile.id"
+			uploadFile = (UploadFile) eventMessage.getEventResult();
 		return uploadFile;
 	}
 
-	private void loadUploadFile() {
-		Object result = eventMessage.getEventResult();
-		if (result != null) {
-			Collection uploads = (Collection) result;
-			Iterator iter = uploads.iterator();
-			if (iter.hasNext()) {
-				uploadFile = (UploadFile) iter.next();
-			}
-		}
-
-	}
-
 	public void updateUploadFile() {
-		eventMessage = account.lazyLoaderRole.loadUploadFiles(account.getUserId());
-		reload = true;
+		eventMessage = account.uploadLazyLoader.loadUploadFiles(account.getUserId());
 	}
 
 }

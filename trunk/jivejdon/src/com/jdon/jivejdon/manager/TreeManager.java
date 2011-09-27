@@ -27,45 +27,48 @@ import com.jdon.treepatterns.TreeVisitor;
 import com.jdon.treepatterns.model.TreeModel;
 import com.jdon.treepatterns.visitor.TreeNodePicker;
 
-
 /**
- * by Composite + Visitor for the tree node, we can accomplish 
- * variable operations on any node of the tree. 
+ * by Composite + Visitor for the tree node, we can accomplish variable
+ * operations on any node of the tree.
  * 
  * @author <a href="mailto:banq@163.com">banq</a>
- *
+ * 
  */
-public class TreeManager implements Serializable{
-    private final static Logger logger = Logger.getLogger(TreeManager.class);
-   
-    /**
-     * @param messageDao
-     */
-    public TreeManager() {
-    }
-    
-    public List getRecursiveChildren(ForumMessage forumMessage){        
-        Long key = forumMessage.getMessageId();
-        logger.debug("recursiveChildren messageId =" + key);
-        List list = null;
-        try {
-            // because forumMessage can be cached, so we do need create a node every time.        
-            TreeModel treeModel = forumMessage.getForumThread().getState().getTreeModel();
-            TreeNodeFactory TreeNodeFactory = new TreeNodeFactory(treeModel); 
-            TreeNodeVisitable treeNode = TreeNodeFactory.createNode(key);        
-            
-            TreeVisitor messagePicker = new TreeNodePicker();
-            logger.debug(" begin to walk into tree, and pick them into a list" );
-            treeNode.accept(messagePicker);        
-            list = ((TreeNodePicker)messagePicker).getResult();
-            list.remove(key); //remove the parent
+public class TreeManager implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1352361408134250278L;
+	private final static Logger logger = Logger.getLogger(TreeManager.class);
 
-        } catch (Exception e) {
-            logger.error(e);
-        }        
-        return list;
-        
-    }
-    
+	/**
+	 * @param messageDao
+	 */
+	public TreeManager() {
+	}
+
+	public List getRecursiveChildren(ForumMessage forumMessage) {
+		Long key = forumMessage.getMessageId();
+		logger.debug("recursiveChildren messageId =" + key);
+		List list = null;
+		try {
+			// because forumMessage can be cached, so we do need create a node
+			// every time.
+			TreeModel treeModel = forumMessage.getForumThread().getState().getTreeModel();
+			TreeNodeFactory TreeNodeFactory = new TreeNodeFactory(treeModel);
+			TreeNodeVisitable treeNode = TreeNodeFactory.createNode(key);
+
+			TreeVisitor messagePicker = new TreeNodePicker();
+			logger.debug(" begin to walk into tree, and pick them into a list");
+			treeNode.accept(messagePicker);
+			list = ((TreeNodePicker) messagePicker).getResult();
+			list.remove(key); // remove the parent
+
+		} catch (Exception e) {
+			logger.error(e);
+		}
+		return list;
+
+	}
 
 }

@@ -22,7 +22,6 @@ import java.util.concurrent.FutureTask;
 import org.apache.log4j.Logger;
 
 import com.jdon.jivejdon.manager.listener.ThreadViewCountManager;
-import com.jdon.jivejdon.manager.subscription.SubscriptionNotify;
 import com.jdon.jivejdon.model.Forum;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumMessageReply;
@@ -44,16 +43,13 @@ public class ThreadBuilder {
 
 	private ForumAbstractFactory forumAbstractFactory;
 
-	private SubscriptionNotify subscriptionNotify;
-
 	private ThreadViewCountManager threadViewNumberManager;
 
-	public ThreadBuilder(MessageDao messageDao, TagRepository tagRepository, MessageQueryDao messageQueryDao, SubscriptionNotify subscriptionNotify,
+	public ThreadBuilder(MessageDao messageDao, TagRepository tagRepository, MessageQueryDao messageQueryDao,
 			ThreadViewCountManager threadViewNumberManager) {
 		this.messageDao = messageDao;
 		this.tagRepository = tagRepository;
 		this.messageQueryDao = messageQueryDao;
-		this.subscriptionNotify = subscriptionNotify;
 		this.threadViewNumberManager = threadViewNumberManager;
 	}
 

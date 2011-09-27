@@ -15,8 +15,6 @@
  */
 package com.jdon.jivejdon.repository.dao.filter;
 
-import org.apache.log4j.Logger;
-
 import com.jdon.annotation.Introduce;
 import com.jdon.annotation.pointcut.Around;
 import com.jdon.jivejdon.Constants;
@@ -34,7 +32,6 @@ import com.jdon.jivejdon.util.ContainerUtil;
  */
 @Introduce("modelCache")
 public class ForumDaoCache extends ForumDaoSql {
-	private final static Logger logger = Logger.getLogger(ForumDaoCache.class);
 
 	public ForumDaoCache(JdbcTempSource jdbcTempSource, ContainerUtil containerUtil, Constants constants, MessageInitFactory messageFactory) {
 		super(jdbcTempSource, containerUtil, messageFactory, constants);

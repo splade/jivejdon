@@ -15,8 +15,6 @@
  */
 package com.jdon.jivejdon.repository.listener;
 
-import org.apache.log4j.Logger;
-
 import com.jdon.annotation.Consumer;
 import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.domain.message.DomainEventHandler;
@@ -24,7 +22,6 @@ import com.jdon.jivejdon.repository.dao.MessageQueryDao;
 
 @Consumer("accountMessageCounter")
 public class AccountMessageCounter implements DomainEventHandler {
-	private final static Logger logger = Logger.getLogger(AccountMessageCounter.class);
 	private MessageQueryDao messageQueryDao;
 
 	public AccountMessageCounter(MessageQueryDao messageQueryDao) {
@@ -33,7 +30,6 @@ public class AccountMessageCounter implements DomainEventHandler {
 	}
 
 	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-
 		Long userId = (Long) event.getDomainMessage().getEventSource();
 		int count = messageQueryDao.getMessageCountOfUser(userId);
 		event.getDomainMessage().setEventResult(count);

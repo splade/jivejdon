@@ -15,11 +15,11 @@
  */
 package com.jdon.jivejdon.repository.dao;
 
+import com.jdon.domain.model.cache.ModelKey;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumMessageReply;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.message.MessageVO;
-import com.jdon.model.ModelKey;
 
 /**
  * @author <a href="mailto:banq@163.com">banq</a>

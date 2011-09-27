@@ -196,6 +196,11 @@ public class ForumMessage extends ForumModel implements Cloneable {
 		}
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param newForumMessageInputparamter
+	 */
 	public synchronized void update(ForumMessage newForumMessageInputparamter) {
 		try {
 			updateMessage(newForumMessageInputparamter);
