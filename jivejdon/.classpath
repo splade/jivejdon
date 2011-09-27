@@ -24,7 +24,7 @@
 	<classpathentry kind="lib" path="application/WEB-INF/lib/jdon-jdbcTemp.jar"/>
 	<classpathentry kind="lib" path="application/WEB-INF/lib/jdon-struts1x.jar"/>
 	<classpathentry kind="lib" path="application/WEB-INF/lib/jdonAccessory.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/jdonFramework.jar"/>
+	<classpathentry kind="lib" path="application/WEB-INF/lib/jdonFramework.jar" sourcepath="/jdonframework"/>
 	<classpathentry kind="lib" path="application/WEB-INF/lib/jstl-1.0.2.jar"/>
 	<classpathentry kind="lib" path="application/WEB-INF/lib/log4j.jar"/>
 	<classpathentry kind="lib" path="application/WEB-INF/lib/lucene-analyzers.jar"/>
@@ -63,13 +63,13 @@
 	<classpathentry kind="lib" path="lib/jf/disruptor-2.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/jf/ehcache-1.6.2.jar"/>
 	<classpathentry kind="lib" path="lib/jf/jdom.jar"/>
-	<classpathentry kind="lib" path="lib/jf/jdonFramework.jar"/>
+	<classpathentry kind="lib" path="lib/jf/jdonFramework.jar" sourcepath="/jdonframework"/>
 	<classpathentry kind="lib" path="lib/jf/log4j.jar"/>
 	<classpathentry kind="lib" path="lib/jf/picocontainer-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/jf/scannotation-1.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/jfa/jdon-jdbcTemp.jar"/>
-	<classpathentry kind="lib" path="lib/jfa/jdon-struts1x.jar"/>
-	<classpathentry kind="lib" path="lib/jfa/jdonAccessory.jar"/>
+	<classpathentry kind="lib" path="lib/jfa/jdon-struts1x.jar" sourcepath="/JdonAccessory"/>
+	<classpathentry kind="lib" path="lib/jfa/jdonAccessory.jar" sourcepath="/JdonAccessory"/>
 	<classpathentry kind="lib" path="lib/junit3.8.1/ant-junit.jar"/>
 	<classpathentry kind="lib" path="lib/junit3.8.1/junit.jar"/>
 	<classpathentry kind="lib" path="lib/mysql/mysql-connector-java-3.0.14-production-bin.jar"/>

@@ -50,7 +50,6 @@ public class SubscriptionNotify implements DomainEventHandler {
 	private void sendSub(Subscribed subscribed) {
 		try {
 			Collection<Subscription> subscriptions = subscriptionDao.getSubscriptionsForsubscribed(subscribed.getSubscribeId());
-			int i = 1;
 			for (Subscription sub : subscriptions) {
 
 				sub.setSubscribed(subscribed);

@@ -2,8 +2,10 @@
 <%@ include file="../common/503warn.jsp"%> <%-- for search spammer bot  --%>
 
 <%-- (urlrewrite.xml)/thread/nav/([0-9]+)/([0-9]+) == > /forum/messageNavList.shtml  == > MessageListNavAction ==>navf.jsp ==> (urlrewrite.xml)/thread/([0-9]+)/([0-9]+) --%>
-<% String threadId = (String)request.getParameter("thread"); %>
-<% int start = ((Integer)request.getAttribute("start")).intValue();
+
+<% 
+int start = ((Integer)request.getAttribute("start")).intValue();
+long threadId = ((Long)request.getAttribute("threadId")).longValue();
 
 String url = request.getContextPath() +"/thread";
 if (start == 0)

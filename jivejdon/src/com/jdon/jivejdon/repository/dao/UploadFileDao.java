@@ -17,7 +17,6 @@ package com.jdon.jivejdon.repository.dao;
 
 import java.util.Collection;
 
-import com.jdon.annotation.model.OnEvent;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.model.attachment.UploadFile;
 
@@ -28,7 +27,7 @@ import com.jdon.jivejdon.model.attachment.UploadFile;
 public interface UploadFileDao {
 	UploadFile getUploadFile(String objectId);
 
-	@OnEvent("loadUploadEntity")
+	// @OnEvent("loadUploadEntity")
 	byte[] loadUploadEntity(String objectId);
 
 	void createUploadFile(UploadFile uploadFile);

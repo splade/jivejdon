@@ -67,7 +67,7 @@ public class ThreadPrevNexListAction extends Action {
 
 			if (index != -1) {
 				while (li.nextIndex() != index) {
-					Object o = li.next();
+					li.next();
 				}
 			}
 
@@ -76,7 +76,7 @@ public class ThreadPrevNexListAction extends Action {
 			ListIterator li2 = threads.listIterator();
 			if (index != -1) {
 				while (li2.nextIndex() != index) {
-					Object o = li2.next();
+					li2.next();
 				}
 			}
 			request.setAttribute("ThreadsPrevNext2", li2);// for below

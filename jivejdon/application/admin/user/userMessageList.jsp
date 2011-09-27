@@ -28,11 +28,8 @@
 <form action="<%=request.getContextPath()%>/admin/user/deleteUserMessages.shtml" method="post" onsubmit="return delConfirm()">
  <input name="method" type="hidden" value="deleteUserMessages"/>
  <input name="username" type="hidden" value="<bean:write name="username"/>"/>
+ 删除该用户资料:<input type="checkbox" name="deluserprofile"  value="/admin/user/removeAccountForm.shtml?action=delete&username=<bean:write name="username"/>">
  <input type="submit" value=" 删除该用户所有帖子 "/>
-</form>
-<form action="<%=request.getContextPath()%>/admin/user/removeAccountForm.shtml?action=delete" method="post" onsubmit="return delConfirm()">
- <input name="username" type="hidden" value="<bean:write name="username"/>"/>
- <input type="submit" value=" 删除该用户基本资料 "/>
 </form>
 
 

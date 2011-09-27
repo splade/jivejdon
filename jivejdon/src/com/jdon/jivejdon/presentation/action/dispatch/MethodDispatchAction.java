@@ -21,6 +21,10 @@ public class MethodDispatchAction extends DispatchAction {
 		String username = request.getParameter("username");
 		ForumMessageService forumMessageService = (ForumMessageService) WebAppUtil.getService("forumMessageService", request);
 		forumMessageService.deleteUserMessages(username);
+
+		String deluserprofile = request.getParameter("deluserprofile");
+		if (deluserprofile != null)
+			request.getRequestDispatcher(deluserprofile).forward(request, response);
 		return mapping.findForward("deleteUserMessages");
 	}
 

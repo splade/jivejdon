@@ -175,38 +175,4 @@ public class Newline implements MessageRenderSpecification {
 		}
 		return codeIndeces;
 	}
-
-	/**
-	 * Replaces newline characters with the HTML equivalent. This method does
-	 * not work around code sections
-	 * 
-	 * @param input
-	 *            the text to be converted.
-	 * @return the input string with newline characters replaced with HTML
-	 *         newline tags..
-	 */
-	private static String convertNewlines(String input) {
-		char[] chars = input.toCharArray();
-		int cur = 0;
-		int len = chars.length;
-		StringBuffer buf = new StringBuffer(len);
-
-		// Loop through each character lookin for newlines.
-		for (int i = 0; i < len; i++) {
-			// If we've found a Unix newline, add BR tag.
-			if (chars[i] == '\n') {
-				buf.append(chars, cur, i - cur).append(BR_TAG);
-				cur = i + 1;
-			}
-			// If we've found a Windows newline, add BR tag.
-			else if (chars[i] == '\r' && i < len - 1 && chars[i + 1] == '\n') {
-				buf.append(chars, cur, i - cur).append(BR_TAG);
-				i++;
-				cur = i + 1;
-			}
-		}
-		// Add whatever chars are left to buffer.
-		buf.append(chars, cur, len - cur);
-		return buf.toString();
-	}
 }

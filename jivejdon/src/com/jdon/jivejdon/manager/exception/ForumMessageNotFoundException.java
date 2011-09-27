@@ -20,11 +20,16 @@ package com.jdon.jivejdon.manager.exception;
  */
 public class ForumMessageNotFoundException extends Exception {
 
-    public ForumMessageNotFoundException() {
-        super();
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8729530381983300203L;
 
-    public ForumMessageNotFoundException(String msg) {
-        super( msg );
-    }
+	public ForumMessageNotFoundException() {
+		super();
+	}
+
+	public ForumMessageNotFoundException(String msg) {
+		super(msg);
+	}
 }

@@ -54,21 +54,6 @@ public class LazyLoaderRole {
 		return new DomainMessage(forumMessage);
 	}
 
-	@Send("loadUploadEntity")
-	public DomainMessage loadUploadEntity(String objectId) {
-		return new DomainMessage(objectId);
-	}
-
-	@Send("loadUploadFiles")
-	public DomainMessage loadUploadFiles(String parentId) {
-		return new DomainMessage(parentId);
-	}
-
-	@Send("loadTags")
-	public DomainMessage loadTags(Long forumThreadId) {
-		return new DomainMessage(forumThreadId);
-	}
-
 	@Send("loadMessageDigCount")
 	public DomainMessage loadMessageDigCount(Long messageId) {
 		return new DomainMessage(messageId);

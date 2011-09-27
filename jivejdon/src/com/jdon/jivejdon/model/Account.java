@@ -10,6 +10,7 @@ import com.jdon.jivejdon.model.account.AccountMessageVO;
 import com.jdon.jivejdon.model.account.Attachment;
 import com.jdon.jivejdon.model.attachment.UploadFile;
 import com.jdon.jivejdon.model.auth.Role;
+import com.jdon.jivejdon.model.message.upload.UploadLazyLoader;
 import com.jdon.jivejdon.model.repository.LazyLoaderRole;
 import com.jdon.jivejdon.model.shortmessage.AccountSMState;
 import com.jdon.jivejdon.model.subscription.SubscribedState;
@@ -51,11 +52,6 @@ public class Account {
 
 	private final AccountSMState accountSMState;
 
-	private Attachment attachment;
-
-	@Inject
-	public LazyLoaderRole lazyLoaderRole;
-
 	private Reward reward;
 
 	private String passwdanswer;
@@ -63,6 +59,14 @@ public class Account {
 	private String passwdtype;
 
 	private boolean anonymous;
+
+	private Attachment attachment;
+
+	@Inject
+	public LazyLoaderRole lazyLoaderRole;
+
+	@Inject
+	public UploadLazyLoader uploadLazyLoader;
 
 	public Account() {
 		subscribedState = new SubscribedState(new AccountSubscribed(this));
@@ -297,12 +301,18 @@ public class Account {
 		this.accountMessageVO.update(count);
 	}
 
+	/**
+	 * <logic:notEmpty name="forumMessage" property="account.uploadFile"> <img
+	 * src=
+	 * "<%=request.getContextPath() %>/img/uploadShowAction.shtml?oid=<bean:write name="
+	 * forumMessage
+	 * " property="account.userId"/>&id=<bean:write name="forumMessage
+	 * " property="account.uploadFile.id"/>" border='0' /> </logic:notEmpty>
+	 * 
+	 * @return
+	 */
 	public UploadFile getUploadFile() {
-		UploadFile uploadFile = this.attachment.getUploadFile();
-		if (uploadFile != null) {// only for display, so preload image data
-			uploadFile.preloadData();
-		}
-		return uploadFile;
+		return this.attachment.getUploadFile();
 	}
 
 	public void setUploadFile(boolean update) {

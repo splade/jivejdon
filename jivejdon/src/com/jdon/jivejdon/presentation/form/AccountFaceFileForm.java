@@ -25,8 +25,6 @@ public class AccountFaceFileForm extends BaseForm {
 
 	private UploadHelper uploadHelper;
 
-	private String contentType;
-
 	private String id;
 
 	private String description;
@@ -38,8 +36,6 @@ public class AccountFaceFileForm extends BaseForm {
 	private String parentId;
 
 	private String tempId;
-
-	private byte[] data;
 
 	private String path;
 
@@ -57,14 +53,6 @@ public class AccountFaceFileForm extends BaseForm {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
-	}
-
-	public void setData(byte[] data) {
-		this.data = data;
 	}
 
 	public boolean isAuthenticated() {

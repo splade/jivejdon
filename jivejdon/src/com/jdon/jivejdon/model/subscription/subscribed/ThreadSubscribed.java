@@ -33,7 +33,7 @@ public class ThreadSubscribed implements Subscribed {
 	}
 
 	public int getSubscribeType() {
-		return this.TYPE;
+		return ThreadSubscribed.TYPE;
 	}
 
 	public void updateSubscriptionCount(int count) {

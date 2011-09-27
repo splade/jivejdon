@@ -308,7 +308,7 @@ public class ForumThread extends ForumModel {
 			this.setRootMessage(forumMessage);
 		}
 
-		this.threadTagsVO.changeTags(forumMessage.getMessageVO().getTagTitle());
+		changeTags(forumMessage.getMessageVO().getTagTitle());
 	}
 
 	public boolean isLeaf(ForumMessage forumMessage) {

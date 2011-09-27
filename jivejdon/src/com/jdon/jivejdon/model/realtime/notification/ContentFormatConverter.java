@@ -45,7 +45,6 @@ public class ContentFormatConverter {
 	public Notification convertContent(Notification notification) {
 		if (this.isEmpty())
 			return notification;
-		String body = "";
 		try {
 			ForumMessage message = (ForumMessage) notification.getSource();
 			String newSubscribedUrl = StringUtil.replace(notifyUrlTemp, "threadId", message.getForumThread().getThreadId().toString());

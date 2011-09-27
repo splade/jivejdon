@@ -143,10 +143,6 @@ public class ForumMessageShell implements ForumMessageService {
 
 			messageKernel.addReplyMessage(em);
 
-			// forumMessageReply = (ForumMessageReply)
-			// getMessage(forumMessageReply.getMessageId());
-			// for frontpage result.jsp display
-			// em.setModelIF(forumMessageReply);
 		} catch (Exception e) {
 			logger.error(e);
 			em.setErrors(Constants.ERRORS);
@@ -203,15 +199,10 @@ public class ForumMessageShell implements ForumMessageService {
 			// and updateMessage, set the flg g is modified, so inFilterManager
 			// can know,
 			messageInputeFilter.updateMessage(em);// newForumMessageInputparamter
-			// in em, not
-			// forumMessage
+			// in em, not forumMessage
 			// update message in persistence such as database
 			messageKernel.updateMessage(em);
 
-			// ForumMessage forumMessage =
-			// messageKernel.getMessage(newForumMessageInputparamter.getMessageId());
-			// for frontpage result.jsp display
-			// em.setModelIF(forumMessage);
 		} catch (Exception e) {
 			logger.error(e);
 			em.setErrors(Constants.ERRORS);
@@ -230,8 +221,10 @@ public class ForumMessageShell implements ForumMessageService {
 		forumMessage = messageKernel.getMessage(forumMessage.getMessageId());
 		if (forumMessage == null)
 			return;
-		if (!isAuthenticated(forumMessage))
+		if (!isAuthenticated(forumMessage)) {
+			em.setErrors(Constants.NOPERMISSIONS);
 			return;
+		}
 		em.setModelIF(forumMessage);
 		try {
 			messageInputeFilter.deleteMessage(em);

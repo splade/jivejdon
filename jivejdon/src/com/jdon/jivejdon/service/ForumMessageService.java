@@ -34,18 +34,19 @@ public interface ForumMessageService {
 	ForumMessage initReplyMessage(EventModel em);
 
 	/**
-	 * has Authorization ; no cache Intercept it Called by using message's
-	 * modify or deletion at first accessing this method must be checked. it is
-	 * configured in jdonframework.xml
+	 * has Authorization ; no cache Intercepts it, it is Called by message's
+	 * modify or deletion first time accessing this method must be checked. it
+	 * is configured in jdonframework.xml
 	 * 
 	 * <getMethod name="findMessage"/>
 	 */
 	EventModel findMessage(Long messageId);
 
 	/**
-	 * no Authorization ; cache Intercept it Called by using message List, not
-	 * for modify or deletion now MessageListAction or
-	 * MessageRecursiveListAction.java call this method
+	 * no Authorization ; cache Intercepts it, Called by message List, not for
+	 * modify or deletion .
+	 * 
+	 * now MessageListAction or MessageRecursiveListAction call this method
 	 */
 	ForumMessage getMessage(Long messageId);
 

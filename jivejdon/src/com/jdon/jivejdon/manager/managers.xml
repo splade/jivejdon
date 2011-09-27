@@ -89,7 +89,7 @@
 		<component name="hitConf"
 			class="com.jdon.jivejdon.manager.throttle.hitkey.HitConf">
 			<constructor value="5" />       <!-- access Read limit for CustomizedThrottle -->
-			<constructor value="3" />    	<!-- second -->
+			<constructor value="2" />    	<!-- second -->
 		</component>
 
 		<component name="iPBanListManager"
@@ -186,7 +186,7 @@
 		
 		<component name="threadViewCountParameter"
 			class="com.jdon.jivejdon.manager.listener.ThreadViewCountParameter">
-			<constructor value="60" />
+			<constructor value="600" />
 			<constructor value="6000" /> <!-- 60*60s unit: s -->
 		</component>
 		

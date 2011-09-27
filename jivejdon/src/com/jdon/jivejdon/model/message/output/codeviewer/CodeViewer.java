@@ -278,13 +278,14 @@ public class CodeViewer {
 													// thread-safe)
 		// Hashtable usedReservedWords = new Hashtable(); // < Java2
 		// (thread-safe)
-		int i = 0, startAt = 0;
+		int i = 0;
+
 		char ch;
 		StringBuffer temp = new StringBuffer();
 		while (i < line.length()) {
 			temp.setLength(0);
 			ch = line.charAt(i);
-			startAt = i;
+
 			// 65-90, uppercase letters
 			// 97-122, lowercase letters
 			while (i < line.length() && ((ch >= 65 && ch <= 90) || (ch >= 97 && ch <= 122))) {

@@ -20,14 +20,19 @@ import java.util.Collection;
 
 import com.jdon.controller.model.Model;
 
-public class CachedCollection extends Model{
-	
+public class CachedCollection extends Model {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3950411446182721663L;
+
 	private String name;
-	
+
 	private int allCount;
-	
+
 	private Collection list;
-	
+
 	public CachedCollection(String name, Collection list) {
 		super();
 		this.name = name;
@@ -57,7 +62,5 @@ public class CachedCollection extends Model{
 	public void setAllCount(int allCount) {
 		this.allCount = allCount;
 	}
-	
-	
-	
+
 }

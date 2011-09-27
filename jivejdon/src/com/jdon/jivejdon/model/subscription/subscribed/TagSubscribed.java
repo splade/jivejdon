@@ -40,7 +40,7 @@ public class TagSubscribed implements Subscribed {
 	}
 
 	public int getSubscribeType() {
-		return this.TYPE;
+		return TagSubscribed.TYPE;
 	}
 
 	public void updateSubscriptionCount(int count) {

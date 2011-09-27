@@ -35,7 +35,8 @@ public abstract class ThreadEtagFilter extends ModelListAction {
 	public ActionForward execute(ActionMapping actionMapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		int expire = 10 * 60;
+		// browser cache expire time;
+		int expire = 2 * 60;
 		if (request.getParameter("nocache") != null) { // for just modified and
 			// view it
 			expire = 0;

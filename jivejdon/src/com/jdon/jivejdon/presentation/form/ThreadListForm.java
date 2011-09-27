@@ -19,8 +19,13 @@ package com.jdon.jivejdon.presentation.form;
 import com.jdon.strutsutil.ModelListForm;
 
 public class ThreadListForm extends ModelListForm {
-	
-	public ThreadListForm(){
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8134126745171582441L;
+
+	public ThreadListForm() {
 		this.setCount(50);
 	}
 

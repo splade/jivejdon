@@ -34,6 +34,11 @@ import com.jdon.model.ModelForm;
 public abstract class BaseForm extends ModelForm {
 	/* Public Methods */
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
 		ActionErrors actionErrors = null;
 		ArrayList errorList = new ArrayList();

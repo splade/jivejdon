@@ -64,10 +64,8 @@ public class AuthorNameFormat implements MessageRenderSpecification {
 		Pattern p = Pattern.compile(patt);
 		Matcher m = p.matcher(str);
 		StringBuffer sb = new StringBuffer();
-		int i = 0;
 		boolean result = m.find();
 		while (result) {
-			i++;
 			m.appendReplacement(sb, authorURL.replaceAll("#user#", m.group(2)));
 			result = m.find();
 		}

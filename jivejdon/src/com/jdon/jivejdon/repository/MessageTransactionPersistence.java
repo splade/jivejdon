@@ -1,4 +1,4 @@
-package com.jdon.jivejdon.service.imp.message;
+package com.jdon.jivejdon.repository;
 
 import org.apache.log4j.Logger;
 
@@ -7,8 +7,6 @@ import com.jdon.annotation.model.OnEvent;
 import com.jdon.jivejdon.model.Forum;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumMessageReply;
-import com.jdon.jivejdon.repository.ForumFactory;
-import com.jdon.jivejdon.repository.TagRepository;
 import com.jdon.jivejdon.repository.builder.MessageRepositoryDao;
 import com.jdon.jivejdon.service.util.JtaTransactionUtil;
 

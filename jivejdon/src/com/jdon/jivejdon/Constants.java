@@ -15,7 +15,6 @@
  */
 package com.jdon.jivejdon;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,30 +58,30 @@ public class Constants {
 	public static final String IP_PERMITTED = "IP.Permitted";
 
 	public static final String EXISTED_ERROR = "USER.CREATE.ERROR";
-	
+
 	private static String date_format = "yyyy-MM-dd HH:mm";
-	
-	public Constants(String format){
+
+	public Constants(String format) {
 		date_format = format;
 	}
-	
+
 	public String getDateTimeDisp(String datetime) {
 		if ((datetime == null) || (datetime.equals("")))
 			return "";
 		long datel = Long.parseLong(datetime);
-		return  new SimpleDateFormat(date_format).format(new Date(datel));
+		return new SimpleDateFormat(date_format).format(new Date(datel));
 	}
 
 	public static String getDefaultDateTimeDisp(String datetime) {
 		if ((datetime == null) || (datetime.equals("")))
 			return "";
 		long datel = Long.parseLong(datetime);
-		return  new SimpleDateFormat(date_format).format(new Date(datel));
+		return new SimpleDateFormat(date_format).format(new Date(datel));
 	}
 
 	public static Date parseDateTime(String datetime) {
 		try {
-			return  new SimpleDateFormat(date_format).parse(datetime);
+			return new SimpleDateFormat(date_format).parse(datetime);
 		} catch (ParseException e) {
 		}
 		return new Date();
@@ -90,7 +89,7 @@ public class Constants {
 
 	public Date date_parse(String dateS) {
 		try {
-			return  new SimpleDateFormat(date_format).parse(dateS);
+			return new SimpleDateFormat(date_format).parse(dateS);
 		} catch (ParseException e) {
 			return null;
 		}

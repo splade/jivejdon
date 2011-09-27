@@ -18,7 +18,6 @@ package com.jdon.jivejdon.model.thread;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.jdon.domain.message.DomainMessage;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.ThreadTag;
 import com.jdon.jivejdon.model.subscription.subscribed.TagSubscribed;
@@ -33,8 +32,6 @@ public class ThreadTagsVO {
 
 	private Collection lasttags;
 
-	private boolean reload;
-
 	public ThreadTagsVO(ForumThread forumThread) {
 		super();
 		this.forumThread = forumThread;
@@ -43,8 +40,6 @@ public class ThreadTagsVO {
 	}
 
 	public Collection getTags() {
-		if (reload)
-			reloadChangedTags();
 		return tags;
 	}
 
@@ -71,18 +66,7 @@ public class ThreadTagsVO {
 		this.lasttags = this.tags;
 		setTags(newtags);
 		forumThread.repositoryRole.changeTags(forumThread);
-		reload = true;
-	}
-
-	private void reloadChangedTags() {
-		reload = false;
-		// this event maybe run before last evnet:changeTags
-		DomainMessage message = this.forumThread.lazyLoaderRole.loadTags(forumThread.getThreadId());
-		this.tags = (Collection) message.getEventResult();
-		setTags(this.tags);
-
 		subscriptionNotify();
-
 	}
 
 	public void subscriptionNotify() {

@@ -19,7 +19,7 @@ import com.jdon.annotation.model.Inject;
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.message.upload.UploadHelper;
-import com.jdon.jivejdon.model.repository.LazyLoaderRole;
+import com.jdon.jivejdon.model.message.upload.UploadLazyLoader;
 
 /**
  * @author banq(http://www.jdon.com)
@@ -32,7 +32,7 @@ public class UploadFile extends com.jdon.strutsutil.file.UploadFile {
 	private UploadHelper uploadHelper;
 
 	@Inject
-	private LazyLoaderRole domainEvents;
+	private UploadLazyLoader domainEvents;
 
 	private DomainMessage imgDataAsyncResult;
 
@@ -87,14 +87,6 @@ public class UploadFile extends com.jdon.strutsutil.file.UploadFile {
 		} catch (NumberFormatException e) {
 			return 0;
 		}
-	}
-
-	public LazyLoaderRole getDomainEvents() {
-		return domainEvents;
-	}
-
-	public void setDomainEvents(LazyLoaderRole domainEvents) {
-		this.domainEvents = domainEvents;
 	}
 
 }

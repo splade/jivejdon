@@ -22,10 +22,7 @@
 			class="com.jdon.jivejdon.service.imp.message.ForumMessageQueryServiceImp"/>
 			
 			-->
-			
-		<component name="messageTransactionPersistence"
-			class="com.jdon.jivejdon.service.imp.message.MessageTransactionPersistence"/>
-
+	
 		<component name="messageInputeFilter"
 			class="com.jdon.jivejdon.service.imp.message.MessageInputeFilter"/>
 			

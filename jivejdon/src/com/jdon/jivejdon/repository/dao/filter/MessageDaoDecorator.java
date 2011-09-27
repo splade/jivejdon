@@ -15,10 +15,9 @@
  */
 package com.jdon.jivejdon.repository.dao.filter;
 
-import org.apache.log4j.Logger;
-
 import com.jdon.annotation.Introduce;
 import com.jdon.annotation.pointcut.Around;
+import com.jdon.domain.model.cache.ModelKey;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumMessageReply;
@@ -32,7 +31,6 @@ import com.jdon.jivejdon.repository.dao.sql.MessageDaoSql;
 import com.jdon.jivejdon.repository.dao.util.MessagePageIteratorSolver;
 import com.jdon.jivejdon.repository.search.MessageSearchRepository;
 import com.jdon.jivejdon.util.ContainerUtil;
-import com.jdon.model.ModelKey;
 import com.jdon.model.query.PageIteratorSolver;
 
 /**
@@ -43,7 +41,6 @@ import com.jdon.model.query.PageIteratorSolver;
  */
 @Introduce("modelCache")
 public class MessageDaoDecorator extends MessageDaoSql {
-	private final static Logger logger = Logger.getLogger(MessageDaoDecorator.class);
 
 	protected PageIteratorSolver pageIteratorSolver;
 	protected MessageSearchRepository messageSearchProxy;

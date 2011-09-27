@@ -34,7 +34,7 @@ public class AccountSubscribed implements Subscribed {
 	}
 
 	public int getSubscribeType() {
-		return this.TYPE;
+		return AccountSubscribed.TYPE;
 	}
 
 	public void updateSubscriptionCount(int count) {

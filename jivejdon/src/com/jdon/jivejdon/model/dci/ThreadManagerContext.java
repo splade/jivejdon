@@ -45,7 +45,6 @@ public class ThreadManagerContext {
 
 		ThreadRoleIF threadRole = (ThreadRoleIF) roleAssinger.assign(delforumMessage, new ThreadRole());
 		threadRole.afterdelAction(domainMessage);
-
 	}
 
 }

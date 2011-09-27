@@ -20,6 +20,7 @@ import java.util.Collection;
 
 import org.apache.log4j.Logger;
 
+import com.jdon.domain.model.cache.ModelKey;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.manager.TreeManager;
 import com.jdon.jivejdon.manager.filter.OutFilterManager;
@@ -34,7 +35,6 @@ import com.jdon.jivejdon.repository.UploadRepository;
 import com.jdon.jivejdon.repository.dao.MessageDao;
 import com.jdon.jivejdon.repository.dao.MessageQueryDao;
 import com.jdon.jivejdon.repository.dao.PropertyDao;
-import com.jdon.model.ModelKey;
 
 public class MessageBuilder {
 	private final static Logger logger = Logger.getLogger(MessageBuilder.class);
@@ -151,6 +151,8 @@ public class MessageBuilder {
 		try {
 			logger.debug(" embed getAccount ");
 			Account account = accountFactory.getFullAccount(forumMessage.getAccount());
+			if (account == null || account.getUserId().isEmpty())
+				throw new Exception("set null account or userId is null " + forumMessage.getMessageId());
 			forumMessage.setAccount(account);
 		} catch (Exception e) {
 			String error = e + " embedAccount forumMessageId=" + forumMessage.getMessageId();

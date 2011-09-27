@@ -21,7 +21,6 @@ import java.util.List;
 
 import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
 import com.jdon.controller.config.DTDEntityResolver;
@@ -31,95 +30,91 @@ import com.jdon.util.FileLocator;
 
 /**
  * @author <a href="mailto:banqJdon <AT>jdon.com">banq </a>
- *  
+ * 
  */
 
 public class PermissionXmlParser {
-    private final static String module = PermissionXmlParser.class.getName();
-    private FileLocator fileLocator = new FileLocator();
-    
-    private String configFileName;
-       
+	private final static String module = PermissionXmlParser.class.getName();
+	private FileLocator fileLocator = new FileLocator();
 
-    /**
-     * @param permissionConfigureName
-     */
-    public PermissionXmlParser(String configFileName) {
-        this.configFileName = configFileName;
-    }
-    
-    public PermissionRule parse()  {
-      PermissionRule pr = null;
-      try {
-        if (configFileName == null)
-           return new PermissionRule();
-        
-        Document doc = buildDocument(configFileName);       
-        if (doc == null)
-          return new PermissionRule();     
-        
-        Element root = doc.getRootElement();
+	private String configFileName;
 
-        pr = parse(root);
+	/**
+	 * @param permissionConfigureName
+	 */
+	public PermissionXmlParser(String configFileName) {
+		this.configFileName = configFileName;
+	}
 
-        Debug.logVerbose("<!--   config load finished -->", module);
-      } catch (Exception ex) {
-        Debug.logError("configure FileName: " + configFileName + " parsed error: " + ex, module);
-      }
-      return pr;
-    }
+	public PermissionRule parse() {
+		PermissionRule pr = null;
+		try {
+			if (configFileName == null)
+				return new PermissionRule();
 
-    private Document buildDocument(String configFileName)  {    
-      Debug.logVerbose(" locate configure file  :" + configFileName, module);    
-      try {
-          InputStream xmlStream = fileLocator.getConfPathXmlStream(configFileName);    
-          if (xmlStream == null){
-              Debug.logVerbose("can't locate file:" + configFileName, module);
-              return null;
-          }else{
-              Debug.logVerbose(" configure file found :" + xmlStream, module);
-          }
+			Document doc = buildDocument(configFileName);
+			if (doc == null)
+				return new PermissionRule();
 
-          SAXBuilder builder = new SAXBuilder();
-          builder.setEntityResolver(new DTDEntityResolver());
-          Document doc = builder.build(xmlStream);
-          Debug.logVerbose(" got mapping file ", module);
-          return doc;
-      } catch (Exception e) {
-          Debug.logError(" JDOMException error: " + e, module);
-          return null;
-      }
-    }
+			Element root = doc.getRootElement();
 
-    private PermissionRule parse(Element root) throws Exception {
-    	
-      PermissionRule pr = new PermissionRule();  
-      List services = root.getChildren("service");      
-      Iterator iter = services.iterator();
-      while (iter.hasNext()) {
-        Element service = (Element) iter.next();
-        String refName = service.getAttributeValue("ref");
-        if (service.getChildren("method") != null) {
-          Iterator i = service.getChildren("method").iterator();
-          while (i.hasNext()) {
-            Element method = (Element) i.next();
-            String methodName = method.getAttributeValue("name");
-            Debug.logVerbose(" method name=" + methodName, module);
-            List roles = method.getChildren("role");
-            Iterator ii = roles.iterator();
-            while (ii.hasNext()) {
-                Element role = (Element)ii.next();
-                String roleName = role.getText();
-                Debug.logVerbose(" role name=" + roleName, module);
-                pr.putRule(refName, methodName, roleName);                
-            }
-          }
-        }
-      }
-      return pr;
-    }
-    
-  
-    
-  
+			pr = parse(root);
+
+			Debug.logVerbose("<!--   config load finished -->", module);
+		} catch (Exception ex) {
+			Debug.logError("configure FileName: " + configFileName + " parsed error: " + ex, module);
+		}
+		return pr;
+	}
+
+	private Document buildDocument(String configFileName) {
+		Debug.logVerbose(" locate configure file  :" + configFileName, module);
+		try {
+			InputStream xmlStream = fileLocator.getConfPathXmlStream(configFileName);
+			if (xmlStream == null) {
+				Debug.logVerbose("can't locate file:" + configFileName, module);
+				return null;
+			} else {
+				Debug.logVerbose(" configure file found :" + xmlStream, module);
+			}
+
+			SAXBuilder builder = new SAXBuilder();
+			builder.setEntityResolver(new DTDEntityResolver());
+			Document doc = builder.build(xmlStream);
+			Debug.logVerbose(" got mapping file ", module);
+			return doc;
+		} catch (Exception e) {
+			Debug.logError(" JDOMException error: " + e, module);
+			return null;
+		}
+	}
+
+	private PermissionRule parse(Element root) throws Exception {
+
+		PermissionRule pr = new PermissionRule();
+		List services = root.getChildren("service");
+		Iterator iter = services.iterator();
+		while (iter.hasNext()) {
+			Element service = (Element) iter.next();
+			String refName = service.getAttributeValue("ref");
+			if (service.getChildren("method") != null) {
+				Iterator i = service.getChildren("method").iterator();
+				while (i.hasNext()) {
+					Element method = (Element) i.next();
+					String methodName = method.getAttributeValue("name");
+					Debug.logVerbose(" method name=" + methodName, module);
+					List roles = method.getChildren("role");
+					Iterator ii = roles.iterator();
+					while (ii.hasNext()) {
+						Element role = (Element) ii.next();
+						String roleName = role.getText();
+						Debug.logVerbose(" role name=" + roleName, module);
+						pr.putRule(refName, methodName, roleName);
+					}
+				}
+			}
+		}
+		return pr;
+	}
+
 }

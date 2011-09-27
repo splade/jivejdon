@@ -20,17 +20,21 @@ import java.io.Serializable;
 import org.compass.annotations.Searchable;
 import org.compass.annotations.SearchableProperty;
 
-
 /**
  * @author <a href="mailto:banq@163.com">banq</a>
- *
+ * 
  */
 @Searchable
 public class Property implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2505749413671249227L;
+
 	private String name;
 
-    @SearchableProperty
+	@SearchableProperty
 	private String value;
 
 	private String type;
@@ -56,7 +60,8 @@ public class Property implements Serializable {
 	}
 
 	/**
-	 * @param name The name to set.
+	 * @param name
+	 *            The name to set.
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -70,7 +75,8 @@ public class Property implements Serializable {
 	}
 
 	/**
-	 * @param value The value to set.
+	 * @param value
+	 *            The value to set.
 	 */
 	public void setValue(String value) {
 		this.value = value;
@@ -88,7 +94,8 @@ public class Property implements Serializable {
 	}
 
 	/**
-	 * @param type The type to set.
+	 * @param type
+	 *            The type to set.
 	 */
 	public void setType(String type) {
 		this.type = type;

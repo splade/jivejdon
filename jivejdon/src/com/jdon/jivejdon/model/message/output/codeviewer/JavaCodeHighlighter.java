@@ -32,7 +32,6 @@ import com.jdon.util.StringUtil;
 public class JavaCodeHighlighter implements MessageRenderSpecification {
 	private final static String module = JavaCodeHighlighter.class.getName();
 
-	private static final String NEW_LINE = System.getProperty("line.separator");
 	private String commentStart;
 	private String commentEnd;
 	private String stringStart;
@@ -53,8 +52,6 @@ public class JavaCodeHighlighter implements MessageRenderSpecification {
 	// for formatting code with an html table and printing line numbers
 	private boolean applyTableSurround; // surround code with an html table
 	private boolean showLineCount; // show line numbers
-	private static final int ALIGNLEFT = 0; // left-side alignment
-	private static final int ALIGNRIGHT = 1; // right-side alignment
 	// private int alignPosition;
 	private String tableBorderColor;
 	private String tableLinePanelBackgroundColor;
