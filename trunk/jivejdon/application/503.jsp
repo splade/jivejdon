@@ -21,7 +21,7 @@ if (!errorBlocker.checkRate(request.getRemoteAddr(), 10))
 
 </head>
 <body>
-对不起 刷新太快，被拒绝。两种解决方式：
+对不起 刷新太快,或同时打开窗口太多。两种解决方式：
 <form action="<%=request.getContextPath() %>/verifySpammer" name="vform">
 <input type="hidden" name="fromURL" id="fromURL" value="">
 <br>1. 输入验证码(输入时出现)通过后立即可访问：<input type="text" name="registerCode" size="10"
