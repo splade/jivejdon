@@ -95,11 +95,17 @@ public class MessageKernel {
 	 */
 	public ForumMessage getMessage(Long messageId) {
 		logger.debug("enter MessageServiceImp's getMessage");
-		return forumAbstractFactory.getMessage(messageId);
+		if (threadManagerContext.isTransactionOk(messageId))
+			return forumAbstractFactory.getMessage(messageId);
+		else
+			return null;
 	}
 
 	public ForumMessage getMessageWithPropterty(Long messageId) {
-		return forumAbstractFactory.getMessageWithPropterty(messageId);
+		if (threadManagerContext.isTransactionOk(messageId))
+			return forumAbstractFactory.getMessageWithPropterty(messageId);
+		else
+			return null;
 	}
 
 	/**

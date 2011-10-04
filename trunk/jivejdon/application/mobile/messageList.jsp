@@ -37,17 +37,6 @@
 <bean:write name="forumMessage" property="messageVO.body" filter="false"/>
 <br><br>
 
-<script type="text/javascript"><!--
-google_ad_client = "pub-2190557680964036";
-/* 125x125, created 8/29/10 */
-google_ad_slot = "6531929902";
-google_ad_width = 125;
-google_ad_height = 125;
-//-->
-</script>
-<script type="text/javascript"
-src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-</script>
 <br>
 
 <bean:define id="allCount" name="messageListForm" property="numReplies" />

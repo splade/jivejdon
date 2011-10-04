@@ -33,8 +33,12 @@ public class SubPublisherRole implements SubPublisherRoleIF {
 	 * com.jdon.jivejdon.model.subscription.SubPublisherRoleIF#subscriptionNotify
 	 * (com.jdon.jivejdon.model.subscription.subscribed.Subscribed)
 	 */
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.model.subscription.SubPublisherRoleIF#subscriptionNotify(com.jdon.jivejdon.model.subscription.subscribed.Subscribed)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.model.subscription.SubPublisherRoleIF#subscriptionNotify
+	 * (com.jdon.jivejdon.model.subscription.subscribed.Subscribed)
 	 */
 	@Override
 	@Send("subscriptionNotify")
@@ -49,8 +53,12 @@ public class SubPublisherRole implements SubPublisherRoleIF {
 	 * com.jdon.jivejdon.model.subscription.SubPublisherRoleIF#createSubscription
 	 * (com.jdon.jivejdon.model.ForumMessage)
 	 */
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.model.subscription.SubPublisherRoleIF#createSubscription(com.jdon.jivejdon.model.ForumMessage)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.model.subscription.SubPublisherRoleIF#createSubscription
+	 * (com.jdon.jivejdon.model.ForumMessage)
 	 */
 	@Override
 	@Send("createSubscription")

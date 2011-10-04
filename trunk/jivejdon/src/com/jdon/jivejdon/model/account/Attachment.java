@@ -43,13 +43,18 @@ public class Attachment {
 	 */
 	public UploadFile getUploadFile() {
 		UploadFile uploadFile = null;
-		if (eventMessage == null) {
-			// logic:notEmpty name="forumMessage" property="account.uploadFile"
-			eventMessage = account.uploadLazyLoader.loadUploadFiles(account.getUserId());
-		} else
-			// id=<bean:write
-			// name="forumMessage property="account.uploadFile.id"
-			uploadFile = (UploadFile) eventMessage.getEventResult();
+		try {
+			if (eventMessage == null && account.uploadLazyLoader != null) {
+				// logic:notEmpty name="forumMessage"
+				// property="account.uploadFile"
+				eventMessage = account.uploadLazyLoader.loadUploadFiles(account.getUserId());
+			} else if (eventMessage != null)
+				// id=<bean:write
+				// name="forumMessage property="account.uploadFile.id"
+				uploadFile = (UploadFile) eventMessage.getEventResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return uploadFile;
 	}
 

@@ -1,56 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/activation.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/antlr-2.7.2.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/aopalliance-1.0.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/bsf-2.3.0.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/cglib.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/commons-beanutils-1.7.0.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/commons-chain-1.1.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/commons-codec.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/commons-digester-1.8.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/commons-fileupload-1.1.1.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/commons-httpclient-3.1.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/commons-io-1.1.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/commons-logging-1.0.4.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/commons-logging-api-1.1.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/commons-pool-1.5.1.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/commons-validator-1.3.1.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/compass.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/disruptor-2.0.2.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/ehcache-1.6.2.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/jdom.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/jdon-jdbcTemp.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/jdon-struts1x.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/jdonAccessory.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/jdonFramework.jar" sourcepath="/jdonframework"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/jstl-1.0.2.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/log4j.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/lucene-analyzers.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/lucene-core.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/lucene-highlighter.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/lucene-snowball.jar"/>
 	<classpathentry kind="lib" path="application/WEB-INF/lib/mail.jar"/>
 	<classpathentry kind="lib" path="application/WEB-INF/lib/mysql-connector-java-3.0.14-production-bin.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/ocpsoft-pretty-time-1.0.6.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/oro-2.0.8.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/picocontainer-1.2.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/rome-0.9.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/scannotation-1.0.2.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/standard-1.0.2.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/struts-core-1.3.8.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/struts-el-1.3.8.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/struts-extras-1.3.8.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/struts-faces-1.3.8.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/struts-mailreader-dao-1.3.8.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/struts-scripting-1.3.8.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/struts-taglib-1.3.8.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/struts-tiles-1.3.8.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/treepattern.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/urlrewrite-3.2.0.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/weibo4j-1.2.0.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/xebia-servlet-extras-1.0.4.jar"/>
 	<classpathentry kind="lib" path="doc/tomcat/jaas.jar"/>
 	<classpathentry kind="lib" path="doc/tomcat/lib/jaas.jar"/>
 	<classpathentry kind="lib" path="lib/expires/xebia-servlet-extras-1.0.4.jar"/>

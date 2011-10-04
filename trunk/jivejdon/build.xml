@@ -139,6 +139,9 @@
 	           <include name="com/jdon/jivejdon/auth/jaas/**/*"/>			
 		</jar>
 
+		<delete file="${devwebapp}/WEB-INF/lib" />		
+		<delete file="${devwebapp}/WEB-INF/classes" />
+		
 	</target>
 
 </project>

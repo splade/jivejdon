@@ -34,11 +34,8 @@ public class AfterDelAction implements DomainEventHandler {
 	}
 
 	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-		// setup long time waiting for last step ,ensure new message has
-		// inserted into db successfully.
-		event.setWaitTimeforeturnResult(6);
 		DomainMessage lastStepMessage = (DomainMessage) event.getDomainMessage().getEventSource();
-		Object lastStepOk = lastStepMessage.getEventResult();
+		Object lastStepOk = lastStepMessage.getBlockEventResult();
 		if (lastStepOk != null) {
 			ForumMessage delforumMessage = (ForumMessage) lastStepOk;
 			reload(delforumMessage);
