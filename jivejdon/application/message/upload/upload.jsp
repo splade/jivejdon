@@ -114,7 +114,7 @@ response.setDateHeader("Expires", 0);
 
 <html:hidden property="parentId" />
 <html:hidden property="parentName" />
-<center><input id="submitButton" type="button" value="操作完成关闭本窗口" class="Button" onClick="closeThisWindow()"></center>
+<center><input id="submitButton" type="button" value="全部上传完成按此关闭本窗口" class="Button" onClick="closeThisWindow()"></center>
 <br>
 本地附件:<html:file property="theFile" size="30" styleId="uploadFile"/> 
 <html:submit property="submit" value="上传"/>

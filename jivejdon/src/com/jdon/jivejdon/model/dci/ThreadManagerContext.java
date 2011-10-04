@@ -15,6 +15,9 @@
  */
 package com.jdon.jivejdon.model.dci;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.jdon.annotation.Component;
 import com.jdon.domain.dci.RoleAssigner;
 import com.jdon.domain.message.DomainMessage;
@@ -26,25 +29,46 @@ import com.jdon.jivejdon.model.repository.RepositoryRoleIF;
 public class ThreadManagerContext {
 	private final RoleAssigner roleAssinger;
 
+	private Map<Long, DomainMessage> transactions;
+
 	public ThreadManagerContext(RoleAssigner roleAssinger) {
 		super();
 		this.roleAssinger = roleAssinger;
+		this.transactions = new HashMap();
+	}
+
+	public boolean isTransactionOk(Long messageId) {
+		if (transactions.size() == 0)
+			return true;
+		if (!transactions.containsKey(messageId)) {
+			return true;
+		}
+		DomainMessage message = transactions.get(messageId);
+		if (message.getBlockEventResult() != null) {
+			transactions.remove(messageId);
+			return true;
+		}
+		return false;
 	}
 
 	public void create(ForumMessage forumMessage) {
 		RepositoryRoleIF repositoryRole = (RepositoryRoleIF) roleAssinger.assign(forumMessage, new RepositoryRole());
 		DomainMessage domainMessage = repositoryRole.addTopicMessage(forumMessage);
+		transactions.put(forumMessage.getMessageId(), domainMessage);
 
 		ThreadRoleIF threadRole = (ThreadRoleIF) roleAssinger.assign(forumMessage, new ThreadRole());
 		threadRole.aftercreateAction(domainMessage);
+
 	}
 
 	public void delete(ForumMessage delforumMessage) {
 		RepositoryRoleIF repositoryRole = (RepositoryRoleIF) roleAssinger.assign(delforumMessage, new RepositoryRole());
 		DomainMessage domainMessage = repositoryRole.deleteMessage(delforumMessage);
+		transactions.put(delforumMessage.getMessageId(), domainMessage);
 
 		ThreadRoleIF threadRole = (ThreadRoleIF) roleAssinger.assign(delforumMessage, new ThreadRole());
 		threadRole.afterdelAction(domainMessage);
+
 	}
 
 }

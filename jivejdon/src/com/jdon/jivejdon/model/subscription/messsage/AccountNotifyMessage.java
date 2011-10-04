@@ -62,7 +62,8 @@ public class AccountNotifyMessage implements NotifyMessage {
 	public void fullfillNotifyMessage(Subscribed subscribed) {
 		ForumMessage forumMessage = (ForumMessage) subscribed.getSubscribed()[1];
 		String newSubscribedUrl = StringUtil.replace(getNotifyUrlTemp(), "threadId", forumMessage.getForumThread().getThreadId().toString());
-		shortMessage.setMessageBody(forumMessage.getAccount().getUsername() + ":" + forumMessage.getForumThread().getName() + " " + newSubscribedUrl);
+		shortMessage.setMessageBody(forumMessage.getAccount().getUsername() + "【" + forumMessage.getForumThread().getName() + "】: "
+				+ forumMessage.getMessageVO().getBody().substring(0, 50) + "..." + newSubscribedUrl);
 		shortMessage.setMessageTitle(subscribed.getName() + ":" + shortMessage.getMessageTitle());
 	}
 

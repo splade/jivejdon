@@ -17,11 +17,14 @@ package com.jdon.jivejdon.model.dci.action;
 
 import com.jdon.annotation.Consumer;
 import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.dci.RoleAssigner;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.jivejdon.model.ForumMessage;
+import com.jdon.jivejdon.model.realtime.LobbyPublisherRole;
 import com.jdon.jivejdon.model.realtime.LobbyPublisherRoleIF;
 import com.jdon.jivejdon.model.realtime.Notification;
+import com.jdon.jivejdon.model.subscription.SubPublisherRole;
 import com.jdon.jivejdon.model.subscription.SubPublisherRoleIF;
 import com.jdon.jivejdon.model.subscription.subscribed.AccountSubscribed;
 import com.jdon.jivejdon.model.subscription.subscribed.Subscribed;
@@ -30,56 +33,48 @@ import com.jdon.jivejdon.repository.ForumFactory;
 @Consumer("aftercreateAction")
 public class AfterCreateAction implements DomainEventHandler {
 
-	private LobbyPublisherRoleIF lobbyPublisherRole;
-	private SubPublisherRoleIF subPublisherRole;
 	private ForumFactory forumFactory;
+	private RoleAssigner roleAssigner;
 
-	public AfterCreateAction(LobbyPublisherRoleIF lobbyPublisherRole, SubPublisherRoleIF subPublisherRole, ForumFactory forumFactory) {
+	public AfterCreateAction(RoleAssigner roleAssigner, ForumFactory forumFactory) {
 		super();
-		this.lobbyPublisherRole = lobbyPublisherRole;
-		this.subPublisherRole = subPublisherRole;
 		this.forumFactory = forumFactory;
+		this.roleAssigner = roleAssigner;
 	}
 
 	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-		// setup long time waiting for last step ,ensure new message has
-		// inserted into db successfully.
-		event.setWaitTimeforeturnResult(6);
 		DomainMessage lastStepMessage = (DomainMessage) event.getDomainMessage().getEventSource();
-		Object lastStepOk = lastStepMessage.getEventResult();
+		Object lastStepOk = lastStepMessage.getBlockEventResult();
 		if (lastStepOk != null) {
-			ForumMessage message = (ForumMessage) lastStepOk;
-			threadAction(message);
-		}
-
-	}
-
-	public void threadAction(ForumMessage forumMessage) throws Exception {
-		try {
+			ForumMessage forumMessage = (ForumMessage) lastStepOk;
 			boolean isReplyNotifyForAuthor = forumMessage.isReplyNotify();
 			forumMessage = forumFactory.getMessage(forumMessage.getMessageId());
 			forumMessage.getForum().addNewThread(forumMessage);
 
-			Notification notification = new Notification();
-			notification.setSource(forumMessage);
-			lobbyPublisherRole.notifyLobby(notification);
-
-			Subscribed accountSubscribed = new AccountSubscribed(forumMessage.getAccount());
-			accountSubscribed.addSubscribed(forumMessage);
-			// notify the author's fans
-			subPublisherRole.subscriptionNotify(accountSubscribed);
-
-			// notify the tag's fans
-			forumMessage.getForumThread().tagsSubscriptionNotify();
-
-			// if enable reply notify, so the author is the thread's fans
-			if (isReplyNotifyForAuthor) {
-				subPublisherRole.createSubscription(forumMessage);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			messageNotifyAction(isReplyNotifyForAuthor, forumMessage);
 		}
 
+	}
+
+	public void messageNotifyAction(boolean isReplyNotifyForAuthor, ForumMessage forumMessage) {
+		LobbyPublisherRoleIF lobbyPublisherRole = (LobbyPublisherRoleIF) roleAssigner.assign(forumMessage, new LobbyPublisherRole());
+		Notification notification = new Notification();
+		notification.setSource(forumMessage);
+		lobbyPublisherRole.notifyLobby(notification);
+
+		SubPublisherRoleIF subPublisherRole = (SubPublisherRoleIF) roleAssigner.assign(forumMessage, new SubPublisherRole());
+		Subscribed accountSubscribed = new AccountSubscribed(forumMessage.getAccount());
+		accountSubscribed.addSubscribed(forumMessage);
+		// notify the author's fans
+		subPublisherRole.subscriptionNotify(accountSubscribed);
+
+		// notify the tag's fans
+		forumMessage.getForumThread().tagsSubscriptionNotify();
+
+		// if enable reply notify, so the author is the thread's fans
+		if (isReplyNotifyForAuthor) {
+			subPublisherRole.createSubscription(forumMessage);
+		}
 	}
 
 }

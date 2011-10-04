@@ -31,8 +31,12 @@ public class LobbyPublisherRole implements LobbyPublisherRoleIF {
 	 * com.jdon.jivejdon.model.realtime.LobbyPublisherRoleIF#notifyLobby(com
 	 * .jdon.jivejdon.model.realtime.Notification)
 	 */
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.model.realtime.LobbyPublisherRoleIF#notifyLobby(com.jdon.jivejdon.model.realtime.Notification)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.model.realtime.LobbyPublisherRoleIF#notifyLobby(com
+	 * .jdon.jivejdon.model.realtime.Notification)
 	 */
 	@Override
 	@Send("lobbyNotify")
