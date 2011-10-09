@@ -11,11 +11,11 @@
 <!-- Feedsky FEED发布代码结束 -->
 
 
-<a title="Google网摘" href='javascript:u=window.top.location.href;t=window.top.document.title;c%20=%20""%20+%20(window.getSelection%20? window.getSelection() : document.getSelection ? document.getSelection() : document.selection.createRange().text);var url="http://www.google.com/bookmarks/mark?op=add&bkmk="+encodeURIComponent(u)+ +encodeURIComponent(t)+"&title="+encodeURIComponent(t);window.open(url,"_blank","scrollbars=no,width=600,height=450,left=75,top=20,status=no,resizable=yes"); void 0'>
+<a title="Google网摘" href='javascript:u=window.top.location.href;t=window.top.document.title;c%20=%20""%20+%20(window.getSelection%20? window.getSelection() : document.getSelection ? document.getSelection() : document.selection.createRange().text);var url="http://www.google.com/bookmarks/mark?op=add&bkmk="+encodeURIComponent(u) +"&title="+encodeURIComponent(t);window.open(url,"_blank","scrollbars=no,width=600,height=450,left=75,top=20,status=no,resizable=yes"); void 0'>
 <img src="<%=request.getContextPath()%>/images/google.gif" width="16" height="16" border="0" alt="google"/></a>
 
 
-<a title="中文Yahoo网摘" href='javascript:u=window.top.location.href;t=window.top.document.title;c%20=%20""%20+%20(window.getSelection%20? window.getSelection() : document.getSelection ? document.getSelection() : document.selection.createRange().text);var url="http://myweb.cn.yahoo.com/popadd.html?url="+encodeURIComponent(u)+ +encodeURIComponent(t)+"&title="+encodeURIComponent(t);window.open(url,"_blank","scrollbars=no,width=600,height=450,left=75,top=20,status=no,resizable=yes"); void 0'>
+<a title="中文Yahoo网摘" href='javascript:u=window.top.location.href;t=window.top.document.title;c%20=%20""%20+%20(window.getSelection%20? window.getSelection() : document.getSelection ? document.getSelection() : document.selection.createRange().text);var url="http://myweb.cn.yahoo.com/popadd.html?url="+encodeURIComponent(u)+ "&title="+encodeURIComponent(t);window.open(url,"_blank","scrollbars=no,width=600,height=450,left=75,top=20,status=no,resizable=yes"); void 0'>
 <img src="<%=request.getContextPath()%>/images/yahoo.gif" width="16" height="16" border="0" alt="yahoo"/></a>
 
 <a title="百度搜藏" href='javascript:u=window.top.location.href;t=window.top.document.title;c%20=%20""%20+%20(window.getSelection%20? window.getSelection() : document.getSelection ? document.getSelection() : document.selection.createRange().text);var url="http://cang.baidu.com/do/add?it="+encodeURIComponent(t)+"&amp;iu="+encodeURIComponent(u)+"&amp;dc="+encodeURIComponent(c)+"&amp;fr=ien#nw=1";window.open(url,"_blank","scrollbars=no,width=600,height=450,left=75,top=20,status=no,resizable=yes"); void 0'>
@@ -33,6 +33,6 @@
 <a title="CSDN网摘" href="JavaScript:d=window.top.document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&u='+escape(d.location.href)+'&c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();"  >
 <img src="<%=request.getContextPath()%>/images/cn3.gif" width="16" height="16" border="0" alt="CSDN网摘"/></a>
 
-
+<p>新浪微博:<a href="http://weibo.com/ijdon">weibo.com/ijdon</a>
 <p >
 <a href="http://www.jdon.com/followus.html" target="_blank" ><b style="font-size: 12">更多关注方式 </b></a>

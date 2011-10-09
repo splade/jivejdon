@@ -47,7 +47,7 @@ public class ThreadNotifyMessage implements NotifyMessage {
 		newSubscribedUrl = StringUtil.replace(newSubscribedUrl, "messageId", forumThread.getState().getLastPost().getMessageId().toString());
 		String body = forumThread.getState().getLastPost().getAccount().getUsername() + "【"
 				+ forumThread.getState().getLastPost().getMessageVO().getSubject() + "】:"
-				+ forumThread.getState().getLastPost().getMessageVO().getBody().substring(0, 50) + "..." + newSubscribedUrl;
+				+ forumThread.getState().getLastPost().getMessageVO().getShortBody(60) + "..." + newSubscribedUrl;
 		shortMessage.setMessageBody(body);
 		shortMessage.setMessageTitle(subscribed.getName() + ":" + shortMessage.getMessageTitle());
 

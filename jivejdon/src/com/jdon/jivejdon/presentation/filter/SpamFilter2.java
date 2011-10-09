@@ -16,6 +16,9 @@
 package com.jdon.jivejdon.presentation.filter;
 
 import java.io.IOException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
@@ -38,6 +41,7 @@ import com.jdon.util.UtilValidate;
 
 public class SpamFilter2 implements Filter {
 	private final static Logger log = Logger.getLogger(SpamFilter2.class);
+	private static ScheduledExecutorService scheduExec = Executors.newScheduledThreadPool(1);
 
 	protected Pattern robotPattern;
 
@@ -46,6 +50,8 @@ public class SpamFilter2 implements Filter {
 	public static String DP = "domainPattern";
 
 	private CustomizedThrottle customizedThrottle;
+
+	private boolean isFilter = false;
 
 	public void init(FilterConfig config) throws ServletException {
 		// check for possible robot pattern
@@ -78,9 +84,27 @@ public class SpamFilter2 implements Filter {
 			// throttleConf = new ThrottleConf(thresholdStr, intervalStr);
 		}
 
+		Runnable startFiltertask = new Runnable() {
+			public void run() {
+				isFilter = true;
+			}
+		};
+		// one hour
+		scheduExec.scheduleWithFixedDelay(startFiltertask, 60, 60 * 60 * 60, TimeUnit.SECONDS);
+
+		Runnable stopFiltertask = new Runnable() {
+			public void run() {
+				isFilter = false;
+			}
+		};
+		// after 15Mintues stop it
+		scheduExec.scheduleWithFixedDelay(stopFiltertask, 60 * 15, 60 * 60 * 75, TimeUnit.SECONDS);
+
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		if (!isFilter)
+			chain.doFilter(request, response);
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		if (isPermittedRobot(httpRequest)) {
 			chain.doFilter(request, response);
@@ -126,6 +150,8 @@ public class SpamFilter2 implements Filter {
 	}
 
 	public void destroy() {
+		scheduExec.shutdown();
+
 	}
 
 }

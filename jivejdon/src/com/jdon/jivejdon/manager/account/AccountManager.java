@@ -63,7 +63,7 @@ public class AccountManager implements Startable {
 				cachedOneTimes.clear();
 			}
 		};
-		// per ten hour
+		// per ten mintue
 		scheduExec.scheduleWithFixedDelay(task, 60, 60 * 60 * 10, TimeUnit.SECONDS);
 	}
 
