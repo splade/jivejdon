@@ -43,8 +43,9 @@ public class MessageListAction extends ThreadEtagFilter {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.strutsutil.ModelListAction#getPageIterator(javax.servlet.http
-	 *      .HttpServletRequest, int, int)
+	 * @see
+	 * com.jdon.strutsutil.ModelListAction#getPageIterator(javax.servlet.http
+	 * .HttpServletRequest, int, int)
 	 */
 	public PageIterator getPageIterator(HttpServletRequest request, int start, int count) {
 		Debug.logVerbose("enter getPageIterator", module);
@@ -61,8 +62,9 @@ public class MessageListAction extends ThreadEtagFilter {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.strutsutil.ModelListAction#findModelByKey(javax.servlet.http
-	 *      .HttpServletRequest, java.lang.Object)
+	 * @see
+	 * com.jdon.strutsutil.ModelListAction#findModelByKey(javax.servlet.http
+	 * .HttpServletRequest, java.lang.Object)
 	 */
 	public Object findModelIFByKey(HttpServletRequest request, Object key) {
 		Debug.logVerbose("enter findModelByKey", module);
@@ -70,7 +72,8 @@ public class MessageListAction extends ThreadEtagFilter {
 		// getXXX can be intercepted by cacheinterceptor before accessing
 		// ForumMessageServiceShell
 		ForumMessage forumMessage = forumMessageService.getMessage((Long) key);
-		forumMessage.preloadAllLazyDatas();
+		if (forumMessage != null)
+			forumMessage.preloadAllLazyDatas();
 		return forumMessage;
 	}
 

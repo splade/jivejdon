@@ -6,4 +6,5 @@
 <meta name="robots" content="nofollow"> 
 <%
 response.sendRedirect(request.getContextPath() + "/blog/" + request.getParameter("user"));
+		return;
 %>

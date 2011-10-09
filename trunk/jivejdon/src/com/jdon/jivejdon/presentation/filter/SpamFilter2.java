@@ -103,8 +103,10 @@ public class SpamFilter2 implements Filter {
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		if (!isFilter)
+		if (!isFilter) {
 			chain.doFilter(request, response);
+			return;
+		}
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		if (isPermittedRobot(httpRequest)) {
 			chain.doFilter(request, response);
@@ -119,6 +121,7 @@ public class SpamFilter2 implements Filter {
 			chain.doFilter(request, response);
 		else
 			((HttpServletResponse) response).sendError(503);
+		return;
 
 	}
 
