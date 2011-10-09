@@ -61,6 +61,7 @@ public class SpamFilter implements Filter {
 		}
 
 		chain.doFilter(request, response);
+		return;
 	}
 
 	private void disableSessionOnlines(HttpServletRequest httpRequest) {

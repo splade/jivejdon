@@ -2,7 +2,7 @@
 <%@ include file="../common/503warn.jsp"%> <%-- for search spammer bot  --%>
 
 <%-- (urlrewrite.xml)/thread/nav/([0-9]+)/([0-9]+) == > /forum/messageNavList.shtml  == > MessageListNavAction ==>navf.jsp ==> (urlrewrite.xml)/thread/([0-9]+)/([0-9]+) --%>
-
+<meta name="robots" content="nofollow"> 
 <% 
 int start = ((Integer)request.getAttribute("start")).intValue();
 long threadId = ((Long)request.getAttribute("threadId")).longValue();
