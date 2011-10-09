@@ -28,4 +28,5 @@ response.setHeader("Cache-Control", "no-cache");
 response.setDateHeader("Expires", 0);
 response.setStatus(301); 
 response.sendRedirect(url);
+return;
 %>
