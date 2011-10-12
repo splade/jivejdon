@@ -297,7 +297,7 @@ public class ForumMessageShell implements ForumMessageService {
 	/**
 	 * find a Message for modify
 	 */
-	public EventModel findMessage(Long messageId) {
+	public ForumMessage findMessage(Long messageId) {
 		logger.debug("enter ForumMessageShell's findMessage");
 		ForumMessage forumMessage = messageKernel.getMessage(messageId);
 		if (forumMessage == null)
@@ -309,8 +309,7 @@ public class ForumMessageShell implements ForumMessageService {
 			newMessage.reloadMessageVOOrignal();
 			// newMessage.setCacheable(false);
 			// after update must enable it see updateMessage;
-			EventModel em = new EventModel(newMessage);
-			return em;
+			return newMessage;
 		} catch (Exception e) {
 			logger.error(e);
 		}

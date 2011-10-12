@@ -40,7 +40,7 @@ public interface ForumMessageService {
 	 * 
 	 * <getMethod name="findMessage"/>
 	 */
-	EventModel findMessage(Long messageId);
+	ForumMessage findMessage(Long messageId);
 
 	/**
 	 * no Authorization ; cache Intercepts it, Called by message List, not for
