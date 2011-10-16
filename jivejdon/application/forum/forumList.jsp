@@ -16,7 +16,7 @@
 <table cellpadding="3" cellspacing="3" border="0" width="971" align="center">
 <tr>
     <td valign="top" width="98%">
-<p class="home_content" >欢迎光临中国知名的软件架构社区! 解惑授道，未来企业架构师孵化基地 
+<p class="home_content" >欢迎光临中国知名的软件架构社区! 探索 分享 交流 解惑 授道， 架构师孵化基地。 
 本论坛是基于JdonFramework自主开发的<a href="http://www.jdon.com/jdonframework/jivejdon3/">JiveJdon版本</a><br />
 
        

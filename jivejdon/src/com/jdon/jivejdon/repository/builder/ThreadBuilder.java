@@ -16,9 +16,6 @@
  */
 package com.jdon.jivejdon.repository.builder;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.FutureTask;
-
 import org.apache.log4j.Logger;
 
 import com.jdon.jivejdon.manager.listener.ThreadViewCountManager;
@@ -26,11 +23,11 @@ import com.jdon.jivejdon.model.Forum;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumMessageReply;
 import com.jdon.jivejdon.model.ForumThread;
-import com.jdon.jivejdon.model.ForumThreadState;
+import com.jdon.jivejdon.model.state.ForumThreadStateFactory;
 import com.jdon.jivejdon.repository.TagRepository;
 import com.jdon.jivejdon.repository.dao.MessageDao;
 import com.jdon.jivejdon.repository.dao.MessageQueryDao;
-import com.jdon.treepatterns.model.TreeModel;
+import com.jdon.jivejdon.repository.listener.TreeModelFactory;
 
 public class ThreadBuilder {
 	private final static Logger logger = Logger.getLogger(ThreadBuilder.class);
@@ -41,16 +38,23 @@ public class ThreadBuilder {
 
 	private final MessageQueryDao messageQueryDao;
 
+	private final ForumThreadStateFactory forumThreadStateFactory;
+
 	private ForumAbstractFactory forumAbstractFactory;
 
 	private ThreadViewCountManager threadViewNumberManager;
 
+	private TreeModelFactory forumThreadTreeModelFactory;
+
 	public ThreadBuilder(MessageDao messageDao, TagRepository tagRepository, MessageQueryDao messageQueryDao,
-			ThreadViewCountManager threadViewNumberManager) {
+			ThreadViewCountManager threadViewNumberManager, ForumThreadStateFactory forumThreadStateFactory,
+			TreeModelFactory forumThreadTreeModelFactory) {
 		this.messageDao = messageDao;
 		this.tagRepository = tagRepository;
 		this.messageQueryDao = messageQueryDao;
 		this.threadViewNumberManager = threadViewNumberManager;
+		this.forumThreadStateFactory = forumThreadStateFactory;
+		this.forumThreadTreeModelFactory = forumThreadTreeModelFactory;
 	}
 
 	public void setForumAbstractFactory(ForumAbstractFactory forumAbstractFactory) {
@@ -109,16 +113,8 @@ public class ThreadBuilder {
 	 */
 	public void buildTreeModel(final ForumThread forumThread) throws Exception {
 		try {
-			// forumThread.getDomainEvent().loadTreeModel(forumThread);
-
-			FutureTask<TreeModel> ft = new FutureTask(new Callable<TreeModel>() {
-				public TreeModel call() throws Exception {
-					return messageQueryDao.getTreeModel(forumThread.getThreadId(), forumThread.getRootMessage().getMessageId());
-				}
-			});
-			ft.run();
-			ForumThreadState forumThreadState = forumThread.getState();
-			forumThreadState.setFutureTask(ft);
+			forumThread.preloadTreeMode();
+			// forumThreadTreeModelFactory.create(forumThread);
 		} catch (Exception e) {
 			String error = e + " buildInitState forumThreadId=" + forumThread.getThreadId();
 			logger.error(error);
@@ -128,7 +124,6 @@ public class ThreadBuilder {
 
 	public void buildState(ForumThread forumThread, ForumMessage rootMessage, MessageDirector messageDirector) throws Exception {
 		try {
-			ForumThreadState forumThreadState = forumThread.getState();
 			logger.debug(" buildPartyState for forumThread=" + forumThread.getThreadId());
 			Long lastMessageId = messageQueryDao.getLastPostMessageId(forumThread.getThreadId());
 			if (lastMessageId == null) {
@@ -138,13 +133,9 @@ public class ThreadBuilder {
 			ForumMessage lastMessage = rootMessage;
 			if ((rootMessage == null) || (rootMessage.getMessageId().longValue() != lastMessageId.longValue()))
 				lastMessage = messageDirector.getMessage(lastMessageId, forumThread, forumThread.getForum());
-			// update a shared object's value the laspost type must be
-			forumThreadState.setLastPost(lastMessage);
-			forumThreadState.setModifiedDate(lastMessage.getModifiedDate());
 			lastMessage.setForumThread(forumThread);
 
-			int count = messageQueryDao.getMessageCount(forumThread.getThreadId());
-			forumThreadState.setMessageCount(count);
+			forumThreadStateFactory.init(forumThread, lastMessage);
 
 			threadViewNumberManager.initViewCounter(forumThread);
 

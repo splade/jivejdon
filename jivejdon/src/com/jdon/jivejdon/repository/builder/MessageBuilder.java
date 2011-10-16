@@ -22,7 +22,6 @@ import org.apache.log4j.Logger;
 
 import com.jdon.domain.model.cache.ModelKey;
 import com.jdon.jivejdon.Constants;
-import com.jdon.jivejdon.manager.TreeManager;
 import com.jdon.jivejdon.manager.filter.OutFilterManager;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.Forum;
@@ -47,8 +46,6 @@ public class MessageBuilder {
 
 	private final UploadRepository uploadRepository;
 
-	public final TreeManager treeManager;
-
 	private final PropertyDao propertyDao;
 
 	private ForumAbstractFactory forumAbstractFactory;
@@ -56,13 +53,12 @@ public class MessageBuilder {
 	private OutFilterManager outFilterManager;
 
 	public MessageBuilder(MessageDao messageDao, MessageQueryDao messageQueryDao, AccountFactory accountFactory, UploadRepository uploadRepository,
-			TreeManager treeManager, PropertyDao propertyDao, OutFilterManager outFilterManager) {
+			PropertyDao propertyDao, OutFilterManager outFilterManager) {
 		super();
 		this.messageDao = messageDao;
 		this.messageQueryDao = messageQueryDao;
 		this.accountFactory = accountFactory;
 		this.uploadRepository = uploadRepository;
-		this.treeManager = treeManager;
 		this.propertyDao = propertyDao;
 		this.outFilterManager = outFilterManager;
 	}

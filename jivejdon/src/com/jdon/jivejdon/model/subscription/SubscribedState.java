@@ -48,12 +48,16 @@ public class SubscribedState {
 	 * @return
 	 */
 	public int getSubscriptionCount(LazyLoaderRole domainEvents) {
-		if (subscriptionCount == -1) {
-			if (subCount == null) {
-				subCount = domainEvents.loadSubscriptionNumbers(subscribed.getSubscribeId());
-			} else {
-				subscriptionCount = (Integer) subCount.getEventResult();
+		try {
+			if (subscriptionCount == -1) {
+				if (subCount == null) {
+					subCount = domainEvents.loadSubscriptionNumbers(subscribed.getSubscribeId());
+				} else {
+					subscriptionCount = (Integer) subCount.getEventResult();
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return subscriptionCount;
 	}

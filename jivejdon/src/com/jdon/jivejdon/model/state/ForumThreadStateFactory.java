@@ -13,18 +13,16 @@
  * limitations under the License.
  * 
  */
-package com.jdon.jivejdon.manager.listener;
+package com.jdon.jivejdon.model.state;
 
-import com.jdon.annotation.Introduce;
-import com.jdon.annotation.model.Send;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.jivejdon.model.ForumMessageReply;
+import com.jdon.jivejdon.model.ForumMessage;
+import com.jdon.jivejdon.model.ForumThread;
 
-@Introduce("message")
-public class TreeModelRole {
+public interface ForumThreadStateFactory {
 
-	@Send("addChildZToThreadTree")
-	public DomainMessage addChildZToThreadTree(ForumMessageReply forumMessageReply) {
-		return new DomainMessage(forumMessageReply);
-	}
+	void init(ForumThread forumThread, ForumMessage lastPost);
+
+	void addNewMessage(ForumThread forumThread, ForumMessage newLastPost);
+
+	void updateMessage(ForumThread forumThread, ForumMessage forumMessage);
 }

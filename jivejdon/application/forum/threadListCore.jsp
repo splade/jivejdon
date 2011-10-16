@@ -85,7 +85,7 @@
             
         </td>
         <td align="center">
-            <bean:write name="forumThread" property="state.viewCount" />            
+            <bean:write name="forumThread" property="viewCounter" />            
         </td>
         <td align="center">
             <bean:write name="forumThread" property="state.messageCount" />            

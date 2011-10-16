@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 import com.jdon.annotation.Service;
 import com.jdon.annotation.Singleton;
 import com.jdon.controller.model.PageIterator;
-import com.jdon.jivejdon.manager.TreeManager;
 import com.jdon.jivejdon.manager.query.HotThreadQueryManager;
 import com.jdon.jivejdon.manager.query.LocateMessageInThread;
 import com.jdon.jivejdon.model.Account;
@@ -25,6 +24,8 @@ import com.jdon.jivejdon.repository.AccountFactory;
 import com.jdon.jivejdon.repository.ForumFactory;
 import com.jdon.jivejdon.repository.dao.MessageQueryDao;
 import com.jdon.jivejdon.service.ForumMessageQueryService;
+import com.jdon.treepatterns.TreeVisitor;
+import com.jdon.treepatterns.visitor.TreeNodePicker;
 
 @Singleton
 @Service("forumMessageQueryService")
@@ -37,18 +38,15 @@ public class ForumMessageQueryServiceImp implements ForumMessageQueryService {
 
 	protected final HotThreadQueryManager queryManager;
 
-	protected final TreeManager treeManager;
-
 	protected final ForumFactory forumBuilder;
 
 	protected final LocateMessageInThread locateMessageInThread;
 
 	public ForumMessageQueryServiceImp(MessageQueryDao messageQueryDaoy, AccountFactory accountFactory, HotThreadQueryManager queryManager,
-			TreeManager treeManager, ForumFactory forumBuilder, LocateMessageInThread locateMessageInThread) {
+			ForumFactory forumBuilder, LocateMessageInThread locateMessageInThread) {
 		this.accountFactory = accountFactory;
 		this.queryManager = queryManager;
 		this.messageQueryDao = messageQueryDaoy;
-		this.treeManager = treeManager;
 		this.forumBuilder = forumBuilder;
 		this.locateMessageInThread = locateMessageInThread;
 	}
@@ -67,7 +65,7 @@ public class ForumMessageQueryServiceImp implements ForumMessageQueryService {
 		}
 		List sublist = null;
 		try {
-			List childernList = treeManager.getRecursiveChildren(forumMessage);
+			List childernList = getRecursiveChildren(forumMessage);
 			// 2. get a sub list from the all List by start and count
 			logger.debug(" get the sub-collection for start=" + start + " childernList size" + childernList.size());
 			int end = start + count;
@@ -77,6 +75,20 @@ public class ForumMessageQueryServiceImp implements ForumMessageQueryService {
 			logger.error(e);
 		}
 		return new PageIterator();
+	}
+
+	protected List getRecursiveChildren(ForumMessage forumMessage) {
+		List list = null;
+		try {
+			TreeVisitor messagePicker = new TreeNodePicker();
+			forumMessage.getForumThread().acceptTreeModelVisitor(forumMessage.getMessageId(), messagePicker);
+			list = ((TreeNodePicker) messagePicker).getResult();
+			list.remove(forumMessage.getMessageId()); // remove the parent
+		} catch (Exception e) {
+			logger.error(e);
+		}
+		return list;
+
 	}
 
 	/*

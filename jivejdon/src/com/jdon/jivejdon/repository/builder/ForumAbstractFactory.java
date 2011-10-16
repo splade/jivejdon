@@ -21,9 +21,7 @@ import org.apache.log4j.Logger;
 import com.jdon.async.EventProcessor;
 import com.jdon.jivejdon.model.Forum;
 import com.jdon.jivejdon.model.ForumMessage;
-import com.jdon.jivejdon.model.ForumState;
 import com.jdon.jivejdon.model.ForumThread;
-import com.jdon.jivejdon.model.ForumThreadState;
 import com.jdon.jivejdon.repository.ForumFactory;
 import com.jdon.jivejdon.repository.dao.SequenceDao;
 import com.jdon.jivejdon.util.ContainerUtil;
@@ -118,13 +116,9 @@ public class ForumAbstractFactory implements ForumFactory {
 	 */
 	public void reloadThreadState(ForumThread forumThread) throws Exception {
 		try {
-			ForumThreadState forumThreadState = new ForumThreadState(forumThread);
-			forumThread.setState(forumThreadState);
 			threadBuilder.buildTreeModel(forumThread);
 			threadBuilder.buildState(forumThread, forumThread.getRootMessage(), messageDirector);
 
-			ForumState forumState = new ForumState(forumThread.getForum());
-			forumThread.getForum().setForumState(forumState);
 			Forum forum = getForum(forumThread.getForum().getForumId());
 			forumBuilder.buildState(forum, forumThread, null, messageDirector);
 
@@ -144,8 +138,6 @@ public class ForumAbstractFactory implements ForumFactory {
 	 */
 	public void reloadhForumState(Long forumId) throws Exception {
 		Forum forum = getForum(forumId);
-		ForumState forumState = new ForumState(forum);
-		forum.setForumState(forumState);
 		forumBuilder.buildState(forum, null, null, messageDirector);
 	}
 

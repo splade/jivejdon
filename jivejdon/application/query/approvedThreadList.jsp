@@ -34,7 +34,7 @@
     <html:img page="/images/comment_reply.gif" height="16" width="16"/>
     <bean:write name="forumThread" property="state.messageCount" />讨论
     &nbsp;&nbsp;
-    <bean:write name="forumThread" property="state.viewCount" />浏览
+    <bean:write name="forumThread" property="viewCounter" />浏览
     &nbsp;&nbsp;
     <bean:write name="forumThread" property="rootMessage.messageDigVo.digCount" />顶
    </div>

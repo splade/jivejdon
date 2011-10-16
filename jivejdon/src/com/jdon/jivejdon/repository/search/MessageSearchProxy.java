@@ -152,7 +152,7 @@ public class MessageSearchProxy implements Startable, MessageSearchRepository {
 	 * (com.jdon.jivejdon.model.ForumMessage)
 	 */
 	@Override
-	public void createMessage(ForumMessage forumMessage) throws Exception {
+	public void createMessage(ForumMessage forumMessage) {
 		logger.debug("MessageSearchProxy.createMessage");
 		CompassSession session = compass.openSession();
 		CompassTransaction tx = null;
@@ -164,7 +164,6 @@ public class MessageSearchProxy implements Startable, MessageSearchRepository {
 			if (tx != null)
 				tx.rollback();
 			logger.error(ce);
-			throw new Exception(" createMessage error " + ce);
 		} finally {
 			session.close();
 		}
@@ -177,7 +176,7 @@ public class MessageSearchProxy implements Startable, MessageSearchRepository {
 	 * createMessageReply(com.jdon.jivejdon.model.ForumMessageReply)
 	 */
 	@Override
-	public void createMessageReply(ForumMessageReply forumMessageReply) throws Exception {
+	public void createMessageReply(ForumMessageReply forumMessageReply) {
 		logger.debug("MessageSearchProxy.createMessageReply");
 		CompassSession session = compass.openSession();
 		CompassTransaction tx = null;
@@ -191,7 +190,6 @@ public class MessageSearchProxy implements Startable, MessageSearchRepository {
 			if (tx != null)
 				tx.rollback();
 			logger.error(ce);
-			throw new Exception(" createMessageReply error " + ce);
 		} finally {
 			session.close();
 		}
@@ -205,7 +203,7 @@ public class MessageSearchProxy implements Startable, MessageSearchRepository {
 	 * (com.jdon.jivejdon.model.ForumMessage)
 	 */
 	@Override
-	public void updateMessage(ForumMessage forumMessage) throws Exception {
+	public void updateMessage(ForumMessage forumMessage) {
 		logger.debug("MessageSearchProxy.updateMessage");
 		CompassSession session = compass.openSession();
 		CompassTransaction tx = null;
@@ -226,7 +224,6 @@ public class MessageSearchProxy implements Startable, MessageSearchRepository {
 			if (tx != null)
 				tx.rollback();
 			logger.error(ce);
-			throw new Exception(" updateMessage error " + ce);
 		} finally {
 			session.close();
 		}
@@ -240,7 +237,7 @@ public class MessageSearchProxy implements Startable, MessageSearchRepository {
 	 * (java.lang.Long)
 	 */
 	@Override
-	public void deleteMessage(Long forumMessageId) throws Exception {
+	public void deleteMessage(Long forumMessageId) {
 		logger.debug("MessageSearchProxy.deleteMessage");
 		CompassSession session = compass.openSession();
 		CompassTransaction tx = null;
@@ -253,7 +250,6 @@ public class MessageSearchProxy implements Startable, MessageSearchRepository {
 			if (tx != null)
 				tx.rollback();
 			logger.error(ce);
-			throw new Exception(" deleteMessage error " + ce);
 		} finally {
 			session.close();
 		}

@@ -20,14 +20,16 @@ import java.util.Collection;
 
 import com.jdon.annotation.Model;
 import com.jdon.annotation.model.Inject;
-import com.jdon.jivejdon.manager.listener.TreeModelRole;
 import com.jdon.jivejdon.model.realtime.LobbyPublisherRoleIF;
 import com.jdon.jivejdon.model.realtime.Notification;
 import com.jdon.jivejdon.model.repository.LazyLoaderRole;
 import com.jdon.jivejdon.model.repository.RepositoryRole;
+import com.jdon.jivejdon.model.state.ForumThreadStateFactory;
 import com.jdon.jivejdon.model.subscription.SubPublisherRoleIF;
 import com.jdon.jivejdon.model.subscription.subscribed.ThreadSubscribed;
 import com.jdon.jivejdon.model.thread.ThreadTagsVO;
+import com.jdon.jivejdon.model.thread.ViewCounter;
+import com.jdon.treepatterns.TreeVisitor;
 import com.jdon.treepatterns.model.TreeModel;
 import com.jdon.util.StringUtil;
 
@@ -86,6 +88,12 @@ public class ForumThread extends ForumModel {
 
 	private volatile ForumThreadState state;
 
+	// update mutable
+	private volatile ViewCounter viewCounter;
+
+	// update mutable
+	private ForumThreadTreeModel forumThreadTreeModel;
+
 	@Inject
 	public LazyLoaderRole lazyLoaderRole;
 
@@ -99,7 +107,7 @@ public class ForumThread extends ForumModel {
 	public RepositoryRole repositoryRole;
 
 	@Inject
-	public TreeModelRole treeModelRole;
+	private ForumThreadStateFactory threadStateManager;
 
 	/**
 	 * normal can be cached reused
@@ -117,7 +125,9 @@ public class ForumThread extends ForumModel {
 	public ForumThread() {
 		this.threadTagsVO = new ThreadTagsVO(this);
 		this.propertys = new ArrayList();
-		this.state = new ForumThreadState(this);
+		this.state = new ForumThreadState(this, null, 0);
+		this.viewCounter = new ViewCounter(this, 0);
+		this.forumThreadTreeModel = new ForumThreadTreeModel(this);
 	}
 
 	/**
@@ -258,34 +268,32 @@ public class ForumThread extends ForumModel {
 		return false;
 	}
 
-	public synchronized void addNewMessage(ForumMessage forumMessageParent, ForumMessageReply forumMessageReply) {
+	public void addNewMessage(ForumMessage forumMessageParent, ForumMessageReply forumMessageReply) {
 		try {
 			forumMessageReply.setParentMessage(forumMessageParent);
 			forumMessageParent.setForumThread(this);
 			forumMessageReply.setForumThread(this);
 
-			state.addMessageCount();
-
-			state.setLastPost(forumMessageReply);
-			state.setModifiedDate(forumMessageReply.getModifiedDate());
+			this.threadStateManager.addNewMessage(this, forumMessageReply);
 			this.forum.addNewMessage(forumMessageReply);
+			forumThreadTreeModel.addChildAction(forumMessageReply);
 
-			Notification notification = new Notification();
-			notification.setSource(forumMessageReply);
-			lobbyPublisherRole.notifyLobby(notification);
-
-			subPublisherRole.subscriptionNotify(new ThreadSubscribed(this));
-			// this.domainEvent.subscriptionNotify(new
-			// AccountSubscribed(forumMessageReply.getAccount()));
-
-			// async exec add tree that cost more performance.
-			treeModelRole.addChildZToThreadTree(forumMessageReply);
+			notify(forumMessageReply);
 		} catch (Exception e) {
 			System.err.print("error in forumThread:" + this.threadId + " " + e);
 		}
 	}
 
-	public synchronized void moveForum(ForumMessage forumMessage, Forum newForum) {
+	private void notify(ForumMessageReply forumMessageReply) {
+		Notification notification = new Notification();
+		notification.setSource(forumMessageReply);
+		lobbyPublisherRole.notifyLobby(notification);
+
+		subPublisherRole.subscriptionNotify(new ThreadSubscribed(this));
+
+	}
+
+	public void moveForum(ForumMessage forumMessage, Forum newForum) {
 		if ((isRoot(forumMessage)) && (forumMessage.isLeaf())) {
 			setForum(newForum);
 			forumMessage.setForum(newForum);
@@ -293,21 +301,18 @@ public class ForumThread extends ForumModel {
 		}
 	}
 
-	public synchronized void update(ForumMessage forumMessage) {
+	public void update(ForumMessage forumMessage) {
 		if (isRoot(forumMessage)) {
 			this.setRootMessage(forumMessage);
 		}
 		forumMessage.setForumThread(this);
 
-		state.setLastPost(forumMessage);
-		state.setModifiedDate(forumMessage.getModifiedDate());
-
+		threadStateManager.updateMessage(this, forumMessage);
 		this.forum.updateNewMessage(forumMessage);
 
 		if (isRoot(forumMessage)) {// update a message in this thread
 			this.setRootMessage(forumMessage);
 		}
-
 		changeTags(forumMessage.getMessageVO().getTagTitle());
 	}
 
@@ -319,7 +324,7 @@ public class ForumThread extends ForumModel {
 
 		boolean ret = false;
 		try {
-			TreeModel treeModel = state.getTreeModel();
+			TreeModel treeModel = forumThreadTreeModel.getTreeModel();
 			ret = treeModel.isLeaf(forumMessage.getMessageId());
 		} catch (Exception e) {
 			String error = e + " isLeaf forumMessageId=" + forumMessage.getMessageId();
@@ -328,12 +333,23 @@ public class ForumThread extends ForumModel {
 		return ret;
 	}
 
-	public void viewCountAction(String ip) {
-		getState().addViewCount(ip);
+	public void addViewCount(String ip) {
+		viewCounter.addViewCount(ip);
 	}
 
-	public void setViewCount(int count) {
-		getState().setViewCount(count);
+	public int getViewCounter() {
+		return viewCounter.getViewCount();
 	}
 
+	public void setViewCounter(ViewCounter viewCounter) {
+		this.viewCounter = viewCounter;
+	}
+
+	public void acceptTreeModelVisitor(long startMessageId, TreeVisitor treeVisitor) {
+		forumThreadTreeModel.acceptVisitor(startMessageId, treeVisitor);
+	}
+
+	public void preloadTreeMode() {
+		forumThreadTreeModel.preload();
+	}
 }

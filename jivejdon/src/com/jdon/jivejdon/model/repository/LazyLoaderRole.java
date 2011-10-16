@@ -23,7 +23,7 @@ import com.jdon.annotation.model.Send;
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.model.ForumMessage;
-import com.jdon.jivejdon.model.thread.ViewCounter;
+import com.jdon.jivejdon.model.ForumThread;
 
 /**
  * this is the Role of DCI. and is domain events publisher
@@ -59,9 +59,9 @@ public class LazyLoaderRole {
 		return new DomainMessage(messageId);
 	}
 
-	@Send("threadViewCountManager")
-	public DomainMessage refreshThreadCount(ViewCounter viewCounter) {
-		return new DomainMessage(viewCounter);
+	@Send("loadTreeModel")
+	public DomainMessage loadTreeModel(ForumThread forumThread) {
+		return new DomainMessage(forumThread);
 	}
 
 	@Send("shortMessageService")

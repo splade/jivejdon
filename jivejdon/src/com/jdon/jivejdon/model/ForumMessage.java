@@ -133,7 +133,7 @@ public class ForumMessage extends ForumModel implements Cloneable {
 		return this.forumThread.isRoot(this);
 	}
 
-	public synchronized void applyFilters() {
+	public void applyFilters() {
 		try {
 			if (outFilters == null)
 				return;
@@ -158,7 +158,7 @@ public class ForumMessage extends ForumModel implements Cloneable {
 		return (MessageVO) this.messageVO.clone();
 	}
 
-	public synchronized void reloadMessageVOOrignal() {
+	public void reloadMessageVOOrignal() {
 		DomainMessage em = lazyLoaderRole.reloadMessageVO(this);
 		messageVO = (MessageVO) em.getEventResult();
 		setMessageVO(messageVO);
@@ -168,7 +168,7 @@ public class ForumMessage extends ForumModel implements Cloneable {
 		this.messageVO = messageVO;
 	}
 
-	public synchronized void addReplyMessage(ForumMessageReply forumMessageReply) {
+	public void addReplyMessage(ForumMessageReply forumMessageReply) {
 		try {
 			// basic construct
 			forumMessageReply.setParentMessage(this);
@@ -201,7 +201,7 @@ public class ForumMessage extends ForumModel implements Cloneable {
 	 * 
 	 * @param newForumMessageInputparamter
 	 */
-	public synchronized void update(ForumMessage newForumMessageInputparamter) {
+	public void update(ForumMessage newForumMessageInputparamter) {
 		try {
 			updateMessage(newForumMessageInputparamter);
 
@@ -232,7 +232,7 @@ public class ForumMessage extends ForumModel implements Cloneable {
 		}
 	}
 
-	public synchronized void moveForum(ForumMessage newForumMessageInputparamter) {
+	public void moveForum(ForumMessage newForumMessageInputparamter) {
 		Long newforumId = newForumMessageInputparamter.getForum().getForumId();
 		if (newforumId != null && newforumId.intValue() != 0) {
 			Long oldforumId = getForum().getForumId();
@@ -243,7 +243,7 @@ public class ForumMessage extends ForumModel implements Cloneable {
 		}
 	}
 
-	public synchronized void updateMasked(boolean masked) {
+	public void updateMasked(boolean masked) {
 		setMasked(masked);// modify full message
 
 		this.getForumThread().update(this);

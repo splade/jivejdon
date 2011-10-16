@@ -15,35 +15,41 @@
  */
 package com.jdon.jivejdon.model;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import com.jdon.jivejdon.model.subscription.SubscribedState;
 import com.jdon.jivejdon.model.subscription.subscribed.ForumSubscribed;
 
 /**
  * Forum State ValueObject this is a embeded class in Forum.
  * 
+ * state is a value Object of DDD, and is immutable
+ * 
  * @author <a href="mailto:banq@163.com">banq</a>
  * 
  */
 public class ForumState {
-	private int threadCount = 0;
+	private final AtomicLong threadCount;
 
 	/**
 	 * the number of messages in the thread. This includes the root message. So,
 	 * to find the number of replies to the root message, subtract one from the
 	 * answer of this method.
 	 */
-	private int messageCount = 0;
+	private final AtomicLong messageCount;
 
-	private volatile ForumMessage lastPost;
+	private final ForumMessage lastPost;
 
-	private Forum forum;
+	private final Forum forum;
 
-	private SubscribedState subscribedState;
+	private final SubscribedState subscribedState;
 
-	public ForumState(Forum forum) {
+	public ForumState(Forum forum, ForumMessage lastPost, long messageCount, long threadCount) {
 		super();
 		this.forum = forum;
-		lastPost = new ForumMessage();
+		this.lastPost = lastPost;
+		this.messageCount = new AtomicLong(messageCount);
+		this.threadCount = new AtomicLong(threadCount);
 		this.subscribedState = new SubscribedState(new ForumSubscribed(forum));
 	}
 
@@ -51,46 +57,26 @@ public class ForumState {
 	 * @return Returns the messageCount.
 	 */
 	public int getMessageCount() {
-		return messageCount;
+		return messageCount.intValue();
 	}
 
-	/**
-	 * @param messageCount
-	 *            The messageCount to set.
-	 */
-	public void setMessageCount(int messageCount) {
-		this.messageCount = messageCount;
-	}
-
-	public void addMessageCount() {
-		this.messageCount = messageCount + 1;
+	public long addMessageCount() {
+		return this.messageCount.incrementAndGet();
 	}
 
 	/**
 	 * @return Returns the threadCount.
 	 */
 	public int getThreadCount() {
-		return threadCount;
+		return threadCount.intValue();
 	}
 
-	public void addThreadCount() {
-		this.threadCount = threadCount + 1;
-	}
-
-	/**
-	 * @param threadCount
-	 *            The threadCount to set.
-	 */
-	public void setThreadCount(int threadCount) {
-		this.threadCount = threadCount;
+	public long addThreadCount() {
+		return this.threadCount.incrementAndGet();
 	}
 
 	public ForumMessage getLastPost() {
 		return lastPost;
-	}
-
-	public void setLastPost(ForumMessage lastPost) {
-		this.lastPost = lastPost;
 	}
 
 	public Forum getForum() {

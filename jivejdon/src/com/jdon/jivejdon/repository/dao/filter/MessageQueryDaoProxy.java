@@ -29,6 +29,7 @@ import com.jdon.jivejdon.util.ContainerUtil;
  * @author banq(http://www.jdon.com)
  * 
  */
+
 public class MessageQueryDaoProxy extends MessageQueryDaoSql {
 
 	public static final String Message_Name = "Message_Name";
