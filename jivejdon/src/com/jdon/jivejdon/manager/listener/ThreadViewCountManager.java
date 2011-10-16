@@ -71,15 +71,10 @@ public class ThreadViewCountManager implements Startable {
 	private void saveItem(Map.Entry<Long, ViewCounter> m, Iterator i) {
 		try {
 			ViewCounter viewCounter = (ViewCounter) m.getValue();
-			viewCounter.getLock().writeLock().lock();
-			try {
-				Property property = new Property();
-				property.setName(ThreadPropertys.VIEW_COUNT);
-				property.setValue(Integer.toString(viewCounter.getViewCount()));
-				propertyDao.updateProperty(Constants.THREAD, m.getKey(), property);
-			} finally {
-				viewCounter.getLock().writeLock().unlock();
-			}
+			Property property = new Property();
+			property.setName(ThreadPropertys.VIEW_COUNT);
+			property.setValue(Integer.toString(viewCounter.getViewCount()));
+			propertyDao.updateProperty(Constants.THREAD, m.getKey(), property);
 		} catch (Exception e) {
 			logger.error(e);
 		} finally {
