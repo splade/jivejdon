@@ -32,7 +32,7 @@ public class ViewThreadAction extends Action {
 				return actionMapping.findForward("error");
 			}
 
-			thread.viewCountAction(request.getRemoteAddr());
+			thread.addViewCount(request.getRemoteAddr());
 		} catch (Exception e) {
 			return actionMapping.findForward("error");
 		}

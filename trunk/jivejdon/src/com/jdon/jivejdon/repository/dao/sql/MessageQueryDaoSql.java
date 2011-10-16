@@ -55,6 +55,32 @@ public abstract class MessageQueryDaoSql implements MessageQueryDao {
 		this.jdbcTempSource = jdbcTempSource;
 	}
 
+	public TreeModel getTreeModel(Long threadId, Long rootMessageId) {
+		logger.debug("getTreeModel from jdbc for threadId=" + threadId);
+		TreeModel treeModel = new TreeModel(rootMessageId.longValue());
+
+		// get the messagId collection only except the root messageId
+		String SQL = "SELECT messageID, parentMessageID, creationDate FROM jiveMessage " + "WHERE threadID=? AND parentMessageID IS NOT NULL "
+				+ "ORDER BY creationDate ASC";
+		// parentMessageID IS NOT NULL or parentMessageID != 0 ?
+		List queryParams = new ArrayList();
+		queryParams.add(threadId);
+		try {
+			List list = jdbcTempSource.getJdbcTemp().queryMultiObject(queryParams, SQL);
+
+			Iterator iter = list.iterator();
+			while (iter.hasNext()) {
+				Map map = (Map) iter.next();
+				Long messageID = (Long) map.get("messageID");
+				Long parentMessageID = (Long) map.get("parentMessageID");
+				treeModel.addChild(parentMessageID.longValue(), messageID.longValue());
+			}
+		} catch (Exception e) {
+			logger.error(e);
+		}
+		return treeModel;
+	}
+
 	public int getMessageCountOfUser(Long userId) {
 		logger.debug("enter getMessageCountOfUser  for userId:" + userId);
 		String USER_MESSAGE_COUNT = "SELECT count(1) FROM jiveMessage WHERE jiveMessage.userID=?";
@@ -118,32 +144,6 @@ public abstract class MessageQueryDaoSql implements MessageQueryDao {
 			logger.error(e);
 		}
 		return isRoot;
-	}
-
-	public TreeModel getTreeModel(Long threadId, Long rootMessageId) {
-		logger.debug("getTreeModel from jdbc for threadId=" + threadId);
-		TreeModel treeModel = new TreeModel(rootMessageId.longValue());
-
-		// get the messagId collection only except the root messageId
-		String SQL = "SELECT messageID, parentMessageID, creationDate FROM jiveMessage " + "WHERE threadID=? AND parentMessageID IS NOT NULL "
-				+ "ORDER BY creationDate ASC";
-		// parentMessageID IS NOT NULL or parentMessageID != 0 ?
-		List queryParams = new ArrayList();
-		queryParams.add(threadId);
-		try {
-			List list = jdbcTempSource.getJdbcTemp().queryMultiObject(queryParams, SQL);
-
-			Iterator iter = list.iterator();
-			while (iter.hasNext()) {
-				Map map = (Map) iter.next();
-				Long messageID = (Long) map.get("messageID");
-				Long parentMessageID = (Long) map.get("parentMessageID");
-				treeModel.addChild(parentMessageID.longValue(), messageID.longValue());
-			}
-		} catch (Exception e) {
-			logger.error(e);
-		}
-		return treeModel;
 	}
 
 	/*

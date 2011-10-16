@@ -35,7 +35,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
 
         </td>
         <td align="center">
-            <bean:write name="forumThread" property="state.viewCount" />            
+            <bean:write name="forumThread" property="viewCounter" />            
         </td>
         <td align="center">
             <bean:write name="forumThread" property="state.messageCount" />            
@@ -117,7 +117,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
 
         </td>
         <td align="center">
-            <bean:write name="forumThread" property="state.viewCount" />            
+            <bean:write name="forumThread" property="viewCounter" />            
         </td>
         <td align="center">
             <bean:write name="forumThread" property="state.messageCount" />            
@@ -191,7 +191,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
 
         </td>
         <td align="center">
-            <bean:write name="forumThread" property="state.viewCount" />            
+            <bean:write name="forumThread" property="viewCounter" />            
         </td>
         <td align="center">
             <bean:write name="forumThread" property="state.messageCount" />            
@@ -267,7 +267,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
 
         </td>
         <td align="center">
-            <bean:write name="forumThread" property="state.viewCount" />            
+            <bean:write name="forumThread" property="viewCounter" />            
         </td>
         <td align="center">
             <bean:write name="forumThread" property="state.messageCount" />            

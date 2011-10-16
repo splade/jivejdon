@@ -32,10 +32,7 @@ import com.jdon.jivejdon.repository.UploadRepository;
 import com.jdon.jivejdon.repository.dao.MessageDaoFacade;
 import com.jdon.jivejdon.repository.dao.PropertyDao;
 import com.jdon.jivejdon.util.ContainerUtil;
-import com.jdon.treepatterns.TreeNodeFactory;
-import com.jdon.treepatterns.TreeNodeVisitable;
 import com.jdon.treepatterns.TreeVisitor;
-import com.jdon.treepatterns.model.TreeModel;
 
 /**
  * Kernel of Message business operations
@@ -186,15 +183,9 @@ public class MessageRepositoryDao extends ThreadRepositoryDao implements Message
 		try {
 			ForumThread forumThread = forumBuilder.getThread(delforumMessage.getForumThread().getThreadId());
 
-			// because forumMessage can be cached, so we do need create a node
-			// every time.
-			TreeModel treeModel = forumThread.getState().getTreeModel();
-			TreeNodeFactory TreeNodeFactory = new TreeNodeFactory(treeModel);
-			TreeNodeVisitable treeNode = TreeNodeFactory.createNode(key);
-
 			TreeVisitor messageDeletor = new MessageDeletor(this);
 			logger.debug(" begin to walk into tree, and delete them");
-			treeNode.accept(messageDeletor);
+			forumThread.acceptTreeModelVisitor(delforumMessage.getMessageId(), messageDeletor);
 
 		} catch (Exception e) {
 			String error = e + " deleteMessageComposite forumMessageId=" + delforumMessage.getMessageId();

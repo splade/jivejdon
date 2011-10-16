@@ -53,7 +53,7 @@ if (iter.hasPrevious()){
 
     </td>
     <td width="98%" align="center">
-
+       探索 分享 交流 解惑 授道
     </td>
     <td width="1%" nowrap>
 <%

@@ -15,7 +15,7 @@
  */
 package com.jdon.jivejdon.model.thread;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.jdon.jivejdon.model.ForumThread;
@@ -23,30 +23,21 @@ import com.jdon.jivejdon.model.ForumThread;
 public class ViewCounter {
 
 	private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
-	private volatile AtomicInteger viewCount = new AtomicInteger(0);
+	private final AtomicLong viewCount;
 	private volatile String lastViewIP;
 	private final ForumThread thread;
 
-	public ViewCounter(ForumThread thread) {
+	public ViewCounter(ForumThread thread, long count) {
 		this.thread = thread;
+		this.viewCount = new AtomicLong(count);
 	}
 
 	public int getViewCount() {
-		lock.readLock().lock();
-		try {
-			return viewCount.intValue();
-		} finally {
-			lock.readLock().unlock();
-		}
+		return viewCount.intValue();
 	}
 
 	public void addViewCount() {
-		lock.writeLock().lock();
-		try {
-			viewCount.incrementAndGet();
-		} finally {
-			lock.writeLock().unlock();
-		}
+		viewCount.incrementAndGet();
 	}
 
 	public void addViewCount(String ip) {

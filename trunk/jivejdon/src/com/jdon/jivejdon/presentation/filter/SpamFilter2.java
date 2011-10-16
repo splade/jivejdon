@@ -89,8 +89,8 @@ public class SpamFilter2 implements Filter {
 				isFilter = true;
 			}
 		};
-		// one hour
-		scheduExec.scheduleWithFixedDelay(startFiltertask, 60, 60 * 60 * 60, TimeUnit.SECONDS);
+		// half hour
+		scheduExec.scheduleWithFixedDelay(startFiltertask, 60, 60 * 30, TimeUnit.SECONDS);
 
 		Runnable stopFiltertask = new Runnable() {
 			public void run() {
@@ -98,7 +98,7 @@ public class SpamFilter2 implements Filter {
 			}
 		};
 		// after 15Mintues stop it
-		scheduExec.scheduleWithFixedDelay(stopFiltertask, 60 * 15, 60 * 60 * 75, TimeUnit.SECONDS);
+		scheduExec.scheduleWithFixedDelay(stopFiltertask, 60 * 5, 60 * 35, TimeUnit.SECONDS);
 
 	}
 

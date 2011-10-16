@@ -26,6 +26,7 @@ import com.jdon.annotation.Model;
 import com.jdon.annotation.model.Inject;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.model.repository.LazyLoaderRole;
+import com.jdon.jivejdon.model.state.ForumStateFactory;
 import com.jdon.jivejdon.model.subscription.SubPublisherRoleIF;
 import com.jdon.jivejdon.model.subscription.subscribed.ForumSubscribed;
 
@@ -70,8 +71,12 @@ public class Forum extends ForumModel {
 	@Inject
 	public LazyLoaderRole lazyLoaderRole;
 
+	@Inject
+	private ForumStateFactory forumStateManager;
+
 	public Forum() {
-		forumState = new ForumState(this);
+		// init state
+		forumState = new ForumState(this, null, 0, 0);
 	}
 
 	/**
@@ -197,23 +202,17 @@ public class Forum extends ForumModel {
 		this.hotKeys = hotKeys;
 	}
 
-	public synchronized void addNewMessage(ForumMessageReply forumMessageReply) {
-		forumState.addMessageCount();
-		forumState.setLastPost(forumMessageReply);
-		forumMessageReply.setForum(this);
+	public void addNewMessage(ForumMessageReply forumMessageReply) {
+		forumStateManager.addNewMessage(this, forumMessageReply);
 		this.publisherRole.subscriptionNotify(new ForumSubscribed(this));
 	}
 
-	public synchronized void updateNewMessage(ForumMessage forumMessage) {
-		forumState.setLastPost(forumMessage);
-		forumMessage.setForum(this);
+	public void updateNewMessage(ForumMessage forumMessage) {
+		forumStateManager.updateMessage(this, forumMessage);
 	}
 
-	public synchronized void addNewThread(ForumMessage topicForumMessage) {
-		forumState.addThreadCount();
-		forumState.addMessageCount();
-		forumState.setLastPost(topicForumMessage);
-		topicForumMessage.setForum(this);
+	public void addNewThread(ForumMessage topicForumMessage) {
+		forumStateManager.addNewThread(this, topicForumMessage);
 		this.publisherRole.subscriptionNotify(new ForumSubscribed(this));
 	}
 

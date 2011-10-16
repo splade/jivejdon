@@ -13,8 +13,6 @@ import org.apache.log4j.Logger;
 
 import com.jdon.annotation.Component;
 import com.jdon.container.pico.Startable;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
 import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.Property;
@@ -31,7 +29,7 @@ import com.jdon.jivejdon.repository.dao.PropertyDao;
  */
 
 @Component("threadViewCountManager")
-public class ThreadViewCountManager implements MessageListener, Startable {
+public class ThreadViewCountManager implements Startable {
 	private final static Logger logger = Logger.getLogger(ThreadViewCountManager.class);
 
 	private ConcurrentMap<Long, ViewCounter> concurrentHashMap = new ConcurrentHashMap<Long, ViewCounter>();
@@ -79,7 +77,6 @@ public class ThreadViewCountManager implements MessageListener, Startable {
 				property.setName(ThreadPropertys.VIEW_COUNT);
 				property.setValue(Integer.toString(viewCounter.getViewCount()));
 				propertyDao.updateProperty(Constants.THREAD, m.getKey(), property);
-				i.remove();
 			} finally {
 				viewCounter.getLock().writeLock().unlock();
 			}
@@ -89,38 +86,17 @@ public class ThreadViewCountManager implements MessageListener, Startable {
 		}
 	}
 
-	public void action(DomainMessage domainMessage) {
-		ViewCounter viewCounter = (ViewCounter) domainMessage.getEventSource();
-		Long threadId = viewCounter.getThread().getThreadId();
-		viewCounter.getLock().writeLock().lock();
-		try {
-			if (!concurrentHashMap.containsKey(threadId)) {
-				// the viewcounter has been saved and removed.
-				concurrentHashMap.put(threadId, viewCounter);
-			}
-		} finally {
-			viewCounter.getLock().writeLock().unlock();
-		}
-
-	}
-
 	// called by thread create factory
 	public void initViewCounter(ForumThread thread) {
 		Long threadId = thread.getThreadId();
-		ViewCounter viewCounter = thread.getState().getViewCounter();
-		viewCounter.getLock().writeLock().lock();
-		try {
-			int count = -1;
-			ViewCounter viewCounterOld = concurrentHashMap.get(threadId);
-			if (viewCounterOld == null) {
-				count = getFromDB(threadId);
-			} else
-				count = viewCounterOld.getViewCount();
-			thread.setViewCount(count);
+		int count = -1;
+		ViewCounter viewCounter = concurrentHashMap.get(threadId);
+		if (viewCounter == null) {
+			count = getFromDB(threadId);
+			viewCounter = new ViewCounter(thread, count);
 			concurrentHashMap.put(threadId, viewCounter);
-		} finally {
-			viewCounter.getLock().writeLock().unlock();
 		}
+		thread.setViewCounter(viewCounter);
 	}
 
 	private int getFromDB(Long threadId) {

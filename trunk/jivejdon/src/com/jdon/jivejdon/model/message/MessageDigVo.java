@@ -29,9 +29,15 @@ public class MessageDigVo {
 	}
 
 	public void preloadDigCount() {
-		if (digCountAsyncResult == null) {
-			digCountAsyncResult = message.lazyLoaderRole.loadMessageDigCount(message.getMessageId());
-			number = (Integer) digCountAsyncResult.getEventResult();
+		try {
+			if (digCountAsyncResult == null) {
+				digCountAsyncResult = message.lazyLoaderRole.loadMessageDigCount(message.getMessageId());
+				Object o = digCountAsyncResult.getEventResult();
+				if (o != null)
+					number = (Integer) o;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}

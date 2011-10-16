@@ -22,13 +22,13 @@ import com.jdon.jivejdon.model.ForumMessageReply;
 
 public interface MessageSearchRepository {
 
-	public abstract void createMessage(ForumMessage forumMessage) throws Exception;
+	public abstract void createMessage(ForumMessage forumMessage);
 
-	public abstract void createMessageReply(ForumMessageReply forumMessageReply) throws Exception;
+	public abstract void createMessageReply(ForumMessageReply forumMessageReply);
 
-	public abstract void updateMessage(ForumMessage forumMessage) throws Exception;
+	public abstract void updateMessage(ForumMessage forumMessage);
 
-	public abstract void deleteMessage(Long forumMessageId) throws Exception;
+	public abstract void deleteMessage(Long forumMessageId);
 
 	int findThreadsAllCount(String query);
 

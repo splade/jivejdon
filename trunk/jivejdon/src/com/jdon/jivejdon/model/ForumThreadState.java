@@ -15,16 +15,13 @@
  */
 package com.jdon.jivejdon.model;
 
-import java.util.Date;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.atomic.AtomicLong;
 
-import com.jdon.jivejdon.Constants;
 import com.jdon.jivejdon.model.subscription.SubscribedState;
 import com.jdon.jivejdon.model.subscription.subscribed.ThreadSubscribed;
-import com.jdon.jivejdon.model.thread.ViewCounter;
-import com.jdon.treepatterns.model.TreeModel;
 
 /**
+ * State is a Value Object, it is immutable. need a pattern to keep immutable.
  * 
  * @author <a href="mailto:banq@163.com">banq</a>
  * 
@@ -35,45 +32,27 @@ public class ForumThreadState {
 	 * to find the number of replies to the root message, subtract one from the
 	 * answer of this method.
 	 */
-	private volatile int messageCount = 0;
+	private final AtomicLong messageCount;
 
-	private volatile ViewCounter viewCounter;
+	private final ForumMessage lastPost;
 
-	private volatile ForumMessage lastPost;
+	private final ForumThread forumThread;
 
-	// used to comupte weight task such as TreeModel construct
-	protected FutureTask futureTask;
+	private final SubscribedState subscribedState;
 
-	/**
-	 * 
-	 * move from ForumThread to here, it is a state property when has a
-	 * lastPost, TreeModel changed!
-	 */
-	private volatile TreeModel treeModel;
-
-	/**
-	 * 
-	 * move from ForumThread to here,it is a state property when has a lastPost,
-	 * modifiedDate is modified it is equals lastPost.modifiedDate so no used
-	 */
-	private volatile String modifiedDate;
-
-	private ForumThread forumThread;
-
-	private SubscribedState subscribedState;
-
-	public ForumThreadState(ForumThread forumThread) {
+	public ForumThreadState(ForumThread forumThread, ForumMessage lastPost, long messageCount) {
 		super();
 		this.forumThread = forumThread;
+		this.lastPost = lastPost;
+		this.messageCount = new AtomicLong(messageCount);
 		this.subscribedState = new SubscribedState(new ThreadSubscribed(forumThread));
-		this.viewCounter = new ViewCounter(forumThread);
 	}
 
 	/**
 	 * @return Returns the messageCount.
 	 */
 	public int getMessageCount() {
-		return messageCount;
+		return messageCount.intValue();
 	}
 
 	/**
@@ -81,74 +60,27 @@ public class ForumThreadState {
 	 *            The messageCount to set.
 	 */
 	public void setMessageCount(int messageCount) {
-		if (messageCount >= 1)
-			this.messageCount = messageCount - 1;
-		else
-			this.messageCount = messageCount;
+		this.messageCount.set(messageCount);
 	}
 
-	public void addMessageCount() {
-		this.messageCount = messageCount + 1;
-	}
-
-	// http://forums.sun.com/thread.jspa?threadID=666377
-	public void addViewCount(String ip) {
-		viewCounter.addViewCount(ip);
-		this.forumThread.lazyLoaderRole.refreshThreadCount(viewCounter);
-	}
-
-	public void setViewCount(int count) {
-		viewCounter.setViewCount(count);
+	public long addMessageCount() {
+		return this.messageCount.incrementAndGet();
 	}
 
 	public ForumMessage getLastPost() {
 		return lastPost;
 	}
 
-	public void setLastPost(ForumMessage lastPost) {
-		this.lastPost = lastPost;
-	}
-
 	public ForumThread getForumThread() {
 		return forumThread;
 	}
 
-	/**
-	 * @return Returns the treeModel.
-	 */
-	public TreeModel getTreeModel() {
-		try {
-			if (futureTask != null) {
-				// ThreadBuilder#buildTreeModel
-				TreeModel treeModel = (TreeModel) this.futureTask.get();
-				this.treeModel = treeModel;
-				this.futureTask = null;
-			}
-			return treeModel;
-		} catch (Exception e) {
-			System.err.print(e);
-			return null;
-		} finally {
-		}
-	}
-
-	public void setTreeModel(TreeModel treeModel) {
-		this.treeModel = treeModel;
-	}
-
 	public String getModifiedDate() {
-		return modifiedDate;
+		return lastPost.getModifiedDate();
 	}
 
 	public long getModifiedDate2() {
-		if (modifiedDate == null)
-			return 0;
-		Date mdate = Constants.parseDateTime(modifiedDate);
-		return mdate.getTime();
-	}
-
-	public void setModifiedDate(String modifiedDate) {
-		this.modifiedDate = modifiedDate;
+		return lastPost.getModifiedDate2();
 	}
 
 	public int getSubscriptionCount() {
@@ -157,22 +89,6 @@ public class ForumThreadState {
 
 	public void updateSubscriptionCount(int count) {
 		subscribedState.update(count);
-	}
-
-	public FutureTask getFutureTask() {
-		return futureTask;
-	}
-
-	public void setFutureTask(FutureTask futureTask) {
-		this.futureTask = futureTask;
-	}
-
-	public int getViewCount() {
-		return viewCounter.getViewCount();
-	}
-
-	public ViewCounter getViewCounter() {
-		return viewCounter;
 	}
 
 }

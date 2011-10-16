@@ -1,5 +1,5 @@
 /*
- * Copyright 2003-2005 the original author or authors.
+ * Copyright 2003-2009 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -13,25 +13,19 @@
  * limitations under the License.
  * 
  */
-package com.jdon.jivejdon.manager;
+package com.jdon.jivejdon.model.state;
 
+import com.jdon.jivejdon.model.Forum;
+import com.jdon.jivejdon.model.ForumMessage;
 
-/**
- * @author <a href="mailto:banq@163.com">banq</a>
- *
- */
-public interface ForumThreadWalker {
-    
-    Long[] children(Long messageId);
+public interface ForumStateFactory {
 
-    Long getChildId(Long messageId, int index);
-        
-    int getMessageDepth(Long messageId);
-    
-    int getIndexOfChild(Long parent, Long child);
+	void init(Forum forum, ForumMessage lastPost);
 
-    boolean isLeaf(Long messageId);
-    
-    Long getParentId(long childKey);
+	void addNewMessage(Forum forum, ForumMessage newLastPost);
+
+	void addNewThread(Forum forum, ForumMessage newLastPost);
+
+	void updateMessage(Forum forum, ForumMessage forumMessage);
 
 }
