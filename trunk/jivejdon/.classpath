@@ -15,7 +15,7 @@
 	<classpathentry kind="lib" path="lib/jf/disruptor-2.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/jf/ehcache-1.6.2.jar"/>
 	<classpathentry kind="lib" path="lib/jf/jdom.jar"/>
-	<classpathentry kind="lib" path="lib/jf/jdonFramework.jar" sourcepath="/jdonframework"/>
+	<classpathentry kind="lib" path="lib/jf/jdonFramework.jar" sourcepath="/jdonframework/src"/>
 	<classpathentry kind="lib" path="lib/jf/log4j.jar"/>
 	<classpathentry kind="lib" path="lib/jf/picocontainer-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/jf/scannotation-1.0.2.jar"/>

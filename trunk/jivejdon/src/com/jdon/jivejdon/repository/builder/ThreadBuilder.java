@@ -27,7 +27,6 @@ import com.jdon.jivejdon.model.state.ForumThreadStateFactory;
 import com.jdon.jivejdon.repository.TagRepository;
 import com.jdon.jivejdon.repository.dao.MessageDao;
 import com.jdon.jivejdon.repository.dao.MessageQueryDao;
-import com.jdon.jivejdon.repository.listener.TreeModelFactory;
 
 public class ThreadBuilder {
 	private final static Logger logger = Logger.getLogger(ThreadBuilder.class);
@@ -44,17 +43,13 @@ public class ThreadBuilder {
 
 	private ThreadViewCountManager threadViewNumberManager;
 
-	private TreeModelFactory forumThreadTreeModelFactory;
-
 	public ThreadBuilder(MessageDao messageDao, TagRepository tagRepository, MessageQueryDao messageQueryDao,
-			ThreadViewCountManager threadViewNumberManager, ForumThreadStateFactory forumThreadStateFactory,
-			TreeModelFactory forumThreadTreeModelFactory) {
+			ThreadViewCountManager threadViewNumberManager, ForumThreadStateFactory forumThreadStateFactory) {
 		this.messageDao = messageDao;
 		this.tagRepository = tagRepository;
 		this.messageQueryDao = messageQueryDao;
 		this.threadViewNumberManager = threadViewNumberManager;
 		this.forumThreadStateFactory = forumThreadStateFactory;
-		this.forumThreadTreeModelFactory = forumThreadTreeModelFactory;
 	}
 
 	public void setForumAbstractFactory(ForumAbstractFactory forumAbstractFactory) {
