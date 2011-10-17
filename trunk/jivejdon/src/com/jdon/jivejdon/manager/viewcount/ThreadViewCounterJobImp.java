@@ -1,8 +1,5 @@
-package com.jdon.jivejdon.manager.listener;
+package com.jdon.jivejdon.manager.viewcount;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.Executors;
@@ -28,9 +25,9 @@ import com.jdon.jivejdon.repository.dao.PropertyDao;
  * 
  */
 
-@Component("threadViewCountManager")
-public class ThreadViewCountManager implements Startable {
-	private final static Logger logger = Logger.getLogger(ThreadViewCountManager.class);
+@Component("threadViewCounterJob")
+public class ThreadViewCounterJobImp implements Startable, ThreadViewCounterJob {
+	private final static Logger logger = Logger.getLogger(ThreadViewCounterJobImp.class);
 
 	private ConcurrentMap<Long, ViewCounter> concurrentHashMap = new ConcurrentHashMap<Long, ViewCounter>();
 	private static ScheduledExecutorService scheduExec = Executors.newScheduledThreadPool(1);
@@ -38,7 +35,7 @@ public class ThreadViewCountManager implements Startable {
 	private final PropertyDao propertyDao;
 	private final ThreadViewCountParameter threadViewCountParameter;
 
-	public ThreadViewCountManager(final PropertyDao propertyDao, final ThreadViewCountParameter threadViewCountParameter) {
+	public ThreadViewCounterJobImp(final PropertyDao propertyDao, final ThreadViewCountParameter threadViewCountParameter) {
 		this.propertyDao = propertyDao;
 		this.threadViewCountParameter = threadViewCountParameter;
 	}
@@ -61,20 +58,23 @@ public class ThreadViewCountManager implements Startable {
 	}
 
 	public void writeDB() {
-		Set s = concurrentHashMap.entrySet();
-		for (Iterator i = s.iterator(); i.hasNext();) {
-			Map.Entry<Long, ViewCounter> m = (Map.Entry) i.next();
-			saveItem(m, i);
+		for (long threadId : concurrentHashMap.keySet()) {
+			ViewCounter viewCounter = concurrentHashMap.get(threadId);
+			if (viewCounter.getLastSavedCount() == viewCounter.getViewCount())
+				concurrentHashMap.remove(threadId);
+			else {
+				saveItem(viewCounter);
+				viewCounter.setLastSavedCount(viewCounter.getViewCount());
+			}
 		}
 	}
 
-	private void saveItem(Map.Entry<Long, ViewCounter> m, Iterator i) {
+	private void saveItem(ViewCounter viewCounter) {
 		try {
-			ViewCounter viewCounter = (ViewCounter) m.getValue();
 			Property property = new Property();
 			property.setName(ThreadPropertys.VIEW_COUNT);
-			property.setValue(Integer.toString(viewCounter.getViewCount()));
-			propertyDao.updateProperty(Constants.THREAD, m.getKey(), property);
+			property.setValue(Long.toString(viewCounter.getViewCount()));
+			propertyDao.updateProperty(Constants.THREAD, viewCounter.getThread().getThreadId(), property);
 		} catch (Exception e) {
 			logger.error(e);
 		} finally {
@@ -82,16 +82,37 @@ public class ThreadViewCountManager implements Startable {
 	}
 
 	// called by thread create factory
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.manager.viewcount.ThreadViewCounterJob#initViewCounter
+	 * (com.jdon.jivejdon.model.ForumThread)
+	 */
+	@Override
 	public void initViewCounter(ForumThread thread) {
-		Long threadId = thread.getThreadId();
 		int count = -1;
-		ViewCounter viewCounter = concurrentHashMap.get(threadId);
+		ViewCounter viewCounter = concurrentHashMap.get(thread.getThreadId());
 		if (viewCounter == null) {
-			count = getFromDB(threadId);
+			count = getFromDB(thread.getThreadId());
 			viewCounter = new ViewCounter(thread, count);
-			concurrentHashMap.put(threadId, viewCounter);
+			concurrentHashMap.put(thread.getThreadId(), viewCounter);
 		}
 		thread.setViewCounter(viewCounter);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.manager.viewcount.ThreadViewCounterJob#checkViewCounter
+	 * (com.jdon.jivejdon.model.ForumThread)
+	 */
+	@Override
+	public void checkViewCounter(ForumThread thread) {
+		if (!concurrentHashMap.containsValue(thread.getViewCounter())) {
+			concurrentHashMap.put(thread.getThreadId(), thread.getViewCounter());
+		}
 	}
 
 	private int getFromDB(Long threadId) {

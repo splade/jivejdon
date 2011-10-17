@@ -24,14 +24,15 @@ public class ViewCounter {
 	private final AtomicLong viewCount;
 	private volatile String lastViewIP;
 	private final ForumThread thread;
+	private long lastSavedCount;
 
 	public ViewCounter(ForumThread thread, long count) {
 		this.thread = thread;
 		this.viewCount = new AtomicLong(count);
 	}
 
-	public int getViewCount() {
-		return viewCount.intValue();
+	public long getViewCount() {
+		return viewCount.longValue();
 	}
 
 	public void addViewCount() {
@@ -52,6 +53,14 @@ public class ViewCounter {
 
 	public ForumThread getThread() {
 		return thread;
+	}
+
+	public long getLastSavedCount() {
+		return lastSavedCount;
+	}
+
+	public void setLastSavedCount(long lastSavedCount) {
+		this.lastSavedCount = lastSavedCount;
 	}
 
 }

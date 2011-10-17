@@ -72,7 +72,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 <a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go"><span class="pageGo">Go</span></a>
 有<b><bean:write name="messageListForm" property="numPages" /></b>页
 </logic:greaterThan>
-阅读<bean:write name="forumThread" property="viewCounter" />次 
+阅读<bean:write name="forumThread" property="viewCount" />次 
 <logic:greaterThan name="forumThread" property="state.subscriptionCount" value="0">
      <bean:write name="forumThread" property="state.subscriptionCount"/>人关注
 </logic:greaterThan>

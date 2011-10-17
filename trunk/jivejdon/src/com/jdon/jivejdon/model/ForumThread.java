@@ -337,8 +337,14 @@ public class ForumThread extends ForumModel {
 		viewCounter.addViewCount(ip);
 	}
 
-	public int getViewCounter() {
+	// return count
+	public long getViewCount() {
 		return viewCounter.getViewCount();
+	}
+
+	// return viewcount object
+	public ViewCounter getViewCounter() {
+		return viewCounter;
 	}
 
 	public void setViewCounter(ViewCounter viewCounter) {

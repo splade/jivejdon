@@ -78,22 +78,23 @@
     
     <!-- message List start  -->
 	  	  	  
-    <action path="/forum/messageList" type="com.jdon.jivejdon.presentation.action.ThreadPrevNexListAction"
-      name="threadPrevNexListForm" scope="request" 
-      validate="false">
+    <action path="/forum/messageList" type="com.jdon.jivejdon.presentation.action.util.ThreadEtagFilter"
+       scope="request"  validate="false">
       <forward name="success" path="/forum/messageListBody.shtml"/>
     </action>
 
 	 <action path="/forum/messageListBody" type="com.jdon.jivejdon.presentation.action.MessageListAction"
       name="messageListForm" scope="request" 
       validate="false">
-      <forward name="success" path="/forum/viewThread.shtml"/>
+      <forward name="success" path="/forum/threadPrevNexList.shtml"/>
     </action>
     
-    <action path="/forum/viewThread" type="com.jdon.jivejdon.presentation.action.ViewThreadAction"
-     scope="request" validate="false">
+    <action path="/forum/threadPrevNexList" type="com.jdon.jivejdon.presentation.action.ThreadPrevNexListAction"
+      name="threadPrevNexListForm" scope="request" 
+      validate="false">
       <forward name="success" path="/forum/messageList.jsp"/>
     </action>
+       
     
     <!--  for after modfied messageList display -->
     <action path="/message/messageSaveList" type="com.jdon.jivejdon.presentation.action.ThreadPrevNexListAction"

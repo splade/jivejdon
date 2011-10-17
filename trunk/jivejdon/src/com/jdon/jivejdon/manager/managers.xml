@@ -182,7 +182,7 @@
 		</component>
 		
 		<component name="threadViewCountParameter"
-			class="com.jdon.jivejdon.manager.listener.ThreadViewCountParameter">
+			class="com.jdon.jivejdon.manager.viewcount.ThreadViewCountParameter">
 			<constructor value="600" />
 			<constructor value="6000" /> <!-- 60*60s unit: s -->
 		</component>

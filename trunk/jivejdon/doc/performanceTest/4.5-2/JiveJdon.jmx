@@ -38,7 +38,7 @@
               </elementProp>
               <elementProp name="parentMessage.messageId" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">193979</stringProp>
+                <stringProp name="Argument.value">194186</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">parentMessage.messageId</stringProp>
@@ -122,7 +122,7 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/jivejdon/thread/4634</stringProp>
+          <stringProp name="HTTPSampler.path">/jivejdon/thread/4661</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -228,14 +228,14 @@
               </elementProp>
               <elementProp name="messageId" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">193979</stringProp>
+                <stringProp name="Argument.value">194186</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">messageId</stringProp>
               </elementProp>
               <elementProp name="forumThread.threadId" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">4634</stringProp>
+                <stringProp name="Argument.value">4661</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
                 <stringProp name="Argument.name">forumThread.threadId</stringProp>
