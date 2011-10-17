@@ -13,7 +13,7 @@
  * limitations under the License.
  * 
  */
-package com.jdon.jivejdon.manager.listener;
+package com.jdon.jivejdon.manager.viewcount;
 
 public class ThreadViewCountParameter {
 

@@ -18,6 +18,7 @@ package com.jdon.jivejdon.presentation.action.util;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -26,10 +27,10 @@ import com.jdon.controller.WebAppUtil;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.service.ForumMessageService;
 import com.jdon.jivejdon.util.ToolsUtil;
-import com.jdon.strutsutil.ModelListAction;
+import com.jdon.strutsutil.FormBeanUtil;
 import com.jdon.util.UtilValidate;
 
-public abstract class ThreadEtagFilter extends ModelListAction {
+public class ThreadEtagFilter extends Action {
 	public final static String NEWLASMESSAGE = "NEWLASMESSAGE";
 
 	public ActionForward execute(ActionMapping actionMapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response)
@@ -40,7 +41,7 @@ public abstract class ThreadEtagFilter extends ModelListAction {
 		if (request.getParameter("nocache") != null) { // for just modified and
 			// view it
 			expire = 0;
-			return super.execute(actionMapping, actionForm, request, response);
+			return actionMapping.findForward(FormBeanUtil.FORWARD_SUCCESS_NAME);
 		}
 
 		String threadId = request.getParameter("thread");
@@ -59,7 +60,7 @@ public abstract class ThreadEtagFilter extends ModelListAction {
 			return null;// response is 304
 		}
 
-		return super.execute(actionMapping, actionForm, request, response);
+		return actionMapping.findForward(FormBeanUtil.FORWARD_SUCCESS_NAME);
 	}
 
 }

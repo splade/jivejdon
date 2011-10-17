@@ -18,7 +18,7 @@ package com.jdon.jivejdon.repository.builder;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.jivejdon.manager.listener.ThreadViewCountManager;
+import com.jdon.jivejdon.manager.viewcount.ThreadViewCounterJob;
 import com.jdon.jivejdon.model.Forum;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumMessageReply;
@@ -41,14 +41,14 @@ public class ThreadBuilder {
 
 	private ForumAbstractFactory forumAbstractFactory;
 
-	private ThreadViewCountManager threadViewNumberManager;
+	private ThreadViewCounterJob ThreadViewCounterJob;
 
 	public ThreadBuilder(MessageDao messageDao, TagRepository tagRepository, MessageQueryDao messageQueryDao,
-			ThreadViewCountManager threadViewNumberManager, ForumThreadStateFactory forumThreadStateFactory) {
+			ThreadViewCounterJob ThreadViewCounterJob, ForumThreadStateFactory forumThreadStateFactory) {
 		this.messageDao = messageDao;
 		this.tagRepository = tagRepository;
 		this.messageQueryDao = messageQueryDao;
-		this.threadViewNumberManager = threadViewNumberManager;
+		this.ThreadViewCounterJob = ThreadViewCounterJob;
 		this.forumThreadStateFactory = forumThreadStateFactory;
 	}
 
@@ -132,7 +132,7 @@ public class ThreadBuilder {
 
 			forumThreadStateFactory.init(forumThread, lastMessage);
 
-			threadViewNumberManager.initViewCounter(forumThread);
+			ThreadViewCounterJob.initViewCounter(forumThread);
 
 			logger.debug(" buildPartyState for forumThread=" + forumThread.getThreadId());
 

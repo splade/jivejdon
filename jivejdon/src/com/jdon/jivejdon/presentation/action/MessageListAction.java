@@ -22,13 +22,14 @@ import org.apache.struts.action.ActionMapping;
 
 import com.jdon.controller.WebAppUtil;
 import com.jdon.controller.model.PageIterator;
+import com.jdon.jivejdon.manager.viewcount.ThreadViewCounterJob;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumThread;
-import com.jdon.jivejdon.presentation.action.util.ThreadEtagFilter;
 import com.jdon.jivejdon.presentation.form.MessageListForm;
 import com.jdon.jivejdon.service.AccountService;
 import com.jdon.jivejdon.service.ForumMessageQueryService;
 import com.jdon.jivejdon.service.ForumMessageService;
+import com.jdon.strutsutil.ModelListAction;
 import com.jdon.strutsutil.ModelListForm;
 import com.jdon.util.Debug;
 import com.jdon.util.UtilValidate;
@@ -37,7 +38,7 @@ import com.jdon.util.UtilValidate;
  * @author <a href="mailto:banq@163.com">banq</a>
  * 
  */
-public class MessageListAction extends ThreadEtagFilter {
+public class MessageListAction extends ModelListAction {
 	private final static String module = MessageListAction.class.getName();
 
 	/*
@@ -104,10 +105,17 @@ public class MessageListAction extends ThreadEtagFilter {
 			MessageListForm messageListForm = (MessageListForm) actionForm;
 			messageListForm.setAuthenticateds(authenticateds);
 
+			addViewCount(forumThread, request);
 		} catch (Exception e) {
 			return;
 		}
 
+	}
+
+	private void addViewCount(ForumThread forumThread, HttpServletRequest request) {
+		forumThread.addViewCount(request.getRemoteAddr());
+		ThreadViewCounterJob threadViewCounterJob = (ThreadViewCounterJob) WebAppUtil.getComponentInstance("threadViewCounterJob", request);
+		threadViewCounterJob.checkViewCounter(forumThread);
 	}
 
 	private boolean[] getAuthedListForm(ActionForm actionForm, HttpServletRequest request) {

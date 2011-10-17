@@ -39,8 +39,13 @@ public class ForumThreadStateFactoryImp implements ForumThreadStateFactory {
 
 	public void init(ForumThread forumThread, ForumMessage lastPost) {
 		try {
-			long newMessageCount = messageQueryDao.getMessageCount(forumThread.getThreadId());
-			ForumThreadState forumThreadState = new ForumThreadState(forumThread, lastPost, newMessageCount);
+			long messagereplyCount;
+			long messageCount = messageQueryDao.getMessageCount(forumThread.getThreadId());
+			if (messageCount >= 1)
+				messagereplyCount = messageCount - 1;
+			else
+				messagereplyCount = messageCount;
+			ForumThreadState forumThreadState = new ForumThreadState(forumThread, lastPost, messagereplyCount);
 			forumThread.setState(forumThreadState);
 		} catch (Exception e) {
 			e.printStackTrace();
