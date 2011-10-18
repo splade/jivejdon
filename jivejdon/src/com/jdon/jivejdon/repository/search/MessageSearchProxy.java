@@ -50,11 +50,6 @@ public class MessageSearchProxy implements Startable, MessageSearchRepository {
 	}
 
 	public void stop() {
-
-		while (this.compass.getSearchEngineIndexManager().isRunning())
-			this.compass.getSearchEngineIndexManager().stop();
-		while (this.compass.getSearchEngineOptimizer().isRunning())
-			this.compass.getSearchEngineOptimizer().stop();
 		this.compass.close();
 		this.compass = null;
 

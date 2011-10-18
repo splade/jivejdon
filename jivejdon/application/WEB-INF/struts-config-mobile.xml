@@ -22,14 +22,9 @@
      <action path="/mobile/messageList" type="com.jdon.jivejdon.presentation.action.MessageListAction"
       name="messageListForm" scope="request" 
       validate="false">
-      <forward name="success" path="/mobile/viewThread.shtml"/>
-    </action>	
-        
-    <action path="/mobile/viewThread" type="com.jdon.jivejdon.presentation.action.ViewThreadAction"
-     scope="request" validate="false">
       <forward name="success" path="/mobile/messageList.jsp"/>
-    </action>
-	
+    </action>	
+        	
 	 <action name="messageReplyForm" path="/mobile/messageReplyAction" type="com.jdon.strutsutil.ModelViewAction" scope="request"
 		validate="false">
       <forward name="create" path="/mobile/messageReplyView.jsp" />
