@@ -30,7 +30,7 @@ setTimeout("stop();",60000);
 <script type="text/javascript">
 	 function approved(){
         var pars =  "";
-        new Ajax.Updater("approved", '<%=request.getContextPath()%>/query/threadApprovedNewList.shtml', { method: 'get', parameters: pars });
+        new Ajax.Updater("approved", '<%=request.getContextPath()%>/query/threadApprovedNewList.shtml?start=0&count=15', { method: 'get', parameters: pars });
    }
   approved();
  

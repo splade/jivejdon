@@ -1,5 +1,7 @@
 package com.jdon.jivejdon.manager.viewcount;
 
+import java.util.Collections;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.Executors;
@@ -58,7 +60,9 @@ public class ThreadViewCounterJobImp implements Startable, ThreadViewCounterJob 
 	}
 
 	public void writeDB() {
-		for (long threadId : concurrentHashMap.keySet()) {
+		// construct a immutable map, not effect old map.
+		Map<Long, ViewCounter> viewCounters = Collections.unmodifiableMap(concurrentHashMap);
+		for (long threadId : viewCounters.keySet()) {
 			ViewCounter viewCounter = concurrentHashMap.get(threadId);
 			if (viewCounter.getLastSavedCount() == viewCounter.getViewCount())
 				concurrentHashMap.remove(threadId);

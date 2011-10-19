@@ -1,8 +1,6 @@
-JiveJdon 3.0 is the application of Jdon Framework 1.5 final.
+JiveJdon is the application of Jdon Framework  .
 
-  JiveJdon 3.0 is not  different with Jive or JiveJdon 2.5, 
-it is completely new opensouce software!
-JiveJdon 3.0 is not only a BBS software, but its components can be reused in 
+JiveJdon is not only a BBS software, but its components can be reused in 
 other application, such as : e-commerce or ERP or CRM...
 
 let's enjoy it:
@@ -118,4 +116,4 @@ at first must intall 4 filters in admin:
 6 ImageFilter ImageFilter        
 7 CodeHighlighter 
 
-qucik manual english version: https://jdon.dev.java.net/steps.html 
+qucik manual english version for jdonframework: https://www.jdon.org 
