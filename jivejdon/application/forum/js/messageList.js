@@ -167,7 +167,7 @@ function hotkeys(){
 
 function approveList(){
    if (typeof(Ajax) != "undefined")
-        new Ajax.Updater('approved', getContextPath() +'/query/threadApprovedNewList.shtml?start=0&count=15', { method: 'get' });
+        new Ajax.Updater('approved', getContextPath() +'/query/threadApprovedTagsList.shtml?start=0&count=15', { method: 'get' });
 }                
  
 function hotList(){
@@ -183,7 +183,7 @@ function newpostList(){
 }
 
 function stickyList(){
-	   var pars = "count=10&length=10&tablewidth=400";
+	   var pars = "count=10&length=10&tablewidth=368";
 	   new Ajax.Updater('newPosts', getContextPath() +'/query/stickyList.shtml', { method: 'get', parameters: pars });   
 }
 
