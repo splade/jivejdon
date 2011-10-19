@@ -93,7 +93,7 @@
 		 <forward name="success" path="/query/taggedThread-tags.shtml"/>
 	</action>
 	
-		<action path="/query/taggedThread-tags" type="com.jdon.jivejdon.presentation.action.query.TagsListAction" 
+	<action path="/query/taggedThread-tags" type="com.jdon.jivejdon.presentation.action.query.TagsListAction" 
        name="tagsListForm" scope="request"  validate="false">
 		 <forward name="success" path="/query/taggedThreadList.jsp"/>
 	</action>
@@ -147,6 +147,18 @@
       validate="false">
       <forward name="success" path="/query/approvedThreadList.jsp"/>
     </action>
+    
+    
+    <action path="/query/approvedThreadListOther" type="com.jdon.jivejdon.presentation.action.query.ThreadApprovedNewListAction"
+      name="threadListForm" scope="request" 
+      validate="false">
+      <forward name="success" path="/query/approved-tags.shtml"/>
+    </action>
+        
+    <action path="/query/approved-tags" type="com.jdon.jivejdon.presentation.action.query.TagsListAction" 
+       name="tagsListForm" scope="request"  validate="false">
+		 <forward name="success" path="/query/approvedThreadListOthers.jsp"/>
+	</action>
     
     <action path="/query/stickyList" type="com.jdon.jivejdon.presentation.action.query.StickyThreadList"
       name="threadListForm" scope="request" validate="false">

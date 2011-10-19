@@ -1,20 +1,39 @@
 <%@ taglib uri="struts-logic" prefix="logic" %>
 <%@ taglib uri="struts-bean" prefix="bean" %>
 <%@ taglib uri="struts-html" prefix="html" %>
-
-
+<%@ taglib uri="/WEB-INF/MultiPages.tld" prefix="MultiPages" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<!-- /query/threadApprovedNewList.shtml -->
 <html>
 <head>
 <title>home</title>
-
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
+<script>
+function digMessage(id)
+{            
+	var pars = 'messageId='+id;   
+    new Ajax.Updater('digNumber_'+id, getContextPath() +'/updateDigCount.shtml', { method: 'get', parameters: pars });
+    $('textArea_'+id).update("顶一下");
+    
+}
+</script>
 </head>
 
 
 <logic:iterate indexId="i"   id="forumThread" name="threadListForm" property="list" >
 <div class="linkblock">
-
+	
+<bean:define id="forumMessage" name="forumThread" property="rootMessage" />	
+<DIV class=digg-row-left>
+    <SPAN class=diggArea>	
+      <DIV class=diggNum id="digNumber_<bean:write name="forumMessage" property="messageId"/>">
+        <logic:notEqual name="forumMessage" property="digCount" value="0">
+              <bean:write name="forumMessage" property="digCount"/>
+        </logic:notEqual>
+     </DIV>
+  <DIV class="diggLink top8" id="textArea_<bean:write name="forumMessage" property="messageId"/>"><a href="javascript:digMessage('<bean:write name="forumMessage" property="messageId"/>')">顶一下</a></DIV> 	
+</SPAN>
+</DIV>      
 	<div class="post-headline">
 	<h3>
              <a href="<%=request.getContextPath()%>/thread/<bean:write name="forumThread" property="threadId"/>" 
@@ -24,19 +43,18 @@
    </div> 
    
    <div class="post-byline">   
-        作者:<html:link page="/profile.jsp" paramId="user" paramName="forumThread" paramProperty="rootMessage.account.username"
+        <html:link page="/profile.jsp" paramId="user" paramName="forumThread" paramProperty="rootMessage.account.username"
             target="_blank" ><b><bean:write name="forumThread" property="rootMessage.account.username" /></b
             ></html:link>
+            &nbsp;
             <bean:define id="cdate" name="forumThread" property="creationDate" ></bean:define>
             <%String cdateS = (String)pageContext.getAttribute("cdate"); %>
-    发表：<%=cdateS.substring(0, 11) %>   
+    <%=cdateS.substring(0, 11) %>   
     &nbsp;&nbsp;
     <html:img page="/images/comment_reply.gif" height="16" width="16"/>
     <bean:write name="forumThread" property="state.messageCount" />讨论
     &nbsp;&nbsp;
     <bean:write name="forumThread" property="viewCount" />浏览
-    &nbsp;&nbsp;
-    <bean:write name="forumThread" property="rootMessage.messageDigVo.digCount" />顶
    </div>
     			
      <p>
@@ -63,6 +81,19 @@
  </div>              	
 </logic:iterate>
 
-
+<table cellpadding="3" cellspacing="0" border="0" width="100%">
+<tr>
+    <td class="smallgray" align="center">
+<div class="tres" >             
+<MultiPages:pager actionFormName="threadListForm" page="/query/approvedThreadListOther.shtml"  >
+<a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go">Go</a>
+<MultiPages:prev name="&#9668;" />
+<MultiPages:index displayCount="3" />
+<MultiPages:next  name="&#9658;" />
+</MultiPages:pager>     
+      </div>
+    </td>
+</tr>
+</table>
 </body>
 </html>

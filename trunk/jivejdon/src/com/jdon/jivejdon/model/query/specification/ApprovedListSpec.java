@@ -8,7 +8,10 @@ import com.jdon.jivejdon.model.ForumThread;
 
 public class ApprovedListSpec extends ThreadListSpec {
 
-	private int needCount = 50;
+	private int needCount = 15;
+	private long currentIndicator = 0;
+	private int currentStartBlock = 0;
+	private int currentStartPage = 0;
 
 	public ApprovedListSpec() {
 		sorttableName = "creationDate";
@@ -66,6 +69,30 @@ public class ApprovedListSpec extends ThreadListSpec {
 
 	public void setNeedCount(int needCount) {
 		this.needCount = needCount;
+	}
+
+	public long getCurrentIndicator() {
+		return currentIndicator;
+	}
+
+	public void setCurrentIndicator(long currentIndicator) {
+		this.currentIndicator = currentIndicator;
+	}
+
+	public int getCurrentStartBlock() {
+		return currentStartBlock;
+	}
+
+	public void setCurrentStartBlock(int currentStartBlock) {
+		this.currentStartBlock = currentStartBlock;
+	}
+
+	public int getCurrentStartPage() {
+		return currentStartPage;
+	}
+
+	public void setCurrentStartPage(int currentStartPage) {
+		this.currentStartPage = currentStartPage;
 	}
 
 }

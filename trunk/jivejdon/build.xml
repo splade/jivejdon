@@ -51,14 +51,13 @@
 
 	</path>
 
-
-
-
+	
 	<target name="clean">
-		<!-- Delete the ${build} and ${dist} directory trees -->		
+		<!-- Delete the ${build} and ${dist} directory trees	-->
+				<delete dir="${classes.dir}" />		 	
+		
 		<delete file="${deploy.dir}/${warname}" />		
 		<delete file="${dist.dir}/${warname}" />				
-		<delete dir="${classes.dir}" />
 		
 	</target>
 
@@ -68,9 +67,10 @@
 	</target>
 
 	<!-- 编译 -->
-	<target name="compile" depends="clean" description="compile the source files">
+	<target name="compile" depends="clean" description="compile the source files" >
+		
 		<mkdir dir="${classes.dir}" />
-		<javac srcdir="${src.dir}" destdir="${classes.dir}" debug="true" encoding="UTF-8" >
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" debug="true" encoding="UTF-8"  includeantruntime="on">
 			<classpath refid="master-classpath" />
 		</javac>
 

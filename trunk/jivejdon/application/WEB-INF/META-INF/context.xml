@@ -1,4 +1,5 @@
 <Context path="" debug="5" reloadable="true" crossContext="true">
+<!-- if there is no context.xml in tomcat/conf, use this 
 <Resource name="jdbc/JiveJdonDS" 
               auth="Container" 
               type="javax.sql.DataSource"  
@@ -33,5 +34,5 @@
     mail.smtp.socketFactory.port="465"
     password="xxx" 
     />               
-
+ -->
 </Context>

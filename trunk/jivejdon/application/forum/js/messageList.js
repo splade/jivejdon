@@ -167,7 +167,7 @@ function hotkeys(){
 
 function approveList(){
    if (typeof(Ajax) != "undefined")
-        new Ajax.Updater('approved', getContextPath() +'/query/threadApprovedNewList.shtml?count=15', { method: 'get' });
+        new Ajax.Updater('approved', getContextPath() +'/query/threadApprovedNewList.shtml?start=0&count=15', { method: 'get' });
 }                
  
 function hotList(){

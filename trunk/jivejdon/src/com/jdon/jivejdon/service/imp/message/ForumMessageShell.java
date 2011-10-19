@@ -291,6 +291,8 @@ public class ForumMessageShell implements ForumMessageService {
 	 * need solve the relations with Forum ForumThread
 	 */
 	public ForumMessage getMessage(Long messageId) {
+		if (messageId == null)
+			return null;
 		return messageKernel.getMessage(messageId);
 	}
 
@@ -298,6 +300,9 @@ public class ForumMessageShell implements ForumMessageService {
 	 * find a Message for modify
 	 */
 	public ForumMessage findMessage(Long messageId) {
+		if (messageId == null)
+			return null;
+
 		logger.debug("enter ForumMessageShell's findMessage");
 		ForumMessage forumMessage = messageKernel.getMessage(messageId);
 		if (forumMessage == null)
