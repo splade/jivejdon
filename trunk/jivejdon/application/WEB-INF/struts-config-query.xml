@@ -135,7 +135,7 @@
        <forward name="success" path="/query/others/hotlist.jsp"/>     
     </action>    
 	
-	<!-- Best newest thread that tagged  -->
+	<!-- reference in homepage -->
 	<action path="/query/threadApprovedNewList" type="com.jdon.jivejdon.presentation.action.util.ForumEtagFilterAction"
       name="threadListForm" scope="request" 
       validate="false">
@@ -148,7 +148,7 @@
       <forward name="success" path="/query/approvedThreadList.jsp"/>
     </action>
     
-    
+        <!-- from next page  reference in homepage   -->
     <action path="/query/approvedThreadListOther" type="com.jdon.jivejdon.presentation.action.query.ThreadApprovedNewListAction"
       name="threadListForm" scope="request" 
       validate="false">
@@ -159,6 +159,26 @@
        name="tagsListForm" scope="request"  validate="false">
 		 <forward name="success" path="/query/approvedThreadListOthers.jsp"/>
 	</action>
+    
+    
+    <!-- reference in messageList.jsp  /query/threadApprovedTagsList.shtml?start=0&count=15'           -->
+    <action path="/query/threadApprovedTagsList" type="com.jdon.jivejdon.presentation.action.util.ForumEtagFilterAction"
+      name="threadListForm" scope="request" 
+      validate="false">
+      <forward name="success" path="/query/threadApprovedTagsList2.shtml"/>
+    </action>
+    
+    <action path="/query/threadApprovedTagsList2" type="com.jdon.jivejdon.presentation.action.query.ThreadApprovedNewListAction"
+      name="threadListForm" scope="request" 
+      validate="false">
+      <forward name="success" path="/query/threadApprovedTagsList3.shtml"/>
+    </action>
+    
+    <action path="/query/threadApprovedTagsList3" type="com.jdon.jivejdon.presentation.action.query.TagsListAction" 
+       name="tagsListForm" scope="request"  validate="false">
+		 <forward name="success" path="/query/approvedThreadListTags.jsp"/>
+	</action>
+	
     
     <action path="/query/stickyList" type="com.jdon.jivejdon.presentation.action.query.StickyThreadList"
       name="threadListForm" scope="request" validate="false">

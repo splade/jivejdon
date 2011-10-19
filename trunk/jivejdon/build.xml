@@ -4,7 +4,7 @@
 
 	<target name="all" depends="war">
 		
-		<delete dir="${deploy.dir}/jivejdon"/> <!-- for tomcat 6 deploy debug  -->	
+		<!-- for tomcat 6 deploy debug  -->	
 		<copy file="${dist.dir}/${warname}" todir="${deploy.dir}" overwrite="true"/>
 		<!--<delete dir="${devwebapp}/WEB-INF/classes"/>-->
 	</target>

@@ -226,37 +226,10 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 </div>
 </td></tr></table>
 
-
 <div id="approved" class="approved" ></div>
 
-
-<html:form action="/query/threadViewQuery.shtml" method="post">
-<html:hidden  name="queryForm" property="queryType" value="HOT1"/>
-<input type="hidden"  name="forumId"  value="<bean:write name="forum" property="forumId"/>"/> 
-  <table cellspacing="1" cellpadding="0" width="971" bgcolor="#999999" border="0" ID="Table2" align="center">
-    <tr>
-      <td bgcolor="#ffffff">
-          <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#E6E6E6" ID="table1">
-            <tr>            
-              <td  align="center" >              
-              查询本论坛内
-                        <html:select name="queryForm" property="dateRange" >
-                <html:optionsCollection name="queryForm" property="dateRanges" value="value" label="name"/>
-           </html:select>
-           回复超过<input type="text" name="messageReplyCountWindow"  size="4" value="10"/>的热门帖子                           
-              <html:submit value=" 查询 " property="btnsearch"  style="width:60"/>
-              
-     
-            </td>
-          </tr>
-         
-        </table>
-      </td>
-    </tr>
-  </table>
-</html:form> 
-
-
+<p>
+<br><br>
 
 <center>
 <a name="reply"></a>
