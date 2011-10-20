@@ -10,7 +10,6 @@
 <bean:parameter name="queryType" id="queryType" value=""/>
 
 
-<!-- first query result -->
 <logic:present name="tagsListForm">
 <logic:greaterThan name="tagsListForm" property="allCount" value="0">
 

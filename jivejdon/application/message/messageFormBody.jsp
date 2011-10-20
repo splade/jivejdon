@@ -51,7 +51,7 @@ function openUploadWindowStart(url){
     </logic:present>     
     
  }
-var bodyMaxLength = <bean:write name="messageForm" property="bodyMaxLength"/>; 
+
 //-->
 </script>
 
