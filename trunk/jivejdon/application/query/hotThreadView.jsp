@@ -11,7 +11,6 @@
 <bean:parameter name="queryType" id="queryType" value=""/>
 
 
-<!-- first query result -->
 <logic:present name="threadListForm">
 <logic:greaterThan name="threadListForm" property="allCount" value="0">
 

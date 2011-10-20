@@ -129,10 +129,10 @@ var myalertD=function(errorM){
       
       
       if ((theForm.body.value  != "") && (theForm.subject.value  != "")){          
-           if ((theForm.body.value.length  < bodyMaxLength)){
+           if ((theForm.body.value.length  < 8190)){
                   formSubmitcheck = new Boolean(true);
            }else{                   
-                 myalert('请发言内容长度必须小于 ' + bodyMaxLength);
+                 myalert('请发言内容长度必须小于 ' + 8190);
                  return false;                  
            }         
       }else{

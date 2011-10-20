@@ -193,23 +193,40 @@ var loadWPostjs =function(mId){
    $LAB
    .script(getContextPath() + '/forum/js/postreply.js').wait()
    .wait(function(){
-      openReplyWindow(mId);
+	   loadPostReply(mId);
+	     openReplyWindow(mId);
    })   
   }else{
-     openReplyWindow(mId);
+	  loadPostReply(mId);
+	     openReplyWindow(mId);
   }
 }
 
+var loadPostReplyOk = false;
+function loadPostReply(mId, quote){	   	  
+	   if (loadPostReplyOk) return;
+	   var replySubject = document.getElementById("replySubject").value;
+	   var pars = "parentMessageId=" + mId;
+	   new Ajax.Updater('reply', getContextPath() +'/forum/messagePostReply.jsp', {
+		   method: 'get',
+		   asynchronous: false, 
+		   evalJS: true, evalScripts:true,
+		   parameters: pars })	   	   
+	   document.messageReplyForm.subject.value=replySubject;
+	   loadPostReplyOk = true;
+}
 
 var loadQPostjs =function(mId){  
   if (typeof(openReplyWindow) == 'undefined') {
    $LAB
    .script(getContextPath() + '/forum/js/postreply.js').wait()
    .wait(function(){
-      openQuoteWindow(mId);
+	   loadPostReply(mId);      
+	   openQuoteWindow(mId);
    })   
   }else{
-     openQuoteWindow(mId);
+	  loadPostReply(mId);
+	  openQuoteWindow(mId);
   }
 }
 

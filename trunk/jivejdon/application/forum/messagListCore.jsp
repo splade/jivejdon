@@ -231,21 +231,10 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 <p>
 <br><br>
 
-<center>
-<a name="reply"></a>
-  
-<jsp:include page="messagePostReply.jsp" flush="true">   
-   <jsp:param name="parentMessageId">
-      <jsp:attribute name="value" >
-        <bean:write name="forumThread" property="rootMessage.messageId" />
-     </jsp:attribute>
-   </jsp:param>   
-</jsp:include>
+<div id="reply" style="display:none">
+<input type="hidden" id="replySubject" name="replySubject"  value="<bean:write name="forumThread" property="rootMessage.messageVO.subject"/>"/>  
+</div>
 
-<script>       
-document.messageReplyForm.subject.value='<bean:write name="forumThread" property="rootMessage.messageVO.subject"/>';
-</script>
-</center>
 
 
 <script type="text/javascript" src="<html:rewrite page="/common/js/prototype.js"/>"></script>

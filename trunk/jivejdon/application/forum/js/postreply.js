@@ -36,13 +36,14 @@ function infoDiagClose(){
 
 var replyW;
   function openReplyWindow(pmessageId){
-       initReplyForm(pmessageId);
-       openWindowForReply(pmessageId);
+	  killreplyW();
+      initReplyForm(pmessageId);
+      openWindowForReply(pmessageId);
    }   
    
     function openQuoteWindow(pmessageId){
        if (initQuoteForm(pmessageId)){
-           
+    	   killreplyW();     
            openWindowForReply(pmessageId);
        }
    }       
@@ -57,10 +58,8 @@ var replyW;
     	    
     	   var myObserver = {
             onClose: function(eventName, myreplyW) {    	  
-              if (myreplyW == replyW){        	        	
-                replyW = null;   
-                Windows.removeObserver(this);
-              }
+            	killreplyW();
+                Windows.removeObserver(this);              
             }
            }
            var myObserver2 = {
@@ -171,7 +170,8 @@ var replyW;
    
    function killreplyW(){
       if (replyW != null){          
-           replyW.close();                     
+           replyW.close();    
+           replyW = null;
      }
    }
    
@@ -209,3 +209,56 @@ var replyW;
        openInfoDiag("正在提交...如没有反应，请刷新本页再提交 ctrl-v取出上次发贴内容");                
    }
   
+   
+   var loadformjs = function(){
+	   if (typeof(checkPost) == 'undefined') {
+	    $LAB
+	    .script(getContextPath() + '/forum/js/form.js').wait()
+	    .wait(function(){
+	       loadPostjs();
+	    })     
+	   }else
+	     loadPostjs();
+	   
+	 }
+
+   function loadPostjs(){
+	   if (typeof(openInfoDiag) == 'undefined') {
+	     $LAB
+	      .script(getContextPath() +'/message/js/messageEdit.js').wait()
+	      .wait(function(){
+	          setObserve();
+	      
+	      })      
+	   }else
+	      setObserve();
+	        
+	 }
+
+	 function setObserve(){
+	  if(typeof(Ajax) != "undefined"){
+	       $('messageReply').observe("submit", callbackSubmit);
+	   }   
+	 }
+
+	 function openUploadWindowStart(url){
+	     if (isLogin){       
+	       loadWLJSWithP(url, openUploadWindow);       
+	     }else{
+		        myalert("只有登录后才能打开上传页面");
+		        return;	    	 
+	     }     	     
+	  }
+	 
+		
+	 function loadAcJS(thisId){
+	   if (typeof(ac) == 'undefined') {
+	      $LAB
+	      .script(getContextPath() + '/common/js/autocomplete.js')
+	      .wait(function(){
+	           ac(thisId,getContextPath());
+	      })     
+	   }else
+	       ac(thisId,getContextPath());
+	 }
+	 

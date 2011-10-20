@@ -10,7 +10,6 @@
 <bean:parameter name="tagID" id="tagID" value=""/>
 
 
-<!-- first query result -->
 <logic:present name="threadListForm">
 <logic:greaterThan name="threadListForm" property="allCount" value="0">
 
