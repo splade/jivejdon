@@ -117,6 +117,8 @@ public class MessageBuilder {
 
 	public void buildUploadFiles(ForumMessage forumMessage) throws Exception {
 		try {
+			if (forumMessage.getMessageId() == null)
+				return;
 			Collection uploadFiles = uploadRepository.getUploadFiles(forumMessage.getMessageId().toString());
 			forumMessage.getAttachment().importUploadFiles(uploadFiles);
 
@@ -130,7 +132,8 @@ public class MessageBuilder {
 
 	public void buildMessageProperties(ForumMessage forumMessage) throws Exception {
 		try {
-
+			if (forumMessage.getMessageId() == null)
+				return;
 			// getMessageWithPropterty not use, mask property must be load with
 			// message
 			Collection propertys = propertyDao.getProperties(Constants.MESSAGE, forumMessage.getMessageId());

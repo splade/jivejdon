@@ -76,7 +76,10 @@ public class ForumThreadState {
 	}
 
 	public String getModifiedDate() {
-		return lastPost.getModifiedDate();
+		if (lastPost != null)
+			return lastPost.getModifiedDate();
+		else
+			return "";
 	}
 
 	public long getModifiedDate2() {

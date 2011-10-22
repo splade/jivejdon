@@ -58,8 +58,10 @@ var replyW;
     	    
     	   var myObserver = {
             onClose: function(eventName, myreplyW) {    	  
-            	killreplyW();
-                Windows.removeObserver(this);              
+            	if (myreplyW == replyW){
+            	   killreplyW();
+                   Windows.removeObserver(this);
+            	}
             }
            }
            var myObserver2 = {

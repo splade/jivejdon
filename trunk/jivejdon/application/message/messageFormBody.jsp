@@ -59,7 +59,7 @@ function openUploadWindowStart(url){
 
 <tr>
 	<td width="50" align="right">标题</td>
-	<td align="left"> <html:text  property="subject" styleId="replySubject" size="40" maxlength="90" tabindex="5" /></td>
+	<td align="left"> <html:text  property="subject" styleId="replySubject" size="40" maxlength="90" tabindex="5" onkeydown="releaseKeyboard()" /></td>
 </tr>
 
 
