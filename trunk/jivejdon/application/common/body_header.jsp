@@ -52,7 +52,6 @@ String oc = Integer.toString(onlinecount.getActiveSessions());
   </span>
   &nbsp;&nbsp;<html:img page="/images/world.gif" width="17" height="17" align="absmiddle" /><a href="/">首页</a>
   &nbsp;&nbsp;<html:img page="/images/folder_folder.gif" width="17" height="17" align="absmiddle"/><html:link page="/thread">主题表</html:link>
-  &nbsp;&nbsp;<html:img page="/images/users.gif" width="17" height="17" align="absmiddle"/><a href="http://www.jdon.com/trainning.htm"  target="_blank">培训咨询</a>  
   &nbsp;&nbsp;<html:img page="/images/flag.gif" width="17" height="17" align="absmiddle"/><html:link page="/tags">标签</html:link>
   &nbsp;&nbsp;<html:img border="0" page="/images/search.gif"  width="17" height="17" align="absmiddle"/><html:link page="/query/threadViewQuery.shtml" >查搜</html:link>
 
