@@ -57,7 +57,8 @@ function digMessage(id)
         <html:link page="/profile.jsp" paramId="user" paramName="forumThread" paramProperty="rootMessage.account.username"
             target="_blank" ><b><bean:write name="forumThread" property="rootMessage.account.username" /></b
             ></html:link>
-            <bean:define id="cdate" name="forumThread" property="creationDate" ></bean:define>
+            &nbsp;
+            <bean:define id="cdate" name="forumThread" property="creationDate" ></bean:define>            
             <%String cdateS = (String)pageContext.getAttribute("cdate"); %>
     <%=cdateS.substring(0, 11) %>   
     &nbsp;&nbsp;
