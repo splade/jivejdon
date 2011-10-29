@@ -206,7 +206,7 @@ public class ForumMessage extends ForumModel implements Cloneable {
 			updateMessage(newForumMessageInputparamter);
 
 			ForumThread forumThread = this.getForumThread();
-			forumThread.update(this);
+			forumThread.put(this);
 
 			repositoryRole.saveMessage(this);// save this message
 			// to db
@@ -246,7 +246,7 @@ public class ForumMessage extends ForumModel implements Cloneable {
 	public void updateMasked(boolean masked) {
 		setMasked(masked);// modify full message
 
-		this.getForumThread().update(this);
+		this.getForumThread().put(this);
 
 		repositoryRole.updateMessageProperties(this);
 

@@ -16,6 +16,8 @@
  */
 package com.jdon.jivejdon.repository.builder;
 
+import java.util.Collection;
+
 import org.apache.log4j.Logger;
 
 import com.jdon.jivejdon.manager.viewcount.ThreadViewCounterJob;
@@ -24,6 +26,7 @@ import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumMessageReply;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.state.ForumThreadStateFactory;
+import com.jdon.jivejdon.model.thread.ThreadTagsVO;
 import com.jdon.jivejdon.repository.TagRepository;
 import com.jdon.jivejdon.repository.dao.MessageDao;
 import com.jdon.jivejdon.repository.dao.MessageQueryDao;
@@ -82,7 +85,11 @@ public class ThreadBuilder {
 	private void buildProperties(ForumThread forumThread) {
 		try {
 			forumThread.setName(forumThread.getRootMessage().getMessageVO().getSubject());
-			forumThread.setTags(tagRepository.getThreadTags(forumThread));
+
+			Collection tags = tagRepository.getThreadTags(forumThread);
+			ThreadTagsVO threadTagsVO = new ThreadTagsVO(forumThread, tags);
+			forumThread.setThreadTagsVO(threadTagsVO);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

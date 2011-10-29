@@ -15,10 +15,13 @@
  */
 package com.jdon.jivejdon.repository.listener;
 
+import java.util.Collection;
+
 import com.jdon.annotation.Consumer;
 import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.jivejdon.model.ForumThread;
+import com.jdon.jivejdon.model.thread.ThreadTagsVO;
 import com.jdon.jivejdon.repository.TagRepository;
 
 @Consumer("changeTags")
@@ -36,6 +39,13 @@ public class ChangeThreadTags implements DomainEventHandler {
 		ForumThread forumThread = (ForumThread) event.getDomainMessage().getEventSource();
 		try {
 			tagRepository.mergeTagTitle(forumThread.getThreadId(), forumThread.getTagTitles());
+
+			Collection newtags = tagRepository.getThreadTags(forumThread);
+
+			ThreadTagsVO threadTagsVO = new ThreadTagsVO(forumThread, newtags);
+			Collection lasttags = forumThread.getThreadTagsVO().getTags();
+			forumThread.setThreadTagsVO(threadTagsVO);
+			threadTagsVO.subscriptionNotify(lasttags);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
