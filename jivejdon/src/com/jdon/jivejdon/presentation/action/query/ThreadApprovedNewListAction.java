@@ -37,11 +37,11 @@ public class ThreadApprovedNewListAction extends ModelListAction {
 	}
 
 	public PageIterator getPageIterator(HttpServletRequest request, int start, int count) {
-		if (start >= 300 || start % count != 0)
+		if (start >= 150 || start % count != 0)
 			return new PageIterator();
 		Collection<Long> list = getApprovedThreads(start, approvedListSpec, request);
 		if (list != null)
-			return new PageIterator((start + count) * 2, list.toArray(new Long[0]));
+			return new PageIterator(150, list.toArray(new Long[0]));
 		else
 			return new PageIterator();
 	}
@@ -57,16 +57,22 @@ public class ThreadApprovedNewListAction extends ModelListAction {
 	}
 
 	public Collection<Long> getApprovedThreads(int start, ApprovedListSpec approvedListSpec, HttpServletRequest request) {
-		Collection<Long> resultSorteds = null;
 		if (approvedThreadList.containsKey(start)) {
-			resultSorteds = approvedThreadList.get(start);
-			return resultSorteds;
+			return approvedThreadList.get(start);
 		}
 		if (start < approvedListSpec.getCurrentStartPage()) {
 			logger.error("start=" + start + " < approvedListSpec.getCurrentStartPage()" + approvedListSpec.getCurrentStartPage());
 			return null;
 		}
 
+		return appendList(start, approvedListSpec, request);
+	}
+
+	protected synchronized Collection<Long> appendList(int start, ApprovedListSpec approvedListSpec, HttpServletRequest request) {
+		if (approvedThreadList.containsKey(start)) {
+			return approvedThreadList.get(start);
+		}
+		Collection<Long> resultSorteds = null;
 		logger.debug("not found it in cache, create it");
 		int count = approvedListSpec.getNeedCount();
 		int i = approvedListSpec.getCurrentStartPage();
@@ -75,11 +81,13 @@ public class ThreadApprovedNewListAction extends ModelListAction {
 			approvedThreadList.put(i, resultSorteds);
 			i = i + count;
 		}
-		approvedListSpec.setCurrentStartPage(i);
+		if (i > approvedListSpec.getCurrentStartPage())
+			approvedListSpec.setCurrentStartPage(i);
 		return resultSorteds;
+
 	}
 
-	public List<Long> loadApprovedThreads(ApprovedListSpec approvedListSpec, HttpServletRequest request) {
+	public synchronized List<Long> loadApprovedThreads(ApprovedListSpec approvedListSpec, HttpServletRequest request) {
 		List<Long> resultSorteds = new ArrayList(approvedListSpec.getNeedCount());
 		try {
 			int i = 0;
