@@ -123,7 +123,7 @@ public class ForumThread extends ForumModel {
 	 * temp object
 	 */
 	public ForumThread() {
-		this.threadTagsVO = new ThreadTagsVO(this);
+		this.threadTagsVO = new ThreadTagsVO(this, new ArrayList());
 		this.propertys = new ArrayList();
 		this.state = new ForumThreadState(this, null, 0);
 		this.viewCounter = new ViewCounter(this, 0);
@@ -243,20 +243,18 @@ public class ForumThread extends ForumModel {
 		return this.threadTagsVO.getTags();
 	}
 
-	public void setTags(Collection tags) {
-		this.threadTagsVO.setTags(tags);
-	}
-
 	public void changeTags(String[] tagTitles) {
-		this.threadTagsVO.changeTags(tagTitles);
+		if (tagTitles == null || tagTitles.length == 0)
+			return;
+		repositoryRole.changeTags(this);
 	}
 
 	public String[] getTagTitles() {
-		return this.threadTagsVO.getTagTitles();
+		return getRootMessage().getMessageVO().getTagTitle();
 	}
 
-	public void tagsSubscriptionNotify() {
-		threadTagsVO.subscriptionNotify();
+	public void newTagsSubscriptionNotify() {
+		threadTagsVO.subscriptionNotify(new ArrayList());
 	}
 
 	public boolean isRoot(ForumMessage message) {
@@ -301,19 +299,17 @@ public class ForumThread extends ForumModel {
 		}
 	}
 
-	public void update(ForumMessage forumMessage) {
+	public void put(ForumMessage forumMessage) {
+		forumMessage.setForumThread(this);
+
 		if (isRoot(forumMessage)) {
 			this.setRootMessage(forumMessage);
+			changeTags(forumMessage.getMessageVO().getTagTitle());
 		}
-		forumMessage.setForumThread(this);
 
 		threadStateManager.updateMessage(this, forumMessage);
 		this.forum.updateNewMessage(forumMessage);
 
-		if (isRoot(forumMessage)) {// update a message in this thread
-			this.setRootMessage(forumMessage);
-		}
-		changeTags(forumMessage.getMessageVO().getTagTitle());
 	}
 
 	public boolean isLeaf(ForumMessage forumMessage) {
@@ -358,4 +354,23 @@ public class ForumThread extends ForumModel {
 	public void preloadTreeMode() {
 		forumThreadTreeModel.preload();
 	}
+
+	public ThreadTagsVO getThreadTagsVO() {
+		return threadTagsVO;
+	}
+
+	public void setThreadTagsVO(ThreadTagsVO threadTagsVO) {
+		this.threadTagsVO = threadTagsVO;
+
+		// set rootMessage's titles;
+		String[] tagTitles = new String[threadTagsVO.getTags().size()];
+		int i = 0;
+		for (Object o : threadTagsVO.getTags()) {
+			ThreadTag tag = (ThreadTag) o;
+			tagTitles[i] = tag.getTitle();
+			i++;
+		}
+		getRootMessage().getMessageVO().setTagTitle(tagTitles);
+	}
+
 }

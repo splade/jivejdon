@@ -69,7 +69,7 @@ public class AfterCreateAction implements DomainEventHandler {
 		subPublisherRole.subscriptionNotify(accountSubscribed);
 
 		// notify the tag's fans
-		forumMessage.getForumThread().tagsSubscriptionNotify();
+		forumMessage.getForumThread().newTagsSubscriptionNotify();
 
 		// if enable reply notify, so the author is the thread's fans
 		if (isReplyNotifyForAuthor) {
