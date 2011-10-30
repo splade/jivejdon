@@ -15,6 +15,9 @@
  */
 package com.jdon.jivejdon.service.imp;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.apache.log4j.Logger;
 
 import com.jdon.annotation.Singleton;
@@ -59,7 +62,9 @@ public class ForumServiceImp implements ForumService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.jivejdon.service.ForumService#createForum(com.jdon.controller.events.EventModel)
+	 * @see
+	 * com.jdon.jivejdon.service.ForumService#createForum(com.jdon.controller
+	 * .events.EventModel)
 	 */
 	public void createForum(EventModel em) {
 		Forum forum = (Forum) em.getModelIF();
@@ -82,7 +87,9 @@ public class ForumServiceImp implements ForumService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.jivejdon.service.ForumService#updateForum(com.jdon.controller.events.EventModel)
+	 * @see
+	 * com.jdon.jivejdon.service.ForumService#updateForum(com.jdon.controller
+	 * .events.EventModel)
 	 */
 	public void updateForum(EventModel em) {
 		Forum forum = (Forum) em.getModelIF();
@@ -93,7 +100,9 @@ public class ForumServiceImp implements ForumService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.jivejdon.service.ForumService#deleteForum(com.jdon.controller.events.EventModel)
+	 * @see
+	 * com.jdon.jivejdon.service.ForumService#deleteForum(com.jdon.controller
+	 * .events.EventModel)
 	 */
 	public void deleteForum(EventModel em) {
 		Forum forum = (Forum) em.getModelIF();
@@ -114,6 +123,20 @@ public class ForumServiceImp implements ForumService {
 			logger.error(ex);
 		}
 		return pageIterator;
+	}
+
+	public Collection<Forum> getForums() {
+		Collection<Forum> forums = new ArrayList();
+		try {
+			PageIterator pageIterator = forumDao.getForums(0, 100);
+			while (pageIterator.hasNext()) {
+				Long forumId = (Long) pageIterator.next();
+				forums.add(getForum(forumId));
+			}
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
+		return forums;
 	}
 
 	public void clearCache() {

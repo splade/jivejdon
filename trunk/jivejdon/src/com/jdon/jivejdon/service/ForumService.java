@@ -15,26 +15,35 @@
  */
 package com.jdon.jivejdon.service;
 
+import java.util.Collection;
+
 import com.jdon.controller.events.EventModel;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.model.Forum;
 
-
 /**
  * @author <a href="mailto:banq@163.com">banq</a>
- *
+ * 
  */
 public interface ForumService {
-    
-    Forum getForum(Long id);
-    void createForum(EventModel em);
-    void updateForum(EventModel em);
-    void deleteForum(EventModel em);
-    PageIterator getForums(int start, int count);
-   
-    //  <!--  /admin/doRebuildIndex.shtml?service=forumService&method=doRebuildIndex  -->
-    void doRebuildIndex();
-    
-    void clearCache();
+
+	Forum getForum(Long id);
+
+	void createForum(EventModel em);
+
+	void updateForum(EventModel em);
+
+	void deleteForum(EventModel em);
+
+	PageIterator getForums(int start, int count);
+
+	public Collection<Forum> getForums();
+
+	// <!--
+	// /admin/doRebuildIndex.shtml?service=forumService&method=doRebuildIndex
+	// -->
+	void doRebuildIndex();
+
+	void clearCache();
 
 }

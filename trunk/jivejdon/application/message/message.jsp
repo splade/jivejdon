@@ -10,7 +10,6 @@
 <bean:define id="title" name="forum" property="name" />
 <%@ include file="messageHeader.jsp" %>
 
-
 <table cellpadding="0" cellspacing="0" border="0" width="971" align="center">
 <tr><td><html:img page="/images/blank.gif" width="1" height="10" border="0" alt=""/></td></tr>
 </table>
@@ -46,7 +45,7 @@
 	<td align="left"> 
      <html:select name="messageForm" property="forum.forumId" styleId="forumId_select">
        <html:option value="">请选择</html:option>
-       <html:optionsCollection name="forumListForm" property="list" value="forumId" label="name"/>       
+       <html:optionsCollection name="forums" value="forumId" label="name"/>       
      </html:select>
     中操作帖.</td>
 </tr>

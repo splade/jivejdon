@@ -24,14 +24,8 @@
       <forward name="failure" path="/404.jsp" /><!-- after 2011-1-8 JF version -->
     </action>
     
-  <!-- message CRUD  -->
-  <action path="/message/messageAction" type="com.jdon.jivejdon.presentation.action.ForumListAction"
-      name="forumListForm" scope="request" 
-      validate="false">
-      <forward name="success" path="/message/messageEditAuthFilter.shtml"/>
-    </action>	  
-	  
-   <action name="messageForm" path="/message/messageEditAuthFilter" type="com.jdon.jivejdon.presentation.filter.MessageEditAuthFilter" scope="request"
+  <!-- message CRUD  --> 	 
+   <action name="messageForm" path="/message/messageAction" type="com.jdon.jivejdon.presentation.filter.MessageEditAuthFilter" scope="request"
 		validate="false">
        <forward name="success" path="/message/messageAction2.shtml"/>
     </action>

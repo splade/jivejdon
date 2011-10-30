@@ -246,6 +246,7 @@ public class ForumThread extends ForumModel {
 	public void changeTags(String[] tagTitles) {
 		if (tagTitles == null || tagTitles.length == 0)
 			return;
+		getRootMessage().getMessageVO().setTagTitle(tagTitles);
 		repositoryRole.changeTags(this);
 	}
 
