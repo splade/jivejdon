@@ -3,12 +3,18 @@
 <%@ taglib uri="struts-html" prefix="html" %>
 <%@ taglib uri="/WEB-INF/MultiPages.tld" prefix="MultiPages" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-
 <logic:notEmpty name="messageForm">
 
 <bean:define id="forum" name="messageForm" property="forum"  />
 <bean:define id="title" name="forum" property="name" />
 <%@ include file="../header.jsp" %>
+
+<%
+response.setHeader("Pragma", "No-cache");
+response.setHeader("Cache-Control", "no-cache");
+response.setDateHeader("Expires", 0);
+response.setStatus(HttpServletResponse.SC_OK);
+%>
 
 <html:form action="/mobile/message/messageSaveAction.sthml" method="post" styleId="messageNew" onsubmit="return checkPost(this);" >
 <html:hidden property="action" />
@@ -23,7 +29,7 @@
 
 在<html:select name="messageForm" property="forum.forumId">
        <html:option value="">请选择</html:option>
-       <html:optionsCollection name="forumListForm" property="list" value="forumId" label="name"/>       
+       <html:optionsCollection name="forums"  value="forumId" label="name"/>       
      </html:select>
 中操作帖.
 <br>      
