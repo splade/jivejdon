@@ -40,37 +40,53 @@ public class TagRepositoryDao implements TagRepository {
 		this.sequenceDao = sequenceDao;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.TagRepository#searchTitle(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.TagRepository#searchTitle(java.lang.String)
 	 */
 	public Collection<Long> searchTitle(String s) {
 		return tagDao.searchTitle(s);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.TagRepository#getTaggedThread(com.jdon.jivejdon.model.query.specification.TaggedThreadListSpec, int, int)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.TagRepository#getTaggedThread(com.jdon.jivejdon
+	 * .model.query.specification.TaggedThreadListSpec, int, int)
 	 */
 	public PageIterator getTaggedThread(TaggedThreadListSpec taggedThreadListSpec, int start, int count) {
 		return tagDao.getTaggedThread(taggedThreadListSpec, start, count);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.jdon.jivejdon.repository.TagRepository#getThreadTags(int, int)
 	 */
 	public PageIterator getThreadTags(int start, int count) {
 		return tagDao.getThreadTags(start, count);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.TagRepository#getThreadTag(java.lang.Long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.TagRepository#getThreadTag(java.lang.Long)
 	 */
 	public ThreadTag getThreadTag(Long tagID) {
 		ThreadTag tag = tagDao.getThreadTag(tagID);
 		return tag;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.TagRepository#addTagTitle(java.lang.Long, java.lang.String[])
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.TagRepository#addTagTitle(java.lang.Long,
+	 * java.lang.String[])
 	 */
 	public void addTagTitle(Long threadId, String[] tagTitle) throws Exception {
 		if ((tagTitle == null) || (tagTitle.length == 0)) {
@@ -84,7 +100,7 @@ public class TagRepositoryDao implements TagRepository {
 	}
 
 	private void insert(Long fourmThreadId, String tagTitle) throws Exception {
-		tagTitle = tagTitle.replace(" ", "").toLowerCase();
+		// tagTitle = tagTitle.replace(" ", "").toLowerCase();
 		ThreadTag threadTag = tagDao.getThreadTagByTitle(tagTitle);
 		if (threadTag != null) {
 			// if threadTag is not belong to the thread, add one to it.
@@ -106,8 +122,12 @@ public class TagRepositoryDao implements TagRepository {
 	}
 
 	// 进行比较 使用hibernate merge就一句OK
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.TagRepository#mergeTagTitle(java.lang.Long, java.lang.String[])
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.TagRepository#mergeTagTitle(java.lang.Long,
+	 * java.lang.String[])
 	 */
 	public void mergeTagTitle(Long threadId, String[] tagTitles) throws Exception {
 		deleteTagTitle(threadId);
@@ -115,8 +135,11 @@ public class TagRepositoryDao implements TagRepository {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.TagRepository#deleteTagTitle(java.lang.Long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.TagRepository#deleteTagTitle(java.lang.Long)
 	 */
 	public void deleteTagTitle(Long threadId) throws Exception {
 		Collection tags = getThreadTags(threadId);
@@ -132,8 +155,12 @@ public class TagRepositoryDao implements TagRepository {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.TagRepository#getThreadTags(com.jdon.jivejdon.model.ForumThread)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.TagRepository#getThreadTags(com.jdon.jivejdon
+	 * .model.ForumThread)
 	 */
 	public Collection getThreadTags(ForumThread forumThread) {
 		Collection tags = new ArrayList();
@@ -146,8 +173,11 @@ public class TagRepositoryDao implements TagRepository {
 		return tags;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.TagRepository#getThreadTags(java.lang.Long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.TagRepository#getThreadTags(java.lang.Long)
 	 */
 	public Collection getThreadTags(Long forumThreadId) {
 		Collection tags = new ArrayList();
@@ -160,15 +190,23 @@ public class TagRepositoryDao implements TagRepository {
 		return tags;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.TagRepository#updateThreadTag(com.jdon.jivejdon.model.ThreadTag)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.TagRepository#updateThreadTag(com.jdon.jivejdon
+	 * .model.ThreadTag)
 	 */
 	public void updateThreadTag(ThreadTag threadTag) throws Exception {
 		tagDao.updateThreadTag(threadTag);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.repository.TagRepository#deleteThreadTag(com.jdon.jivejdon.model.ThreadTag)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.repository.TagRepository#deleteThreadTag(com.jdon.jivejdon
+	 * .model.ThreadTag)
 	 */
 	public void deleteThreadTag(ThreadTag threadTag) throws Exception {
 		threadTag = this.getThreadTag(threadTag.getTagID());
