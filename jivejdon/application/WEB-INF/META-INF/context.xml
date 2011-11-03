@@ -22,6 +22,7 @@
               driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost/jivejdon?useUnicode=true&amp;characterEncoding=UTF-8" />     
               
+   <!--  if use this configure, need modify build.xml , copy lib/javamail/*.jar to WEB-INF/lib -->              
 	<Resource name="mail/Session" auth="Container"
 		type="javax.mail.Session"
 	  mail.smtp.host="smtp.gmail.com"
