@@ -3,7 +3,8 @@
 <project name="JiveJdon 4.5" default="all" basedir=".">
 
 	<target name="all" depends="war">
-		
+		<delete dir="${devwebapp}/WEB-INF/lib" />		
+		<delete dir="${devwebapp}/WEB-INF/classes" />
 		<delete dir="${deploy.dir}/jivejdon"/> 
 		<!-- for tomcat 6 deploy debug  -->	
 		<copy file="${dist.dir}/${warname}" todir="${deploy.dir}" overwrite="true"/>
@@ -114,7 +115,8 @@
 			<fileset dir="${timelib.dir}"/>
 			<fileset dir="${weibolib.dir}"/>
 			<fileset dir="${strutslib.dir}"/>			
-			<fileset dir="${lib.dir}/javamail"/>
+		<!-- if use WEB-INF/META-INF/context.xml  uncommet this line	
+		     <fileset dir="${lib.dir}/javamail"/> -->
 			<fileset dir="${lib.dir}/jdontree"/>
 			<fileset dir="${lib.dir}/jf"/>			
 			<fileset dir="${lib.dir}/upload"/>
@@ -136,9 +138,6 @@
 		
 	           <include name="com/jdon/jivejdon/auth/jaas/**/*"/>			
 		</jar>
-
-		<delete file="${devwebapp}/WEB-INF/lib" />		
-		<delete file="${devwebapp}/WEB-INF/classes" />
 		
 	</target>
 
