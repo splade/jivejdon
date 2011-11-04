@@ -16,9 +16,7 @@
 package com.jdon.jivejdon.manager.account;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -37,7 +35,6 @@ import com.jdon.util.StringUtil;
 @Component
 public class AccountManager implements Startable {
 
-	private Map<String, Integer> cachedforgetPasswdEmails = new HashMap(1);
 	private List cachedOneTimes = new ArrayList();
 
 	private static ScheduledExecutorService scheduExec = Executors.newScheduledThreadPool(1);
@@ -50,7 +47,6 @@ public class AccountManager implements Startable {
 
 	public AccountManager(AccountFactory accountFactory, AccountRepository accountRepository, ForgotPasswdEmail forgotPasswdEmail) {
 		super();
-		this.cachedforgetPasswdEmails = new HashMap(1);
 		this.cachedOneTimes = new ArrayList();
 		this.forgotPasswdEmail = forgotPasswdEmail;
 		this.accountRepository = accountRepository;
@@ -84,22 +80,6 @@ public class AccountManager implements Startable {
 	public void forgetPasswdAction(EventModel em) {
 
 		Account accountParam = (Account) em.getModelIF();
-		if (cachedforgetPasswdEmails.isEmpty())
-			cachedforgetPasswdEmails.put(accountParam.getEmail(), 1);
-		else if (!cachedforgetPasswdEmails.containsKey(accountParam.getEmail())) {
-			em.setErrors(Constants.NOT_FOUND);
-			return;
-		} else {
-			int count = cachedforgetPasswdEmails.get(accountParam.getEmail());
-			if (count > 2 || count == 0) {
-				em.setErrors(Constants.NOT_FOUND);
-				return;
-			} else {
-				count++;
-				cachedforgetPasswdEmails.put(accountParam.getEmail(), count);
-			}
-		}
-
 		Account account = null;
 		try {
 			account = accountFactory.getFullAccount(accountParam);

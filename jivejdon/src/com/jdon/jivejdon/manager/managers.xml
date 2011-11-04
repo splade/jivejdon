@@ -113,7 +113,7 @@
 			<constructor value="java:comp/env/mail/Session" />
 			<!--  Jboss deploy/mail-service.xml configure 
 			<constructor value="java:/Mail" />-->
-			<constructor value="J道：用户名和密码" />
+			<constructor value=" Jdon.com your login datas " />
 			<constructor value="您好：您索要的jdon.com网站登陆用户和密码如下：" />
 			<constructor value="Jdon.com --- 专业的软件架构之道" />
 			<constructor value="Jdon.com" />
