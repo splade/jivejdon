@@ -24,8 +24,7 @@
     </logic:present>
     </b>
     
-    </td>
-     
+    </td>    
      <td valign="top"  align="right">   
         <input type="text"  name="query" size="25" id="queryId" onfocus="javascript:loadAcJS(this.id,'<%=request.getContextPath()%>')"/>
          <html:submit value="论坛搜索"/>

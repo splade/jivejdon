@@ -53,7 +53,23 @@ if (iter.hasPrevious()){
 
     </td>
     <td width="98%" align="center">
-       探索 分享 交流 解惑 授道
+        <bean:define id="forumThread" name="messageListForm" property="oneModel" />
+       
+        <a title="关注本主题" href="<%=request.getContextPath()%>/account/protected/sub/subAction.shtml?subscribeType=1&subscribeId=<bean:write name="forumThread" property="threadId" />"  rel="nofollow">
+       <html:img page="/images/user_add.gif" width="18" height="18" alt="关注本主题" border="0" /></a>
+
+          
+       <a title="加入本帖到收藏夹" href="JavaScript:void(0);" onclick="addfavorite('<bean:write name="forumThread" property="rootMessage.messageVO.subject"/>')" >
+       <html:img page="/images/album_add.gif" width="18" height="18" alt="加入本帖到收藏夹" border="0" /></a>
+       
+       <a title="网上收藏本主题" href="JavaScript:void(0);" onclick="loadWLJS(mark)" >
+       <html:img page="/images/user_up.gif" width="18" height="18" alt="网上收藏本主题" border="0" /></a>
+       
+       
+       <a title="手机条码扫描浏览本页" href="JavaScript:void(0);" onclick='loadWLJS(qtCode)'  >
+       <html:img page="/images/phone.gif" width="18" height="18" alt="手机条码扫描浏览本页" border="0" /></a>
+       
+       
     </td>
     <td width="1%" nowrap>
 <%

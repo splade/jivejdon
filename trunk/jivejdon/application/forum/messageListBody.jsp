@@ -72,10 +72,10 @@
         <span class="smallgray" id='creationDate_<bean:write name="forumMessage" property="messageId"/>'><bean:write name="forumMessage" property="creationDate" /></span>
       </div>
 	  <div nowrap="" align="center" class="post_titleright">
-              <logic:equal name="messageListForm" property='<%= "authenticated[" + i + "]" %>' value="true">
-           <html:link page="/message/messageAction.shtml?action=edit" paramId="messageId" paramName="forumMessage" paramProperty="messageId"
-            >编辑</html:link>       
-       </logic:equal>
+         <logic:equal name="messageListForm" property='<%= "authenticated[" + i + "]" %>' value="true">
+              <html:link page="/message/messageAction.shtml?action=edit" paramId="messageId" paramName="forumMessage" paramProperty="messageId"
+              >编辑 </html:link>       
+          </logic:equal>
        <logic:equal name="i" value="0">
        <logic:notEmpty name="principal">  
        <logic:equal name="loginAccount" property="roleName" value="Admin">
@@ -90,8 +90,20 @@
 	     </logic:equal>  
 	     </logic:notEmpty>
        </logic:equal>  
+       <logic:equal name="forumMessage" property="root" value="true">
+             <a title="到本帖网址" href='<%=request.getContextPath()%>/thread/<bean:write name="forumThread" property="threadId" />'>                    
+       </logic:equal>
+       <logic:equal name="forumMessage" property="root" value="false">
+             <a title="到本帖网址" href='<%=request.getContextPath()%>/thread/nav/<bean:write name="forumThread" property="threadId" />/<bean:write name="forumMessage" property="messageId" />#<bean:write name="forumMessage" property="messageId" />'  rel="nofollow"> 
+       </logic:equal>                          
+       <html:img page="/images/arrow_down.gif" width="18" height="18" alt="到本帖网址" border="0" /></a>
        
-      
+       
+        <a title="请用鼠标选择需要回复的文字再点按本回复键" href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumMessage" property="messageId"/>',loadQPostjs)">
+        <html:img page="/images/document_comment.gif" width="18" height="18" border="0" alt="请用鼠标选择需要回复的文字再点按本回复键"/></a>       
+             
+        <a title="回复该主题" href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumMessage" property="messageId"/>',loadWPostjs)">
+         <html:img page="/images/comment_reply.gif" width="18" height="18" border="0" alt="回复该主题"/></a>
      </div>
      
    <div class="post_titletag">    

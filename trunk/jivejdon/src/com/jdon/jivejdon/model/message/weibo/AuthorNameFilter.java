@@ -17,6 +17,7 @@ package com.jdon.jivejdon.model.message.weibo;
 
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.message.MessageVO;
+import com.jdon.util.UtilValidate;
 
 public class AuthorNameFilter {
 	public final static String PRE_AUTHOR = "@";
@@ -28,8 +29,9 @@ public class AuthorNameFilter {
 			if (messageVO.getBody().indexOf(PRE_AUTHOR) == -1)
 				return null;
 
-			if (messageVO.getBody().indexOf("[author]") != -1)
+			if (messageVO.getBody().indexOf("[author]") != -1) {
 				return null;
+			}
 
 			String body = messageVO.getBody();
 			String buff = body.substring(body.indexOf(PRE_AUTHOR));
@@ -37,10 +39,13 @@ public class AuthorNameFilter {
 			if (as.length < 2)
 				return null;
 			toUsername = as[1];
+			if (UtilValidate.isEmpty(toUsername))
+				return null;
 
 			messageVO.setBody(body.replaceAll(toUsername, getAuthorURL(toUsername)));
-		} catch (RuntimeException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 		return toUsername;
 	}
