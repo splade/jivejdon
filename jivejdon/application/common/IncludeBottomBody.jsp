@@ -31,16 +31,13 @@
 <a href="http://feed.feedsky.com/jdon" target="_blank">
 <html:img page="/images/cache/icon_sub_c1s16_d.gif" width="50" height="16" alt="RSS" border="0"  vspace="2"  style="margin-bottom:3px" /></a>
 <!-- Feedsky FEED发布代码结束 -->
-            </td>        
-        <td>
-        <a href="http://www.google.com/ig/add?feedurl=http://www.jdon.com/jivejdon/rss"><html:img page="/images/add-to-google.gif" width="104" height="17" alt="add to google" border="0"/></a>
-         </td>                    
-          <td>
-        <a href="http://add.my.yahoo.com/rss?url=http://www.jdon.com/jivejdon/rss"><html:img page="/images/add-to-myyahoo.gif" width="91" height="17" alt="add to yahoo" border="0"/></a>
-         </td>
+            </td>              
         <td>
         <a href="javascript:void(0)" onClick="loadWLJSWithP('<%=request.getContextPath()%>/forum/feed/feedback.jsp',helpW)">联系管理员 </a> 
         </td>
+          <td>
+        探索 分享 交流 解惑 授道 
+         </td>
          </tr></table>                  
         </td> </tr>      
       <tr> <td align="center"  >

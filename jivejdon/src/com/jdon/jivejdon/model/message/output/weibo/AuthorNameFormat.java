@@ -23,6 +23,7 @@ import com.jdon.jivejdon.model.message.MessageRenderSpecification;
 import com.jdon.jivejdon.model.message.MessageVO;
 import com.jdon.jivejdon.model.message.weibo.InFilterAuthor;
 import com.jdon.util.Debug;
+import com.jdon.util.StringUtil;
 
 /**
  * 1.进入管理界面 /jivejdon/admin/
@@ -70,7 +71,8 @@ public class AuthorNameFormat implements MessageRenderSpecification {
 			result = m.find();
 		}
 		m.appendTail(sb);
-		return sb.toString();
+		// remove all [author][/author]
+		return StringUtil.replace(sb.toString(), "[author][/author]", "");
 	}
 
 	public String getAuthorURL() {
