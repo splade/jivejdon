@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/mail.jar"/>
-	<classpathentry kind="lib" path="application/WEB-INF/lib/mysql-connector-java-3.0.14-production-bin.jar"/>
 	<classpathentry kind="lib" path="doc/tomcat/jaas.jar"/>
 	<classpathentry kind="lib" path="doc/tomcat/lib/jaas.jar"/>
 	<classpathentry kind="lib" path="lib/expires/xebia-servlet-extras-1.0.4.jar"/>
