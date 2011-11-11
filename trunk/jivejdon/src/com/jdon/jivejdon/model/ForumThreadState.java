@@ -83,7 +83,10 @@ public class ForumThreadState {
 	}
 
 	public long getModifiedDate2() {
-		return lastPost.getModifiedDate2();
+		if (lastPost != null)
+			return lastPost.getModifiedDate2();
+		else
+			return 0;
 	}
 
 	public int getSubscriptionCount() {
