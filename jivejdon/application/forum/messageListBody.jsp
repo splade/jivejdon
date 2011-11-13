@@ -99,11 +99,11 @@
        <html:img page="/images/arrow_down.gif" width="18" height="18" alt="到本帖网址" border="0" /></a>
        
        
-        <a title="请用鼠标选择需要回复的文字再点按本回复键" href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumMessage" property="messageId"/>',loadQPostjs)">
-        <html:img page="/images/document_comment.gif" width="18" height="18" border="0" alt="请用鼠标选择需要回复的文字再点按本回复键"/></a>       
+        <a  href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumMessage" property="messageId"/>',loadQPostjs)">
+        <html:img page="/images/document_comment.gif" width="18" height="18" border="0"  /></a>       
              
-        <a title="回复该主题" href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumMessage" property="messageId"/>',loadWPostjs)">
-         <html:img page="/images/comment_reply.gif" width="18" height="18" border="0" alt="回复该主题"/></a>
+        <a  href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumMessage" property="messageId"/>',loadWPostjs)">
+         <html:img page="/images/comment_reply.gif" width="18" height="18" border="0" /></a>
      </div>
      
    <div class="post_titletag">    

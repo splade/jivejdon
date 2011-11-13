@@ -46,49 +46,36 @@
 com.jdon.jivejdon.presentation.listener.UserCounterListener onlinecount = (com.jdon.jivejdon.presentation.listener.UserCounterListener)this.getServletContext().getAttribute((com.jdon.jivejdon.presentation.listener.UserCounterListener.COUNT_KEY));
 String oc = Integer.toString(onlinecount.getActiveSessions());
 %>
-  <html:img page="/images/user_groups.gif" width="17" height="17" align="absmiddle" />
+  
   <span class="smallgray">
   <a href="javascript:void(0);" target="_blank" onmouseover="loadWLJS(onlinesInf)" >在线<%=oc%>人</a> 
   </span>
-  &nbsp;&nbsp;<html:img page="/images/world.gif" width="17" height="17" align="absmiddle" /><a href="/">首页</a>
-  &nbsp;&nbsp;<html:img page="/images/folder_folder.gif" width="17" height="17" align="absmiddle"/><html:link page="/thread">主题表</html:link>
-  &nbsp;&nbsp;<html:img page="/images/flag.gif" width="17" height="17" align="absmiddle"/><html:link page="/tags">标签</html:link>
-  &nbsp;&nbsp;<html:img border="0" page="/images/search.gif"  width="17" height="17" align="absmiddle"/><html:link page="/query/threadViewQuery.shtml" >查搜</html:link>
+  &nbsp;&nbsp;<a href="/">首页</a>
+  &nbsp;&nbsp;<html:link page="/thread">主题表</html:link>
+  &nbsp;&nbsp;<html:link page="/tags">标签</html:link>
+  &nbsp;&nbsp;<html:link page="/query/threadViewQuery.shtml" >查搜</html:link>
 
 <logic:notPresent name="principal" >
-  &nbsp;&nbsp;<html:link page="/account/newAccountForm.shtml">
-  <html:img border="0"  page="/images/user_add.gif"  width="17" height="17" align="absmiddle"/>注册</html:link>
+  &nbsp;&nbsp;<html:link page="/account/newAccountForm.shtml">注册</html:link>
 </logic:notPresent>
 
-<logic:notPresent name="principal" >
-  
-  &nbsp;&nbsp;<a href="javascript:void(0);" onclick='loadWLJS(loginW)'>
-  <html:img border="0"  page="/images/user_right.gif"  width="17" height="17" align="absmiddle"/>登陆
-  </a>  
-  
+<logic:notPresent name="principal" >  
+  &nbsp;&nbsp;<a href="javascript:void(0);" onclick='loadWLJS(loginW)'>登陆 </a>    
 </logic:notPresent>
               
 <logic:present name="principal" >
-
-  &nbsp;&nbsp;<a href="<%=request.getContextPath()%>/blog/<bean:write name="principal"/>" >
-      <html:img border="0"  page="/images/user_folder.gif"  width="17" height="17" align="absmiddle"/>个人博客</a>
+  &nbsp;&nbsp;<a href="<%=request.getContextPath()%>/blog/<bean:write name="principal"/>" >个人博客</a>
 </logic:present>
                   
 <logic:present name="principal" >
-   &nbsp;&nbsp;<html:link page="/jasslogin?logout">
-     <html:img page="/images/user_up.gif" width="17" height="17" alt="退出" border="0" align="absmiddle"/>退出
-   </html:link>   
+   &nbsp;&nbsp;<html:link page="/jasslogin?logout">退出 </html:link>   
 </logic:present>       
 
-&nbsp;&nbsp;<a href="javascript:void(0);"  onclick="window.location.reload()"><html:img page="/images/user_up.gif" width="17" height="17" alt="refresh" border="0" align="absmiddle"/>刷新</a>
+&nbsp;&nbsp;<a href="javascript:void(0);"  onclick="window.location.reload()">刷新</a>
 
-<!-- Feedsky FEED发布代码开始 -->
-<!-- FEED自动发现标记开始 -->
-<link title="RSS 2.0" type="application/rss+xml" href="http://feed.feedsky.com/jdon" rel="alternate" />
-<!-- FEED自动发现标记结束 -->
 <a href="http://feed.feedsky.com/jdon" target="_blank"><html:img page="/images/feed-icon-12x12-orange.gif" width="12" height="12" alt="RSS" border="0" align="absmiddle"/></a>
-<!-- Feedsky FEED发布代码结束 -->
 
+  <a href="http://weibo.com/ijdon" target="_blank"><html:img page="/images/sina.png" width="12" height="12" border="0"/></a>     
 </td></tr>
 </table>
 
