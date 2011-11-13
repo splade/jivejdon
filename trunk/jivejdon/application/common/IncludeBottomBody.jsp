@@ -19,19 +19,7 @@
         }
         
         </script>
-        </td>
-        <td><a href="http://www.jdon.com/jivejdon/thread/37006" target="_blank" title="手机" ><html:img page="/images/phone.gif" width="18" height="18" alt="手机" border="0"/></a>
-        </td><td>
-        <a href="http://weibo.com/ijdon" target="_blank"><html:img page="/images/sina.png" width="30" height="27" border="0"/></a>        
-        </td><td>
-<!-- Feedsky FEED发布代码开始 -->
-<!-- FEED自动发现标记开始 -->
-<link title="RSS 2.0" type="application/rss+xml" href="http://feed.feedsky.com/jdon" rel="alternate" />
-<!-- FEED自动发现标记结束 -->
-<a href="http://feed.feedsky.com/jdon" target="_blank">
-<html:img page="/images/cache/icon_sub_c1s16_d.gif" width="50" height="16" alt="RSS" border="0"  vspace="2"  style="margin-bottom:3px" /></a>
-<!-- Feedsky FEED发布代码结束 -->
-            </td>              
+        </td>              
         <td>
         <a href="javascript:void(0)" onClick="loadWLJSWithP('<%=request.getContextPath()%>/forum/feed/feedback.jsp',helpW)">联系管理员 </a> 
         </td>
