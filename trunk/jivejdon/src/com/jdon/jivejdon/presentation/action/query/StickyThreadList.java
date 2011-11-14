@@ -26,9 +26,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.jdon.cache.LRUCache;
 import com.jdon.controller.WebAppUtil;
-import com.jdon.controller.cache.Cache;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.proptery.ThreadPropertys;
@@ -39,7 +37,7 @@ import com.jdon.jivejdon.util.ToolsUtil;
 
 public class StickyThreadList extends Action {
 
-	private Cache stickyThreadList = new LRUCache("approvedCache.xml");;
+	private Collection<ForumThread> stickyThreadList = new ArrayList();
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ThreadListForm threadListForm = (ThreadListForm) form;
@@ -58,14 +56,11 @@ public class StickyThreadList extends Action {
 	}
 
 	public Collection getStickyThreadList(HttpServletRequest request) {
-		Collection<ForumThread> results;
-		if (stickyThreadList.contain(StickyThreadList.class)) {
-			results = (Collection) stickyThreadList.get(StickyThreadList.class);
-			if (!results.isEmpty())
-				return results;
+		if (!stickyThreadList.isEmpty()) {
+			return stickyThreadList;
 		}
 
-		results = new ArrayList();
+		Collection<ForumThread> results = new ArrayList();
 		PropertyService propertyService = (PropertyService) WebAppUtil.getService("propertyService", request);
 		ForumMessageService forumMessageService = (ForumMessageService) WebAppUtil.getService("forumMessageService", request);
 		try {
@@ -76,7 +71,7 @@ public class StickyThreadList extends Action {
 				ForumThread thread = forumMessageService.getThread(id);
 				results.add(thread);
 			}
-			stickyThreadList.put(StickyThreadList.class, results);
+			stickyThreadList = results;
 
 		} catch (Exception e) {
 			e.printStackTrace();

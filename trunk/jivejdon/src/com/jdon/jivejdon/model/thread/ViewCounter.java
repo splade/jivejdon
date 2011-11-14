@@ -15,6 +15,8 @@
  */
 package com.jdon.jivejdon.model.thread;
 
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.jdon.jivejdon.model.ForumThread;
@@ -22,13 +24,15 @@ import com.jdon.jivejdon.model.ForumThread;
 public class ViewCounter {
 
 	private final AtomicLong viewCount;
-	private volatile String lastViewIP;
 	private final ForumThread thread;
 	private long lastSavedCount;
+	private int fixedSize = 5;
+	private Queue lastViewIPDeque;
 
 	public ViewCounter(ForumThread thread, long count) {
 		this.thread = thread;
 		this.viewCount = new AtomicLong(count);
+		this.lastViewIPDeque = new ConcurrentLinkedQueue();
 	}
 
 	public long getViewCount() {
@@ -40,11 +44,18 @@ public class ViewCounter {
 	}
 
 	public void addViewCount(String ip) {
-		if (!ip.equals(lastViewIP)) {
+		if (!lastViewIPDeque.contains(ip)) {
 			viewCount.incrementAndGet();
-			lastViewIP = ip;
+			addLastViewIPDeque(ip);
 		} else
 			viewCount.intValue();
+	}
+
+	private void addLastViewIPDeque(Object o) {
+		if (lastViewIPDeque.size() >= fixedSize) {
+			lastViewIPDeque.remove();
+		}
+		lastViewIPDeque.add(o);
 	}
 
 	public void setViewCount(int delta) {
