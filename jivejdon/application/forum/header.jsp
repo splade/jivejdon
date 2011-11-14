@@ -14,6 +14,11 @@
 <script type="text/javascript" src="<html:rewrite page="/forum/js/messageList.js"/>"></script>
 <script>
  if(top !== self) top.location = self.location;
+ window.google_analytics_uacct = "UA-257352-2";
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-257352-2']);
+  _gaq.push(['_trackPageview']);
+
 </script>
 
 
