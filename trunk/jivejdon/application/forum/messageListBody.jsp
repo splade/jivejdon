@@ -30,35 +30,49 @@
            <span class="smallgray"> 注册时间: <bean:write name="forumMessage" property="account.creationDate"/></span>
            <br>
          <logic:notEmpty name="forumMessage" property="account.username">
-             <bean:define id="messageTo" name="forumMessage" property="account.username" />
-             <a href="javascript:void(0);" onclick="loadWLJSWithP('<html:rewrite page="/account/protected/shortmessageAction.shtml" paramId="messageTo"  paramName="messageTo" />', openShortmessageWindow);">          
-             <html:img page="/images/user_comment.gif" width="18" height="18" border="0" align="absmiddle"/><span class="smallgray">悄悄话</span>
-            </a>     
-            <br>
-            <html:link page="/profile.jsp" paramId="user" paramName="forumMessage" paramProperty="account.username"
-            ><html:img page="/images/digg.gif" width="16" height="16" border="0" align="absmiddle"/><span class="smallgray">个人博客</span>
-            </html:link>
-               
-            <br><html:img page="/images/users.gif" width="18" height="18" alt="在线 " border="0" align="absmiddle"/>            
-            <bean:define id="username" name="forumMessage" property="account.username" />           
+         
+         <div id="divname">
+         <ul class="link">
+            <li class="box21">
+            <span  class="smallgray">            
+            <span id="messageOwnerOnline_<bean:write name="forumMessage" property="messageId"/>"></span>                        
+            <bean:define id="username" name="forumMessage" property="account.username" />                      
              <jsp:include page="./onlineCheck.jsp" flush="true">   
                   <jsp:param name="username" value="<%=username%>"/>   
-             </jsp:include>  
+             </jsp:include>         
+             </span>     
+            </li>
             
-         </logic:notEmpty> 
-              
-        	<span id="messageOwnerOnline_<bean:write name="forumMessage" property="messageId"/>"></span>  
-          
-           <br>
-            <a href="<%=request.getContextPath()%>/account/protected/sub/subAction.shtml?subscribeType=3&subscribeId=<bean:write name="forumMessage" property="account.userId"/>"
-                target="_blank" title="我要关注该作者发言"  rel="nofollow">            
-            <html:img page="/images/user_add.gif" width="18" height="18" alt="我要关注该作者发言" border="0" align="absmiddle"/></a>
-             <logic:greaterThan name="forumMessage" property="account.subscriptionCount" value="0">
+            <li class="box22"">
+             <a href="<%=request.getContextPath()%>/account/protected/sub/subAction.shtml?subscribeType=3&subscribeId=<bean:write name="forumMessage" property="account.userId"/>"
+                target="_blank" title="我要关注该作者发言"  rel="nofollow">    
+              <span class="smallgray">          
+              <logic:greaterThan name="forumMessage" property="account.subscriptionCount" value="0">
                  <bean:write name="forumMessage" property="account.subscriptionCount"/>人关注
               </logic:greaterThan>
-            
-            
-             </logic:notEmpty>
+              <logic:lessEqual name="forumMessage" property="account.subscriptionCount" value="0">
+                            关注他
+              </logic:lessEqual>
+              </span>
+              </a></li>
+                                      
+             <li class="box23">         
+             <bean:define id="messageTo" name="forumMessage" property="account.username" />
+             <a href="javascript:void(0);" onclick="loadWLJSWithP('<html:rewrite page="/account/protected/shortmessageAction.shtml" paramId="messageTo"  paramName="messageTo" />', openShortmessageWindow);" rel="nofollow">          
+             <span class="smallgray">悄悄话</span>
+              </a>
+             </li>     
+
+            <li class="box24">            
+            <a href="<%=request.getContextPath()%>/profile.jsp?user=<bean:write name="forumMessage" property="account.username"/>"  rel="nofollow">
+            <span class="smallgray">个人博客</span>
+            </a>
+            </li>   
+         </ul>
+        </div>
+                        
+            </logic:notEmpty> 
+         </logic:notEmpty>
              
        </div>
      </div>
@@ -89,21 +103,22 @@
 	      
 	     </logic:equal>  
 	     </logic:notEmpty>
-       </logic:equal>  
+       </logic:equal>
+       
+       <span class="box11">                         
        <logic:equal name="forumMessage" property="root" value="true">
              <a title="到本帖网址" href='<%=request.getContextPath()%>/thread/<bean:write name="forumThread" property="threadId" />'>                    
        </logic:equal>
        <logic:equal name="forumMessage" property="root" value="false">
              <a title="到本帖网址" href='<%=request.getContextPath()%>/thread/nav/<bean:write name="forumThread" property="threadId" />/<bean:write name="forumMessage" property="messageId" />#<bean:write name="forumMessage" property="messageId" />'  rel="nofollow"> 
-       </logic:equal>                          
-       <html:img page="/images/arrow_down.gif" width="18" height="18" alt="到本帖网址" border="0" /></a>
-       
-       
-        <a  href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumMessage" property="messageId"/>',loadQPostjs)">
-        <html:img page="/images/document_comment.gif" width="18" height="18" border="0"  /></a>       
-             
-        <a  href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumMessage" property="messageId"/>',loadWPostjs)">
-         <html:img page="/images/comment_reply.gif" width="18" height="18" border="0" /></a>
+       </logic:equal>                                 
+       &nbsp;&nbsp;</a>
+       </span>
+       <span class="box12""><a  href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumMessage" property="messageId"/>',loadWPostjs)">&nbsp;&nbsp;</a>
+        </span>
+       <span class="box13"><a  href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumMessage" property="messageId"/>',loadQPostjs)">&nbsp;&nbsp;</a>
+        </span>
+               
      </div>
      
    <div class="post_titletag">    

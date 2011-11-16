@@ -100,6 +100,15 @@ function leftRightgoPageREST(event)
 } 
 
 
+function viewcount(threadId)
+{            
+	var pars = 'thread='+threadId;   
+    new Ajax.Updater('viewcount', getContextPath() +'/forum/viewThread.shtml', { method: 'get', parameters: pars });
+   
+    
+}
+
+
  function digMessage(id)
     {            
     	var pars = 'messageId='+id;   

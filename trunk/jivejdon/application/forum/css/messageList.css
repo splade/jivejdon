@@ -190,3 +190,42 @@ DIV.digg-row SPAN {
   width: 700px;
   margin:0 auto;	
 }
+.box1, .box2, .box3, .box4 {
+	float:left;
+	background-repeat: no-repeat;
+	background-position: left top;
+	text-decoration: none;
+	background-image: url(../../images/ti.png);
+}
+
+.box1{ background-position: 0 0; width: 18px; height: 18px;} 
+.box2{ background-position: -23px 0; width: 18px; height: 18px; } 
+.box3{ background-position: -46px 0; width: 18px; height: 18px; } 
+.box4{ background-position: -69px 0; width: 18px; height: 18px; }
+
+.box11, .box12, .box13{
+	float:left;
+	background-repeat: no-repeat;
+	background-position: left top;
+	text-decoration: none;
+	background-image: url(../../images/rbs.png);
+}
+.box11{ background-position: 0 0; width: 18px; height: 18px;} 
+.box12{ background-position: -23px 0; width: 18px; height: 18px; } 
+.box13{ background-position: -46px 0; width: 18px; height: 18px; }
+
+#divname ul{margin:0px; padding:0px;}
+ul.link li {
+	background-image: url(../../images/aubs.png);    
+    background-repeat: no-repeat;
+    display: block;
+    font-size: 16px;
+    letter-spacing: -0.04em;
+    padding: 1px 45px 2px 18px;
+    text-decoration: none;
+}
+.box21{ background-position: 0 0;} 
+.box22{ background-position: 0 -21px;} 
+.box23{ background-position: 0 -44px;} 
+.box24{ background-position: 0 -67px;} 
+

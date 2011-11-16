@@ -22,7 +22,6 @@ import org.apache.struts.action.ActionMapping;
 
 import com.jdon.controller.WebAppUtil;
 import com.jdon.controller.model.PageIterator;
-import com.jdon.jivejdon.manager.viewcount.ThreadViewCounterJob;
 import com.jdon.jivejdon.model.ForumMessage;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.presentation.form.MessageListForm;
@@ -105,17 +104,10 @@ public class MessageListAction extends ModelListAction {
 			MessageListForm messageListForm = (MessageListForm) actionForm;
 			messageListForm.setAuthenticateds(authenticateds);
 
-			addViewCount(forumThread, request);
 		} catch (Exception e) {
 			return;
 		}
 
-	}
-
-	private void addViewCount(ForumThread forumThread, HttpServletRequest request) {
-		forumThread.addViewCount(request.getRemoteAddr());
-		ThreadViewCounterJob threadViewCounterJob = (ThreadViewCounterJob) WebAppUtil.getComponentInstance("threadViewCounterJob", request);
-		threadViewCounterJob.checkViewCounter(forumThread);
 	}
 
 	private boolean[] getAuthedListForm(ActionForm actionForm, HttpServletRequest request) {
