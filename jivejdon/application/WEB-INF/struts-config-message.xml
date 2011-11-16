@@ -142,6 +142,11 @@
         scope="request"  validate="false">
 		 <forward name="success" path="/forum/stickyThreadList.jsp"/>
 	</action>
+	
+	<action path="/forum/viewThread" type="com.jdon.jivejdon.presentation.action.ViewThreadAction" 
+        scope="request"  validate="false">
+		 <forward name="success" path="/index.jsp"/>
+	</action>
 		
     	
   </action-mappings>

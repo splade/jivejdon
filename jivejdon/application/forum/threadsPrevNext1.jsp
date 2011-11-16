@@ -55,20 +55,20 @@ if (iter.hasPrevious()){
     <td width="98%" align="center">
         <bean:define id="forumThread" name="messageListForm" property="oneModel" />
        
-        <a title="关注本主题" href="<%=request.getContextPath()%>/account/protected/sub/subAction.shtml?subscribeType=1&subscribeId=<bean:write name="forumThread" property="threadId" />"  rel="nofollow">
-       <html:img page="/images/user_add.gif" width="18" height="18" alt="关注本主题" border="0" /></a>
-
-          
-       <a title="加入本帖到收藏夹" href="JavaScript:void(0);" onclick="addfavorite('<bean:write name="forumThread" property="rootMessage.messageVO.subject"/>')" >
-       <html:img page="/images/album_add.gif" width="18" height="18" alt="加入本帖到收藏夹" border="0" /></a>
-       
-       <a title="网上收藏本主题" href="JavaScript:void(0);" onclick="loadWLJS(mark)" >
-       <html:img page="/images/user_up.gif" width="18" height="18" alt="网上收藏本主题" border="0" /></a>
-       
-       
-       <a title="手机条码扫描浏览本页" href="JavaScript:void(0);" onclick='loadWLJS(qtCode)'  >
-       <html:img page="/images/phone.gif" width="18" height="18" alt="手机条码扫描浏览本页" border="0" /></a>
-       
+<table><tr><td>       
+<div class="box1"> 
+<a title="网上收藏本主题" href="JavaScript:void(0);" onclick="loadWLJS(mark)" >&nbsp;&nbsp;</a>
+</div>
+<div class="box2"">
+<a title="手机条码扫描浏览本页" href="JavaScript:void(0);" onclick='loadWLJS(qtCode)'  >&nbsp;&nbsp;</a>
+</div>
+<div class="box3">
+<a title="关注本主题" href="<%=request.getContextPath()%>/account/protected/sub/subAction.shtml?subscribeType=1&subscribeId=<bean:write name="forumThread" property="threadId" />"  rel="nofollow">&nbsp;&nbsp;</a>
+</div>
+<div class="box4">
+<a title="加入本帖到收藏夹" href="JavaScript:void(0);" onclick="addfavorite('<bean:write name="forumThread" property="rootMessage.messageVO.subject"/>')" >&nbsp;&nbsp;</a>
+</div>
+</td></tr></table>       
        
     </td>
     <td width="1%" nowrap>
