@@ -108,7 +108,7 @@ public class SpamFilter2 implements Filter {
 			return;
 		}
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		if (isPermittedRobot(httpRequest)) {
+		if (isPermittedReferer(httpRequest) || isPermittedRobot(httpRequest)) {
 			chain.doFilter(request, response);
 			disableSessionOnlines(httpRequest);
 			return;
@@ -140,6 +140,16 @@ public class SpamFilter2 implements Filter {
 			if (userAgent != null && userAgent.length() > 0 && robotPattern.matcher(userAgent.toLowerCase()).matches()) {
 				disableSessionOnlines(request);// although permitted, but
 				// disable session.
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isPermittedReferer(HttpServletRequest request) {
+		String referrerUrl = request.getHeader("Referer");
+		if (domainPattern != null) {
+			if (referrerUrl != null && referrerUrl.length() > 0 && domainPattern.matcher(referrerUrl.toLowerCase()).matches()) {
 				return true;
 			}
 		}

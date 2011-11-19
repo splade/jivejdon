@@ -42,7 +42,11 @@
 		
 		 <filter>
 			<filter-name>SpamFilter</filter-name>
-			<filter-class>com.jdon.jivejdon.presentation.filter.SpamFilter</filter-class>			
+			<filter-class>com.jdon.jivejdon.presentation.filter.SpamFilter</filter-class>	
+			<init-param>
+				<param-name>referrer.domain.namePattern</param-name>
+				<param-value>.*(jdon.com|bqlr.com|localhost|127.0.0.1).*</param-value>
+			</init-param>			
 		</filter>
 		
 		<filter>

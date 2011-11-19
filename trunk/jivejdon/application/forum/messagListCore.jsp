@@ -202,32 +202,41 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 <input type="hidden" id="replySubject" name="replySubject"  value="<bean:write name="forumThread" property="rootMessage.messageVO.subject"/>"/>  
 </div>
 
+<%--   loaded in $LAB.js
+ <%@ include file="./messageNotfier.jsp" %>
+--%>
+<div id="isNewMessage" style="display:none"></div>
 
-
-<script type="text/javascript" src="<html:rewrite page="/common/js/prototype.js"/>"></script>
 <script language="javascript" >
-
-//var f = $$('.post_titleright');
-//for(var i=0; i<f.length; i++){	  
-  // f[i].innerHTML += $("post_titleright").innerHTML ;
-//}
-
-var pageURL = '<%=request.getContextPath() %>/thread/<bean:write name="forumThread" property="threadId"/>';
-var start = <bean:write name="messageListForm" property="start" />;
-var count = <bean:write name="messageListForm" property="count" />;
-var allCount = <bean:write name="messageListForm" property="allCount" />
-document.onkeydown=leftRightgoPageREST;
-
-//below need prototype.js
-
-viewcount(<bean:write name="forumThread" property="threadId"/>);
-
-stickyList();
-//hotkeys();
-
-if (isDisplayNeedLoad('approved')){
+$LAB
+.script("<html:rewrite page="/forum/js/messageList.js"/>").wait()
+.script("<html:rewrite page="/account/js/login.js"/>")
+.script("<html:rewrite page="/common/js/prototype.js"/>")
+.script("http://v2.jiathis.com/code/jia.js")
+.wait(function(){
+	var pageURL = '<%=request.getContextPath() %>/thread/<bean:write name="forumThread" property="threadId"/>';
+	var start = <bean:write name="messageListForm" property="start" />;
+	var count = <bean:write name="messageListForm" property="count" />;
+	var allCount = <bean:write name="messageListForm" property="allCount" />
+	document.onkeydown=leftRightgoPageREST;
+	
+	 //from ../account/loginAJAX.jsp
+	 <logic:notPresent name="principal" >
+	 var username = readCookie("username");
+	 if (username != null){
+	    var password = readCookie("password"); 
+	    document.getElementById("j_username").value = decode64(username);
+	    document.getElementById("j_password").value = decode64(password);      
+	 }
+	 </logic:notPresent>
+	
+	
+	//below need prototype.js	
+ viewcount(<bean:write name="forumThread" property="threadId"/>);
+ stickyList();
+ if (isDisplayNeedLoad('approved')){
     approveList();
-}else{ 	 
+ }else{ 	 
    Event.observe(window, 'scroll', function() {
 		setTimeout(function(){
 		 if (isDisplayNeedLoad('approved')){	
@@ -235,16 +244,36 @@ if (isDisplayNeedLoad('approved')){
          }			
 		},1500);
    });
+ }
+  
+ //checkmessage from messageNotfier.jsp
+ <logic:present name="principal" >
+ var messageChkURL = "<%=request.getContextPath() %>/shortmessage/checknewmessage.shtml";     
+ new Ajax.PeriodicalUpdater('isNewMessage', messageChkURL,
+  { method: 'get',
+    frequency: 120, 
+    decay: 2,
+    evalScripts: true});
+</logic:present>
+
+<logic:notPresent name="principal" >
+var messageChkURL = "<%=request.getContextPath() %>/forum/checknewmessage.shtml";
+username = readCookie("username");
+if (username != null){//active auto login
+ messageChkURL = "<%=request.getContextPath() %>/shortmessage/checknewmessage.shtml";   
 }
-          
+
+ new Ajax.PeriodicalUpdater('isNewMessage', messageChkURL,
+  { method: 'get',
+    frequency: 300, 
+    decay: 2,
+    evalScripts: true});
+
+</logic:notPresent>
+ 
+});          
 </script>
 
- <%@ include file="./messageNotfier.jsp" %>
-
-
-<!-- JiaThis Button BEGIN -->
-<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
-<!-- JiaThis Button END -->
 
 
 <%@include file="footer.jsp"%> 

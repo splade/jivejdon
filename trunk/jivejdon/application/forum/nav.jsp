@@ -17,11 +17,11 @@
     <html:link page="/" title="返回论坛列表"
     >论坛</html:link>
     &raquo;
-    <logic:present name="forum" >
+    <logic:notEmpty name="forum" >
     <a href="<%=request.getContextPath()%>/<bean:write name="forum" property="forumId" />">  
             <bean:write name="forum" property="name" />
     </a>
-    </logic:present>
+    </logic:notEmpty>
     </b>
     
     </td>    
