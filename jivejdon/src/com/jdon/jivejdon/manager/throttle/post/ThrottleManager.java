@@ -56,6 +56,7 @@ public class ThrottleManager {
 			return false;
 
 		if (processHit(ip)) {
+			log.error("ABUSIVE2 " + ip);
 			iPBanListManager.addBannedIp(ip);
 			return false;
 		}
@@ -125,8 +126,9 @@ public class ThrottleManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.jivejdon.manager.throttle.ThrottleManagerIF#isAbusive(java.lang
-	 *      .String)
+	 * @see
+	 * com.jdon.jivejdon.manager.throttle.ThrottleManagerIF#isAbusive(java.lang
+	 * .String)
 	 */
 	public boolean isAbusive(String clientId) {
 		if (clientId == null) {

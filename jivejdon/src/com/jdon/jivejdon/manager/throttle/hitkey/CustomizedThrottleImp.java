@@ -30,14 +30,16 @@ public class CustomizedThrottleImp implements CustomizedThrottle {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.jivejdon.manager.throttle.ThrottleManagerIF#processHitFilter
-	 *      (java.lang.String)
+	 * @see
+	 * com.jdon.jivejdon.manager.throttle.ThrottleManagerIF#processHitFilter
+	 * (java.lang.String)
 	 */
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.jivejdon.manager.throttle.img.ImgshowThrottle#processHitFilter
-	 *      (com.jdon.jivejdon.manager.throttle.img.ImgHitKey)
+	 * @see
+	 * com.jdon.jivejdon.manager.throttle.img.ImgshowThrottle#processHitFilter
+	 * (com.jdon.jivejdon.manager.throttle.img.ImgHitKey)
 	 */
 	public boolean processHitFilter(HitKeyIF hitKey) {
 
@@ -47,7 +49,7 @@ public class CustomizedThrottleImp implements CustomizedThrottle {
 
 		// throttling protection against spammers
 		if (processHit(hitKey)) {
-			log.debug("ABUSIVE " + hitKey.getHitIp());
+			log.error("ABUSIVE " + hitKey.getHitIp());
 			iPBanListManager.addBannedIp(hitKey.getHitIp());
 			return false;
 		}

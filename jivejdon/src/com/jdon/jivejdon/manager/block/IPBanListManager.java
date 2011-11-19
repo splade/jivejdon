@@ -31,18 +31,15 @@ import com.jdon.util.task.TaskEngine;
  * 
  * Represents a list of banned ip addresses.
  * 
- * ip can be 202.1.2.3 
- * or can be 202.1.*.*
- * or 202.1.2.*
- * or 202.*.*.*
+ * ip can be 202.1.2.3 or can be 202.1.*.* or 202.1.2.* or 202.*.*.*
  * 
  * modified by banQ
- *
- * This base implementation gets its list from a file on the filesystem.  We
- * are also aware of when the file changes via some outside source and we will
+ * 
+ * This base implementation gets its list from a file on the filesystem. We are
+ * also aware of when the file changes via some outside source and we will
  * automatically re-read the file and update the list when that happens.
  * 
- *
+ * 
  */
 public class IPBanListManager implements Runnable, IPBanListManagerIF {
 	private final static Logger log = Logger.getLogger(IPBanListManager.class);
@@ -63,8 +60,12 @@ public class IPBanListManager implements Runnable, IPBanListManagerIF {
 		this.loadBannedIps();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.manager.block.IPBanListManagerIF#isBanned(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.manager.block.IPBanListManagerIF#isBanned(java.lang
+	 * .String)
 	 */
 	public boolean isBanned(String remoteIp) {
 		// update the banned ips list if needed
@@ -82,11 +83,15 @@ public class IPBanListManager implements Runnable, IPBanListManagerIF {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.manager.block.IPBanListManagerIF#addBannedIp(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.manager.block.IPBanListManagerIF#addBannedIp(java.lang
+	 * .String)
 	 */
 	public void addBannedIp(String ip) {
-		if (ip == null) {
+		if (ip == null || ip.equals("localhost") || ip.equals("127.0.0.1")) {
 			return;
 		}
 		// update the banned ips list if needed
@@ -95,15 +100,19 @@ public class IPBanListManager implements Runnable, IPBanListManagerIF {
 			ipHolder.addressAdd(ip);
 
 			TaskEngine.addTask(this);
-			log.debug("ADDED " + ip);
+			log.error("ADDED " + ip);
 		} catch (Exception e) {
 			log.error("Error adding banned ip ", e);
 		}
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.jdon.jivejdon.manager.block.IPBanListManagerIF#deleteBannedIp(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.jivejdon.manager.block.IPBanListManagerIF#deleteBannedIp(java
+	 * .lang.String)
 	 */
 	public void deleteBannedIp(String ip) {
 		if (ip == null) {
@@ -121,8 +130,10 @@ public class IPBanListManager implements Runnable, IPBanListManagerIF {
 			log.error("Error delete banned ip ", e);
 		}
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.jdon.jivejdon.manager.block.IPBanListManagerIF#getAllBanIpList()
 	 */
 	public Collection getAllBanIpList() {
@@ -130,17 +141,17 @@ public class IPBanListManager implements Runnable, IPBanListManagerIF {
 		return ipHolder.getAllBanIpList();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.jdon.jivejdon.manager.block.IPBanListManagerIF#clear()
 	 */
 	public void clear() {
 		myLastModified = true;
 		ipHolder.clear();
 	}
-	
 
-
-	public void run() { //TaskEngine.addTask call
+	public void run() { // TaskEngine.addTask call
 		saveBanIpList();
 		log.info("save ip finished!");
 	}
@@ -154,16 +165,15 @@ public class IPBanListManager implements Runnable, IPBanListManagerIF {
 		}
 	}
 
-
 	/**
-	 * Load the list of banned ips from a file.  This clears the old list and
+	 * Load the list of banned ips from a file. This clears the old list and
 	 * loads exactly what is in the file.
 	 */
 	private synchronized void loadBannedIps() {
 
 		try {
-			//sort is low performance
-			//Set newBannedIpList = new TreeSet(new StringSortComparator()); 
+			// sort is low performance
+			// Set newBannedIpList = new TreeSet(new StringSortComparator());
 
 			String ipListText = setupDao.getSetupValue(PERSISTENCE_NAME);
 			BufferedReader in = new BufferedReader(new StringReader(ipListText));
@@ -177,7 +187,7 @@ public class IPBanListManager implements Runnable, IPBanListManagerIF {
 			in.close();
 
 			// list updated, reset modified file
-			//	this.bannedIps = newBannedIpList;
+			// this.bannedIps = newBannedIpList;
 		} catch (Exception ex) {
 			log.error("Error loading banned ips from file", ex);
 		}
@@ -195,6 +205,5 @@ public class IPBanListManager implements Runnable, IPBanListManagerIF {
 			myLastModified = false;
 		}
 	}
-
 
 }

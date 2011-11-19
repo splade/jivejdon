@@ -17,6 +17,7 @@
 package com.jdon.jivejdon.presentation.filter;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -32,6 +33,7 @@ import org.apache.log4j.Logger;
 
 import com.jdon.controller.WebAppUtil;
 import com.jdon.jivejdon.manager.block.IPBanListManagerIF;
+import com.jdon.util.UtilValidate;
 
 /**
  * if referrerUrl inlucde if referrerUrl is empty, it is a spam if referrerUrl
@@ -47,10 +49,12 @@ public class SpamFilter implements Filter {
 
 	protected IPBanListManagerIF iPBanListManagerIF;
 
+	protected Pattern domainPattern;
+
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-		if (isSpam(httpRequest)) {
+		if (isSpam(httpRequest) && (!isPermittedReferer(httpRequest))) {
 			log.debug("spammer, giving 'em a 503");
 			disableSessionOnlines(httpRequest);
 			if (!response.isCommitted())
@@ -80,6 +84,16 @@ public class SpamFilter implements Filter {
 		return isSpamForThrottle2(request);
 	}
 
+	private boolean isPermittedReferer(HttpServletRequest request) {
+		String referrerUrl = request.getHeader("Referer");
+		if (domainPattern != null) {
+			if (referrerUrl != null && referrerUrl.length() > 0 && domainPattern.matcher(referrerUrl.toLowerCase()).matches()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	protected boolean isSpamForThrottle2(HttpServletRequest request) {
 		if (iPBanListManagerIF == null)
 			iPBanListManagerIF = (IPBanListManagerIF) WebAppUtil.getComponentInstance("iPBanListManager", request);
@@ -101,8 +115,17 @@ public class SpamFilter implements Filter {
 	}
 
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
+	public void init(FilterConfig config) throws ServletException {
+		String domainPatternStr = config.getInitParameter("referrer.domain.namePattern");
+		if (!UtilValidate.isEmpty(domainPatternStr)) {
+			try {
+				domainPattern = Pattern.compile(domainPatternStr);
+				if (domainPattern != null)
+					config.getServletContext().setAttribute(SpamFilter2.DP, domainPattern);
+			} catch (Exception e) {
+				log.error("Error parsingreferrer.domain.namePattern value '" + domainPattern, e);
+			}
+		}
 
 	}
 }

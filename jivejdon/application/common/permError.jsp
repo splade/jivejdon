@@ -10,7 +10,7 @@
 <bean:parameter id="error" name="error" value="" />
 <center>
 <H3>服务器内部错误...</H3>
-发生系统错误<bean:write name="error" />，<a href='javascript:contactAdmin()'>请联系管理员</a>
+发生系统错误<bean:write name="error" />，<a href='javascript:contactAdmin()'>请反馈 帮助完善开源JiveJdon</a>
 <br>
 <br>
 <br>

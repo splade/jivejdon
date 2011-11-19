@@ -110,20 +110,15 @@ var myalertD=function(errorM){
     }
    }
 
-  var formSubmitcheck = new Boolean(false);   
-  var submitting = false; 
-  function checkPost(theForm) {             
-     if (!submitting)    
-        submitting = true;
-     else
-        return false;
+  var formSubmitcheck = new Boolean(false);      
+  function checkPost(theForm) {
            
       copyToClipboard($('formBody'));
       closeCopy();
       
       if (document.getElementById('forumId_select') != null
         && document.getElementById('forumId_select').value == ""){
-            myalert("页面forum错误，请拷贝备份你的发言后，重新刷新本页");
+    	  alert("页面forum错误，请拷贝备份你的发言后，重新刷新本页");
             return formSubmitcheck;
      }
       
@@ -132,11 +127,11 @@ var myalertD=function(errorM){
            if ((theForm.body.value.length  < 8190)){
                   formSubmitcheck = new Boolean(true);
            }else{                   
-                 myalert('请发言内容长度必须小于 ' + 8190);
+        	   alert('请发言内容长度必须小于 ' + 8190);
                  return false;                  
            }         
       }else{
-           myalert("请输入发言标题和发言内容！");
+    	  alert("请输入发言标题和发言内容！");
            window.location.reload();       
            return false;   
       }
