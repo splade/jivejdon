@@ -1,3 +1,5 @@
+<%@ page contentType="text/css; charset=UTF-8" %>
+<%@ include file="../../jivejdon_css.jsp"%>
 .gen-2 {
 	clear: both;
 }
@@ -228,4 +230,3 @@ ul.link li {
 .box22{ background-position: 0 -21px;} 
 .box23{ background-position: 0 -44px;} 
 .box24{ background-position: 0 -67px;} 
-

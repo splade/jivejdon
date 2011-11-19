@@ -207,30 +207,17 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 --%>
 <div id="isNewMessage" style="display:none"></div>
 
-<script language="javascript" >
+<script>
 $LAB
-.script("<html:rewrite page="/forum/js/messageList.js"/>").wait()
-.script("<html:rewrite page="/account/js/login.js"/>")
-.script("<html:rewrite page="/common/js/prototype.js"/>")
-.script("http://v2.jiathis.com/code/jia.js")
+.script("<html:rewrite page="/common/js/prototype.js"/>").wait()
+.script("<html:rewrite page="/forum/js/messageList.js"/>")
 .wait(function(){
 	var pageURL = '<%=request.getContextPath() %>/thread/<bean:write name="forumThread" property="threadId"/>';
 	var start = <bean:write name="messageListForm" property="start" />;
 	var count = <bean:write name="messageListForm" property="count" />;
 	var allCount = <bean:write name="messageListForm" property="allCount" />
-	document.onkeydown=leftRightgoPageREST;
-	
-	 //from ../account/loginAJAX.jsp
-	 <logic:notPresent name="principal" >
-	 var username = readCookie("username");
-	 if (username != null){
-	    var password = readCookie("password"); 
-	    document.getElementById("j_username").value = decode64(username);
-	    document.getElementById("j_password").value = decode64(password);      
-	 }
-	 </logic:notPresent>
-	
-	
+	document.onkeydown=leftRightgoPageREST;		
+		
 	//below need prototype.js	
  viewcount(<bean:write name="forumThread" property="threadId"/>);
  stickyList();
@@ -245,7 +232,7 @@ $LAB
 		},1500);
    });
  }
-  
+ 
  //checkmessage from messageNotfier.jsp
  <logic:present name="principal" >
  var messageChkURL = "<%=request.getContextPath() %>/shortmessage/checknewmessage.shtml";     
@@ -271,7 +258,8 @@ if (username != null){//active auto login
 
 </logic:notPresent>
  
-});          
+})
+.script("http://v2.jiathis.com/code/jia.js");          
 </script>
 
 

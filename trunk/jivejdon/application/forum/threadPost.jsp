@@ -25,7 +25,7 @@
 	<td  width="50" align="right">在 </td>
 	<td align="left"> 
 	
-     <select name="forum.forumId" id="forumId_select" >
+     <select name="forum.forumId"  id="forumId_select" ></select> 中发帖.	    
 <script>
 var pars = "";
 new Ajax.Request('<html:rewrite page="/forum/forumListJSON.shtml"/>', 
@@ -34,16 +34,18 @@ new Ajax.Request('<html:rewrite page="/forum/forumListJSON.shtml"/>',
 function shoForumResponse(transport){
   if (!transport.responseText.isJSON())
 	 	 return;
-  var dataArray = (transport.responseText).evalJSON();	 	 
-  dataArray.each(function(forum){          
-      new Insertion.Bottom('forumId_select', " <option value='"+ forum.forumId +"' id='o_"+ forum.forumId +"' >"+ forum.name +"</option>");
+  var select = document.getElementById("forumId_select");
+  var dataArray = (transport.responseText).evalJSON();  
+  dataArray.each(function(forum){
+	  select.options[select.options.length] = new Option(forum.name, forum.forumId);
+		//document.write("<option value='"+ forum.forumId +"' id='o_"+ forum.forumId +"' >"+ forum.name +"</option>");			  
   });
+  
  }
-	
-</script>
-    
-     </select>
-    中发帖.</td>
+</script>    
+
+
+    </td>
 </tr>
 </table>
 </logic:empty>
