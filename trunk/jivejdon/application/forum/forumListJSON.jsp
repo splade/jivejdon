@@ -10,5 +10,5 @@
 %>
 
 [ <logic:iterate indexId="i"   id="forum" name="forumListForm" property="list" >
-	{ "forumId": "<bean:write name="forum"  property="forumId"/>", "name": "<bean:write name="forum"  property="name"/>"},
+<logic:greaterThan name="i" value="0">,</logic:greaterThan>{ "forumId": "<bean:write name="forum"  property="forumId"/>", "name": "<bean:write name="forum"  property="name"/>"}
 </logic:iterate>]
