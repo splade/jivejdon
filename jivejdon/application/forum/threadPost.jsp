@@ -29,18 +29,18 @@
 <script>
 var pars = "";
 new Ajax.Request('<html:rewrite page="/forum/forumListJSON.shtml"/>', 
-  	    {method: 'post', parameters: pars, onComplete: shoForumResponse}); 
+  	    {method: 'post', parameters: pars, onSuccess: shoForumResponse}); 
   	     	    	  
 function shoForumResponse(transport){
-  if (!transport.responseText.isJSON())
+	if (!transport.responseText.isJSON())
 	 	 return;
-  var select = document.getElementById("forumId_select");
-  var dataArray = (transport.responseText).evalJSON();  
-  dataArray.each(function(forum){
-	  select.options[select.options.length] = new Option(forum.name, forum.forumId);
-		//document.write("<option value='"+ forum.forumId +"' id='o_"+ forum.forumId +"' >"+ forum.name +"</option>");			  
-  });
-  
+     var dataArray = (transport.responseText).evalJSON();	 	 
+     dataArray.each(function(forum){   
+    	 var optn = document.createElement('option');
+	     optn.text = forum.name;
+	     optn.value = forum.forumId;		  
+          $('forumId_select').options.add(optn);
+     });
  }
 </script>    
 
