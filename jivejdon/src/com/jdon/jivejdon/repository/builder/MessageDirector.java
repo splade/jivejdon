@@ -38,6 +38,8 @@ public class MessageDirector {
 	}
 
 	public ForumMessage getMessage(Long messageId) {
+		if (messageId == null)
+			return null;
 		try {
 			return getMessage(messageId, null, null);
 		} catch (Exception e) {
@@ -46,6 +48,8 @@ public class MessageDirector {
 	}
 
 	public MessageVO getMessageVO(Long messageId) {
+		if (messageId == null)
+			return null;
 		MessageVO mVO = null;
 		try {
 			mVO = messageBuilder.createMessageVO(messageId);
@@ -62,6 +66,8 @@ public class MessageDirector {
 	 */
 	public ForumMessage getMessage(Long messageId, final ForumThread forumThread, final Forum forum) throws Exception {
 		logger.debug(" enter get a full Message for id=" + messageId);
+		if (messageId == null)
+			return null;
 		final ForumMessage forumMessage = (ForumMessage) messageBuilder.create(messageId);
 		if (forumMessage == null) {
 			logger.error("no this message in database id=" + messageId);
@@ -78,6 +84,8 @@ public class MessageDirector {
 	}
 
 	private void construct(ForumMessage forumMessage, ForumThread forumThread, Forum forum) throws Exception {
+		if (forumMessage.getMessageId() == null)
+			return;
 		try {
 			messageBuilder.asyncGetAccount(forumMessage);
 			messageBuilder.buildFilters(forumMessage);

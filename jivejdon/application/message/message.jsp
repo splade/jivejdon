@@ -120,7 +120,7 @@ function setObserve(){
 </logic:notEmpty>
 </logic:notEmpty>
 
-
+<%@ include file="../forum/messageNotfier.jsp" %>
 
 <p><%@include file="../common/IncludeBottom.jsp"%></p>
 

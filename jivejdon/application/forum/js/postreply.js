@@ -208,7 +208,7 @@ var replyW;
    
    function callbackSubmit(){
        killreplyW();  
-       openInfoDiag("正在提交...");                
+       openInfoDiag("正在提交...如果计时结束后无响应，备份数据，刷新页面后重新提交");                
    }
   
    

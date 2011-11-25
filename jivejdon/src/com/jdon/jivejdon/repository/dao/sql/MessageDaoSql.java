@@ -164,31 +164,39 @@ public abstract class MessageDaoSql implements MessageDao {
 
 	public void createMessageReply(ForumMessageReply forumMessage) throws Exception {
 		logger.debug("enter createMessageReply for id:" + forumMessage.getMessageId());
-		// differnce with createTopicMessage: parentMessageID,
-		String INSERT_MESSAGE = "INSERT INTO jiveMessage(messageID, parentMessageID, threadID, forumID, "
-				+ "userID, subject, body, modValue, rewardPoints, creationDate, modifiedDate) " + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-		List queryParams = new ArrayList();
-		queryParams.add(forumMessage.getMessageId());
-		queryParams.add(forumMessage.getParentMessage().getMessageId());
-		queryParams.add(forumMessage.getForumThread().getThreadId());
-		queryParams.add(forumMessage.getForum().getForumId());
-		queryParams.add(forumMessage.getAccount().getUserId());
-		MessageVO messageVO = forumMessage.getMessageVO();
-		queryParams.add(messageVO.getSubject());
-		queryParams.add(messageVO.getBody());
-		queryParams.add(new Integer(0));
-		queryParams.add(new Integer(messageVO.getRewardPoints()));
-
-		long now = System.currentTimeMillis();
-		String saveDateTime = ToolsUtil.dateToMillis(now);
-		String displayDateTime = constants.getDateTimeDisp(saveDateTime);
-		queryParams.add(saveDateTime);
-		forumMessage.setCreationDate(displayDateTime);
-
-		queryParams.add(saveDateTime);
-		forumMessage.setModifiedDate(displayDateTime);
-
 		try {
+			// differnce with createTopicMessage: parentMessageID,
+			if (this.getMessageCore(forumMessage.getParentMessage().getMessageId()) == null)
+				throw new Exception(" this message=" + forumMessage.getMessageId() + "'s parent= " + forumMessage.getParentMessage().getMessageId()
+						+ " has deleted");
+
+			if (this.getThreadCore(forumMessage.getForumThread().getThreadId()) == null)
+				throw new Exception(" this message=" + forumMessage.getMessageId() + "'s thread= " + forumMessage.getForumThread().getThreadId()
+						+ " has deleted");
+
+			String INSERT_MESSAGE = "INSERT INTO jiveMessage(messageID, parentMessageID, threadID, forumID, "
+					+ "userID, subject, body, modValue, rewardPoints, creationDate, modifiedDate) " + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+			List queryParams = new ArrayList();
+			queryParams.add(forumMessage.getMessageId());
+			queryParams.add(forumMessage.getParentMessage().getMessageId());
+			queryParams.add(forumMessage.getForumThread().getThreadId());
+			queryParams.add(forumMessage.getForum().getForumId());
+			queryParams.add(forumMessage.getAccount().getUserId());
+			MessageVO messageVO = forumMessage.getMessageVO();
+			queryParams.add(messageVO.getSubject());
+			queryParams.add(messageVO.getBody());
+			queryParams.add(new Integer(0));
+			queryParams.add(new Integer(messageVO.getRewardPoints()));
+
+			long now = System.currentTimeMillis();
+			String saveDateTime = ToolsUtil.dateToMillis(now);
+			String displayDateTime = constants.getDateTimeDisp(saveDateTime);
+			queryParams.add(saveDateTime);
+			forumMessage.setCreationDate(displayDateTime);
+
+			queryParams.add(saveDateTime);
+			forumMessage.setModifiedDate(displayDateTime);
+
 			jdbcTempSource.getJdbcTemp().operate(queryParams, INSERT_MESSAGE);
 		} catch (Exception e) {
 			logger.error(e);
