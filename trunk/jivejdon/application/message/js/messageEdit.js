@@ -36,7 +36,7 @@ function infoDiagClose(){
 
 
 function callbackSubmit(){
-    openInfoDiag("已经提交...");     
+    openInfoDiag("已经提交...如计时后无响应，请备份数据后刷新页面后再提交");    
 
 }
 

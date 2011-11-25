@@ -312,7 +312,10 @@ public class Account {
 	 * @return
 	 */
 	public UploadFile getUploadFile() {
-		return this.attachment.getUploadFile();
+		if (attachment != null)
+			return this.attachment.getUploadFile();
+		else
+			return null;
 	}
 
 	public void setUploadFile(boolean update) {

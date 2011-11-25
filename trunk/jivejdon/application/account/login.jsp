@@ -83,7 +83,7 @@ try{
     <td><table border="0" cellpadding="0" cellspacing="0">
       <tr>
         <td>自动登陆 </td>
-        <td align="right"><input type="checkbox" name="rememberMe"  >
+        <td align="right"><input type="checkbox" name="rememberMe"  checked="checked">
         </td>
       </tr>
     </table></td>
