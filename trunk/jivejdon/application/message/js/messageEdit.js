@@ -13,7 +13,7 @@ function openInfoDiag(content) {
    
 function infoTimeOut() {  
       if (startDiaglog){
-         if (timeout > 10)
+         if (timeout > 6)
             infoDiagClose();
          else
             timeout++;  

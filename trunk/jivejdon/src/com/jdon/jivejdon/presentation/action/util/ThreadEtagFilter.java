@@ -46,13 +46,16 @@ public class ThreadEtagFilter extends Action {
 
 		String threadId = request.getParameter("thread");
 		if ((threadId == null) || (!UtilValidate.isInteger(threadId))) {
-			throw new Exception("thread is null " + threadId);
+			response.sendError(404);
+			return null;
 		}
 
 		ForumMessageService forumMessageService = (ForumMessageService) WebAppUtil.getService("forumMessageService", request);
 		ForumThread forumThread = forumMessageService.getThread(new Long(threadId));
-		if (forumThread == null)
-			throw new Exception("thread is null " + threadId);
+		if (forumThread == null) {
+			response.sendError(404);
+			return null;
+		}
 
 		long modelLastModifiedDate = forumThread.getState().getModifiedDate2();
 

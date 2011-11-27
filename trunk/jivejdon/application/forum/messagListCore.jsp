@@ -16,13 +16,13 @@
 int pagestartInt = ((Integer)pageContext.getAttribute("pagestart")).intValue();
 int pagecountInt = ((Integer)pageContext.getAttribute("pagecount")).intValue();
 int currentPageNo = 1;
-if (pagecountInt > 0) {
+if (pagecountInt > 0) 
 	currentPageNo = (pagestartInt / pagecountInt) + 1;
-}
 String titleStr = (String)pageContext.getAttribute("title");
-if (currentPageNo > 1){
+if (titleStr == null)
+	response.sendError(404); 	  
+if (currentPageNo > 1)
 	titleStr = titleStr + "  - 第"+ currentPageNo + "页";
-}
 pageContext.setAttribute("title", titleStr);
 %>
 <%@ include file="header.jsp" %>
