@@ -73,7 +73,7 @@
 		<component name="throttleConf"
 			class="com.jdon.jivejdon.manager.throttle.post.ThrottleConf">
 			<constructor value="3" />       <!-- operator C(R)UD limit for post.ThrottleManager-->
-			<constructor value="180" />    	<!-- second -->
+			<constructor value="60" />    	<!-- second -->
 		</component>
 		
 		<component name="newUserThrottleConf"

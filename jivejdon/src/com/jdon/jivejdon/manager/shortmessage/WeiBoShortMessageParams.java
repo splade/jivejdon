@@ -20,8 +20,8 @@ import com.jdon.util.StringUtil;
 
 public class WeiBoShortMessageParams {
 
-	private String subject;
-	private String body;
+	private final String subject;
+	private final String body;
 
 	public WeiBoShortMessageParams(String subject, String body) {
 		super();
@@ -33,19 +33,11 @@ public class WeiBoShortMessageParams {
 		return subject;
 	}
 
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-
 	public String getBody(ForumMessage message) {
 		String newSubscribedUrl = StringUtil.replace(body, "threadId", message.getForumThread().getThreadId().toString());
 		newSubscribedUrl = StringUtil.replace(newSubscribedUrl, "messageId", message.getMessageId().toString());
 		newSubscribedUrl = StringUtil.replace(newSubscribedUrl, "subject", message.getMessageVO().getSubject());
 		return newSubscribedUrl;
-	}
-
-	public void setBody(String body) {
-		this.body = body;
 	}
 
 }
