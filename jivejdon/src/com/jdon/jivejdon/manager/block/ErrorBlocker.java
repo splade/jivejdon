@@ -17,8 +17,6 @@ package com.jdon.jivejdon.manager.block;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import com.jdon.annotation.Component;
@@ -26,20 +24,22 @@ import com.jdon.container.pico.Startable;
 import com.jdon.jivejdon.manager.throttle.hitkey.CustomizedThrottle;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKey3;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyIF;
+import com.jdon.jivejdon.util.ScheduledExecutorUtil;
 
 @Component("errorBlocker")
 public class ErrorBlocker implements Startable, ErrorBlockerIF {
 
 	private Map<String, Integer> bannedIPs;
 
-	private static ScheduledExecutorService scheduExec = Executors.newScheduledThreadPool(1);
+	private final ScheduledExecutorUtil scheduledExecutorUtil;
 
 	private final CustomizedThrottle customizedThrottle;
 
-	public ErrorBlocker(CustomizedThrottle customizedThrottle) {
+	public ErrorBlocker(CustomizedThrottle customizedThrottle, ScheduledExecutorUtil scheduledExecutorUtil) {
 		super();
 		bannedIPs = new ConcurrentHashMap();
 		this.customizedThrottle = customizedThrottle;
+		this.scheduledExecutorUtil = scheduledExecutorUtil;
 	}
 
 	public void start() {
@@ -49,14 +49,15 @@ public class ErrorBlocker implements Startable, ErrorBlockerIF {
 			}
 		};
 		// flush to db per one hour
-		scheduExec.scheduleWithFixedDelay(task, 60, 60 * 60, TimeUnit.SECONDS);
+		scheduledExecutorUtil.getScheduExec().scheduleWithFixedDelay(task, 60, 60 * 60, TimeUnit.SECONDS);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.jivejdon.manager.block.ErrorBlockerIF#doErrorIP(java.lang.String,
-	 *      int)
+	 * @see
+	 * com.jdon.jivejdon.manager.block.ErrorBlockerIF#doErrorIP(java.lang.String
+	 * , int)
 	 */
 	public boolean checkRate(String ip, int callcount) {
 		try {
@@ -89,8 +90,6 @@ public class ErrorBlocker implements Startable, ErrorBlockerIF {
 	// when container down or undeploy, active this method.
 	public void stop() {
 		clearBlock();
-		scheduExec.shutdown();
-		scheduExec = null;
 	}
 
 	private void clearBlock() {

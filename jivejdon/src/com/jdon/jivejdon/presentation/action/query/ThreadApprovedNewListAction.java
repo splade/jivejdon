@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +20,7 @@ import com.jdon.jivejdon.model.query.specification.ApprovedListSpec;
 import com.jdon.jivejdon.service.AccountService;
 import com.jdon.jivejdon.service.ForumMessageQueryService;
 import com.jdon.jivejdon.service.ForumMessageService;
+import com.jdon.jivejdon.util.ScheduledExecutorUtil;
 import com.jdon.strutsutil.ModelListAction;
 
 public class ThreadApprovedNewListAction extends ModelListAction {
@@ -34,6 +36,14 @@ public class ThreadApprovedNewListAction extends ModelListAction {
 		ResultSort resultSort = new ResultSort();
 		resultSort.setOrder_DESCENDING();
 		approvedListSpec.setResultSort(resultSort);
+
+		Runnable task = new Runnable() {
+			public void run() {
+				approvedThreadList.clear();
+			}
+		};
+		ScheduledExecutorUtil.scheduExecStatic.scheduleWithFixedDelay(task, 60 * 60 * 12, 60 * 60 * 12, TimeUnit.SECONDS);
+
 	}
 
 	public PageIterator getPageIterator(HttpServletRequest request, int start, int count) {
@@ -72,6 +82,7 @@ public class ThreadApprovedNewListAction extends ModelListAction {
 		if (approvedThreadList.containsKey(start)) {
 			return approvedThreadList.get(start);
 		}
+
 		Collection<Long> resultSorteds = null;
 		logger.debug("not found it in cache, create it");
 		int count = approvedListSpec.getNeedCount();

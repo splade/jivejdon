@@ -16,8 +16,6 @@
 package com.jdon.jivejdon.presentation.filter;
 
 import java.io.IOException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
@@ -37,11 +35,11 @@ import com.jdon.controller.WebAppUtil;
 import com.jdon.jivejdon.manager.throttle.hitkey.CustomizedThrottle;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKey;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyIF;
+import com.jdon.jivejdon.util.ScheduledExecutorUtil;
 import com.jdon.util.UtilValidate;
 
 public class SpamFilter2 implements Filter {
 	private final static Logger log = Logger.getLogger(SpamFilter2.class);
-	private static ScheduledExecutorService scheduExec = Executors.newScheduledThreadPool(1);
 
 	protected Pattern robotPattern;
 
@@ -90,7 +88,7 @@ public class SpamFilter2 implements Filter {
 			}
 		};
 		// half hour
-		scheduExec.scheduleWithFixedDelay(startFiltertask, 60, 60 * 30, TimeUnit.SECONDS);
+		ScheduledExecutorUtil.scheduExecStatic.scheduleWithFixedDelay(startFiltertask, 60, 60 * 30, TimeUnit.SECONDS);
 
 		Runnable stopFiltertask = new Runnable() {
 			public void run() {
@@ -98,7 +96,7 @@ public class SpamFilter2 implements Filter {
 			}
 		};
 		// after 15Mintues stop it
-		scheduExec.scheduleWithFixedDelay(stopFiltertask, 60 * 5, 60 * 35, TimeUnit.SECONDS);
+		ScheduledExecutorUtil.scheduExecStatic.scheduleWithFixedDelay(stopFiltertask, 60 * 5, 60 * 35, TimeUnit.SECONDS);
 
 	}
 
@@ -163,7 +161,6 @@ public class SpamFilter2 implements Filter {
 	}
 
 	public void destroy() {
-		scheduExec.shutdown();
 
 	}
 

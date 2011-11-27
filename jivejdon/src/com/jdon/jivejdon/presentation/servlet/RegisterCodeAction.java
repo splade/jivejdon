@@ -54,9 +54,6 @@ public class RegisterCodeAction extends HttpServlet {
 
 	// private List<String> bannedIP = new ArrayList();
 
-	// private static ScheduledExecutorService scheduExec =
-	// Executors.newScheduledThreadPool(1);
-
 	public void init(ServletConfig config) throws ServletException {
 		// check for possible robot pattern
 		String robotPatternStr = config.getInitParameter("referrer.robotCheck.userAgentPattern");
