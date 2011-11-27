@@ -17,8 +17,6 @@ package com.jdon.jivejdon.manager.account;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import com.jdon.annotation.Component;
@@ -29,6 +27,7 @@ import com.jdon.jivejdon.manager.email.ForgotPasswdEmail;
 import com.jdon.jivejdon.model.Account;
 import com.jdon.jivejdon.repository.AccountFactory;
 import com.jdon.jivejdon.repository.AccountRepository;
+import com.jdon.jivejdon.util.ScheduledExecutorUtil;
 import com.jdon.jivejdon.util.ToolsUtil;
 import com.jdon.util.StringUtil;
 
@@ -37,20 +36,22 @@ public class AccountManager implements Startable {
 
 	private List cachedOneTimes = new ArrayList();
 
-	private static ScheduledExecutorService scheduExec = Executors.newScheduledThreadPool(1);
+	private final ScheduledExecutorUtil scheduledExecutorUtil;
 
 	private ForgotPasswdEmail forgotPasswdEmail;
 
-	private AccountRepository accountRepository;
+	private final AccountRepository accountRepository;
 
-	protected AccountFactory accountFactory;
+	protected final AccountFactory accountFactory;
 
-	public AccountManager(AccountFactory accountFactory, AccountRepository accountRepository, ForgotPasswdEmail forgotPasswdEmail) {
+	public AccountManager(AccountFactory accountFactory, AccountRepository accountRepository, ForgotPasswdEmail forgotPasswdEmail,
+			ScheduledExecutorUtil scheduledExecutorUtil) {
 		super();
 		this.cachedOneTimes = new ArrayList();
 		this.forgotPasswdEmail = forgotPasswdEmail;
 		this.accountRepository = accountRepository;
 		this.accountFactory = accountFactory;
+		this.scheduledExecutorUtil = scheduledExecutorUtil;
 	}
 
 	public void start() {
@@ -60,13 +61,11 @@ public class AccountManager implements Startable {
 			}
 		};
 		// per ten mintue
-		scheduExec.scheduleWithFixedDelay(task, 60, 60 * 60 * 10, TimeUnit.SECONDS);
+		scheduledExecutorUtil.getScheduExec().scheduleWithFixedDelay(task, 60, 60 * 60 * 10, TimeUnit.SECONDS);
 	}
 
 	public void stop() {
 		cachedOneTimes.clear();
-		scheduExec.shutdown();
-		scheduExec = null;
 	}
 
 	public boolean contains(String chkKey) {

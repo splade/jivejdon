@@ -4,8 +4,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
@@ -18,6 +16,7 @@ import com.jdon.jivejdon.model.Property;
 import com.jdon.jivejdon.model.proptery.ThreadPropertys;
 import com.jdon.jivejdon.model.thread.ViewCounter;
 import com.jdon.jivejdon.repository.dao.PropertyDao;
+import com.jdon.jivejdon.util.ScheduledExecutorUtil;
 
 /**
  * a cache used for holding view count of ForumThread the data that in the cache
@@ -32,14 +31,16 @@ public class ThreadViewCounterJobImp implements Startable, ThreadViewCounterJob 
 	private final static Logger logger = Logger.getLogger(ThreadViewCounterJobImp.class);
 
 	private ConcurrentMap<Long, ViewCounter> concurrentHashMap = new ConcurrentHashMap<Long, ViewCounter>();
-	private static ScheduledExecutorService scheduExec = Executors.newScheduledThreadPool(1);
 
 	private final PropertyDao propertyDao;
 	private final ThreadViewCountParameter threadViewCountParameter;
+	private final ScheduledExecutorUtil scheduledExecutorUtil;
 
-	public ThreadViewCounterJobImp(final PropertyDao propertyDao, final ThreadViewCountParameter threadViewCountParameter) {
+	public ThreadViewCounterJobImp(final PropertyDao propertyDao, final ThreadViewCountParameter threadViewCountParameter,
+			ScheduledExecutorUtil scheduledExecutorUtil) {
 		this.propertyDao = propertyDao;
 		this.threadViewCountParameter = threadViewCountParameter;
+		this.scheduledExecutorUtil = scheduledExecutorUtil;
 	}
 
 	public void start() {
@@ -49,14 +50,13 @@ public class ThreadViewCounterJobImp implements Startable, ThreadViewCounterJob 
 			}
 		};
 		// flush to db per one hour
-		scheduExec.scheduleWithFixedDelay(task, threadViewCountParameter.getInitdelay(), threadViewCountParameter.getDelay(), TimeUnit.SECONDS);
+		scheduledExecutorUtil.getScheduExec().scheduleWithFixedDelay(task, threadViewCountParameter.getInitdelay(),
+				threadViewCountParameter.getDelay(), TimeUnit.SECONDS);
 	}
 
 	// when container down or undeploy, active this method.
 	public void stop() {
 		writeDB();
-		scheduExec.shutdown();
-		scheduExec = null;
 	}
 
 	public void writeDB() {

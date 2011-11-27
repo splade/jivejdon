@@ -16,19 +16,17 @@
 package com.jdon.jivejdon.manager.subscription.action;
 
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import com.jdon.jivejdon.manager.subscription.SubscriptionAction;
 import com.jdon.jivejdon.manager.subscription.SubscriptionNotify;
 import com.jdon.jivejdon.model.subscription.Subscription;
 import com.jdon.jivejdon.model.subscription.messsage.NotifyMessage;
+import com.jdon.jivejdon.util.ScheduledExecutorUtil;
 
 public class EmailAction implements SubscriptionAction {
 
 	private Subscription subscription;
-	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	public EmailAction(Subscription subscription) {
 		super();
@@ -59,7 +57,7 @@ public class EmailAction implements SubscriptionAction {
 		int randomInt = randomGenerator.nextInt(10);
 		// send per five min * count.
 		int delay = randomInt * 120;// 300
-		scheduler.schedule(sender, delay, TimeUnit.SECONDS);
+		ScheduledExecutorUtil.scheduExecStatic.schedule(sender, delay, TimeUnit.SECONDS);
 
 	}
 
