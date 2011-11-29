@@ -38,6 +38,7 @@ public class ScheduledExecutorUtil implements Startable {
 	// when container down or undeploy, active this method.
 	public void stop() {
 		scheduExec.shutdown();
+		scheduExecStatic.shutdown();
 	}
 
 	public ScheduledExecutorService getScheduExec() {

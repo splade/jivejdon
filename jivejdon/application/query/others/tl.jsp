@@ -5,7 +5,7 @@
 <%@ taglib uri="/WEB-INF/MultiPages.tld" prefix="MultiPages" %>
 
   
-<% com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(5 * 24 * 60 * 60, request, response);
+<% com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(5 *  60 * 60, request, response);
 %>
 
 <html>
