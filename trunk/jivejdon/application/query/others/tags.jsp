@@ -4,7 +4,7 @@
 
 
   
-<%  com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(5 * 24 * 60 * 60, request, response);
+<%  com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(5 * 60 * 60, request, response);
 %>
 
 <%@ page contentType="application/json; charset=UTF-8" %>

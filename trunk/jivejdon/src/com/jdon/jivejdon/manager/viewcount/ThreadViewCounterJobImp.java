@@ -50,8 +50,8 @@ public class ThreadViewCounterJobImp implements Startable, ThreadViewCounterJob 
 			}
 		};
 		// flush to db per one hour
-		scheduledExecutorUtil.getScheduExec().scheduleWithFixedDelay(task, threadViewCountParameter.getInitdelay(),
-				threadViewCountParameter.getDelay(), TimeUnit.SECONDS);
+		scheduledExecutorUtil.getScheduExec().scheduleAtFixedRate(task, threadViewCountParameter.getInitdelay(), threadViewCountParameter.getDelay(),
+				TimeUnit.SECONDS);
 	}
 
 	// when container down or undeploy, active this method.

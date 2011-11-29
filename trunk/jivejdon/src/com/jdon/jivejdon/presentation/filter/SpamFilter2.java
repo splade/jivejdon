@@ -88,7 +88,7 @@ public class SpamFilter2 implements Filter {
 			}
 		};
 		// half hour
-		ScheduledExecutorUtil.scheduExecStatic.scheduleWithFixedDelay(startFiltertask, 60, 60 * 30, TimeUnit.SECONDS);
+		ScheduledExecutorUtil.scheduExecStatic.scheduleAtFixedRate(startFiltertask, 60, 60 * 30, TimeUnit.SECONDS);
 
 		Runnable stopFiltertask = new Runnable() {
 			public void run() {
@@ -96,7 +96,7 @@ public class SpamFilter2 implements Filter {
 			}
 		};
 		// after 15Mintues stop it
-		ScheduledExecutorUtil.scheduExecStatic.scheduleWithFixedDelay(stopFiltertask, 60 * 5, 60 * 35, TimeUnit.SECONDS);
+		ScheduledExecutorUtil.scheduExecStatic.scheduleAtFixedRate(stopFiltertask, 60 * 5, 60 * 35, TimeUnit.SECONDS);
 
 	}
 

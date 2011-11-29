@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="doc/tomcat/jaas.jar"/>
-	<classpathentry kind="lib" path="doc/tomcat/lib/jaas.jar"/>
 	<classpathentry kind="lib" path="lib/expires/xebia-servlet-extras-1.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/javamail/activation.jar"/>
 	<classpathentry kind="lib" path="lib/javamail/mail.jar"/>

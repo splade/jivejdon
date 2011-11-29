@@ -61,7 +61,7 @@ public class AccountManager implements Startable {
 			}
 		};
 		// per ten mintue
-		scheduledExecutorUtil.getScheduExec().scheduleWithFixedDelay(task, 60, 60 * 60 * 10, TimeUnit.SECONDS);
+		scheduledExecutorUtil.getScheduExec().scheduleAtFixedRate(task, 60, 60 * 60 * 2, TimeUnit.SECONDS);
 	}
 
 	public void stop() {

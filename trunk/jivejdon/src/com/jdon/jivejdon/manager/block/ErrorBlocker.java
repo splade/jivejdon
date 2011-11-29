@@ -49,7 +49,7 @@ public class ErrorBlocker implements Startable, ErrorBlockerIF {
 			}
 		};
 		// flush to db per one hour
-		scheduledExecutorUtil.getScheduExec().scheduleWithFixedDelay(task, 60, 60 * 60, TimeUnit.SECONDS);
+		scheduledExecutorUtil.getScheduExec().scheduleAtFixedRate(task, 60, 60 * 60, TimeUnit.SECONDS);
 	}
 
 	/*
