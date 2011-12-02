@@ -90,6 +90,19 @@
               <html:link page="/message/messageAction.shtml?action=edit" paramId="messageId" paramName="forumMessage" paramProperty="messageId"
               >编辑 </html:link>       
           </logic:equal>
+         <logic:notEqual name="messageListForm" property='<%= "authenticated[" + i + "]" %>' value="true">
+            <bean:size id="listSize" name="messageListForm" property="list"/>            
+            <logic:equal name="listSize" value="<%= Integer.toString(i+1) %>">
+              <span id='<%= "authenticated[" + i + "]" %>'></span>
+              <script>                                
+              if (document.getElementById("j_username").value == document.getElementById('author_<bean:write name="forumMessage" property="messageId"/>').innerHTML)
+            	   document.getElementById('<%= "authenticated[" + i + "]" %>').innerHTML = '<html:link page="/message/messageAction.shtml?action=edit" paramId="messageId" paramName="forumMessage" paramProperty="messageId">编辑 </html:link>';
+                         			   
+              </script>    
+           </logic:equal>                 
+          </logic:notEqual>
+          
+          
        <logic:equal name="i" value="0">
        <logic:notEmpty name="principal">  
        <logic:equal name="loginAccount" property="roleName" value="Admin">

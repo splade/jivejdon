@@ -48,6 +48,9 @@ pageContext.setAttribute("title", titleStr);
 <%
 com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 %>
+<script>
+autoCompleteLogin();
+</script>
 </logic:notEmpty>
 <div id="messageListBody" >
 
@@ -101,17 +104,10 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(0, request, response);
 </tr>
 </table>
 
-   
-<%
-   int row = 1;
-%>
+
+ 
 <logic:iterate id="forumMessage" name="messageListForm" property="list" indexId="i">
- <%
- String bgcolor = "#ffffff";
- if (row++%2 != 1) {
-   bgcolor = "#f8f8f8";
- }
- %>
+ 
 <%@include file="messageListBody.jsp"%>
 
 </logic:iterate>

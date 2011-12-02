@@ -46,12 +46,7 @@ var loggedURL = '<html:rewrite page="/account/protected/logged.jsp"/>';
 
 <logic:notPresent name="principal" >
 <script>
-var username = readCookie("username");
-if (username != null){
-   var password = readCookie("password"); 
-   document.getElementById("j_username").value = decode64(username);
-   document.getElementById("j_password").value = decode64(password);      
-}
+autoCompleteLogin();
 </script>
 </logic:notPresent>
 

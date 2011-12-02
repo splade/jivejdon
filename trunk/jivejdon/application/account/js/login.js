@@ -120,7 +120,7 @@ function logindiag(){
          if (response.indexOf("if(setLogged)setLogged()")   >=0)
 			setLogged();
          if (logged){
-            if (fromFormName != null){             
+            if (fromFormName != null){      
               goAfterLogged(fromFormName);              
             }else{
               window.location.reload();
@@ -187,4 +187,13 @@ function decode64(input) {
      return unescape(output);
   }
 
-  	 
+
+function autoCompleteLogin(){
+	
+	var username = readCookie("username");
+    if (username != null){    
+     document.getElementById("j_username").value = decode64(username);   
+     var password = readCookie("password");
+     document.getElementById("j_password").value = decode64(password);   
+   }
+}
