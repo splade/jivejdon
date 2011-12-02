@@ -196,7 +196,7 @@ var replyW;
       var pars = fmainPars; 
       this.anchor = anchor;      
       new Ajax.Updater("messageListBody", fmainurl, 
-  	    {method: 'get', parameters: pars, onComplete: showReplyResponse});  
+  	    {method: 'get', parameters: pars, evalScripts: true, onComplete: showReplyResponse});  
   	   
    }
    
