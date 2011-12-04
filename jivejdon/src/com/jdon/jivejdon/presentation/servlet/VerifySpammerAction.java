@@ -28,7 +28,7 @@ public class VerifySpammerAction extends HttpServlet {
 			response.sendError(403);
 		}
 
-		String fromURL = request.getParameter("fromURL");
+		String fromURL = request.getHeader("Referer");
 		if (SkinUtils.verifyRegisterCode(registerCode, request)) {
 			CustomizedThrottle customizedThrottle = (CustomizedThrottle) WebAppUtil.getComponentInstance("customizedThrottle", request);
 			customizedThrottle.removeBanned(request.getRemoteAddr());

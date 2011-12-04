@@ -23,7 +23,9 @@ public class HitKey2 extends HitKey {
 
 	// always
 	public boolean satisfy(HitKeyIF hitkey) {
-		return true;
+		if (hitkey.getHitIp().equals(this.getHitIp()))
+			return true;
+		return false;
 
 	}
 

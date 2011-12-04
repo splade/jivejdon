@@ -85,8 +85,8 @@
 		
 		<component name="hitConf"
 			class="com.jdon.jivejdon.manager.throttle.hitkey.HitConf">
-			<constructor value="10" />       <!-- access Read limit for CustomizedThrottle -->
-			<constructor value="8" />    	<!-- second -->
+			<constructor value="3" />       <!-- access Read limit for CustomizedThrottle -->
+			<constructor value="10" />    	<!-- second -->
 		</component>
 
 		<component name="iPBanListManager"
