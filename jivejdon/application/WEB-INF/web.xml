@@ -45,7 +45,7 @@
 			<filter-class>com.jdon.jivejdon.presentation.filter.SpamFilter</filter-class>	
 			<init-param>
 				<param-name>referrer.domain.namePattern</param-name>
-				<param-value>.*(jdon.com|bqlr.com|localhost|127.0.0.1).*</param-value>
+				<param-value>.*(127.0.0.1).*</param-value>
 			</init-param>			
 		</filter>
 		
@@ -110,7 +110,14 @@
 			<filter-name>SpamFilter</filter-name>
 			<url-pattern>/rss</url-pattern>
 		</filter-mapping>
-		
+		<filter-mapping>
+			<filter-name>SpamFilter</filter-name>
+			<url-pattern>/thread/*</url-pattern>
+		</filter-mapping>	
+		<filter-mapping>
+			<filter-name>SpamFilter</filter-name>
+			<url-pattern>/mobile/*</url-pattern>
+		</filter-mapping>	
 		<filter-mapping>
 			<filter-name>SpamFilter2</filter-name>
 			<url-pattern>/blog/*</url-pattern>
