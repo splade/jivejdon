@@ -23,26 +23,13 @@ if (!errorBlocker.checkRate(request.getRemoteAddr(), 10))
 <body>
 对不起 刷新太快,或同时打开窗口太多。两种解决方式：
 <form action="<%=request.getContextPath() %>/verifySpammer" name="vform">
-<input type="hidden" name="fromURL" id="fromURL" value="">
-<br>1. 输入验证码(输入时出现)通过后立即可访问：<input type="text" name="registerCode" size="10"
+<br>1. 输入验证码(如无验证码再刷新一次)：<input type="text" name="registerCode" size="10"
 				maxlength="10" >
-				 <img id="theImg" src="<%=request.getContextPath()%>/account/registerCodeAction" border="0" />
-        <input type="button" value="验证" onclick="verify()">				 
+				 <img id="theImg" src="<%=request.getContextPath()%>/account/registerCodeAction" border="0"  width="60" height="20"/>
+        <input type="submit" value="验证" >				 
 <p>
-<br>2.人工帮助(处理有时间延迟)：<a href='javascript:contactAdmin()'>按这里报告管理员</a>
+<br>2.人工帮助(处理有时间延迟)：<a href='<%=request.getContextPath()%>/forum/feed/feedback.jsp?subject=fromjivejdon3_503&body=<%=request.getRemoteAddr()%>_<%=request.getHeader("Referer")%>'>按这里报告管理员</a>
 </form>
 
-<script>
-    function verify(){
-         document.getElementById('fromURL').value = location.href;
-         document.vform.submit();
-    
-    }
-
-    function contactAdmin(){
-    	location.href = '<%=request.getContextPath()%>/forum/feed/feedback.jsp?subject=fromjivejdon3_503&body=<%=request.getRemoteAddr()%> '
-        	    + location.href;
-    }
-   </script>
    </body>
 </html>

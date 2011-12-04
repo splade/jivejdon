@@ -23,10 +23,12 @@ public class HitKey3 extends HitKey {
 
 	// same id
 	public boolean satisfy(HitKeyIF hitkey) {
-		if (hitkey.getBeHitId().equals(this.getBeHitId()))
-			return true;
-		else
-			return false;
+		if (hitkey.getHitIp().equals(this.getHitIp()))
+			if (hitkey.getBeHitId().equals(this.getBeHitId()))
+				return true;
+			else
+				return false;
+		return false;
 
 	}
 }

@@ -43,13 +43,13 @@ public class HitKey implements HitKeyIF {
 	}
 
 	public boolean satisfy(HitKeyIF hitkey) {
-		return true;
-		// two different messageId will be true
-		// if (!hitkey.getBeHitId().equals(this.getBeHitId()))
-		// 
-		// return true;
-		// else
-		// return false;
+		if (hitkey.getHitIp().equals(this.getHitIp()))
+			// two different messageId will be true
+			if (!hitkey.getBeHitId().equals(this.getBeHitId()))
+				return true;
+			else
+				return false;
+		return false;
 	}
 
 	public boolean isEmpty() {
