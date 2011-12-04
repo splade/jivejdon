@@ -15,10 +15,36 @@
  */
 package com.jdon.jivejdon.manager.throttle.hitkey;
 
-public class HitKey3 extends HitKey {
+import com.jdon.util.UtilValidate;
+
+public class HitKey3 implements HitKeyIF {
+
+	private String ip;
+	private String id;
 
 	public HitKey3(String ip, String id) {
-		super(ip, id);
+		this.ip = ip;
+		this.id = id;
+	}
+
+	public String getHitIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getBeHitId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getKey() {
+		return ip + "HitKey3";
 	}
 
 	// same id
@@ -30,5 +56,12 @@ public class HitKey3 extends HitKey {
 				return false;
 		return false;
 
+	}
+
+	public boolean isEmpty() {
+		if (UtilValidate.isEmpty(ip) || UtilValidate.isEmpty(id))
+			return true;
+		else
+			return false;
 	}
 }

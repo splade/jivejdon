@@ -95,8 +95,8 @@ public class SpamFilter2 implements Filter {
 				isFilter = false;
 			}
 		};
-		// after 15Mintues stop it
-		ScheduledExecutorUtil.scheduExecStatic.scheduleAtFixedRate(stopFiltertask, 60 * 5, 60 * 35, TimeUnit.SECONDS);
+		// after 10 Mintues stop it
+		ScheduledExecutorUtil.scheduExecStatic.scheduleAtFixedRate(stopFiltertask, 60 * 10, 60 * 40, TimeUnit.SECONDS);
 
 	}
 

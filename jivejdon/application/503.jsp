@@ -26,7 +26,8 @@ if (!errorBlocker.checkRate(request.getRemoteAddr(), 10))
 <br>1. 输入验证码(如无验证码再刷新一次)：<input type="text" name="registerCode" size="10"
 				maxlength="10" >
 				 <img id="theImg" src="<%=request.getContextPath()%>/account/registerCodeAction" border="0"  width="60" height="20"/>
-        <input type="submit" value="验证" >				 
+        <input type="submit" value="验证" >			
+        <br>如果无法验证，请转<a href="<%=request.getContextPath()%>">论坛首页</a>再次验证。	 
 <p>
 <br>2.人工帮助(处理有时间延迟)：<a href='<%=request.getContextPath()%>/forum/feed/feedback.jsp?subject=fromjivejdon3_503&body=<%=request.getRemoteAddr()%>_<%=request.getHeader("Referer")%>'>按这里报告管理员</a>
 </form>

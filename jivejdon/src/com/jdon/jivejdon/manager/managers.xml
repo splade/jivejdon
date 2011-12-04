@@ -85,8 +85,8 @@
 		
 		<component name="hitConf"
 			class="com.jdon.jivejdon.manager.throttle.hitkey.HitConf">
-			<constructor value="3" />       <!-- access Read limit for CustomizedThrottle -->
-			<constructor value="5" />    	<!-- second -->
+			<constructor value="8" />       <!-- access Read limit for CustomizedThrottle  min value is 5 for uploadShowAction five author pics -->
+			<constructor value="30" />    	<!-- second -->
 		</component>
 
 		<component name="iPBanListManager"

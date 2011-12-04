@@ -55,8 +55,7 @@ public class UploadShowAction extends Action {
 	public ActionForward execute(ActionMapping actionMapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		if (!isPermitted(request)) {
-			checkSpamHit("image_error", request);
+		if (!checkSpamHit("image_error", request)) {
 			closeResponse(request, response);
 			return null;
 		}
@@ -105,8 +104,9 @@ public class UploadShowAction extends Action {
 			}
 			outUploadFile(response, bytes, type, dlname);
 		} catch (Exception ex) {
-			Debug.logError("when get the image, error happened:" + ex.getMessage() + " id=" + id + " oid=" + oid + " remote="
-					+ request.getRemoteAddr(), module);
+			Debug.logError(
+					"when get the image, error happened:" + ex.getMessage() + " id=" + id + " oid=" + oid + " remote=" + request.getRemoteAddr(),
+					module);
 			checkSpamHit("image_error", request);
 			closeResponse(request, response);
 		}
