@@ -17,7 +17,6 @@ package com.jdon.jivejdon.presentation.listener;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -43,27 +42,26 @@ public class UserCounterListener implements ServletContextListener, HttpSessionL
 	public static final String COUNT_KEY = "userCounter";
 	public static final String OnLineUser_KEY = "onLineUser";
 
-	private AtomicInteger activeSessions;
+	private int activeSessions;
 	private ServletContext servletContext = null;
 
 	public void contextInitialized(ServletContextEvent sce) {
-		activeSessions = new AtomicInteger(0);
 		servletContext = sce.getServletContext();
 		servletContext.setAttribute(COUNT_KEY, this);
 		servletContext.setAttribute(OnLineUser_KEY, new CopyOnWriteArrayList());
 	}
 
 	public void contextDestroyed(ServletContextEvent event) {
-		activeSessions = new AtomicInteger(0);
+		activeSessions = 0;
 	}
 
 	public void sessionCreated(HttpSessionEvent se) {
-		activeSessions.incrementAndGet();
+		activeSessions++;
 	}
 
 	// see common/security.jsp
 	public void sessionDestroyed(HttpSessionEvent se) {
-		activeSessions.decrementAndGet();
+		activeSessions--;
 		HttpSession session = se.getSession();
 		String username = (String) session.getAttribute("online");
 		if (username == null) {
@@ -96,6 +94,6 @@ public class UserCounterListener implements ServletContextListener, HttpSessionL
 
 	// header_Body_Body.jsp call this method
 	public int getActiveSessions() {
-		return activeSessions.get();
+		return activeSessions;
 	}
 }

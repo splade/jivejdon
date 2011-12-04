@@ -9,6 +9,9 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.jdon.controller.WebAppUtil;
+import com.jdon.jivejdon.manager.throttle.hitkey.CustomizedThrottle;
+import com.jdon.jivejdon.manager.throttle.hitkey.HitKey;
+import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyIF;
 import com.jdon.jivejdon.manager.viewcount.ThreadViewCounterJob;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.service.ForumMessageService;
@@ -16,11 +19,17 @@ import com.jdon.util.UtilValidate;
 
 public class ViewThreadAction extends Action {
 
+	private CustomizedThrottle customizedThrottle;
+
 	public ActionForward execute(ActionMapping actionMapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String threadId = request.getParameter("thread");
 		if ((threadId == null) || (!UtilValidate.isInteger(threadId))) {
 			((HttpServletResponse) response).sendError(404);
+			return actionMapping.findForward("error");
+		}
+		if (!checkSpamHit(threadId, request)) {
+			((HttpServletResponse) response).sendError(503);
 			return actionMapping.findForward("error");
 		}
 		try {
@@ -52,5 +61,13 @@ public class ViewThreadAction extends Action {
 		forumThread.addViewCount(ip);
 		ThreadViewCounterJob threadViewCounterJob = (ThreadViewCounterJob) WebAppUtil.getComponentInstance("threadViewCounterJob", request);
 		threadViewCounterJob.checkViewCounter(forumThread);
+	}
+
+	private boolean checkSpamHit(String id, HttpServletRequest request) {
+		if (customizedThrottle == null) {
+			customizedThrottle = (CustomizedThrottle) WebAppUtil.getComponentInstance("customizedThrottle", request);
+		}
+		HitKeyIF hitKey = new HitKey(request.getRemoteAddr(), id);
+		return customizedThrottle.processHitFilter(hitKey);
 	}
 }
