@@ -28,14 +28,13 @@ public class VerifySpammerAction extends HttpServlet {
 			response.sendError(403);
 		}
 
-		String fromURL = request.getHeader("Referer");
 		if (SkinUtils.verifyRegisterCode(registerCode, request)) {
 			CustomizedThrottle customizedThrottle = (CustomizedThrottle) WebAppUtil.getComponentInstance("customizedThrottle", request);
 			customizedThrottle.removeBanned(request.getRemoteAddr());
 			response.setHeader("Pragma", "No-cache");
 			response.setHeader("Cache-Control", "no-cache");
 			response.setDateHeader("Expires", 0);
-			response.sendRedirect(fromURL);
+			response.sendRedirect(request.getContextPath());
 			return;
 		}
 		response.sendError(403);

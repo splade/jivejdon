@@ -88,17 +88,15 @@ public class CustomizedThrottleImp implements CustomizedThrottle {
 
 		// if we already know this client then update their hit count and
 		// see if they have surpassed the threshold
-		if (hitKey.satisfy(client.hitKey))
+		if (hitKey.satisfy(client.hitKey)) {
 			client.hits++;
-
-		log.debug("STATUS " + hitKey + " - " + client.hits + " hits since " + client.start);
-
-		// abusive client
-		if (client.hits > this.hitConf.getThreshold()) {
-			return true;
-		} else
-			return false;
-
+			log.debug("STATUS " + hitKey + " - " + client.hits + " hits since " + client.start);
+			// abusive client
+			if (client.hits > this.hitConf.getThreshold()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private ClientHitInfo fetchClient(HitKeyIF hitKey) {
