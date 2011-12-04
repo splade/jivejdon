@@ -57,6 +57,7 @@ pageContext.setAttribute("title", title);
 <logic:iterate indexId="i" id="messageSearchSpec" name="messageListForm" property="list" >
  
 <bean:define id="forumMessage" name="messageSearchSpec" property="message"/>
+<logic:notEmpty name="forumMessage" property="forumThread">
 <bean:define id="forumThread" name="forumMessage" property="forumThread"/>
 
 
@@ -116,6 +117,7 @@ pageContext.setAttribute("title", title);
        document.getElementById('changeTR').style.backgroundColor = "#FFFF84";
    }
 </script>
+
 </logic:notEqual>
  </td>
 </tr>
@@ -133,6 +135,8 @@ pageContext.setAttribute("title", title);
 </table>
 </td></tr>
 </table>
+
+</logic:notEmpty>
 <br>
 </logic:iterate>
 
