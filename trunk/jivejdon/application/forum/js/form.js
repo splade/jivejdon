@@ -110,7 +110,7 @@ var myalertD=function(errorM){
     }
    }
 
-  var formSubmitcheck = new Boolean(false);      
+  var formSubmitcheck = false;      
   function checkPost(theForm) {
            
       copyToClipboard($('formBody'));
@@ -119,21 +119,20 @@ var myalertD=function(errorM){
       if (document.getElementById('forumId_select') != null
         && document.getElementById('forumId_select').value == ""){
     	  alert("页面forum错误，请拷贝备份你的发言后，重新刷新本页");
+    	    formSubmitcheck = false;
             return formSubmitcheck;
      }
       
-      
       if ((theForm.body.value  != "") && (theForm.subject.value  != "")){          
            if ((theForm.body.value.length  < 8190)){
-                  formSubmitcheck = new Boolean(true);
+        	   formSubmitcheck = true;
            }else{                   
-        	   alert('请发言内容长度必须小于 ' + 8190);
-                 return false;                  
+        	   alert('请发言内容长度必须小于8192字节' );
+        	   formSubmitcheck = false;
            }         
       }else{
     	  alert("请输入发言标题和发言内容！");
-           window.location.reload();       
-           return false;   
+    	  formSubmitcheck = false;
       }
             
       return formSubmitcheck;      
