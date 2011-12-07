@@ -39,7 +39,8 @@ function infoDiagClose(){
  
  
 function callbackSubmit(){
-    openInfoDiag("正在提交...如没有反应，请刷新本页再提交 ctrl-v取出上次发贴内容");     
+	if (formSubmitcheck)
+         openInfoDiag("正在提交...如没有反应，请刷新本页再提交 ctrl-v取出上次发贴内容"); 	
 
 }
 
