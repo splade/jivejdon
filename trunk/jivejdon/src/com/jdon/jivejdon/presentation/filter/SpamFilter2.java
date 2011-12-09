@@ -33,7 +33,7 @@ import org.apache.log4j.Logger;
 
 import com.jdon.controller.WebAppUtil;
 import com.jdon.jivejdon.manager.throttle.hitkey.CustomizedThrottle;
-import com.jdon.jivejdon.manager.throttle.hitkey.HitKey;
+import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyDiff;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyIF;
 import com.jdon.jivejdon.util.ScheduledExecutorUtil;
 import com.jdon.util.UtilValidate;
@@ -127,7 +127,7 @@ public class SpamFilter2 implements Filter {
 		if (customizedThrottle == null) {
 			customizedThrottle = (CustomizedThrottle) WebAppUtil.getComponentInstance("customizedThrottle", request);
 		}
-		HitKeyIF hitKey = new HitKey(request.getRemoteAddr(), id);
+		HitKeyIF hitKey = new HitKeyDiff(request.getRemoteAddr(), id);
 		return customizedThrottle.processHitFilter(hitKey);
 	}
 

@@ -2,7 +2,7 @@ package com.jdon.jivejdon.manager.throttle.hitkey;
 
 import com.jdon.util.UtilValidate;
 
-public class HitKey implements HitKeyIF {
+public class HitKeyDiff implements HitKeyIF {
 
 	private String ip;
 	private String id;
@@ -16,7 +16,7 @@ public class HitKey implements HitKeyIF {
 	 * @param interval
 	 *            seconds
 	 */
-	public HitKey(String ip, String id) {
+	public HitKeyDiff(String ip, String id) {
 		super();
 		this.ip = ip;
 		this.id = id;

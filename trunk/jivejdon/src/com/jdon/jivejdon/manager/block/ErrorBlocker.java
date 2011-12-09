@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 import com.jdon.annotation.Component;
 import com.jdon.container.pico.Startable;
 import com.jdon.jivejdon.manager.throttle.hitkey.CustomizedThrottle;
-import com.jdon.jivejdon.manager.throttle.hitkey.HitKey3;
+import com.jdon.jivejdon.manager.throttle.hitkey.HitKeySame;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyIF;
 import com.jdon.jivejdon.util.ScheduledExecutorUtil;
 
@@ -61,7 +61,7 @@ public class ErrorBlocker implements Startable, ErrorBlockerIF {
 	 */
 	public boolean checkRate(String ip, int callcount) {
 		try {
-			HitKeyIF hitKey = new HitKey3(ip, "error");
+			HitKeyIF hitKey = new HitKeySame(ip, "error");
 			if (customizedThrottle.processHit(hitKey)) {
 				checkCount(ip, callcount);
 			}

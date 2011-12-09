@@ -10,6 +10,8 @@ import org.apache.struts.action.ActionMapping;
 
 import com.jdon.controller.WebAppUtil;
 import com.jdon.jivejdon.manager.throttle.hitkey.CustomizedThrottle;
+import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyIF;
+import com.jdon.jivejdon.manager.throttle.hitkey.HitKeySame;
 import com.jdon.jivejdon.manager.viewcount.ThreadViewCounterJob;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.service.ForumMessageService;
@@ -26,6 +28,8 @@ public class ViewThreadAction extends Action {
 			((HttpServletResponse) response).sendError(404);
 			return actionMapping.findForward("error");
 		}
+		if (!checkSpamHit(threadId, request))
+			((HttpServletResponse) response).sendError(503);
 
 		try {
 			ForumMessageService forumMessageService = (ForumMessageService) WebAppUtil.getService("forumMessageService", request);
@@ -58,4 +62,11 @@ public class ViewThreadAction extends Action {
 		threadViewCounterJob.checkViewCounter(forumThread);
 	}
 
+	private boolean checkSpamHit(String id, HttpServletRequest request) {
+		if (customizedThrottle == null) {
+			customizedThrottle = (CustomizedThrottle) WebAppUtil.getComponentInstance("customizedThrottle", request);
+		}
+		HitKeyIF hitKey = new HitKeySame(request.getRemoteAddr(), id);
+		return customizedThrottle.processHitFilter(hitKey);
+	}
 }
