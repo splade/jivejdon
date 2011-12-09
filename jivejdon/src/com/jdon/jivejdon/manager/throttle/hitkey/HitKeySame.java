@@ -15,18 +15,53 @@
  */
 package com.jdon.jivejdon.manager.throttle.hitkey;
 
-public class HitKey2 extends HitKey {
+import com.jdon.util.UtilValidate;
 
-	public HitKey2(String ip, String id) {
-		super(ip, id);
+public class HitKeySame implements HitKeyIF {
+
+	private String ip;
+	private String id;
+
+	public HitKeySame(String ip, String id) {
+		this.ip = ip;
+		this.id = id;
 	}
 
-	// always
+	public String getHitIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getBeHitId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getKey() {
+		return ip + "HitKey3";
+	}
+
+	// same id
 	public boolean satisfy(HitKeyIF hitkey) {
 		if (hitkey.getHitIp().equals(this.getHitIp()))
-			return true;
+			if (hitkey.getBeHitId().equals(this.getBeHitId()))
+				return true;
+			else
+				return false;
 		return false;
 
 	}
 
+	public boolean isEmpty() {
+		if (UtilValidate.isEmpty(ip) || UtilValidate.isEmpty(id))
+			return true;
+		else
+			return false;
+	}
 }

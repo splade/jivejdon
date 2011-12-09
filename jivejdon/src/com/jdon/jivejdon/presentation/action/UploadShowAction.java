@@ -30,7 +30,7 @@ import org.apache.struts.action.ActionMapping;
 
 import com.jdon.controller.WebAppUtil;
 import com.jdon.jivejdon.manager.throttle.hitkey.CustomizedThrottle;
-import com.jdon.jivejdon.manager.throttle.hitkey.HitKey3;
+import com.jdon.jivejdon.manager.throttle.hitkey.HitKeySame;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyIF;
 import com.jdon.jivejdon.model.attachment.UploadFile;
 import com.jdon.jivejdon.model.message.upload.UploadFileFilter;
@@ -143,7 +143,7 @@ public class UploadShowAction extends Action {
 		if (customizedThrottle == null) {
 			customizedThrottle = (CustomizedThrottle) WebAppUtil.getComponentInstance("customizedThrottle", request);
 		}
-		HitKeyIF hitKey = new HitKey3(request.getRemoteAddr(), oid);
+		HitKeyIF hitKey = new HitKeySame(request.getRemoteAddr(), oid);
 		return customizedThrottle.processHitFilter(hitKey);
 	}
 

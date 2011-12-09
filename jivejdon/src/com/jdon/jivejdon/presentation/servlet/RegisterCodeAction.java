@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.jdon.controller.WebAppUtil;
 import com.jdon.jivejdon.manager.throttle.hitkey.CustomizedThrottle;
-import com.jdon.jivejdon.manager.throttle.hitkey.HitKey3;
+import com.jdon.jivejdon.manager.throttle.hitkey.HitKeySame;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyIF;
 import com.jdon.jivejdon.presentation.form.SkinUtils;
 import com.jdon.util.Debug;
@@ -164,7 +164,7 @@ public class RegisterCodeAction extends HttpServlet {
 		if (customizedThrottle == null) {
 			customizedThrottle = (CustomizedThrottle) WebAppUtil.getComponentInstance("customizedThrottle", request);
 		}
-		HitKeyIF hitKey = new HitKey3(request.getRemoteAddr(), id);
+		HitKeyIF hitKey = new HitKeySame(request.getRemoteAddr(), id);
 		return customizedThrottle.processHit(hitKey);
 	}
 
