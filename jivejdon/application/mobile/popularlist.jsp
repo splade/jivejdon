@@ -14,11 +14,7 @@
       <tr>
         <td height="25" align="center"  bordercolor="#eeeeee">       
         <b>J道最新内容</b> &nbsp;&nbsp;<a href="<%=request.getContextPath()%>/rss">RSS订阅</a>
-        &nbsp;&nbsp;<font color="#ffffff" ><%
-com.jdon.jivejdon.presentation.listener.UserCounterListener onlinecount = (com.jdon.jivejdon.presentation.listener.UserCounterListener)this.getServletContext().getAttribute((com.jdon.jivejdon.presentation.listener.UserCounterListener.COUNT_KEY));
-if(onlinecount != null)
-	out.println("在线" + Integer.toString(onlinecount.getActiveSessions()));
-%></font>        
+        &nbsp;&nbsp;<font color="#ffffff" ></font>        
         </td>
         
       </tr>
