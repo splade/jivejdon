@@ -42,6 +42,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionL
 	public static final String COUNT_KEY = "userCounter";
 	public static final String OnLineUser_KEY = "onLineUser";
 
+	// count not correct.
 	private int activeSessions;
 	private ServletContext servletContext = null;
 

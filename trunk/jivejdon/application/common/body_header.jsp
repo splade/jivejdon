@@ -41,14 +41,9 @@
 <tr>
 
 <td align="right">
-          
-<%
-com.jdon.jivejdon.presentation.listener.UserCounterListener onlinecount = (com.jdon.jivejdon.presentation.listener.UserCounterListener)this.getServletContext().getAttribute((com.jdon.jivejdon.presentation.listener.UserCounterListener.COUNT_KEY));
-String oc = Integer.toString(onlinecount.getActiveSessions());
-%>
-  
+            
   <span class="smallgray">
-  <a href="javascript:void(0);" target="_blank" onmouseover="loadWLJS(onlinesInf)" >在线<%=oc%>人</a> 
+  <a href="javascript:void(0);" target="_blank" onmouseover="loadWLJS(onlinesInf)" >在线</a> 
   </span>
   &nbsp;&nbsp;<a href="/">首页</a>
   &nbsp;&nbsp;<html:link page="/thread">主题表</html:link>
