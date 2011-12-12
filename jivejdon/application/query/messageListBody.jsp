@@ -21,9 +21,9 @@
             </logic:notEmpty>
             <br><br>
              <bean:define id="messageTo" name="forumMessage" property="account.username" />
-          <html:link page="/account/protected/shortmessageAction.shtml" paramId="messageTo"  paramName="messageTo" target="_blank">
+          <a href="<html:rewrite page="/account/protected/shortmessageAction.shtml" paramId="messageTo"  paramName="messageTo" />" target="_blank" rel="nofollow">          
              <html:img page="/images/user_comment.gif" width="18" height="18" border="0" /><span class="smallgray">悄悄话</span>
-           </html:link>     
+           </a>     
              <br>
             <html:link page="/query/threadViewQuery.shtml?queryType=userMessageQueryAction" paramId="user" paramName="forumMessage" paramProperty="account.userId" target="_blank">
            <span class="smallgray"> 发表文章: <bean:write name="forumMessage" property="account.messageCount"/></span>

@@ -77,7 +77,7 @@
    </td>
   <td>
           <bean:define id="messageTo" name="accountProfileForm" property="account.username" />
-          <html:link page="/account/protected/shortmessageAction.shtml" paramId="messageTo" paramName="messageTo" target="_blank">给<bean:write name="accountProfileForm" property="account.username"/>发消息</html:link>         
+          <a href="<html:rewrite page="/account/protected/shortmessageAction.shtml" paramId="messageTo"  paramName="messageTo" />" target="_blank" rel="nofollow">给<bean:write name="accountProfileForm" property="account.username"/>发消息</a>
 
   </td>
 </tr>
