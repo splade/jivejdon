@@ -21,7 +21,6 @@
 	<classpathentry kind="lib" path="lib/jfa/jdonAccessory.jar" sourcepath="/JdonAccessory"/>
 	<classpathentry kind="lib" path="lib/junit3.8.1/ant-junit.jar"/>
 	<classpathentry kind="lib" path="lib/junit3.8.1/junit.jar"/>
-	<classpathentry kind="lib" path="lib/mysql/mysql-connector-java-3.0.14-production-bin.jar"/>
 	<classpathentry kind="lib" path="lib/rsslib/rome-0.9.jar"/>
 	<classpathentry kind="lib" path="lib/time/ocpsoft-pretty-time-1.0.6.jar"/>
 	<classpathentry kind="lib" path="lib/transaction/jta-spec1_0_1.jar"/>
@@ -60,5 +59,6 @@
 	<classpathentry kind="lib" path="strutslib/struts-taglib-1.3.8.jar"/>
 	<classpathentry kind="lib" path="strutslib/struts-tiles-1.3.8.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/mysql/mysql-connector-java-5.1.18-bin.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
