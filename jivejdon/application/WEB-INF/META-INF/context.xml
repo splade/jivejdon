@@ -9,6 +9,7 @@
               username="root"       
               password=""
               driverClassName="com.mysql.jdbc.Driver"
+              validationQuery="select 1" 
               url="jdbc:mysql://localhost/jivejdon?useUnicode=true&amp;characterEncoding=UTF-8" />
               
   <Resource name="jdbc/SecurityDS" 
@@ -20,6 +21,7 @@
               username="root"       
               password=""
               driverClassName="com.mysql.jdbc.Driver"
+              validationQuery="select 1" 
               url="jdbc:mysql://localhost/jivejdon?useUnicode=true&amp;characterEncoding=UTF-8" />     
               
    <!--  if use this configure, need modify build.xml , copy lib/javamail/*.jar to WEB-INF/lib -->              
