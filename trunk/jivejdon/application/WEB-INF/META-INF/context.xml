@@ -10,7 +10,7 @@
               password=""
               driverClassName="com.mysql.jdbc.Driver"
               validationQuery="select 1" 
-              url="jdbc:mysql://localhost/jivejdon?useUnicode=true&amp;characterEncoding=UTF-8" />
+              url="jdbc:mysql://localhost/jivejdon?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;failOverReadOnly=false" />
               
   <Resource name="jdbc/SecurityDS" 
               auth="Container" 
@@ -22,7 +22,7 @@
               password=""
               driverClassName="com.mysql.jdbc.Driver"
               validationQuery="select 1" 
-              url="jdbc:mysql://localhost/jivejdon?useUnicode=true&amp;characterEncoding=UTF-8" />     
+              url="jdbc:mysql://localhost/jivejdon?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;failOverReadOnly=false" />     
               
    <!--  if use this configure, need modify build.xml , copy lib/javamail/*.jar to WEB-INF/lib -->              
 	<Resource name="mail/Session" auth="Container"
