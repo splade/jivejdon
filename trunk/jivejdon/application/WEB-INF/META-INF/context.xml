@@ -1,5 +1,7 @@
 <Context path="" debug="5" reloadable="true" crossContext="true">
 <!-- if there is no context.xml in tomcat/conf, use this 
+http://stackoverflow.com/questions/520585/connection-pooling-options-with-jdbc-dbcp-vs-c3p0
+
 <Resource name="jdbc/JiveJdonDS" 
               auth="Container" 
               type="javax.sql.DataSource"  
