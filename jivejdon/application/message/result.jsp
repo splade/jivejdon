@@ -62,7 +62,7 @@
          function reloadHref(){
               window.location.href = "<a href='<%=request.getContextPath()%>/thread/<bean:write name="forumThread" property="threadId" />?message=<bean:write name="messageId" />#<bean:write name="messageId" />'>";
           }
-          setTimeout(reloadHref, 3000);   
+          //setTimeout(reloadHref, 3000);   
       </script>
 
         </logic:notEqual>
