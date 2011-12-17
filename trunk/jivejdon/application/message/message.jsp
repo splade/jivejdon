@@ -82,6 +82,23 @@ function setObserve(){
   }   
 }
 
+function notify(){
+	var oldformAction = document.getElementById("messageNew").action;
+	//hack <input type="hidden" name="action" value="edit"> for IE not work
+	for (var i = 0, a=[], p=document.messageForm.elements; i < p.length; i++)
+         if(p[i].name&&p[i].name.toLowerCase()=='action'){
+             a.push([p[i], p[i].name]);
+             p[i].removeAttribute('name', 0);
+          }
+	
+	document.getElementById("messageNew").action = "<%=request.getContextPath()%>/message/messageSaveAction2.shtml";
+	//recover hack
+	for (var i = 0; i < a.length; i++)
+         a[i][0].setAttribute('name', a[i][1], 0);	   
+	document.messageForm.submit();
+	document.getElementById("messageNew").action = oldformAction;	
+}
+notify();
 </script>
 
 

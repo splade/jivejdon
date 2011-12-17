@@ -42,6 +42,12 @@
       <forward name="failure" path="/message/resultSave.jsp" />
     </action>
     
+     <action name="messageForm" path="/message/messageSaveAction2" type="com.jdon.strutsutil.ModelSaveAction" scope="request"
+    	validate="false" >
+      <forward name="success" path="/message/result.jsp" />
+      <forward name="failure" path="/message/result.jsp" />
+    </action>
+    
     <action path="/message/uploadShowAction" type="com.jdon.jivejdon.presentation.action.message.UploadShowAction" validate="false" />
    <!-- message CRUD   -->
 
