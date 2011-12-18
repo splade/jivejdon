@@ -47,6 +47,8 @@ public interface AccountService {
 
 	void updateAccountAttachment(EventModel em);
 
+	boolean checkUser(String username);
+
 	// only for admin update jive2.5
 	void update();
 

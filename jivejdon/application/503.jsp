@@ -10,8 +10,10 @@ response.setDateHeader("Expires", 0);
 com.jdon.jivejdon.manager.block.ErrorBlockerIF"%>
 <%
 ErrorBlockerIF errorBlocker = (ErrorBlockerIF) WebAppUtil.getComponentInstance("errorBlocker", request);
-if (!errorBlocker.checkRate(request.getRemoteAddr(), 10))
+if (errorBlocker.checkCount(request.getRemoteAddr(), 5)){
+	response.sendError(404);
     return;
+}
 %>
 
 <html>

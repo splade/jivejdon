@@ -248,8 +248,8 @@ if (username != null){//active auto login
 
  new Ajax.PeriodicalUpdater('isNewMessage', messageChkURL,
   { method: 'get',
-    frequency: 300, 
-    decay: 2,
+    frequency: 500, 
+    decay: 3,
     evalScripts: true});
 
 </logic:notPresent>

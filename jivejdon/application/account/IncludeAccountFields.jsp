@@ -38,6 +38,11 @@ function Juge(theForm)
 
 }
 
+function checkUsername(){	
+	  var pars = "username=" +  document.getElementById("username").value;
+    new Ajax.Updater('usernameCheck', '<%=request.getContextPath()%>/account/checkUser.jsp', { method: 'get', parameters: pars  });
+}
+
 -->
 </script>    
 
@@ -60,8 +65,8 @@ function Juge(theForm)
  <table border="0" cellpadding="3" cellspacing="0"  >
                  <tr>
                      <th align="right">用户名:</th>
-                     <td align="left"><html:text property="username" maxlength="12" />
-                      <span class="small2">(英文字符或数字)</span>
+                     <td align="left"><html:text property="username" maxlength="12" styleId="username"  onblur="checkUsername()" />
+                      <span class="small2" id="usernameCheck">(英文字符或数字)</span>
                      </td>
   
                 </tr>

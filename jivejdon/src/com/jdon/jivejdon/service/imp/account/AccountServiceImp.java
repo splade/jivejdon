@@ -123,6 +123,13 @@ public abstract class AccountServiceImp implements AccountService {
 		}
 	}
 
+	public boolean checkUser(String username) {
+		if (accountFactory.getFullAccountForUsername(username) != null) {
+			return true;
+		}
+		return false;
+	}
+
 	public void updateAccount(Account accountInput) throws Exception {
 		Debug.logVerbose("enter updateAccount", module);
 
