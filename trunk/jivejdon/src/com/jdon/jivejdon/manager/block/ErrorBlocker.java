@@ -22,8 +22,8 @@ import java.util.concurrent.TimeUnit;
 import com.jdon.annotation.Component;
 import com.jdon.container.pico.Startable;
 import com.jdon.jivejdon.manager.throttle.hitkey.CustomizedThrottle;
-import com.jdon.jivejdon.manager.throttle.hitkey.HitKeySame;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyIF;
+import com.jdon.jivejdon.manager.throttle.hitkey.HitKeySame;
 import com.jdon.jivejdon.util.ScheduledExecutorUtil;
 
 @Component("errorBlocker")
@@ -49,7 +49,7 @@ public class ErrorBlocker implements Startable, ErrorBlockerIF {
 			}
 		};
 		// flush to db per one hour
-		scheduledExecutorUtil.getScheduExec().scheduleAtFixedRate(task, 60, 60 * 60, TimeUnit.SECONDS);
+		scheduledExecutorUtil.getScheduExec().scheduleAtFixedRate(task, 60, 60 * 60 * 24, TimeUnit.SECONDS);
 	}
 
 	/*
@@ -63,28 +63,29 @@ public class ErrorBlocker implements Startable, ErrorBlockerIF {
 		try {
 			HitKeyIF hitKey = new HitKeySame(ip, "error");
 			if (customizedThrottle.processHit(hitKey)) {
-				checkCount(ip, callcount);
+				return checkCount(ip, callcount);
 			}
 		} catch (Exception e) {
 		}
-		return true;
+		return false;
 
 	}
 
-	public void checkCount(String ip, int callcount) {
+	public boolean checkCount(String ip, int callcount) {
 		if (bannedIPs.containsKey(ip)) {
 			int count = bannedIPs.get(ip);
 			if (count >= callcount) {
 				customizedThrottle.addBanned(ip);
-				bannedIPs.remove(ip);
-				// BanIPUtils.addIPTables(ip);//high level
+				this.bannedIPs.remove(ip);
+				// BanIPUtils.addIPTables(ip);//high level couple with Linux
+				return true;
 			} else {
 				System.err.print("ip=" + ip + " has " + count + " times checkErrorIP " + callcount);
-				bannedIPs.put(ip, count + 1);
+				this.bannedIPs.put(ip, count + 1);
 			}
 		} else
-			bannedIPs.put(ip, 1);
-
+			this.bannedIPs.put(ip, 1);
+		return false;
 	}
 
 	// when container down or undeploy, active this method.

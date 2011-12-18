@@ -19,6 +19,6 @@ public interface ErrorBlockerIF {
 
 	boolean checkRate(String ip, int callcount);
 
-	void checkCount(String ip, int callcount);
+	boolean checkCount(String ip, int callcount);
 
 }
