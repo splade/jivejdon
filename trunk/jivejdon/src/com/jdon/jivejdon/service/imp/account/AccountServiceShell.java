@@ -72,11 +72,11 @@ public class AccountServiceShell extends AccountServiceImp {
 	}
 
 	public Account getAccountByName(String username) {
-		Account account = getloginAccount();
-		if (resourceAuthorization.isAdmin(account))// if now is Admin
-			return super.getAccountByName(username);
-		else
-			return account;
+		return getloginAccount();
+		// if (resourceAuthorization.isAdmin(account))// if now is Admin
+		// return super.getAccountByName(username);
+		// else
+		// return account;
 
 	}
 
