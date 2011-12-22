@@ -27,26 +27,31 @@ import com.jdon.jivejdon.util.StringSortComparator;
 
 public class IPHolder {
 	// set of ips that are banned, use a set to ensure uniqueness
-	private Set bannedIps; 
+	private Set bannedIps;
 
 	private List<Pattern> regexBannedIps;
 
 	public IPHolder() {
-		bannedIps =  new TreeSet(new StringSortComparator());
+		bannedIps = new TreeSet(new StringSortComparator());
 		regexBannedIps = new ArrayList<Pattern>();
 
-	}
-
-	public Set getBannedIps() {
-		return bannedIps;
 	}
 
 	public Collection getAllBanIpList() {
 		return bannedIps;
 	}
 
-	public List<Pattern> getRegexBannedIps() {
-		return regexBannedIps;
+	public boolean isBanned(String remoteIp) {
+		if (remoteIp == null)
+			return false;
+		if (bannedIps.contains(remoteIp))
+			return true;
+		else
+			for (Pattern p : regexBannedIps)
+				if (p.matcher(remoteIp).matches())
+					return true;
+
+		return false;
 	}
 
 	public void addressAdd(String ip) {
@@ -55,13 +60,16 @@ public class IPHolder {
 		if (ip.indexOf("*") != -1) {// if it is 202.1.*.*
 			Pattern p = Pattern.compile(ip);
 			regexBannedIps.add(p);
-		}
-		bannedIps.add(ip);// if it is 202.1.1.1
+		} else
+			bannedIps.add(ip);// if it is 202.1.1.1
 	}
 
 	public void addressRemove(String ip) {
-		this.regexBannedIps.remove(ip);
-		this.bannedIps.remove(ip);// if it is 202.1.1.1
+		if (ip.indexOf("*") != -1) {// if it is 202.1.*.*
+			Pattern p = Pattern.compile(ip);
+			this.regexBannedIps.remove(p);
+		} else
+			this.bannedIps.remove(ip);// if it is 202.1.1.1
 	}
 
 	public String addressLoad() {
@@ -71,8 +79,8 @@ public class IPHolder {
 		}
 		return sb.toString();
 	}
-	
-	public void clear(){
+
+	public void clear() {
 		bannedIps.clear();
 		regexBannedIps.clear();
 	}

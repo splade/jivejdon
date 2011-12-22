@@ -57,7 +57,7 @@ public class RenderingFilterManagerImp implements RenderingFilterManager {
 
 	private String context;
 
-	private static MessageRenderSpecification[] availableFilters = null;
+	private MessageRenderSpecification[] availableFilters = null;
 
 	private MessageRenderSpecification[] filters;
 

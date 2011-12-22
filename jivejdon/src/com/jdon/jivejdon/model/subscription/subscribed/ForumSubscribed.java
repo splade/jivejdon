@@ -16,7 +16,6 @@
 package com.jdon.jivejdon.model.subscription.subscribed;
 
 import com.jdon.jivejdon.model.Forum;
-import com.jdon.jivejdon.model.ForumThread;
 
 public class ForumSubscribed implements Subscribed {
 
@@ -59,7 +58,7 @@ public class ForumSubscribed implements Subscribed {
 
 	@Override
 	public void addSubscribed(Object o) {
-		if (o != null && o instanceof ForumThread)
+		if (o != null && o instanceof Forum)
 			this.forum = (Forum) o;
 
 	}

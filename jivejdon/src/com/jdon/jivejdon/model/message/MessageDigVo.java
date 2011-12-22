@@ -12,7 +12,7 @@ public class MessageDigVo {
 
 	private ForumMessage message;
 
-	private volatile int number = -1;
+	private int number = -1;
 
 	private DomainMessage digCountAsyncResult;
 
@@ -46,7 +46,7 @@ public class MessageDigVo {
 		if (number == -1) {
 			preloadDigCount();
 		}
-		number = number + 1;
+		number++;
 		message.repositoryRole.addMessageDigCount(this);
 	}
 

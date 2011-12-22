@@ -194,6 +194,8 @@ public class ToolsUtil {
 				nsae.printStackTrace();
 			}
 		}
+		if (digest == null)
+			return null;
 		// Now, compute hash.
 		digest.update(data.getBytes());
 		return encodeHex(digest.digest());
