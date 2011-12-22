@@ -19,7 +19,6 @@ package com.jdon.jivejdon.manager.block;
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.Collection;
-import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
@@ -71,14 +70,7 @@ public class IPBanListManager implements Runnable, IPBanListManagerIF {
 		// update the banned ips list if needed
 		this.loadBannedIpsIfNeeded(false);
 		if (remoteIp != null) {
-			if (ipHolder.getBannedIps().contains(remoteIp))
-				return true;
-			else {
-				for (Pattern p : ipHolder.getRegexBannedIps()) {
-					if (p.matcher(remoteIp).matches())
-						return true;
-				}
-			}
+			return this.ipHolder.isBanned(remoteIp);
 		}
 		return false;
 	}

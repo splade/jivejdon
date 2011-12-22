@@ -19,7 +19,8 @@ package com.jdon.jivejdon.presentation.servlet.upload;
 import javax.servlet.http.HttpServletRequest;
 
 import com.jdon.jivejdon.presentation.servlet.upload.strutsplugin.OutputStreamListener;
-public class FileUploadListener implements OutputStreamListener{
+
+public class FileUploadListener implements OutputStreamListener {
 	private FileUploadStats fileUploadStats = new FileUploadStats();
 
 	public FileUploadListener(long totalSize) {
@@ -38,11 +39,11 @@ public class FileUploadListener implements OutputStreamListener{
 	public void error(String s) {
 		fileUploadStats.setCurrentStatus(FileUploadStatus.ERROR);
 	}
-	
-	public static void error(HttpServletRequest request){
+
+	public static void error(HttpServletRequest request) {
 		FileUploadStats stats = new FileUploadListener.FileUploadStats();
-        stats.setCurrentStatus(FileUploadStatus.ERROR);
-        request.getSession().setAttribute("FILE_UPLOAD_STATS", stats);
+		stats.setCurrentStatus(FileUploadStatus.ERROR);
+		request.getSession().setAttribute("FILE_UPLOAD_STATS", stats);
 	}
 
 	public void done() {
@@ -54,7 +55,12 @@ public class FileUploadListener implements OutputStreamListener{
 		return fileUploadStats;
 	}
 
-	public static class FileUploadStats {
+	public static class FileUploadStats implements java.io.Serializable {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 
 		private long totalSize = 0;
 
