@@ -49,24 +49,3 @@ var loggedURL = '<html:rewrite page="/account/protected/logged.jsp"/>';
 autoCompleteLogin();
 </script>
 </logic:notPresent>
-
-<%--  
-<div id="isNewMessage" style="display:none"></div>
-
-<script>
- <logic:present name="principal" >
-     var messageChkURL = "<%=request.getContextPath() %>/shortmessage/checknewmessage.shtml";
-     new Ajax.PeriodicalUpdater('isNewMessage', messageChkURL,
-      { method: 'get',      
-        evalScripts: true});            
-</logic:present>
- 
-<logic:notPresent name="principal" >
-  var messageChkURL = "<%=request.getContextPath() %>/forum/checknewmessage.shtml";
-     new Ajax.Updater('isNewMessage', messageChkURL,
-      { method: 'get',
-        evalScripts: true}); 
-</logic:notPresent>
-
-</script>
---%>

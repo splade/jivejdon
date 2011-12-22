@@ -27,15 +27,12 @@
 <table  cellpadding="0" cellspacing="0" border="0">
 <tr><td>
 
-<font color="#555555">
+<font color="#555555" id="loggedInfo">
 <logic:present name="principal" >
    欢迎<bean:write name="principal" />   
 </logic:present>
-
-
-  </font>
+ </font>
 </td></tr></table>
-
 
 <table  cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr>

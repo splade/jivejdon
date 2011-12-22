@@ -192,8 +192,9 @@ function autoCompleteLogin(){
 	
 	var username = readCookie("username");
     if (username != null){    
-     document.getElementById("j_username").value = decode64(username);   
-     var password = readCookie("password");
-     document.getElementById("j_password").value = decode64(password);   
+      document.getElementById("j_username").value = decode64(username);   
+      var password = readCookie("password");
+      document.getElementById("j_password").value = decode64(password);
+  	  document.getElementById("loggedInfo").innerHTML = " 欢迎" + document.getElementById("j_username").value;
    }
 }
