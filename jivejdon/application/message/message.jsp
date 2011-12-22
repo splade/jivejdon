@@ -82,21 +82,34 @@ function setObserve(){
   }   
 }
 
-function notify(){
-	var oldformAction = document.getElementById("messageNew").action;
+var a=[];
+function hackAction(myform){
 	//hack <input type="hidden" name="action" value="edit"> for IE not work
-	for (var i = 0, a=[], p=document.messageForm.elements; i < p.length; i++)
+	for (var i = 0, p=myform.elements; i < p.length; i++)
          if(p[i].name&&p[i].name.toLowerCase()=='action'){
              a.push([p[i], p[i].name]);
              p[i].removeAttribute('name', 0);
           }
-	
-	document.getElementById("messageNew").action = "<%=request.getContextPath()%>/message/messageSaveAction2.shtml";
+}
+
+function recoverAction(){
 	//recover hack
 	for (var i = 0; i < a.length; i++)
-         a[i][0].setAttribute('name', a[i][1], 0);	   
+         a[i][0].setAttribute('name', a[i][1], 0);	 
+}
+
+
+function notify(){	
+	hackAction(document.messageForm);
+	var oldformAction = document.getElementById("messageNew").action;
+	document.getElementById("messageNew").action = "<%=request.getContextPath()%>/message/messageSaveAction2.shtml";
+	recoverAction();	  
 	document.messageForm.submit();
-	document.getElementById("messageNew").action = oldformAction;	
+	
+	hackAction(document.messageForm);
+	document.getElementById("messageNew").action = oldformAction;
+	recoverAction();
+	
 }
 notify();
 </script>

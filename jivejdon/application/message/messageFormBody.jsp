@@ -133,7 +133,7 @@ function openUploadWindowStart(url){
 
 </table>
 
-<table cellpadding="4" cellspacing="0" border="0" width="971" align="center">
+<table cellpadding="4" cellspacing="0" border="0" width="971" >
 <logic:equal name="reply" value="false">
 <tr>
 	<td  width="50" align="right">标签</td>
@@ -170,7 +170,7 @@ function loadAcJS(thisId){
 </logic:equal>
 <tr>
  <td width="50">&nbsp;</td>
- <td>
+ <td align="left">
     提交时自动拷贝以上内容到剪贴板 Ctrl+V可取出；提问题前先查询<html:link page="/query/tagsList.shtml?count=200" target="_blank">标签列表</html:link>
     <br>
     <input type="submit" value=" 发 表 Ctrl+Enter " name="formButton" id="formSubmitButton" tabindex="3"> 
