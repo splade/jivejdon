@@ -60,9 +60,8 @@ autoCompleteLogin();
 </logic:empty>
 
 
-<table bgcolor="#CFCFA0"
- cellpadding="3" cellspacing="0" border="0" width="971" align="center">
-<tr><td align="left">
+<div class="table-entice">
+<div class="table-button">   
 
 <div class="tres">         
 <MultiPagesREST:pager actionFormName="messageListForm" page="/thread" paramId="thread" paramName="forumThread" paramProperty="threadId">
@@ -90,20 +89,19 @@ autoCompleteLogin();
 	</div>
   </div>  
 </div>  
+
 </div>
-    </td><td >
-    </td>
     
-    <td align="right" width="250">
+    
        &nbsp;<html:link page="/message/messageAction.shtml" paramId="forum.forumId" paramName="forum" paramProperty="forumId">
        <html:img page="/images/newtopic.gif" width="113" height="20" border="0" alt="发表新帖子"/>
        </html:link>
         &nbsp;<a href="javascript:void(0);" onclick="loadWLJSWithP('<bean:write name="forumThread" property="rootMessage.messageId" />',loadWPostjs)">
         <html:img page="/images/replytopic.gif" width="113" height="20" border="0" alt="回复该主题贴"/></a>
-    </td>
-</tr>
-</table>
-
+    
+ </div>  
+</div>
+    
 
  
 <logic:iterate id="forumMessage" name="messageListForm" property="list" indexId="i">
@@ -117,24 +115,10 @@ autoCompleteLogin();
  cellpadding="1" cellspacing="0" border="0" width="971" align="center">
  <tr bgcolor="#FFFFCC">
     <td >
-    <table cellpadding="3" cellspacing="0" border="0" width="100%" height="30"  >
-     <tr><td  align="center">
-        <html:link page="/query/tagsList.shtml?count=150" target="_blank" title="标签"><html:img page="/images/tag_yellow.png" width="16" height="16" alt="标签" border="0"/></html:link>
-        <logic:iterate id="threadTag" name="forumThread" property="tags" >
-         <span onmouseover="loadWLJSWithP(this, initTagsW)" class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
-           <a href='<%=request.getContextPath() %>/tags/<bean:write name="threadTag" property="tagID"/>' target="_blank" class="post-tag">
-             <bean:write name="threadTag" property="title" />(<bean:write name="threadTag" property="assonum" />)
-             </a></span>
-             &nbsp;&nbsp;&nbsp;&nbsp;
-        </logic:iterate>
-       </td></tr></table>
-    </td>
-</tr>
-<tr bgcolor="#CFCFA0">
-    <td >
-<table cellpadding="3" cellspacing="0" border="0" width="100%" >
-<tr>
-<td>
+    
+      <table cellpadding="3" cellspacing="0" border="0" width="100%" >
+           <tr>
+             <td>
 <!-- JiaThis Button BEGIN -->
 <div id="ckepop">
 <a href="http://www.jiathis.com/share/" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank">分享到：</a>
@@ -144,9 +128,8 @@ autoCompleteLogin();
 <a class="jiathis_button_tools_4"></a>
 </div>
 <!-- JiaThis Button END -->
-</td>
-<td  align="right">
-<div class="tres">
+             </td><td  align="right">
+             <div class="tres">
 <logic:greaterThan name="messageListForm" property="numPages" value="1">
 有<b><bean:write name="messageListForm" property="numPages" /></b>页
 <a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go">Go</a>
@@ -158,15 +141,23 @@ autoCompleteLogin();
 </MultiPagesREST:pager>
 </div>     
 
-    </td>
-  
-</tr>
-</table>
-    </td>
-</tr>
+               </td></tr>
+        </table>
 
-
-</table>
+</td></tr><tr ><td >
+    <table cellpadding="3" cellspacing="0" border="0" width="100%" height="30"  >
+     <tr><td  align="center">
+        <html:link page="/query/tagsList.shtml?count=150" target="_blank" title="标签"><html:img page="/images/tag_yellow.png" width="16" height="16" alt="标签" border="0"/></html:link>
+        <logic:iterate id="threadTag" name="forumThread" property="tags" >
+         <span onmouseover="loadWLJSWithP(this, initTagsW)" class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
+           <a href='<%=request.getContextPath() %>/tags/<bean:write name="threadTag" property="tagID"/>' target="_blank" class="post-tag">
+             <bean:write name="threadTag" property="title" />(<bean:write name="threadTag" property="assonum" />)
+             </a></span>
+             &nbsp;&nbsp;&nbsp;&nbsp;
+        </logic:iterate>
+       </td></tr></table>
+    
+</td></tr></table>
 
 </div>
 

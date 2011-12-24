@@ -9,7 +9,7 @@
   var prevThreadUrl;
   var nextThreadUrl;
 </script>
-<table cellpadding="0" cellspacing="2" border="0" width="971" align="center">
+<table cellpadding="0" cellspacing="0" border="0" width="971" align="center">
 <tr><td colspan="3"><html:img page="/images/blank.gif" width="1" height="5" border="0"/></td></tr>
 <tr>
     <td width="1%" nowrap>

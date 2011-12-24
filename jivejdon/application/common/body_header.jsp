@@ -4,41 +4,17 @@
 <%@ taglib uri="struts-html" prefix="html" %>
 <body id="mainbody">
 
-<table bgcolor="#707070"
- cellpadding="1" cellspacing="0" border="0" width="971" align="center">
-<tr><td>
-<table bgcolor="#FFFFCC"
- cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-          <td rowspan="2">
-          <table cellpadding="0" cellspacing="0">
-              <tr>
-                <td> 
-                <a href="http://www.jdon.com">
-                 <img src='<html:rewrite page="/images/jdon.gif" />' width="120" height="60" alt="JiveJdon Community Forums" border="0" />
-                  </a>                
-                </td>
-              </tr>
-            </table></td>           
-            </tr>
-        <tr>
-         <td align="right" valign="bottom">  
+<table border="0" cellpadding="0" cellspacing="0" width="971" align="center">
+<tr><td  align="right" " class="userbox">
 
-<table  cellpadding="0" cellspacing="0" border="0">
-<tr><td>
+<a href="http://www.jdon.com" class="site-logo"><img src='<html:rewrite page="/images/jdon.gif" />' width="120" height="60" alt="JiveJdon Community Forums" border="0" /></a>                
 
 <font color="#555555" id="loggedInfo">
 <logic:present name="principal" >
    欢迎<bean:write name="principal" />   
 </logic:present>
  </font>
-</td></tr></table>
 
-<table  cellpadding="0" cellspacing="0" border="0" width="100%">
-<tr>
-
-<td align="right">
-            
   <span class="smallgray">
   <a href="javascript:void(0);" target="_blank" onmouseover="loadWLJS(onlinesInf)" >在线</a> 
   </span>
@@ -68,12 +44,22 @@
 <a href="http://feed.feedsky.com/jdon" target="_blank"><html:img page="/images/feed-icon-12x12-orange.gif" width="12" height="12" alt="RSS" border="0" align="absmiddle"/></a>
 
   <a href="http://weibo.com/ijdon" target="_blank"><html:img page="/images/sina.png" width="12" height="12" border="0"/></a>     
-</td></tr>
-</table>
 
-           </td>
+
+</td></tr>
+<tr><td>
+  <table cellpadding="0" cellspacing="1" bgcolor="#ffffff" width="100%">
+        <tr >
+          <td height="26" bgcolor="#888888">&nbsp;</td>
+          <td height="26" align="center" bgcolor="#888888"  width="100" ><a href="http://www.jdon.com/designpatterns/" target="_blank" class="a03">设计模式</a></td>
+          <td height="26" align="center" bgcolor="#888888"  width="100" ><a href="http://www.jdon.com/ddd.html" target="_blank" class="a03">领域驱动设计</a></td>
+          <td height="26" align="center" bgcolor="#888888"  width="100" ><a href="http://www.jdon.com/design.htm" target="_blank" class="a03">云架构</a></td>
+          <td height="26" align="center" bgcolor="#888888"  width="100" ><a href="http://www.jdon.com/jdonframework/jivejdon3/index.html" target="_blank" class="a03">JiveJdon</a></td>                    
+          <td height="26" align="center" bgcolor="#888888"  width="100" ><a href="http://www.jdon.com/jdonframework/" target="_blank" class="a03">Jdon框架</a></td>
+          <td height="26" align="center" bgcolor="#888888"  width="100" ><a href="http://www.jdon.com/jivejdon/" target="_blank"  class="a03">软件社区</a></td>
+          <td height="26" align="center" bgcolor="#888888"  width="100" ><a href="http://www.jdon.com/consultant.html" target="_blank" class="a03">企业咨询</a></td>
+          
         </tr>
-</table>
-</td>
-        </tr>
-</table>
+      </table>
+
+ </td></tr></table>
