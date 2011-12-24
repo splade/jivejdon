@@ -306,6 +306,7 @@ public class ForumThread extends ForumModel {
 		if (isRoot(forumMessage)) {
 			this.setRootMessage(forumMessage);
 			changeTags(forumMessage.getMessageVO().getTagTitle());
+			this.setName(forumMessage.getMessageVO().getSubject());
 		}
 
 		threadStateManager.updateMessage(this, forumMessage);

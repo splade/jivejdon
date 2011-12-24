@@ -1,8 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="struts-logic" prefix="logic" %>
 <script>
-var loggedURL = '<html:rewrite page="/account/protected/logged.jsp"/>';
+var loggedURL = '<%=request.getContextPath()%>/account/protected/logged.jsp';
 </script>
-<script language="javascript" src="<html:rewrite page="/account/js/login.js"/>"></script>
+<script src="<%=request.getContextPath()%>/account/js/login.js"></script>
 
 <input type="hidden" id="contextPath"  name="contextPath" value="<%= request.getContextPath()%>" >
 <div id="loginAJAX" style="display:none" align="center">

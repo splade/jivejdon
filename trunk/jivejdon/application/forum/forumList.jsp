@@ -59,7 +59,7 @@ function loadAcJS(thisId){
     <tr><td>
         <table bgcolor="#cccccc"
          cellpadding="6" cellspacing="1" border="0" width="100%">
-        <tr bgcolor="#868602">
+        <tr bgcolor="#CFCFA0">
             <td width="1%"><html:img page="/images/blank.gif" width="1" height="1" border="0" alt=""/></td>
             <td width="97%">
              <table width="100%"><tr><td  width="80"><b><font color="#ffffff">论坛名称</font></b>

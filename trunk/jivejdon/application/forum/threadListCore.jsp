@@ -10,7 +10,7 @@
     <table bgcolor="#cccccc" id="ejiaA1"
      cellpadding="6" cellspacing="1" border="0" width="100%">
      <tbody >
-      <tr bgcolor="#868602" background="<%=request.getContextPath()%>/images/tableheadbg.gif" height="30" id="ejiaA1_title_tr">     
+      <tr bgcolor="#CFCFA0"  height="30" id="ejiaA1_title_tr">     
         <td width="5%"   align="center" nowrap><font color="#ffffff">标签</font></td>
         <td width="80%"  align="center" nowrap>
           <b><font color="#ffffff">&nbsp; 主题名</font></b>
