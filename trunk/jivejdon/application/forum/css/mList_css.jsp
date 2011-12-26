@@ -15,9 +15,9 @@
 	border-right-style: none;
 	border-bottom-style: solid;
 	border-left-style: none;
-	border-top-color: #666;
+	border-top-color: #F97D0D;
 	border-bottom-width: 1px;
-	border-bottom-color: #666;
+	border-bottom-color: #F97D0D;
 }
 
 .post_sidebar {
@@ -31,7 +31,7 @@
 	border-bottom-style: none;
 	border-left-style: none;
 	border-right-width: 1px;
-	border-right-color: #666;
+	border-right-color: #F97D0D;
 	overflow:hidden;
 	padding-bottom:9999px;
 	margin-bottom:-9999px;
@@ -74,7 +74,7 @@
 	border-right-style: none;
 	border-bottom-style: none;
 	border-left-style: none;
-	border-top-color: #666;
+	border-top-color: #F97D0D;
 }
 
 

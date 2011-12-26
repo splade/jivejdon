@@ -6,7 +6,7 @@
 
 <table width="971" border="0" cellpadding="0" cellspacing="0" align="center">
   <tr bgcolor="#FFFFFF">
-    <td width="120"  rowspan="3"    >
+    <td width="120"  rowspan="2"    >
     	<a href="http://www.jdon.com" class="site-logo"><img src='<html:rewrite page="/images/jdon.gif" />' width="120" height="60" alt="JiveJdon Community Forums" border="0" /></a>
     <td  align="right">
     <div class="userbox">                
@@ -72,7 +72,7 @@
   </tr>
 </table>
 
-<table width="971" border="0" cellspacing="0" cellpadding="0"  align="center" height="2" bgcolor="#000000">
+<table width="971" border="0" cellspacing="0" cellpadding="0"  align="center" height="2"  bgcolor="#F97D0D">
   <tr>
     <td></td>
   </tr>
