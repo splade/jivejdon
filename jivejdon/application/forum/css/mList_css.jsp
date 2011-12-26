@@ -35,11 +35,12 @@
 	overflow:hidden;
 	padding-bottom:9999px;
 	margin-bottom:-9999px;
-
+    background-color: #ededed;
 }
 
 
 .post_author {
+  
 	text-align:left;
 	border: none;
 	clear: both;
