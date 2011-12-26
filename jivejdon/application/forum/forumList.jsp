@@ -115,14 +115,14 @@ function loadAcJS(thisId){
     </td>
     <td width="1%"><html:img page="/images/blank.gif" width="10" height="1" border="0" alt=""/></td>
     <td width="1%" valign="top">
-    
+  <html:form action="/query/searchAction.shtml"  method="post" styleClass="search"> 
      <table cellpadding="0" cellspacing="0" border="0" width="200">
      <tr><td valign="bottom">
   
-     <html:form action="/query/searchAction.shtml"  method="post" styleClass="search"> 
-        <input type="text"  name="query" size="15" id="queryId" onfocus="loadAcJS(this.id,'<%=request.getContextPath()%>')"/>
+   
+        <input type="text"  name="query" size="20" id="queryId" onfocus="loadAcJS(this.id,'<%=request.getContextPath()%>')"/>
          <input type="image"  align="absmiddle" height="16" width="16" name="..." src="<%=request.getContextPath() %>/images/search.gif" onClick="document.messageListForm.submit()"/>
-     </html:form>             
+          
      
       <br/><center>
        <div id="hotkeys"></div>
@@ -134,7 +134,7 @@ function loadAcJS(thisId){
     
     <div id="hotlist"></div>
     
-
+  </html:form>      
     </td>
 </tr></table>
 
