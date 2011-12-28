@@ -84,7 +84,7 @@ var openPopUpBlogW = function(){
       <div class="topbar_inner_right"> 
     <logic:present name="principal" >
          欢迎<bean:write name="principal" />    | 
-         <a href="javascript:openPopUpWindow('注册资料修改','<%=request.getContextPath()%>/account/protected/editAccountForm.shtml?action=edit&username=xx')"> 注册资料修改 </a> | 
+         <a href="javascript:openPopUpWindow('注册资料修改','<%=request.getContextPath()%>/account/protected/editAccountForm.shtml?action=edit&username=<bean:write name="principal" />')"> 注册资料修改 </a> | 
          <logic:notPresent name="isOwner" >
            <a href="<%=request.getContextPath() %>/blog/<bean:write name="principal" />"><bean:write name="principal" />的博客</a> | 
          </logic:notPresent>

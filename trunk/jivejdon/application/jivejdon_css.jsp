@@ -22,7 +22,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='
 	-moz-box-shadow:0 1px 1px rgba(0,0,0,0.2);
 	box-shadow:0 1px 1px rgba(0,0,0,0.2);
 	height: 45px;
-	width: 847px;
+	width: 848px;
 }
 .userbox a{	
 color:#888888;
