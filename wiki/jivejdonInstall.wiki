@@ -1,4 +1,4 @@
-JiveJdon可安装任何JavaEE服务器中。基于JDK/JRE 1.6 以上版本。
+#JiveJdon可安装任何JavaEE服务器中。基于JDK/JRE 1.6 以上版本。
 
 = Introduction =
 
