@@ -25,7 +25,6 @@
 	<property name="weibolib.dir" value="lib/weibo" />
 	
 	
-
 	<property name="slib.dir" value="searchlib" />
 	<property name="strutslib.dir" value="strutslib" />
 	<property name="servletlib.dir" value="servletlib" />
@@ -124,6 +123,7 @@
 			<fileset dir="${lib.dir}/expires"/>
 			<fileset dir="${slib.dir}"/>
 			<fileset dir="${lib.dir}/jfa"/>	
+			<fileset dir="${lib.dir}/socialauth"/>
 			
 
 		</copy>
