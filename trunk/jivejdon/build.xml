@@ -122,8 +122,7 @@
 			<fileset dir="${lib.dir}/mysql"/>
 			<fileset dir="${lib.dir}/expires"/>
 			<fileset dir="${slib.dir}"/>
-			<fileset dir="${lib.dir}/jfa"/>	
-			<fileset dir="${lib.dir}/socialauth"/>
+			<fileset dir="${lib.dir}/jfa"/>				
 			
 
 		</copy>
