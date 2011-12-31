@@ -65,7 +65,7 @@ function checkUsername(){
  <table border="0" cellpadding="3" cellspacing="0"  >
                  <tr>
                      <th align="right">用户名:</th>
-                     <td align="left"><html:text property="username" maxlength="12" styleId="username"  onblur="checkUsername()" />
+                     <td align="left"><html:text property="username" maxlength="20" styleId="username"  onblur="checkUsername()" />
                       <span class="small2" id="usernameCheck">(英文字符或数字)</span>
                      </td>
   
@@ -92,7 +92,7 @@ function checkUsername(){
                 <tr>
                     <th align="right">Email:
                     </th>
-                    <td align="left"><html:text property="email" maxlength="20"/>
+                    <td align="left"><html:text property="email" maxlength="30"/>
                     <html:checkbox property="emailVisible"  ><span class="small2">公开</span></html:checkbox>
                     <br>* 忘记密码通过该信箱获得
                     </td>
