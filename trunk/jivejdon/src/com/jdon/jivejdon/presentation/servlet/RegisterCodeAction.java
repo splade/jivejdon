@@ -27,8 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.jdon.controller.WebAppUtil;
 import com.jdon.jivejdon.manager.throttle.hitkey.CustomizedThrottle;
-import com.jdon.jivejdon.manager.throttle.hitkey.HitKeySame;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyIF;
+import com.jdon.jivejdon.manager.throttle.hitkey.HitKeySame;
 import com.jdon.jivejdon.presentation.form.SkinUtils;
 import com.jdon.util.Debug;
 import com.jdon.util.RegisterCode;
@@ -85,26 +85,43 @@ public class RegisterCodeAction extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!isPermitted(request)) {
 			Debug.logError(" is not Permitted ", module);
-			response.sendError(403);
+			response.sendError(404);
 			return;
 		}
 
 		// if it is a robot, not output
 		if (isRobot(request)) {
 			Debug.logError(" is robot ", module);
-			response.sendError(403);
+			response.sendError(404);
 			return;
 		}
 
 		if (isSpamHit("RegisterCodeAction", request)) {
 			Debug.logError(" isSpamHit ", module);
 			customizedThrottle.addBanned(request.getRemoteAddr());
-			response.sendError(403);
+			response.sendError(404);
 			return;
 		}
 
 		try {
-			renderImage(request, response);
+			String registerCode = request.getParameter("registerCode");
+			if (registerCode == null || registerCode.length() == 0) {
+				renderImage(request, response);
+				return;
+			}
+
+			if (SkinUtils.verifyRegisterCode(registerCode, request)) {
+				CustomizedThrottle customizedThrottle = (CustomizedThrottle) WebAppUtil.getComponentInstance("customizedThrottle", request);
+				customizedThrottle.removeBanned(request.getRemoteAddr());
+				response.setHeader("Pragma", "No-cache");
+				response.setHeader("Cache-Control", "no-cache");
+				response.setDateHeader("Expires", 0);
+				response.sendRedirect(request.getContextPath());
+				return;
+			}
+
+			response.sendError(404);
+
 		} catch (Exception ex) {
 			Debug.logError(" renderImage error " + ex, module);
 		}

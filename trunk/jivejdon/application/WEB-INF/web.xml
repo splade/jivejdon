@@ -112,12 +112,21 @@
 		</filter-mapping>
 		<filter-mapping>
 			<filter-name>SpamFilter</filter-name>
+			<url-pattern>/forum/*</url-pattern>
+		</filter-mapping>
+		<filter-mapping>
+			<filter-name>SpamFilter</filter-name>
 			<url-pattern>/thread/*</url-pattern>
 		</filter-mapping>	
 		<filter-mapping>
 			<filter-name>SpamFilter</filter-name>
 			<url-pattern>/mobile/*</url-pattern>
+		</filter-mapping>
+		<filter-mapping>
+			<filter-name>SpamFilter</filter-name>
+			<url-pattern>/blog/*</url-pattern>
 		</filter-mapping>	
+			
 		<filter-mapping>
 			<filter-name>SpamFilter2</filter-name>
 			<url-pattern>/blog/*</url-pattern>

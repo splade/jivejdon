@@ -25,7 +25,7 @@ public class VerifySpammerAction extends HttpServlet {
 
 		String registerCode = request.getParameter("registerCode");
 		if (registerCode == null || registerCode.length() == 0) {
-			response.sendError(403);
+			response.sendError(404);
 		}
 
 		if (SkinUtils.verifyRegisterCode(registerCode, request)) {
@@ -37,7 +37,7 @@ public class VerifySpammerAction extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 			return;
 		}
-		response.sendError(403);
+		response.sendError(404);
 
 	}
 }
