@@ -73,12 +73,12 @@
 		<component name="throttleConf"
 			class="com.jdon.jivejdon.manager.throttle.post.ThrottleConf">
 			<constructor value="3" />       <!-- operator C(R)UD limit for post.ThrottleManager-->
-			<constructor value="60" />    	<!-- second -->
+			<constructor value="300" />    	<!-- second -->
 		</component>
 		
 		<component name="newUserThrottleConf"
 			class="com.jdon.jivejdon.manager.throttle.post.NewUserThrottleConf">
-			<constructor value="1" />       <!-- operator C(R)UD limit for post.ThrottleManager-->
+			<constructor value="1" />       <!-- register limit for post.ThrottleManager-->
 			<constructor value="300" />    	<!-- second -->
 			<constructor value="86400" />     <!-- second who that register time is leass than 1 day is a new User -->
 		</component>
