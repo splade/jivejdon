@@ -22,9 +22,9 @@
 
 .post_sidebar {
 	left: 1px;
-	padding: 6px;
+	padding: 5px;
 	top: 1px;
-	width: 160px;
+	width: 150px;
 	float:left;
 	border-top-style: none;
 	border-right-style: dashed;
@@ -39,14 +39,17 @@
 }
 
 
-.post_author {
-  
+.post_author {  
 	text-align:left;
 	border: none;
 	clear: both;
 	float: left;
-	width: 150px;	
-	padding: 5px;
+	width: 140px;	
+	padding: 0px;
+}
+.post_authorin{
+    width: 140px;
+	padding: 10px;
 }
 
 
@@ -66,8 +69,7 @@
 .post_body {
 	background-color: #ffffff;
 	float:left;
-	padding: 6px;
-	top: 69px;
+	padding: 0px;	
 	width: 784px;
 	height: auto;
 	border-top-width: 1px;
@@ -78,6 +80,16 @@
 	border-top-color: #F97D0D;
 }
 
+
+.post_bodyin {
+	border: none;	
+	text-align: left;
+	width: 780px;
+    height: auto;
+    padding: 14px;
+    letter-spacing:1px;
+    line-height:23px;
+}
 
 
 
@@ -139,13 +151,6 @@
 	width: 780px;
 }
 
-
-.post_bodyin {
-	border: none;	
-	text-align: left;
-	width: 784px;
-    height: auto;
-}
 
 DIV.digg-row {
 	PADDING-RIGHT: 9px; 

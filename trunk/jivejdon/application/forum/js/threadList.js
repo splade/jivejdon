@@ -1,5 +1,19 @@
 
 
+function goToAnotherPage(contextPath, count)
+{
+	var page = document.getElementById("pageToGo").value * 1;
+
+	if (!isNaN(page) && page > 0) {
+	    var mychar = "?";
+	    if (contextPath.toLowerCase().indexOf("?") > -1)
+	      mychar = "&";
+		var path = contextPath + mychar + "count=" + count + "&start=" + ((page-1) * count) ;
+		document.location = path;
+	}
+	
+} 
+
 function lastPost(threadId, messageId){
    var pars = 'messageId=' +messageId ;
    new Ajax.Updater(threadId, contextpath + '/forum/lastPost.shtml', { method: 'get', parameters: pars });

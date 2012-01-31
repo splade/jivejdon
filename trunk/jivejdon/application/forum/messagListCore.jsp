@@ -64,11 +64,6 @@ autoCompleteLogin();
 <div class="table-button">   
 
 <div class="tres">         
-<MultiPagesREST:pager actionFormName="messageListForm" page="/thread" paramId="thread" paramName="forumThread" paramProperty="threadId">
-<MultiPagesREST:prev name="&#9668;" />
-<MultiPagesREST:index displayCount="3" />
-<MultiPagesREST:next  name="&#9658;" />
-</MultiPagesREST:pager>
 <logic:greaterThan name="messageListForm" property="numPages" value="1">
 <a href="JavaScript:void(0);"  onmouseover="loadWLJSWithP(this, initTooltipWL)" class="tooltip html_tooltip_content_go"><span class="pageGo">Go</span></a>
 有<b><bean:write name="messageListForm" property="numPages" /></b>页
@@ -84,7 +79,7 @@ autoCompleteLogin();
 	<div class="form">
 		<input type="text" style="width: 50px;" id="pageToGo">
 		<input type="button" value=" Go "
-		 onClick="goToAnotherPageREST('/thread/<bean:write name="forumThread" property="threadId"/>',
+		 onClick="goToAnotherPageREST('<%=request.getContextPath()%>/thread/<bean:write name="forumThread" property="threadId"/>',
 		 <bean:write name="messageListForm" property="count" />);" />				
 	</div>
   </div>  

@@ -251,7 +251,7 @@ DIV.pagination .disabled {
 /*CSS tres style pagination*/
 
 DIV.tres {
-	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; FONT-WEIGHT: bold; FONT-SIZE: 12; PADDING-BOTTOM: 3px; MARGIN: 3px; PADDING-TOP: 3px; FONT-FAMILY: Arial, Helvetica, sans-serif;COLOR:olive; 
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; FONT-SIZE: 11; PADDING-BOTTOM: 3px; MARGIN: 3px; PADDING-TOP: 3px; FONT-FAMILY: Arial, Helvetica, sans-serif;COLOR:olive; 
 }
 DIV.tres A {
 	BORDER-RIGHT: #d9d300 2px solid; PADDING-RIGHT: 3px; BORDER-TOP: #d9d300 2px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 2px; MARGIN: 2px; BORDER-LEFT: #d9d300 2px solid; COLOR: #fff; PADDING-TOP: 2px; BORDER-BOTTOM: #d9d300 2px solid; BACKGROUND-COLOR: #B08C0F; TEXT-DECORATION: none

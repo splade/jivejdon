@@ -100,6 +100,36 @@ function leftRightgoPageREST(event)
 } 
 
 
+function goToAnotherPageREST(contextPath, count)
+{
+	var page = document.getElementById("pageToGo").value * 1;
+	var path;
+
+	if (!isNaN(page) && page > 0) {	 
+	    var ttt = (page-1) * count;
+	    if (ttt != 0)	    	
+		   path = contextPath + "/" + ttt;
+	    else
+	       path = contextPath ;
+		document.location = path;
+	}
+	
+} 
+
+function goToAnotherPage(contextPath, count)
+{
+	var page = document.getElementById("pageToGo").value * 1;
+
+	if (!isNaN(page) && page > 0) {
+	    var mychar = "?";
+	    if (contextPath.toLowerCase().indexOf("?") > -1)
+	      mychar = "&";
+		var path = contextPath + mychar + "count=" + count + "&start=" + ((page-1) * count) ;
+		document.location = path;
+	}
+	
+} 
+
 function viewcount(threadId)
 {            
 	var pars = 'thread='+threadId;   

@@ -4,13 +4,15 @@
 <a name="<bean:write name="forumMessage" property="messageId"/>"></a>
 <div class="post_warp">
   <div class="post_sidebar">
-	<div class="post_author">
+	<div class="post_author">	   
           <logic:notEmpty name="forumMessage" property="account">
 
           <html:link page="/profile.jsp" paramId="user" paramName="forumMessage" paramProperty="account.username">
             <span onmouseover="loadWLJSWithP(this, initUsersW)"  class='Users ajax_userId=<bean:write name="forumMessage" property="account.userId"/>' id="users" >                      
-              <b> <span  id='author_<bean:write name="forumMessage" property="messageId"/>'><bean:write name="forumMessage" property="account.username" /></span></b>                       
+              <b> <span  id='author_<bean:write name="forumMessage" property="messageId"/>'><bean:write name="forumMessage" property="account.username" /></span></b>
+                                     
           <br><br/>
+       <div class="post_authorin">          
            <logic:notEmpty name="forumMessage" property="account.uploadFile">
             <img  src="<%=request.getContextPath() %>/img/uploadShowAction.shtml?oid=<bean:write name="forumMessage" property="account.userId"/>&id=<bean:write name="forumMessage" property="account.uploadFile.id"/>"  border='0' />
            </logic:notEmpty>
@@ -19,7 +21,7 @@
           </html:link>	
           	  
            <html:link page="/query/threadViewQuery.shtml?queryType=userMessageQueryAction" paramId="user" paramName="forumMessage" paramProperty="account.userId" target="_blank">
-           <span class="smallgray"> 发表文章:
+           <span class="smallgray"> 文章:
               <logic:greaterThan name="forumMessage" property="account.messageCount" value="0">
                  <bean:write name="forumMessage" property="account.messageCount"/>
               </logic:greaterThan>
@@ -27,7 +29,7 @@
            </span>
            <%-- </html:link> --%>          
             <br>
-           <span class="smallgray"> 注册时间: <bean:write name="forumMessage" property="account.creationDate"/></span>
+           <span class="smallgray"> 注册: <bean:write name="forumMessage" property="account.creationDate"/></span>
            <br>
          <logic:notEmpty name="forumMessage" property="account.username">
          
@@ -73,7 +75,7 @@
                         
             </logic:notEmpty> 
          </logic:notEmpty>
-             
+         </div>
        </div>
      </div>
 
