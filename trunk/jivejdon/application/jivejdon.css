@@ -145,10 +145,7 @@ color:#FFFFFF
 	FONT-SIZE: 14px;
 }
 
-A.a03:link {text-decoration:none;color:#ffffff;font-size: 12px;}
-A.a03:visited {text-decoration:none;color:#ffffff;font-size: 12px;}
-A.a03:active {text-decoration:none;color:#ff0000;font-size: 12px;}
-A.a03:hover {text-decoration:none;color:#ff0000;font-size: 12px;}
+A.a03{font-family: "微软雅黑", "宋体"; text-decoration:none;color:#ffffff;font-size: 12px;}
 
 .title { font-size: 14px; font-weight: bold ; line-height: 144%; color: #009933;}
 .article { font-size: 14px; line-height: 150%; color: #212121;}
