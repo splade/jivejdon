@@ -15,7 +15,7 @@
           <tr> 
             <td width="200"  align="center" valign="middle"   bgcolor="#FFFFFF"> 
               
-               <img src="http://www.jdon.com/images/jdon.gif" width="130" height="70" />
+               <img src="http://www.jdon.com/images/jdon.png" width="120" height="60" />
                 
             </td>
             <td  valign="bottom" >

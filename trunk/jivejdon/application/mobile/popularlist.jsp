@@ -13,7 +13,7 @@
     <td bgcolor="#c3d9e7"><table width="100%" border="0" cellpadding="0" cellspacing="0">
       <tr>
         <td height="25" align="center"  bordercolor="#eeeeee">       
-        <b>J道最新内容</b> &nbsp;&nbsp;<a href="<%=request.getContextPath()%>/rss">RSS订阅</a>
+        <b>解道最新内容</b> &nbsp;&nbsp;<a href="<%=request.getContextPath()%>/rss">RSS订阅</a>
         &nbsp;&nbsp;<font color="#ffffff" ></font>        
         </td>
         
