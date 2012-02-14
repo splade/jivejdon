@@ -33,7 +33,7 @@ String coutlength = (String)pageContext.getAttribute("count");
          cellpadding="1" cellspacing="1" border="0" width="100%" style='TABLE-LAYOUT: fixed'>
             <tr>
                 <td width="100%" style='word-WRAP: break-word'>
-                <html:img page="/images/dot.gif" width="18" height="18" alt="JavaEE" border="0" align="absmiddle" /> 
+                <html:img page="/images/dot.gif" width="18" height="18"  border="0" align="absmiddle" /> 
                              
                <a href="<%=request.getContextPath()%>/mobile/thread/<bean:write name="forumThread" property="threadId"/>" 
                tabindex="<bean:write name="i"  />">

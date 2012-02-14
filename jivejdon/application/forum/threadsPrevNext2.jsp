@@ -24,7 +24,7 @@ if (iter2.hasPrevious()){
       title="<bean:write name="forumThreadPrev" property="name"/>" class="forum">
     <html:img page="/images/prev.gif" width="10" height="10" hspace="2" altKey="forumThreadPrev.name" />
      <span class="tooltip html_tooltip_content_<bean:write name="forumThreadPrev" property="threadId"/>" onmouseover="loadWLJSWithP(this, initTooltipWL)">
-     上一主题
+     <span class="smallgray">上一主题</span>
      </span>          
     </a>
     
@@ -42,20 +42,20 @@ if (iter2.hasPrevious()){
 	<td nowrap>
         &nbsp;
         <a href="<%=request.getContextPath()%>/thread/<bean:write name="forumThread" property="threadId"/>">
-                     <html:img page="/images/back_to.gif" width="12" height="12" alt="Go back to the topic " border="0"/>返回本主题
+                     <html:img page="/images/back_to.gif" width="12" height="12" alt="Go back to the topic " border="0"/><span class="smallgray">返回本主题</span>
         </a>
     </td>
     </logic:notEmpty>	
 	<td nowrap>
         &nbsp;
         <a href="<%=request.getContextPath()%>/<bean:write name="forum" property="forumId" />" title="返回主题列表">        
-                      <html:img page="/images/back_to.gif" width="12" height="12" alt="Go back to the topic listing" border="0"/>返回主题列表
+                      <html:img page="/images/back_to.gif" width="12" height="12" alt="Go back to the topic listing" border="0"/><span class="smallgray">返回主题列表</span>
         </a>
     </td>
 
     <td nowrap>&nbsp;&nbsp;</td>
 	<td><a href="#top">
-     	<html:img page="/images/up_to.gif" width="12" height="12" alt="返回页首" border="0"/>返回页首</a>
+     	<html:img page="/images/up_to.gif" width="12" height="12" alt="返回页首" border="0"/><span class="smallgray">返回页首</span></a>
     </td>
 </tr>
 </table>
@@ -74,7 +74,7 @@ if (iter2.hasNext()){
       title="<bean:write name="forumThreadNext" property="name"/>" class="forum">
     <html:img page="/images/next.gif" width="10" height="10" hspace="2" altKey="forumThreadNext.name"/>
     <span class="tooltip html_tooltip_content_<bean:write name="forumThreadNext" property="threadId"/>" onmouseover="loadWLJSWithP(this, initTooltipWL)">
-     下一主题
+     <span class="smallgray">下一主题</span>
      </span>
     </a>
   </logic:notEmpty>  
