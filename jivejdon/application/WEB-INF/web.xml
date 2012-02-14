@@ -217,11 +217,11 @@
 			</servlet-class>
 			<init-param>
 				<param-name>title</param-name>
-				<param-value> J道jdon.com </param-value>
+				<param-value> 解道jdon.com </param-value>
 			</init-param>
 			<init-param>
 				<param-name>description</param-name>
-				<param-value> 高手云集，真知灼见 手机WAP浏览:http://wap.feedsky.com/jdon </param-value>
+				<param-value> 高手云集，真知灼见 手机WAP浏览:http://www.jdon.com/m/ </param-value>
 			</init-param>
 		</servlet>	
 		
