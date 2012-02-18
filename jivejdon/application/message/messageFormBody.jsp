@@ -133,7 +133,7 @@ function openUploadWindowStart(url){
 
 </table>
 
-<table cellpadding="4" cellspacing="0" border="0" width="971" >
+<table cellpadding="4" cellspacing="0" border="0" width="971"  align="center">
 <logic:equal name="reply" value="false">
 <tr>
 	<td  width="50" align="right">标签</td>
