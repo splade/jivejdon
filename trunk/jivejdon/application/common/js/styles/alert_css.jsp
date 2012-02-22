@@ -116,7 +116,7 @@ response.setContentType("text/css");
 	text-align:center;
 	width:100%;
 	height:16px;
-	background: #FFF url('alert/progress.gif') no-repeat center center
+	background: #FFF url('<%=request.getContextPath()%>/common/js/styles/alert/progress.gif') no-repeat center center
 }
 
 
