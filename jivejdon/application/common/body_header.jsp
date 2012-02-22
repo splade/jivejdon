@@ -43,7 +43,7 @@
    &nbsp;&nbsp;<html:link page="/jasslogin?logout">退出 </html:link>   
 </logic:present>       
 
-&nbsp;&nbsp;<a href="javascript:void(0);"  onclick="window.location.reload()">刷新</a>
+&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/forum/post.jsp"  >发帖</a>
 
 <a href="http://feed.feedsky.com/jdon" target="_blank"><html:img page="/images/feed-icon-12x12-orange.gif" width="12" height="12" alt="RSS" border="0" align="absmiddle"/></a>
 

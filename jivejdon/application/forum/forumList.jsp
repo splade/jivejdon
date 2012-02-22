@@ -7,11 +7,6 @@
 <bean:define id="title"  value="软件分析建模与架构设计社区" />
 <%@ include file="../common/IncludeTop.jsp" %>
 
-<center>
-<jsp:include page="../common/advert.jsp" flush="true">   
-   <jsp:param name="fmt" value="728x90"/>   
-</jsp:include>
-</center>
 
 <table cellpadding="3" cellspacing="3" border="0" width="971" align="center">
 <tr>
@@ -105,47 +100,36 @@ function loadAcJS(thisId){
     </table>
 </td></tr></table>
 
-
-    
-
-    <center>
-    	<div id=vlinkgad2 ></div>
-    	
-    </center>
+   
     </td>
     <td width="1%"><html:img page="/images/blank.gif" width="10" height="1" border="0" alt=""/></td>
-    <html:form action="/query/searchAction.shtml"  method="post" styleClass="search">
+    
     <td width="1%" valign="top">   
      <table cellpadding="0" cellspacing="0" border="0" width="200">
      <tr><td valign="bottom">
+     <html:form action="/query/searchAction.shtml"  method="post" >
         <input type="text"  name="query" size="20" id="queryId" onfocus="loadAcJS(this.id,'<%=request.getContextPath()%>')"/>
          <input type="image"  align="absmiddle" height="16" width="16" name="..." src="<%=request.getContextPath() %>/images/search.gif" onClick="document.messageListForm.submit()"/>
+     </html:form> 
       <br/>
-      <center>
-       <div id="hotkeys"></div>
-      </center>
-         
-      </td></tr></table>
-    
-    <div id="hotlist"></div>
-           
+      </td></tr></table>    
+      <div id="hotlist"></div>    
     </td>
 </tr></table>
 
-</html:form>
+
+
+<center>
+<jsp:include page="../common/advert.jsp" flush="true">   
+   <jsp:param name="fmt" value="728x90"/>   
+</jsp:include>
+</center>
 
 <script type="text/javascript">
-<!--
-  function hotkeys(){
-        new Ajax.Updater('hotkeys', '<%=request.getContextPath()%>/query/hotKeys.shtml?method=hotkeys', { method: 'get' });
-   }
-   
-  hotkeys();
-  
+<!--  
   function popList(){
         new Ajax.Updater('hotlist', '<%=request.getContextPath()%>/query/popularlist.shtml?count=8&length=8&tablewidth=190', { method: 'get' });
-   }
-   
+   }   
   popList();
 
    
