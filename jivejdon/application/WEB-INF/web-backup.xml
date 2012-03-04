@@ -31,7 +31,7 @@
 			<filter-class>com.jdon.jivejdon.presentation.filter.SpamFilter2</filter-class>
 			<init-param>
 				<param-name>referrer.domain.namePattern</param-name>
-				<param-value>.*(jdon.com|bqlr.com|localhost|127.0.0.1).*</param-value>
+				<param-value>.*(127.0.0.1).*</param-value>
 			</init-param>	
 	
 			<init-param>
@@ -45,7 +45,7 @@
 			<filter-class>com.jdon.jivejdon.presentation.filter.SpamFilter</filter-class>	
 			<init-param>
 				<param-name>referrer.domain.namePattern</param-name>
-				<param-value>.*(jdon.com|bqlr.com|localhost|127.0.0.1).*</param-value>
+				<param-value>.*(127.0.0.1).*</param-value>
 			</init-param>			
 		</filter>
 		
@@ -110,7 +110,23 @@
 			<filter-name>SpamFilter</filter-name>
 			<url-pattern>/rss</url-pattern>
 		</filter-mapping>
-		
+		<filter-mapping>
+			<filter-name>SpamFilter</filter-name>
+			<url-pattern>/forum/*</url-pattern>
+		</filter-mapping>
+		<filter-mapping>
+			<filter-name>SpamFilter</filter-name>
+			<url-pattern>/thread/*</url-pattern>
+		</filter-mapping>	
+		<filter-mapping>
+			<filter-name>SpamFilter</filter-name>
+			<url-pattern>/mobile/*</url-pattern>
+		</filter-mapping>
+		<filter-mapping>
+			<filter-name>SpamFilter</filter-name>
+			<url-pattern>/blog/*</url-pattern>
+		</filter-mapping>	
+			
 		<filter-mapping>
 			<filter-name>SpamFilter2</filter-name>
 			<url-pattern>/blog/*</url-pattern>
@@ -201,11 +217,11 @@
 			</servlet-class>
 			<init-param>
 				<param-name>title</param-name>
-				<param-value> J道jdon.com </param-value>
+				<param-value> 解道jdon.com </param-value>
 			</init-param>
 			<init-param>
 				<param-name>description</param-name>
-				<param-value> 高手云集，真知灼见 手机WAP浏览:http://wap.feedsky.com/jdon </param-value>
+				<param-value> 高手云集，真知灼见 手机WAP浏览:http://www.jdon.com/m/ </param-value>
 			</init-param>
 		</servlet>	
 		
@@ -234,6 +250,7 @@
 		<session-config>
 			<session-timeout>10</session-timeout>
 		</session-config>
+		<!-- 
 		<error-page>
 			<error-code>404</error-code>
 			<location>/404.jsp</location>
@@ -241,7 +258,8 @@
 		<error-page>
 			<error-code>408</error-code>
 			<location>/404.jsp</location>
-		</error-page>		
+		</error-page>
+		 -->		
 		<error-page>
 			<error-code>503</error-code>
 			<location>/503.jsp</location>
