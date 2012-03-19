@@ -12,11 +12,11 @@
 <link href="<html:rewrite page="/forum/css/mList_css.jsp"/>" rel="stylesheet" type="text/css" />
 <script>
  if(top !== self) top.location = self.location;
- window.google_analytics_uacct = "UA-257352-2";
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-257352-2']);
-  _gaq.push(['_trackPageview']);
-
+ 
+ var _gaq = _gaq || [];
+ _gaq.push(['_setAccount', 'UA-30103562-1']);
+ _gaq.push(['_trackPageview']);
+ 
 </script>
 
 <%@ include file="../common/security.jsp" %>

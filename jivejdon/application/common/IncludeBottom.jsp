@@ -12,12 +12,6 @@
 
 <a href="<%=request.getContextPath()%>/common/503warn.jsp" rel="nofollow"><font color="#FFFFFF">anti spam</font></a>
 
-<%--
-<center>
-<jsp:include page="../common/advert.jsp" flush="true">   
-       <jsp:param name="fmt" value="footer"/>   
-</jsp:include></center>
- --%>
  
 </body>
 </html>

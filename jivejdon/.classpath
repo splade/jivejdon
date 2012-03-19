@@ -3,8 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="doc/tomcat/jaas.jar"/>
 	<classpathentry kind="lib" path="lib/expires/xebia-servlet-extras-1.0.4.jar"/>
-	<classpathentry kind="lib" path="lib/javamail/activation.jar"/>
-	<classpathentry kind="lib" path="lib/javamail/mail.jar"/>
 	<classpathentry kind="lib" path="lib/jdontree/treepattern.jar"/>
 	<classpathentry kind="lib" path="lib/jf/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/jf/cglib.jar"/>
@@ -60,5 +58,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/mysql/mysql-connector-java-5.1.18-bin.jar"/>
 	<classpathentry kind="lib" path="lib/jf/disruptor-2.8.jar"/>
+	<classpathentry kind="lib" path="lib/javamail/email.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
