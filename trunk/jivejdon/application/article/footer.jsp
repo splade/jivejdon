@@ -92,11 +92,7 @@ SRC="<%=request.getContextPath()%>/hot/180_190_15_200.html"></iframe>
               </td>
             </tr>
             <tr><td valign="bottom">
-            
-<jsp:include page="../common/advert.jsp" flush="true">   
-     <jsp:param name="fmt" value="160x600"/>   
- </jsp:include>              
-
+   
             	</td></tr>
           </table>            
           </td>
@@ -150,21 +146,9 @@ SRC="<%=request.getContextPath()%>/hot/180_190_15_200.html"></iframe>
       href="http://www.jdon.com/jdonframework/index.htm"  >Powered by JdonFramework </A></SPAN></TD>
 </TR>
   </TBODY></TABLE>
-  
-<jsp:include page="../common/advert.jsp" flush="true">   
-     <jsp:param name="fmt" value="bottom"/>   
- </jsp:include>
-     
- <jsp:include page="../common/advert.jsp" flush="true">   
-       <jsp:param name="fmt" value="728x90x2_loader"/>   
-</jsp:include> 
+ 
  
 
-<center>
-<jsp:include page="../common/advert.jsp" flush="true">   
-       <jsp:param name="fmt" value="footer"/>   
-</jsp:include>  
-</center>
 
 </body>
 </html>

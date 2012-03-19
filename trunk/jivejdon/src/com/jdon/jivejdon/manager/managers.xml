@@ -117,7 +117,7 @@
 			<constructor value="您好：您索要的jdon.com网站登陆用户和密码如下：" />
 			<constructor value="Jdon.com --- 专业的软件架构之道" />
 			<constructor value="Jdon.com" />
-			<constructor value="banQjdon@gmail.com" />
+			<constructor value="" />
 		</component>
 		<!-- forget password send mail by JavaMail end   -->
 
@@ -132,7 +132,7 @@
 			<constructor
 				value="http://www.jdon.com/jivejdon/account/emailValidate.shtml?method=emailValidate" />
 			<constructor value="jdon.com" />
-			<constructor value="banQjdon@gmail.com" />
+			<constructor value="" />
 		</component>
 		
 		
@@ -142,7 +142,7 @@
 			<!--  tomcat context.xml  config javaMail -->			
 			<constructor value="java:comp/env/mail/Session" />			
 			<constructor value="admin" />
-			<constructor value="banq@163.com" />
+			<constructor value="banq@sina.com" />
 		</component>
 		
 		
@@ -150,7 +150,7 @@
 			class="com.jdon.jivejdon.manager.email.SubscriptionEmailParams">
 			<!--  tomcat context.xml  config javaMail -->			
 			<constructor value="java:comp/env/mail/Session" />			
-			<constructor value="banQjdon@gmail.com" />
+			<constructor value="" />
 		</component>
 
 		<component name="tagNotifyMessage"
@@ -162,7 +162,7 @@
 
 		<component name="threadNotifyMessage"
 			class="com.jdon.jivejdon.model.subscription.messsage.ThreadNotifyMessage">
-			<constructor value="您关注的主题贴有新回复  " />
+			<constructor value=" 您关注的主题贴有新回复  " />
 			<constructor value="http://www.jdon.com/jivejdon/thread/nav/threadId/messageId#messageId" />
 			<constructor value="admin" />
 		</component>

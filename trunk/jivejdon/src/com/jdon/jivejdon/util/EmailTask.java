@@ -6,11 +6,17 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Address;
+import javax.mail.Authenticator;
+import javax.mail.BodyPart;
 import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.naming.InitialContext;
 
 import com.jdon.jivejdon.manager.email.EmailHelper;
@@ -56,7 +62,7 @@ public class EmailTask implements Runnable {
 	 * Reads mail properties creates a JavaMail session that will be used to
 	 * send all mail.
 	 */
-	public EmailTask(String host, String port, String debug) {
+	public EmailTask(String host, String port, String debug, String user, String password) {
 		this();
 		Properties mailProps = new Properties();
 		if (host != null) {
@@ -74,8 +80,10 @@ public class EmailTask implements Runnable {
 		if ("true".equals(debug)) {
 			mailProps.setProperty("mail.debug", "true");
 		}
+		mailProps.put("mail.smtp.auth", "true");
 		// Create the mail session
-		session = Session.getDefaultInstance(mailProps, null);
+		Authenticator auth = new SMTPAuthenticator(user, password);
+		session = Session.getDefaultInstance(mailProps, auth);
 	}
 
 	/**
@@ -105,7 +113,6 @@ public class EmailTask implements Runnable {
 			e.printStackTrace();
 		} finally {
 			this.messages.clear();
-			this.session = null;
 		}
 	}
 
@@ -162,7 +169,8 @@ public class EmailTask implements Runnable {
 						to = new InternetAddress(toEmail);
 					}
 				}
-				if (fromEmail != null) {
+				// formEmail configured in context.xml
+				if (fromEmail != null && fromEmail.length() != 0) {
 					if (fromName != null) {
 						from = new InternetAddress(fromEmail, fromName);
 					} else {
@@ -172,14 +180,13 @@ public class EmailTask implements Runnable {
 				message.setRecipient(Message.RecipientType.TO, to);
 				message.setFrom(from);
 				message.setSubject(subject);
-				message.setText(body, "UTF-8");
-				// more details: http://www.vipan.com/htdocs/javamail.html
-				message.setHeader("Content-Type", format + "; charset=utf-8");
-				/**
-				 * msg.setDataHandler(new DataHandler( new
-				 * ByteArrayDataSource(mail.getContent(), "text/html")));
-				 * msg.setHeader("X-Mailer", "JavaMailer");
-				 */
+
+				Multipart mp = new MimeMultipart();
+				BodyPart bp = new MimeBodyPart();
+				bp.setHeader("Content-Type", "text/html;charset=utf-8");
+				bp.setContent(body, "text/html;charset=utf-8");
+				mp.addBodyPart(bp);
+				message.setContent(mp);
 				addMessage(message);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -201,16 +208,27 @@ public class EmailTask implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		if (args == null || args.length == 0) {
-			System.err.print("EmailTask JNDI toEmail fromEmail subject body");
-			return;
-		}
-		EmailTask emailTask = new EmailTask(args[0]);
-		emailTask.addMessage(args[1], args[1], args[2], args[2], args[3], args[4], EmailTask.HTML_FORMAT);
+		EmailTask emailTask = new EmailTask("smtp.sina.com", "25", "true", "jdonmon@sina.com", "xxx");
+
+		emailTask.addMessage("banq", "banq@163.com", "admin", "jdonmon@sina.com", "水水水 ", "pp【4楼 水水水】:ss... www.sina.com", EmailTask.HTML_FORMAT);
 
 		Thread thread = new Thread(emailTask);
 		thread.start();
 
+	}
+
+	private class SMTPAuthenticator extends Authenticator {
+		private String SMTP_AUTH_USER;
+		private String SMTP_AUTH_PWD;
+
+		private SMTPAuthenticator(String SMTP_AUTH_USER, String SMTP_AUTH_PWD) {
+			this.SMTP_AUTH_USER = SMTP_AUTH_USER;
+			this.SMTP_AUTH_PWD = SMTP_AUTH_PWD;
+		}
+
+		public PasswordAuthentication getPasswordAuthentication() {
+			return new PasswordAuthentication(SMTP_AUTH_USER, SMTP_AUTH_PWD);
+		}
 	}
 
 }

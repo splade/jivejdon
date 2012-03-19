@@ -1,5 +1,6 @@
+<!-- 
 <Context path="" debug="5" reloadable="true" crossContext="true">
-<!-- if there is no context.xml in tomcat/conf, use this 
+if there is no context.xml in tomcat/conf, use this 
 http://stackoverflow.com/questions/520585/connection-pooling-options-with-jdbc-dbcp-vs-c3p0
 http://people.apache.org/~fhanik/jdbc-pool/jdbc-pool.html
 
@@ -31,18 +32,18 @@ http://people.apache.org/~fhanik/jdbc-pool/jdbc-pool.html
               testWhileIdle="true"
               url="jdbc:mysql://127.0.0.1/security?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;failOverReadOnly=false" />     
               
-   <!--  if use this configure, need modify build.xml , copy lib/javamail/*.jar to WEB-INF/lib -->              
-	<Resource name="mail/Session" auth="Container"
+   <!--  if use this configure, need modify build.xml , copy lib/javamail/*.jar to WEB-INF/lib 
+   <!-- this email be equals to managers.xml  
+          
+ 	<Resource name="mail/Session" auth="Container"
 		type="javax.mail.Session"
-	  mail.smtp.host="smtp.gmail.com"
-    mail.smtp.port="587"
-    mail.smtp.auth="true"
-    mail.smtp.user="banqjdon@gmail.com"
-    mail.smtp.password="xxx"     
-		mail.smtp.starttls.enable="true"
-    mail.smtp.socketFactory.class="javax.net.ssl.SSLSocketFactory"    
-    mail.smtp.socketFactory.port="465"
-    password="xxx" 
-    />               
- -->
+		factory="org.apache.naming.factory.MailSessionFactory"
+		mail.smtp.auth="true"
+		mail.smtp.host="smtp.sina.com"
+		mail.smtp.user="xxx@sina.com"
+		mail.debug="true"
+		password="xxxxxx"/>
+	
+
 </Context>
+ -->

@@ -59,18 +59,14 @@ http://127.0.0.1:8080/jivejdon/article/articleList.shtml?thread=106
   <!-- advert -->
          <table width="1%" border="0" cellpadding="0" cellspacing="5" align="right"> <tr> <td>
          <div style="margin-top:0px;margin-left:5px;" id="vgad300x250">
-                <jsp:include page="../common/advert.jsp" flush="true">   
-                  <jsp:param name="fmt" value="336x280"/>   
-                </jsp:include>  
+               
            </div>
           </td></tr>
             </table>
           <a name="<bean:write name="forumThread" property="threadId"/>"></a>                    
           <p class="article"><bean:write name="forumMessage" property="messageVO.body" filter="false"/></p>    
                 
-          <jsp:include page="../common/advert.jsp" flush="true">   
-                  <jsp:param name="fmt" value="728x90x2"/>   
-          </jsp:include>                  
+                   
 </td></tr></table>
 </logic:iterate>
 
@@ -168,11 +164,7 @@ http://127.0.0.1:8080/jivejdon/article/articleList.shtml?thread=106
  cellpadding="3" cellspacing="0" border="0" width="100%" align="center">
 <tr><td>
  
- <%-- 
-<jsp:include page="../common/advert.jsp" flush="true">   
-  <jsp:param name="fmt" value="article_end"/>   
-</jsp:include>  
- --%>
+
     <td><td >
     </td>
 </tr>

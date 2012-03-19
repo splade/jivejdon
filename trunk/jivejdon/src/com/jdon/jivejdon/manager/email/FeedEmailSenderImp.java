@@ -40,10 +40,9 @@ public class FeedEmailSenderImp implements FeedEmailSender {
 		String toEmail = feedbackEmailParams.getToEmail();
 		String toName = feedbackEmailParams.getToName();
 		String fromName = feed.getEmail();
-		String fromEmail = feed.getEmail();
 
 		EmailTask emailTask = new EmailTask(feedbackEmailParams.getJndiname());
-		emailTask.addMessage(toName, toEmail, fromName, fromEmail, subject, body, EmailTask.NOHTML_FORMAT);
+		emailTask.addMessage(toName, toEmail, fromName, "", subject, body + " from:" + feed.getEmail(), EmailTask.NOHTML_FORMAT);
 		emailHelper.sendComposer(emailTask);
 
 	}
