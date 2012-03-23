@@ -54,6 +54,9 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
 
             &nbsp;
         </td>
+        <td align="center">
+            <bean:write name="forumThread" property="rootMessage.creationDate" /> 
+        </td>
         <td nowrap="nowrap">
            <logic:notEmpty name="forumThread" property="state.lastPost">
             <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>

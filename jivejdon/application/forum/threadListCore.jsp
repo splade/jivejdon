@@ -18,6 +18,7 @@
         <td width="5%"  align="center" nowrap><b><font color="#ffffff">&nbsp; 阅读 &nbsp;</font></b></td>
         <td width="5%"  align="center" nowrap><b><font color="#ffffff">&nbsp; 回复 &nbsp;</font></b></td>
         <td width="5%" align="center" nowrap><b><font color="#ffffff">&nbsp; 作者 &nbsp;</font></b></td>
+        <td width="5%" align="center" nowrap><b><font color="#ffffff">&nbsp; 发布时间 &nbsp;</font></b></td>
         <td width="5%" align="center" nowrap>
      
         <logic:present name="ASC">
@@ -105,6 +106,9 @@
              </logic:notEmpty>
 
             &nbsp;
+        </td>
+        <td align="center">
+            <bean:write name="forumThread" property="rootMessage.creationDate" /> 
         </td>
         <td nowrap="nowrap">
            <logic:notEmpty name="forumThread" property="state.lastPost">
