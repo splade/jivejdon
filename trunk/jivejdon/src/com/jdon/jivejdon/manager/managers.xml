@@ -7,7 +7,8 @@
 <app>
 	<services>
 		<component name="constants" class="com.jdon.jivejdon.Constants">
-			<constructor value="yyyy年MM月dd日 HH:mm" />    	<!--displaye date format -->
+			<constructor value="yyyy-MM-dd HH:mm" />    	<!--displaye date format -->
+			<constructor value="ZH" />    	<!--displaye date format -->
 		</component>
 
 

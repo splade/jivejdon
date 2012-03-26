@@ -107,7 +107,7 @@
 
             &nbsp;
         </td>
-        <td align="center">
+        <td align="center" nowrap="nowrap">
             <bean:write name="forumThread" property="rootMessage.creationDate" /> 
         </td>
         <td nowrap="nowrap">
@@ -115,9 +115,8 @@
             
             <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>
             <span onmouseover="loadWLJSWithP(this, initLastPost)" class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >
-            <bean:write name="lastPost" property="modifiedDate" />
-            </span>            
-            <br> by:
+            <bean:write name="lastPost" property="modifiedDate3" />
+                                    
             <logic:equal name="lastPost" property="root" value="true">
                    <a href='<%=request.getContextPath()%>/thread/<bean:write name="lastPost" property="forumThread.threadId" />' target="_blank" >                    
             </logic:equal>
@@ -126,7 +125,7 @@
             </logic:equal>
                     <span class='Users ajax_userId=<bean:write name="lastPost" property="account.userId"/>' >
                     <bean:write name="lastPost" property="account.username" /></span></a>
-                               
+                      回复 </span>
         </logic:notEmpty>
         <%-- 
            <span id="<bean:write name="forumThread" property="threadId" />"></span>

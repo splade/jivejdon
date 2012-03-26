@@ -61,9 +61,8 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
            <logic:notEmpty name="forumThread" property="state.lastPost">
             <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>
             <span  class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >
-            <bean:write name="lastPost" property="modifiedDate" />
-            </span>
-            <br> by:
+            <bean:write name="lastPost" property="modifiedDate3" />
+            </span>       
             <logic:equal name="lastPost" property="root" value="true">
                    <a href='<%=request.getContextPath()%>/thread/<bean:write name="lastPost" property="forumThread.threadId" />' target="_blank" >                    
             </logic:equal>
@@ -72,6 +71,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
             </logic:equal>
                     <span class='Users ajax_userId=<bean:write name="lastPost" property="account.userId"/>' >
                     <bean:write name="lastPost" property="account.username" /></span></a>
+                    回复
         </logic:notEmpty>
   
            
@@ -139,13 +139,16 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
 
             &nbsp;
         </td>
+        <td align="center">
+            <bean:write name="forumThread" property="rootMessage.creationDate" /> 
+        </td>
+        
         <td nowrap="nowrap">
            <logic:notEmpty name="forumThread" property="state.lastPost">
             <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>
             <span  class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >
-            <bean:write name="lastPost" property="modifiedDate" />
+            <bean:write name="lastPost" property="modifiedDate3" />
             </span>
-            <br> by:
             <logic:equal name="lastPost" property="root" value="true">
                    <a href='<%=request.getContextPath()%>/thread/<bean:write name="lastPost" property="forumThread.threadId" />' target="_blank" >                    
             </logic:equal>
@@ -154,6 +157,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
             </logic:equal>
                     <span class='Users ajax_userId=<bean:write name="lastPost" property="account.userId"/>' >
                     <bean:write name="lastPost" property="account.username" /></span></a>
+             回复                    
         </logic:notEmpty>
  
         </td>
@@ -213,13 +217,15 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
 
             &nbsp;
         </td>
+        <td align="center">
+            <bean:write name="forumThread" property="rootMessage.creationDate" /> 
+        </td>
         <td nowrap="nowrap">
            <logic:notEmpty name="forumThread" property="state.lastPost">
             <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>
             <span  class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >
-            <bean:write name="lastPost" property="modifiedDate" />
-            </span>
-            <br> by:
+            <bean:write name="lastPost" property="modifiedDate3" />
+            </span>            
             <logic:equal name="lastPost" property="root" value="true">
                    <a href='<%=request.getContextPath()%>/thread/<bean:write name="lastPost" property="forumThread.threadId" />' target="_blank" >                    
             </logic:equal>
@@ -228,6 +234,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
             </logic:equal>
                     <span class='Users ajax_userId=<bean:write name="lastPost" property="account.userId"/>' >
                     <bean:write name="lastPost" property="account.username" /></span></a>
+              回复
         </logic:notEmpty>
     
            
@@ -289,13 +296,15 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
 
             &nbsp;
         </td>
+       <td align="center">
+            <bean:write name="forumThread" property="rootMessage.creationDate" /> 
+        </td>        
         <td nowrap="nowrap">
            <logic:notEmpty name="forumThread" property="state.lastPost">
             <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>
             <span  class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >
-            <bean:write name="lastPost" property="modifiedDate" />
-            </span>
-            <br> by:
+            <bean:write name="lastPost" property="modifiedDate3" />
+            </span>            
             <logic:equal name="lastPost" property="root" value="true">
                    <a href='<%=request.getContextPath()%>/thread/<bean:write name="lastPost" property="forumThread.threadId" />' target="_blank" >                    
             </logic:equal>
@@ -304,6 +313,7 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
             </logic:equal>
                     <span class='Users ajax_userId=<bean:write name="lastPost" property="account.userId"/>' >
                     <bean:write name="lastPost" property="account.username" /></span></a>
+                    回复
         </logic:notEmpty>
   
            
