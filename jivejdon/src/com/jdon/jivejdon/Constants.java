@@ -18,6 +18,9 @@ package com.jdon.jivejdon;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+
+import com.ocpsoft.pretty.time.PrettyTime;
 
 /**
  * @author <a href="mailto:banq@163.com">banq</a>
@@ -61,8 +64,11 @@ public class Constants {
 
 	private static String date_format = "yyyy-MM-dd HH:mm";
 
-	public Constants(String format) {
-		date_format = format;
+	private static PrettyTime t = new PrettyTime();
+
+	public Constants(String format, String mylocale) {
+		Constants.date_format = format;
+		Constants.t = new PrettyTime(new Locale(mylocale));
 	}
 
 	public String getDateTimeDisp(String datetime) {
@@ -85,6 +91,14 @@ public class Constants {
 		} catch (ParseException e) {
 		}
 		return new Date();
+	}
+
+	public static String convertDataToPretty(String dateTime) {
+
+		Date messageCreateDate = Constants.parseDateTime(dateTime);
+		t.setReference(new Date());
+		return t.format(messageCreateDate);
+
 	}
 
 	public Date date_parse(String dateS) {

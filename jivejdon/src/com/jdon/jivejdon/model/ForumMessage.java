@@ -317,6 +317,10 @@ public class ForumMessage extends ForumModel implements Cloneable {
 		return creationDate;
 	}
 
+	public String getCreationDateForDay() {
+		return creationDate.substring(0, 12);
+	}
+
 	/**
 	 * @param creationDate
 	 *            The creationDate to set.
@@ -345,6 +349,10 @@ public class ForumMessage extends ForumModel implements Cloneable {
 	 */
 	public String getModifiedDate() {
 		return modifiedDate;
+	}
+
+	public String getModifiedDate3() {
+		return Constants.convertDataToPretty(modifiedDate);
 	}
 
 	public long getModifiedDate2() {
