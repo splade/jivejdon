@@ -6,15 +6,15 @@ import com.jdon.util.UtilValidate;
 public class ThreadListSpec {
 
 	protected String sorttableName;
-	
+
 	protected ResultSort resultSort;
-	
-	public ThreadListSpec(){
-		sorttableName = "modifiedDate";
+
+	public ThreadListSpec() {
+		sorttableName = "creationDate";
 	}
-	
-	public String getResultSortSQL(){
-	    return getResultSortSQL("");
+
+	public String getResultSortSQL() {
+		return getResultSortSQL("");
 	}
 
 	public String getResultSortSQL(String sortName) {
@@ -50,8 +50,5 @@ public class ThreadListSpec {
 	public void setSorttableName(String sorttableName) {
 		this.sorttableName = sorttableName;
 	}
-	
-	
-	
 
 }

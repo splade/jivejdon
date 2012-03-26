@@ -15,25 +15,25 @@
         <td width="80%"  align="center" nowrap>
           <b><font color="#ffffff">&nbsp; 主题名</font></b>
         </td>
-        <td width="5%"  align="center" nowrap><b><font color="#ffffff">&nbsp; 阅读 &nbsp;</font></b></td>
-        <td width="5%"  align="center" nowrap><b><font color="#ffffff">&nbsp; 回复 &nbsp;</font></b></td>
         <td width="5%" align="center" nowrap><b><font color="#ffffff">&nbsp; 作者 &nbsp;</font></b></td>
-        <td width="5%" align="center" nowrap><b><font color="#ffffff">&nbsp; 发布时间 &nbsp;</font></b></td>
         <td width="5%" align="center" nowrap>
-     
         <logic:present name="ASC">
-           <a href="<%=request.getContextPath()%>/<bean:write name="forum" property="forumId" />">
-           <b><font color="#ffffff">最近更新</font></b>   
+           <a href="<%=request.getContextPath()%>/<bean:write name="forum" property="forumId" />">      
+           <b><font color="#ffffff">&nbsp; 发布时间 &nbsp;</font></b>
            <html:img page="/images/desc_order.png" border="0" width="11" height="11" alt="最新在前排列" title="最新在前排列"/>
-           </a>   
+           </a>
         </logic:present>
-        <logic:notPresent name="ASC">
-           <html:link page="/forum.jsp?ASC" paramId="forum" paramName="forum" paramProperty="forumId"
-           ><b><font color="#ffffff">最近更新</font></b>
+         <logic:notPresent name="ASC">
+           <html:link page="/forum.jsp?ASC" paramId="forum" paramName="forum" paramProperty="forumId">
+           <b><font color="#ffffff">&nbsp; 发布时间 &nbsp;</font></b>
            <html:img page="/images/asc_order.png" border="0" width="11" height="11" alt="最早在前排列" title="最早在前排列"/>
            </html:link>        
         </logic:notPresent>
-         </td>          
+        
+        </td>
+        <td width="5%"  align="center" nowrap><b><font color="#ffffff">&nbsp; 阅读 &nbsp;</font></b></td>
+        <td width="5%"  align="center" nowrap><b><font color="#ffffff">&nbsp; 回复 &nbsp;</font></b></td>        
+        <td width="5%" align="center" nowrap><b><font color="#ffffff">最近更新</font></b></td>          
     </tr>
 
 
@@ -85,12 +85,6 @@
              </div>
             
         </td>
-        <td align="center">
-            <bean:write name="forumThread" property="viewCount" />            
-        </td>
-        <td align="center">
-            <bean:write name="forumThread" property="state.messageCount" />            
-        </td>
         <td nowrap="nowrap">
             &nbsp;
             <bean:define id="rootMessage" name="forumThread" property="rootMessage"></bean:define>
@@ -110,23 +104,24 @@
         <td align="center" nowrap="nowrap">
             <bean:write name="forumThread" property="rootMessage.creationDate" /> 
         </td>
-        <td nowrap="nowrap">
-           <logic:notEmpty name="forumThread" property="state.lastPost">
-            
-            <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>
-            <span onmouseover="loadWLJSWithP(this, initLastPost)" class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >
-            <bean:write name="lastPost" property="modifiedDate3" />
-                                    
-            <logic:equal name="lastPost" property="root" value="true">
-                   <a href='<%=request.getContextPath()%>/thread/<bean:write name="lastPost" property="forumThread.threadId" />' target="_blank" >                    
-            </logic:equal>
-            <logic:equal name="lastPost" property="root" value="false">
-                   <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="lastPost" property="forumThread.threadId" />/<bean:write name="lastPost" property="messageId" />#<bean:write name="lastPost" property="messageId" />'  rel="nofollow"> 
-            </logic:equal>
-                    <span class='Users ajax_userId=<bean:write name="lastPost" property="account.userId"/>' >
-                    <bean:write name="lastPost" property="account.username" /></span></a>
-                      回复 </span>
-        </logic:notEmpty>
+        <td align="center">
+            <bean:write name="forumThread" property="viewCount" />            
+        </td>
+        <td align="center">
+            <bean:write name="forumThread" property="state.messageCount" />            
+        </td>        
+        <td nowrap="nowrap">                  
+          <logic:greaterThan name="forumThread" property="state.messageCount" value="0">
+           <logic:notEmpty name="forumThread" property="state.lastPost">                        
+            <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>                        
+              <span onmouseover="loadWLJSWithP(this, initLastPost)" class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >            
+                <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="lastPost" property="forumThread.threadId" />/<bean:write name="lastPost" property="messageId" />#<bean:write name="lastPost" property="messageId" />'  rel="nofollow">
+                    <bean:write name="lastPost" property="modifiedDate3" />                 
+                    <bean:write name="lastPost" property="account.username" />
+                                   更新 
+                </a></span>          
+          </logic:notEmpty>
+         </logic:greaterThan>                   
         <%-- 
            <span id="<bean:write name="forumThread" property="threadId" />"></span>
             <script>lastPost('<bean:write name="forumThread" property="threadId" />', '<bean:write name="forumThread" property="state.lastPost.messageId" />')</script>

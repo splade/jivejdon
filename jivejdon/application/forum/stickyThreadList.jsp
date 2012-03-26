@@ -34,12 +34,6 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
               
 
         </td>
-        <td align="center">
-            <bean:write name="forumThread" property="viewCount" />            
-        </td>
-        <td align="center">
-            <bean:write name="forumThread" property="state.messageCount" />            
-        </td>
         <td nowrap="nowrap">
             &nbsp;
             <bean:define id="rootMessage" name="forumThread" property="rootMessage"></bean:define>
@@ -57,22 +51,22 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
         <td align="center">
             <bean:write name="forumThread" property="rootMessage.creationDate" /> 
         </td>
+        <td align="center">
+            <bean:write name="forumThread" property="viewCount" />            
+        </td>
+        <td align="center">
+            <bean:write name="forumThread" property="state.messageCount" />            
+        </td>        
         <td nowrap="nowrap">
-           <logic:notEmpty name="forumThread" property="state.lastPost">
+           <logic:notEmpty name="forumThread" property="state.lastPost">                        
             <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>
-            <span  class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >
-            <bean:write name="lastPost" property="modifiedDate3" />
-            </span>       
-            <logic:equal name="lastPost" property="root" value="true">
-                   <a href='<%=request.getContextPath()%>/thread/<bean:write name="lastPost" property="forumThread.threadId" />' target="_blank" >                    
-            </logic:equal>
-            <logic:equal name="lastPost" property="root" value="false">
-                   <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="lastPost" property="forumThread.threadId" />/<bean:write name="lastPost" property="messageId" />#<bean:write name="lastPost" property="messageId" />' target="_blank"  rel="nofollow"> 
-            </logic:equal>
-                    <span class='Users ajax_userId=<bean:write name="lastPost" property="account.userId"/>' >
-                    <bean:write name="lastPost" property="account.username" /></span></a>
-                    回复
-        </logic:notEmpty>
+              <span onmouseover="loadWLJSWithP(this, initLastPost)" class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >            
+                <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="lastPost" property="forumThread.threadId" />/<bean:write name="lastPost" property="messageId" />#<bean:write name="lastPost" property="messageId" />'  rel="nofollow">
+                    <bean:write name="lastPost" property="modifiedDate3" />                 
+                    <bean:write name="lastPost" property="account.username" />
+                                   更新 
+                </a></span>
+          </logic:notEmpty>
   
            
         </td>
@@ -119,12 +113,6 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
              </div>
 
         </td>
-        <td align="center">
-            <bean:write name="forumThread" property="viewCount" />            
-        </td>
-        <td align="center">
-            <bean:write name="forumThread" property="state.messageCount" />            
-        </td>
         <td nowrap="nowrap">
             &nbsp;
             <bean:define id="rootMessage" name="forumThread" property="rootMessage"></bean:define>
@@ -142,23 +130,23 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
         <td align="center">
             <bean:write name="forumThread" property="rootMessage.creationDate" /> 
         </td>
+        <td align="center">
+            <bean:write name="forumThread" property="viewCount" />            
+        </td>
+        <td align="center">
+            <bean:write name="forumThread" property="state.messageCount" />            
+        </td>
         
         <td nowrap="nowrap">
-           <logic:notEmpty name="forumThread" property="state.lastPost">
+           <logic:notEmpty name="forumThread" property="state.lastPost">                        
             <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>
-            <span  class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >
-            <bean:write name="lastPost" property="modifiedDate3" />
-            </span>
-            <logic:equal name="lastPost" property="root" value="true">
-                   <a href='<%=request.getContextPath()%>/thread/<bean:write name="lastPost" property="forumThread.threadId" />' target="_blank" >                    
-            </logic:equal>
-            <logic:equal name="lastPost" property="root" value="false">
-                   <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="lastPost" property="forumThread.threadId" />/<bean:write name="lastPost" property="messageId" />#<bean:write name="lastPost" property="messageId" />' target="_blank" > 
-            </logic:equal>
-                    <span class='Users ajax_userId=<bean:write name="lastPost" property="account.userId"/>' >
-                    <bean:write name="lastPost" property="account.username" /></span></a>
-             回复                    
-        </logic:notEmpty>
+              <span onmouseover="loadWLJSWithP(this, initLastPost)" class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >            
+                <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="lastPost" property="forumThread.threadId" />/<bean:write name="lastPost" property="messageId" />#<bean:write name="lastPost" property="messageId" />'  rel="nofollow">
+                    <bean:write name="lastPost" property="modifiedDate3" />                 
+                    <bean:write name="lastPost" property="account.username" />
+                                   更新 
+                </a></span>
+          </logic:notEmpty>
  
         </td>
     </tr>
@@ -197,12 +185,6 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
  
 
         </td>
-        <td align="center">
-            <bean:write name="forumThread" property="viewCount" />            
-        </td>
-        <td align="center">
-            <bean:write name="forumThread" property="state.messageCount" />            
-        </td>
         <td nowrap="nowrap">
             &nbsp;
             <bean:define id="rootMessage" name="forumThread" property="rootMessage"></bean:define>
@@ -220,22 +202,23 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
         <td align="center">
             <bean:write name="forumThread" property="rootMessage.creationDate" /> 
         </td>
+        <td align="center">
+            <bean:write name="forumThread" property="viewCount" />            
+        </td>
+        <td align="center">
+            <bean:write name="forumThread" property="state.messageCount" />            
+        </td>
+        
         <td nowrap="nowrap">
-           <logic:notEmpty name="forumThread" property="state.lastPost">
+           <logic:notEmpty name="forumThread" property="state.lastPost">                        
             <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>
-            <span  class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >
-            <bean:write name="lastPost" property="modifiedDate3" />
-            </span>            
-            <logic:equal name="lastPost" property="root" value="true">
-                   <a href='<%=request.getContextPath()%>/thread/<bean:write name="lastPost" property="forumThread.threadId" />' target="_blank" >                    
-            </logic:equal>
-            <logic:equal name="lastPost" property="root" value="false">
-                   <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="lastPost" property="forumThread.threadId" />/<bean:write name="lastPost" property="messageId" />#<bean:write name="lastPost" property="messageId" />' target="_blank" > 
-            </logic:equal>
-                    <span class='Users ajax_userId=<bean:write name="lastPost" property="account.userId"/>' >
-                    <bean:write name="lastPost" property="account.username" /></span></a>
-              回复
-        </logic:notEmpty>
+              <span onmouseover="loadWLJSWithP(this, initLastPost)" class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >            
+                <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="lastPost" property="forumThread.threadId" />/<bean:write name="lastPost" property="messageId" />#<bean:write name="lastPost" property="messageId" />'  rel="nofollow">
+                    <bean:write name="lastPost" property="modifiedDate3" />                 
+                    <bean:write name="lastPost" property="account.username" />
+                                   更新 
+                </a></span>
+          </logic:notEmpty>
     
            
         </td>
@@ -276,12 +259,6 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
                 
 
         </td>
-        <td align="center">
-            <bean:write name="forumThread" property="viewCount" />            
-        </td>
-        <td align="center">
-            <bean:write name="forumThread" property="state.messageCount" />            
-        </td>
         <td nowrap="nowrap">
             &nbsp;
             <bean:define id="rootMessage" name="forumThread" property="rootMessage"></bean:define>
@@ -298,23 +275,23 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
         </td>
        <td align="center">
             <bean:write name="forumThread" property="rootMessage.creationDate" /> 
-        </td>        
+        </td>
+        <td align="center">
+            <bean:write name="forumThread" property="viewCount" />            
+        </td>
+        <td align="center">
+            <bean:write name="forumThread" property="state.messageCount" />            
+        </td>                
         <td nowrap="nowrap">
-           <logic:notEmpty name="forumThread" property="state.lastPost">
+           <logic:notEmpty name="forumThread" property="state.lastPost">                        
             <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>
-            <span  class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >
-            <bean:write name="lastPost" property="modifiedDate3" />
-            </span>            
-            <logic:equal name="lastPost" property="root" value="true">
-                   <a href='<%=request.getContextPath()%>/thread/<bean:write name="lastPost" property="forumThread.threadId" />' target="_blank" >                    
-            </logic:equal>
-            <logic:equal name="lastPost" property="root" value="false">
-                   <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="lastPost" property="forumThread.threadId" />/<bean:write name="lastPost" property="messageId" />#<bean:write name="lastPost" property="messageId" />' target="_blank" > 
-            </logic:equal>
-                    <span class='Users ajax_userId=<bean:write name="lastPost" property="account.userId"/>' >
-                    <bean:write name="lastPost" property="account.username" /></span></a>
-                    回复
-        </logic:notEmpty>
+              <span onmouseover="loadWLJSWithP(this, initLastPost)" class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >            
+                <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="lastPost" property="forumThread.threadId" />/<bean:write name="lastPost" property="messageId" />#<bean:write name="lastPost" property="messageId" />'  rel="nofollow">
+                    <bean:write name="lastPost" property="modifiedDate3" />                 
+                    <bean:write name="lastPost" property="account.username" />
+                                   更新 
+                </a></span>
+          </logic:notEmpty>
   
            
         </td>
