@@ -375,4 +375,5 @@ public class ForumThread extends ForumModel {
 		getRootMessage().getMessageVO().setTagTitle(tagTitles);
 	}
 
+
 }
