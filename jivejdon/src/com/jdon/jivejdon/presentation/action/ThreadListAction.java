@@ -26,6 +26,7 @@ import com.jdon.jivejdon.model.Forum;
 import com.jdon.jivejdon.model.ForumThread;
 import com.jdon.jivejdon.model.query.ResultSort;
 import com.jdon.jivejdon.model.query.specification.ThreadListSpec;
+import com.jdon.jivejdon.model.query.specification.ThreadListSpecForMod;
 import com.jdon.jivejdon.presentation.action.util.ForumEtagFilterList;
 import com.jdon.jivejdon.service.ForumMessageQueryService;
 import com.jdon.jivejdon.service.ForumMessageService;
@@ -44,22 +45,30 @@ public class ThreadListAction extends ForumEtagFilterList {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.strutsutil.ModelListAction#getPageIterator(javax.servlet.http
-	 *      .HttpServletRequest, int, int)
+	 * @see
+	 * com.jdon.strutsutil.ModelListAction#getPageIterator(javax.servlet.http
+	 * .HttpServletRequest, int, int)
 	 */
 	public PageIterator getPageIterator(HttpServletRequest request, int start, int count) {
 		ForumMessageQueryService forumMessageQueryService = (ForumMessageQueryService) WebAppUtil.getService("forumMessageQueryService", request);
 		String forumId = request.getParameter("forum");
 
+		ThreadListSpec threadListSpec = null;
 		ResultSort resultSort = new ResultSort();
 		if (request.getParameterMap().containsKey("ASC")) {// DESC ASC
 			resultSort.setOrder_ASCENDING();
 			request.setAttribute("ASC", "ASC");// for display
+			threadListSpec = new ThreadListSpec();
+			threadListSpec.setResultSort(resultSort);
+		} else if (request.getParameterMap().containsKey("DESC")) {
+			resultSort.setOrder_DESCENDING();
+			threadListSpec = new ThreadListSpec();
+			threadListSpec.setResultSort(resultSort);
 		} else {
 			resultSort.setOrder_DESCENDING();
+			threadListSpec = new ThreadListSpecForMod();
+			threadListSpec.setResultSort(resultSort);
 		}
-		ThreadListSpec threadListSpec = new ThreadListSpec();
-		threadListSpec.setResultSort(resultSort);
 
 		if (forumId == null)
 			forumId = request.getParameter("forumId");
@@ -72,8 +81,9 @@ public class ThreadListAction extends ForumEtagFilterList {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.strutsutil.ModelListAction#findModelByKey(javax.servlet.http
-	 *      .HttpServletRequest, java.lang.Object)
+	 * @see
+	 * com.jdon.strutsutil.ModelListAction#findModelByKey(javax.servlet.http
+	 * .HttpServletRequest, java.lang.Object)
 	 */
 	public Object findModelIFByKey(HttpServletRequest request, Object key) {
 		ForumMessageService forumMessageService = (ForumMessageService) WebAppUtil.getService("forumMessageService", request);
