@@ -35,7 +35,6 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
 
         </td>
         <td nowrap="nowrap">
-            &nbsp;
             <bean:define id="rootMessage" name="forumThread" property="rootMessage"></bean:define>
             <logic:notEmpty name="rootMessage"  property="account">            
             <html:link page="/profile.jsp" paramId="user" paramName="rootMessage" paramProperty="account.username"
@@ -45,8 +44,6 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
             </span>
             </html:link>
              </logic:notEmpty>
-
-            &nbsp;
         </td>
         <td align="center">
             <bean:write name="forumThread" property="rootMessage.creationDate" /> 
@@ -110,7 +107,6 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
 
         </td>
         <td nowrap="nowrap">
-            &nbsp;
             <bean:define id="rootMessage" name="forumThread" property="rootMessage"></bean:define>
             <logic:notEmpty name="rootMessage"  property="account">            
             <html:link page="/profile.jsp" paramId="user" paramName="rootMessage" paramProperty="account.username"
@@ -120,8 +116,6 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
             </span>
             </html:link>
              </logic:notEmpty>
-
-            &nbsp;
         </td>
         <td align="center">
             <bean:write name="forumThread" property="rootMessage.creationDate" /> 
@@ -177,7 +171,6 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
 
         </td>
         <td nowrap="nowrap">
-            &nbsp;
             <bean:define id="rootMessage" name="forumThread" property="rootMessage"></bean:define>
             <logic:notEmpty name="rootMessage"  property="account">            
             <html:link page="/profile.jsp" paramId="user" paramName="rootMessage" paramProperty="account.username"
@@ -187,8 +180,6 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
             </span>
             </html:link>
              </logic:notEmpty>
-
-            &nbsp;
         </td>
         <td align="center">
             <bean:write name="forumThread" property="rootMessage.creationDate" /> 
@@ -247,7 +238,6 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
 
         </td>
         <td nowrap="nowrap">
-            &nbsp;
             <bean:define id="rootMessage" name="forumThread" property="rootMessage"></bean:define>
             <logic:notEmpty name="rootMessage"  property="account">            
             <html:link page="/profile.jsp" paramId="user" paramName="rootMessage" paramProperty="account.username"
@@ -257,8 +247,6 @@ com.jdon.jivejdon.util.ToolsUtil.setHeaderCache(25 * 24 * 60 * 60, request, resp
             </span>
             </html:link>
              </logic:notEmpty>
-
-            &nbsp;
         </td>
        <td align="center">
             <bean:write name="forumThread" property="rootMessage.creationDate" /> 

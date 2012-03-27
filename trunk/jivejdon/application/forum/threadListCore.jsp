@@ -17,11 +17,11 @@
         </td>
         <td width="5%" align="center" nowrap><b><font color="#ffffff">作者</font></b></td>
         <td width="5%" align="center" nowrap>
-        <logic:present name="ASC">
-           <a href="<%=request.getContextPath()%>/<bean:write name="forum" property="forumId" />">      
+        <logic:present name="ASC">           
+           <html:link page="/forum.jsp?DESC" paramId="forum" paramName="forum" paramProperty="forumId">  
            <b><font color="#ffffff">&nbsp; 发布时间 &nbsp;</font></b>
            <html:img page="/images/desc_order.png" border="0" width="11" height="11" alt="最新在前排列" title="最新在前排列"/>
-           </a>
+           </html:link>        
         </logic:present>
          <logic:notPresent name="ASC">
            <html:link page="/forum.jsp?ASC" paramId="forum" paramName="forum" paramProperty="forumId">
@@ -31,7 +31,7 @@
         </logic:notPresent>
         
         </td>
-        <td width="5%"  align="center" nowrap><b><font color="#ffffff">回/读</font></b></td>
+        <td width="5%"  align="center" nowrap><b><font color="#ffffff">读/回</font></b></td>
         <td width="5%" align="center" nowrap><b><font color="#ffffff">更新</font></b></td>          
     </tr>
 
@@ -85,7 +85,6 @@
             
         </td>
         <td nowrap="nowrap">
-            &nbsp;
             <bean:define id="rootMessage" name="forumThread" property="rootMessage"></bean:define>
             <logic:notEmpty name="rootMessage"  property="account">
             
@@ -95,10 +94,7 @@
                 <b><bean:write name="rootMessage" property="account.username" /></b>            
             </span>
             </html:link>
-
              </logic:notEmpty>
-
-            &nbsp;
         </td>
         <td align="center" nowrap="nowrap">
             <bean:write name="forumThread" property="rootMessage.creationDate" /> 
