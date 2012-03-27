@@ -15,7 +15,7 @@
         <td width="80%"  align="center" nowrap>
           <b><font color="#ffffff">&nbsp; 主题名</font></b>
         </td>
-        <td width="5%" align="center" nowrap><b><font color="#ffffff">&nbsp; 作者 &nbsp;</font></b></td>
+        <td width="5%" align="center" nowrap><b><font color="#ffffff">作者</font></b></td>
         <td width="5%" align="center" nowrap>
         <logic:present name="ASC">
            <a href="<%=request.getContextPath()%>/<bean:write name="forum" property="forumId" />">      
@@ -31,9 +31,8 @@
         </logic:notPresent>
         
         </td>
-        <td width="5%"  align="center" nowrap><b><font color="#ffffff">&nbsp; 阅读 &nbsp;</font></b></td>
-        <td width="5%"  align="center" nowrap><b><font color="#ffffff">&nbsp; 回复 &nbsp;</font></b></td>        
-        <td width="5%" align="center" nowrap><b><font color="#ffffff">最近更新</font></b></td>          
+        <td width="5%"  align="center" nowrap><b><font color="#ffffff">回/读</font></b></td>
+        <td width="5%" align="center" nowrap><b><font color="#ffffff">更新</font></b></td>          
     </tr>
 
 
@@ -105,20 +104,16 @@
             <bean:write name="forumThread" property="rootMessage.creationDate" /> 
         </td>
         <td align="center">
-            <bean:write name="forumThread" property="viewCount" />            
+            <bean:write name="forumThread" property="viewCount" />/<bean:write name="forumThread" property="state.messageCount" />            
         </td>
-        <td align="center">
-            <bean:write name="forumThread" property="state.messageCount" />            
-        </td>        
-        <td nowrap="nowrap">                  
+        <td >                  
           <logic:greaterThan name="forumThread" property="state.messageCount" value="0">
            <logic:notEmpty name="forumThread" property="state.lastPost">                        
             <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>                        
               <span onmouseover="loadWLJSWithP(this, initLastPost)" class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >            
-                <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="lastPost" property="forumThread.threadId" />/<bean:write name="lastPost" property="messageId" />#<bean:write name="lastPost" property="messageId" />'  rel="nofollow">
-                    <bean:write name="lastPost" property="modifiedDate3" />                 
-                    <bean:write name="lastPost" property="account.username" />
-                                   更新 
+                <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="lastPost" property="forumThread.threadId" />/<bean:write name="lastPost" property="messageId" />#<bean:write name="lastPost" property="messageId" />'  rel="nofollow">                 
+                    <bean:write name="lastPost" property="modifiedDate3" />
+                    <br><bean:write name="lastPost" property="account.username" />
                 </a></span>          
           </logic:notEmpty>
          </logic:greaterThan>                   
