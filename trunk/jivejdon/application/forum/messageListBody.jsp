@@ -168,14 +168,11 @@
 </SPAN>
 </DIV>           
 <h1 class="tpc_content" id='body_<bean:write name="forumMessage" property="messageId"/>'><bean:write name="forumMessage" property="messageVO.body" filter="false"/></h1>
-<logic:equal name="i" value="0"> 
-  <div id="advert_468x60" style="text-align:left">	
-     <!-- advert -->   
+     <!-- advert -->
+      <bean:define id="adIndex" name="i" toScope="request"/>   
       <jsp:include page="../common/advert.jsp" flush="true">   
        <jsp:param name="fmt" value="728x90"/>   
       </jsp:include>                               
-   </div>           
-</logic:equal>
 
    </div>
  <div class="gen-2"></div>
