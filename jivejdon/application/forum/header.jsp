@@ -11,12 +11,7 @@
 <link rel="shortcut icon" href="<html:rewrite page="/images/favicon.ico"/>" />
 <link href="<html:rewrite page="/forum/css/mList_css.jsp"/>" rel="stylesheet" type="text/css" />
 <script>
- if(top !== self) top.location = self.location;
- 
- var _gaq = _gaq || [];
- _gaq.push(['_setAccount', 'UA-30103562-1']);
- _gaq.push(['_trackPageview']);
- 
+ if(top !== self) top.location = self.location; 
 </script>
 
 <%@ include file="../common/security.jsp" %>
