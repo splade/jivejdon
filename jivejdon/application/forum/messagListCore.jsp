@@ -96,13 +96,10 @@ autoCompleteLogin();
     
  </div>  
 </div>
-    
 
- 
+
 <logic:iterate id="forumMessage" name="messageListForm" property="list" indexId="i">
- 
-<%@include file="messageListBody.jsp"%>
-
+ <%@include file="messageListBody.jsp"%>             
 </logic:iterate>
 
   
