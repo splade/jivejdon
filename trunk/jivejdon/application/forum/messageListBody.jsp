@@ -179,5 +179,3 @@
  </div>							
  <div class="gen-2"></div>
  </div>
-  
-             
