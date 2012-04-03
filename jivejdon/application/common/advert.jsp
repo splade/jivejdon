@@ -21,27 +21,40 @@
      <script type="text/javascript">/*728*90，创建于2012-3-17*/ var cpro_id = 'u811115';</script><script src="http://cpro.baidu.com/cpro/ui/c.js" type="text/javascript"></script>
      </logic:equal>
      <logic:equal name="adIndex" value="2">
-<script type="text/JavaScript" charset="gb2312">
- s_noadid="";
- s_hang=1;
- s_lie=2;
- s_width=720;
- s_height=90;
- s_id=41422;
- s_bk_color="CCCCCC";
- s_bt_color="c90000";
- s_bg_color="ffffff";
-</script>
-<script src="http://e.70e.com/js/cpc_wz_tw_ztyw.js" type=text/javascript charset="gb2312"></script>
-     </logic:equal>
+              <script type="text/javascript"  language="javascript">
+                 var show_url = '<scr' + 'ipt type="text/javascript" language="javascript" src="http://www.samboc.com/svr/show.js?mark=0';
+                 show_url += '&sn=000058a40000c5130000c7986402d8005a';
+                 show_url += '&url=' + window.location;
+                 show_url += '"><' + '/script>';
+                 document.write(show_url);
+              </script>            
+     </logic:equal>     
      <logic:equal name="adIndex" value="3">
-       <iframe src="http://www.hexinx.com/page/?s=595"  width="760" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no"></iframe>
+<script type="text/javascript">
+var reffer ="";
+var url ="";
+if (window.parent != window.self){
+try{reffer = parent.document.referrer; }
+catch(err) { reffer = document.referrer;}
+try { url = parent.document.location;}
+catch(err) { url = document.location;}
+}else{reffer = document.referrer; url = document.location;}
+document.writeln("<iframe marginwidth='0' marginheight='0' frameborder='0' bordercolor='#000000' scrolling='no' src='http://pv.heima8.com/index.php?p=138919661&b=100002881&reffer="+escape(reffer)+"&url="+escape(url)+"' width='760' height='90'></iframe>");
+</script>
      </logic:equal>
           
  </logic:present>
 
  <logic:notPresent name="adIndex" scope="request">
-     <iframe src="http://www.hexinx.com/page/?s=595"  width="760" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no"></iframe>
+
+              <script type="text/javascript"  language="javascript">
+                 var show_url = '<scr' + 'ipt type="text/javascript" language="javascript" src="http://www.samboc.com/svr/show.js?mark=0';
+                 show_url += '&sn=000058a40000c5130000c7986402d8005a';
+                 show_url += '&url=' + window.location;
+                 show_url += '"><' + '/script>';
+                 document.write(show_url);
+              </script>
+
  </logic:notPresent>
 
 </logic:equal>
