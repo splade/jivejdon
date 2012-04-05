@@ -54,7 +54,7 @@ public class SpamFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-		if (isSpam(httpRequest) && (!isPermittedReferer(httpRequest))) {
+		if (isSpam(httpRequest) || (!isPermittedReferer(httpRequest))) {
 			log.debug("spammer, giving 'em a 503");
 			disableSessionOnlines(httpRequest);
 			if (!response.isCommitted())
