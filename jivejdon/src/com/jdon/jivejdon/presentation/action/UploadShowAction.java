@@ -17,7 +17,6 @@ package com.jdon.jivejdon.presentation.action;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,11 +29,10 @@ import org.apache.struts.action.ActionMapping;
 
 import com.jdon.controller.WebAppUtil;
 import com.jdon.jivejdon.manager.throttle.hitkey.CustomizedThrottle;
-import com.jdon.jivejdon.manager.throttle.hitkey.HitKeySame;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyIF;
+import com.jdon.jivejdon.manager.throttle.hitkey.HitKeySame;
 import com.jdon.jivejdon.model.attachment.UploadFile;
 import com.jdon.jivejdon.model.message.upload.UploadFileFilter;
-import com.jdon.jivejdon.presentation.filter.SpamFilter2;
 import com.jdon.jivejdon.service.UploadService;
 import com.jdon.util.Debug;
 import com.jdon.util.UtilValidate;
@@ -111,15 +109,6 @@ public class UploadShowAction extends Action {
 			closeResponse(request, response);
 		}
 		return null;
-	}
-
-	private boolean isPermitted(HttpServletRequest request) {
-		Pattern domainPattern = (Pattern) request.getSession().getServletContext().getAttribute(SpamFilter2.DP);
-		String referrerUrl = request.getHeader("Referer");
-		if (referrerUrl != null && referrerUrl.length() > 0 && domainPattern.matcher(referrerUrl.toLowerCase()).matches()) {
-			return true;
-		}
-		return false;
 	}
 
 	private void closeResponse(HttpServletRequest request, HttpServletResponse response) {

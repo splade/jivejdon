@@ -8,7 +8,6 @@
 </logic:notEmpty> - Thinking In Jdon
 </title>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<link rel="shortcut icon" href="<html:rewrite page="/images/favicon.ico"/>" />
 <link href="<html:rewrite page="/forum/css/mList_css.jsp"/>" rel="stylesheet" type="text/css" />
 <script>
  if(top !== self) top.location = self.location; 
