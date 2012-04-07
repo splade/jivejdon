@@ -50,7 +50,7 @@ public class SpamFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
 		if (isSpam(httpRequest)) {
-			log.debug("spammer, giving 'em a 503");
+			log.error("spammer, giving 'em a 503");
 			disableSessionOnlines(httpRequest);
 			if (!response.isCommitted())
 				response.reset();

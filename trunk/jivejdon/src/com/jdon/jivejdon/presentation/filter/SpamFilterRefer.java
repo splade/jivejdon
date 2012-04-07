@@ -67,7 +67,8 @@ public class SpamFilterRefer implements Filter {
 
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		if (!isPermittedReferer(httpRequest)) {
-			log.debug("spammer, giving 'em a 503");
+			log.error("spammer, not permitted referer :" + httpRequest.getRequestURI() + " refer:" + httpRequest.getHeader("Referer") + " remote:"
+					+ httpRequest.getRemoteAddr());
 			disableSessionOnlines(httpRequest);
 			if (!response.isCommitted())
 				response.reset();
@@ -82,7 +83,11 @@ public class SpamFilterRefer implements Filter {
 
 	private boolean isPermittedReferer(HttpServletRequest request) {
 		String referrerUrl = request.getHeader("Referer");
-		if (referrerUrl != null && referrerUrl.length() > 0 && domainPattern != null) {
+		if (referrerUrl == null) {
+			if (request.getRemoteAddr().equalsIgnoreCase("127.0.0.1") || request.getRemoteAddr().equalsIgnoreCase("localhost")) {
+				return true;
+			}
+		} else if (referrerUrl != null && referrerUrl.length() > 0 && domainPattern != null) {
 			if (domainPattern.matcher(referrerUrl.toLowerCase()).matches()) {
 				return true;
 			}

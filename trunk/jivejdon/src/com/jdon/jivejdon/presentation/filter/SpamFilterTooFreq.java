@@ -80,7 +80,7 @@ public class SpamFilterTooFreq implements Filter {
 		int slash = path.lastIndexOf("/");
 		String id = path.substring(slash + 1, path.length());
 		if (!checkSpamHit(id, httpRequest)) {
-			log.debug("spammer, giving 'em a 503");
+			log.error("spammer,  fetching too frequency:" + httpRequest.getRequestURI() + " remote:" + httpRequest.getRemoteAddr());
 			disableSessionOnlines(httpRequest);
 			if (!response.isCommitted())
 				response.reset();

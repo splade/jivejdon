@@ -39,7 +39,7 @@
 			<filter-class>com.jdon.jivejdon.presentation.filter.SpamFilterRefer</filter-class>
 			<init-param>
 				<param-name>referrer.domain.namePattern</param-name>
-				<param-value>.*(127.0.0.1|localhost|jdon).*</param-value>
+				<param-value>.*(http://127.0.0.1|http://localhost|http://www.jdon.com).*</param-value>
 			</init-param>		
 		</filter>		
 		
@@ -106,7 +106,19 @@
 		<filter-mapping>
 			<filter-name>spamFilterRefer</filter-name>
 			<url-pattern>*.shtml</url-pattern>
-		</filter-mapping>	
+		</filter-mapping>
+		<filter-mapping>
+			<filter-name>spamFilterRefer</filter-name>
+			<url-pattern>*.jsp</url-pattern>
+		</filter-mapping>		
+		<filter-mapping>
+			<filter-name>spamFilterRefer</filter-name>
+			<url-pattern>/hot/*</url-pattern>
+		</filter-mapping>
+		<filter-mapping>
+			<filter-name>spamFilterRefer</filter-name>
+			<url-pattern>/img/*</url-pattern>
+		</filter-mapping>					
 		<filter-mapping>
 			<filter-name>spamFilterRefer</filter-name>
 			<url-pattern>/common/*</url-pattern>
@@ -114,7 +126,15 @@
     	<filter-mapping>
 			<filter-name>spamFilterRefer</filter-name>
 			<url-pattern>/images/*</url-pattern>
-		</filter-mapping>				
+		</filter-mapping>
+    	<filter-mapping>
+			<filter-name>spamFilterRefer</filter-name>
+			<url-pattern>/shortmessage/*</url-pattern>
+		</filter-mapping>
+    	<filter-mapping>
+			<filter-name>spamFilterRefer</filter-name>
+			<url-pattern>/message/*</url-pattern>
+		</filter-mapping>										
 		<filter-mapping>
 			<filter-name>rewriteFilter</filter-name>
 			<url-pattern>/*</url-pattern>
