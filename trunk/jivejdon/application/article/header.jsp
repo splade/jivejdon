@@ -6,7 +6,6 @@
 
 <title><bean:write name="title" /></title>  
 <link rel="stylesheet" href="<html:rewrite page="/jivejdon_css.jsp"/>" type="text/css" />
-<link rel="shortcut icon" href="http://www.jdon.com/favicon.ico">
 </head>
 
 

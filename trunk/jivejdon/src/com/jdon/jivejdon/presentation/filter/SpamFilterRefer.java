@@ -1,22 +1,22 @@
 /*
- * Copyright 2007 the original author or jdon.com
- *
+ * Copyright 2003-2009 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
+ * 
  */
 package com.jdon.jivejdon.presentation.filter;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -30,26 +30,43 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.controller.WebAppUtil;
-import com.jdon.jivejdon.manager.block.IPBanListManagerIF;
+import com.jdon.util.UtilValidate;
 
 /**
- * Ban clients that has banned.
+ * Ban clients that not refer from owner domain, or other spammer that not in
+ * web..xml
  * 
- * see configuration in web.xml
+ * this Ban action is in Interval such as 30 minutes.
  * 
- * diable, only check ip in this filter
+ * @author banq
  * 
  */
-public class SpamFilter implements Filter {
-	private final static Logger log = Logger.getLogger(SpamFilter.class);
+public class SpamFilterRefer implements Filter {
+	private final static Logger log = Logger.getLogger(SpamFilterRefer.class);
 
-	protected IPBanListManagerIF iPBanListManagerIF;
+	protected Pattern domainPattern;
+
+	public static String DP = "domainPattern";
+
+	public void init(FilterConfig config) throws ServletException {
+
+		String domainPatternStr = config.getInitParameter("referrer.domain.namePattern");
+		if (!UtilValidate.isEmpty(domainPatternStr)) {
+			try {
+				domainPattern = Pattern.compile(domainPatternStr);
+				if (domainPattern != null)
+					config.getServletContext().setAttribute(SpamFilterRefer.DP, domainPattern);
+			} catch (Exception e) {
+				log.error("Error parsingreferrer.domain.namePattern value '" + domainPattern, e);
+			}
+		}
+
+	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-		if (isSpam(httpRequest)) {
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		if (!isPermittedReferer(httpRequest)) {
 			log.debug("spammer, giving 'em a 503");
 			disableSessionOnlines(httpRequest);
 			if (!response.isCommitted())
@@ -60,7 +77,17 @@ public class SpamFilter implements Filter {
 		}
 
 		chain.doFilter(request, response);
-		return;
+
+	}
+
+	private boolean isPermittedReferer(HttpServletRequest request) {
+		String referrerUrl = request.getHeader("Referer");
+		if (referrerUrl != null && referrerUrl.length() > 0 && domainPattern != null) {
+			if (domainPattern.matcher(referrerUrl.toLowerCase()).matches()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void disableSessionOnlines(HttpServletRequest httpRequest) {
@@ -69,38 +96,8 @@ public class SpamFilter implements Filter {
 			session.invalidate();
 	}
 
-	/**
-	 * Process the incoming request to extract referrer info and pass it on to
-	 * the referrer processing queue for tracking.
-	 * 
-	 * @returns true if referrer was spam, false otherwise
-	 */
-	protected boolean isSpam(HttpServletRequest request) {
-		return isSpamForThrottle2(request);
-	}
-
-	protected boolean isSpamForThrottle2(HttpServletRequest request) {
-		if (iPBanListManagerIF == null)
-			iPBanListManagerIF = (IPBanListManagerIF) WebAppUtil.getComponentInstance("iPBanListManager", request);
-		if (iPBanListManagerIF.isBanned(request.getRemoteAddr())) {
-			String userAgent = request.getHeader("User-Agent");
-			String referrerUrl = request.getHeader("Referer");
-			log.error("it is spam : processing referrer for " + request.getRequestURI() + " referrerUrl=" + referrerUrl + " userAgent=" + userAgent
-					+ " ip=" + request.getRemoteAddr());
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * Unused.
-	 */
 	public void destroy() {
-	}
-
-	@Override
-	public void init(FilterConfig config) throws ServletException {
 
 	}
+
 }

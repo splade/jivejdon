@@ -17,7 +17,6 @@ package com.jdon.jivejdon.presentation.filter;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -36,52 +35,23 @@ import com.jdon.jivejdon.manager.throttle.hitkey.CustomizedThrottle;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyDiff;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyIF;
 import com.jdon.jivejdon.util.ScheduledExecutorUtil;
-import com.jdon.util.UtilValidate;
 
-public class SpamFilter2 implements Filter {
-	private final static Logger log = Logger.getLogger(SpamFilter2.class);
-
-	protected Pattern robotPattern;
-
-	protected Pattern domainPattern;
-
-	public static String DP = "domainPattern";
+/**
+ * Ban clients that fetching too frequency.
+ * 
+ * this Ban action is in Interval such as 30 minutes.
+ * 
+ * @author banq
+ * 
+ */
+public class SpamFilterTooFreq implements Filter {
+	private final static Logger log = Logger.getLogger(SpamFilterTooFreq.class);
 
 	private CustomizedThrottle customizedThrottle;
 
 	private boolean isFilter = false;
 
 	public void init(FilterConfig config) throws ServletException {
-		// check for possible robot pattern
-		String robotPatternStr = config.getInitParameter("referrer.robotCheck.userAgentPattern");
-		if (!UtilValidate.isEmpty(robotPatternStr)) {
-			// Parse the pattern, and store the compiled form.
-			try {
-				robotPattern = Pattern.compile(robotPatternStr);
-			} catch (Exception e) {
-				// Most likely a PatternSyntaxException; log and continue as if
-				// it is not set.
-				log.error("Error parsing referrer.robotCheck.userAgentPattern value '" + robotPatternStr + "'.  Robots will not be filtered. ", e);
-			}
-		}
-
-		String domainPatternStr = config.getInitParameter("referrer.domain.namePattern");
-		if (!UtilValidate.isEmpty(domainPatternStr)) {
-			try {
-				domainPattern = Pattern.compile(domainPatternStr);
-				if (domainPattern != null)
-					config.getServletContext().setAttribute(SpamFilter2.DP, domainPattern);
-			} catch (Exception e) {
-				log.error("Error parsingreferrer.domain.namePattern value '" + domainPattern, e);
-			}
-		}
-
-		String thresholdStr = config.getInitParameter("throttle.conf.threshold");
-		String intervalStr = config.getInitParameter("throttle.conf.interval");
-		if (!UtilValidate.isEmpty(thresholdStr) && !UtilValidate.isEmpty(intervalStr)) {
-			// throttleConf = new ThrottleConf(thresholdStr, intervalStr);
-		}
-
 		Runnable startFiltertask = new Runnable() {
 			public void run() {
 				isFilter = true;
@@ -106,21 +76,19 @@ public class SpamFilter2 implements Filter {
 			return;
 		}
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		if (isPermittedReferer(httpRequest) || isPermittedRobot(httpRequest)) {
-			chain.doFilter(request, response);
-			disableSessionOnlines(httpRequest);
-			return;
-		}
-
 		String path = httpRequest.getServletPath();
 		int slash = path.lastIndexOf("/");
 		String id = path.substring(slash + 1, path.length());
-		if (checkSpamHit(id, httpRequest))
-			chain.doFilter(request, response);
-		else
-			((HttpServletResponse) response).sendError(503);
-		return;
-
+		if (!checkSpamHit(id, httpRequest)) {
+			log.debug("spammer, giving 'em a 503");
+			disableSessionOnlines(httpRequest);
+			if (!response.isCommitted())
+				response.reset();
+			HttpServletResponse httpResponse = (HttpServletResponse) response;
+			httpResponse.sendError(503);
+			return;
+		}
+		chain.doFilter(request, response);
 	}
 
 	private boolean checkSpamHit(String id, HttpServletRequest request) {
@@ -131,37 +99,14 @@ public class SpamFilter2 implements Filter {
 		return customizedThrottle.processHitFilter(hitKey);
 	}
 
-	private boolean isPermittedRobot(HttpServletRequest request) {
-		// if refer is null, 1. browser 2. google 3. otherspam
-		String userAgent = request.getHeader("User-Agent");
-		if (robotPattern != null) {
-			if (userAgent != null && userAgent.length() > 0 && robotPattern.matcher(userAgent.toLowerCase()).matches()) {
-				disableSessionOnlines(request);// although permitted, but
-				// disable session.
-				return true;
-			}
-		}
-		return false;
-	}
+	public void destroy() {
 
-	private boolean isPermittedReferer(HttpServletRequest request) {
-		String referrerUrl = request.getHeader("Referer");
-		if (domainPattern != null) {
-			if (referrerUrl != null && referrerUrl.length() > 0 && domainPattern.matcher(referrerUrl.toLowerCase()).matches()) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private void disableSessionOnlines(HttpServletRequest httpRequest) {
 		HttpSession session = httpRequest.getSession(false);
 		if (session != null)
 			session.invalidate();
-	}
-
-	public void destroy() {
-
 	}
 
 }
