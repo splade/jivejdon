@@ -17,6 +17,7 @@ package com.jdon.jivejdon.presentation.filter;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -35,6 +36,7 @@ import com.jdon.jivejdon.manager.throttle.hitkey.CustomizedThrottle;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyDiff;
 import com.jdon.jivejdon.manager.throttle.hitkey.HitKeyIF;
 import com.jdon.jivejdon.util.ScheduledExecutorUtil;
+import com.jdon.util.UtilValidate;
 
 /**
  * Ban clients that fetching too frequency.
@@ -49,9 +51,24 @@ public class SpamFilterTooFreq implements Filter {
 
 	private CustomizedThrottle customizedThrottle;
 
+	protected Pattern robotPattern;
+
 	private boolean isFilter = false;
 
 	public void init(FilterConfig config) throws ServletException {
+		// check for possible robot pattern
+		String robotPatternStr = config.getInitParameter("referrer.robotCheck.userAgentPattern");
+		if (!UtilValidate.isEmpty(robotPatternStr)) {
+			// Parse the pattern, and store the compiled form.
+			try {
+				robotPattern = Pattern.compile(robotPatternStr);
+			} catch (Exception e) {
+				// Most likely a PatternSyntaxException; log and continue as if
+				// it is not set.
+				log.error("Error parsing referrer.robotCheck.userAgentPattern value '" + robotPatternStr + "'.  Robots will not be filtered. ", e);
+			}
+		}
+
 		Runnable startFiltertask = new Runnable() {
 			public void run() {
 				isFilter = true;
@@ -75,20 +92,37 @@ public class SpamFilterTooFreq implements Filter {
 			chain.doFilter(request, response);
 			return;
 		}
+
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		String path = httpRequest.getServletPath();
-		int slash = path.lastIndexOf("/");
-		String id = path.substring(slash + 1, path.length());
-		if (!checkSpamHit(id, httpRequest)) {
-			log.error("spammer,  fetching too frequency:" + httpRequest.getRequestURI() + " remote:" + httpRequest.getRemoteAddr());
-			disableSessionOnlines(httpRequest);
-			if (!response.isCommitted())
-				response.reset();
-			HttpServletResponse httpResponse = (HttpServletResponse) response;
-			httpResponse.sendError(503);
-			return;
+		if (!isPermittedRobot(httpRequest)) {
+			String path = httpRequest.getServletPath();
+			int slash = path.lastIndexOf("/");
+			String id = path.substring(slash + 1, path.length());
+			if (!checkSpamHit(id, httpRequest)) {
+				log.error("spammer,  fetching too frequency:" + httpRequest.getRequestURI() + " remote:" + httpRequest.getRemoteAddr());
+				disableSessionOnlines(httpRequest);
+				if (!response.isCommitted())
+					response.reset();
+				HttpServletResponse httpResponse = (HttpServletResponse) response;
+				httpResponse.sendError(503);
+				return;
+			}
 		}
 		chain.doFilter(request, response);
+		return;
+	}
+
+	private boolean isPermittedRobot(HttpServletRequest request) {
+		// if refer is null, 1. browser 2. google 3. otherspam
+		String userAgent = request.getHeader("User-Agent");
+		if (robotPattern != null) {
+			if (userAgent != null && userAgent.length() > 0 && robotPattern.matcher(userAgent.toLowerCase()).matches()) {
+				disableSessionOnlines(request);// although permitted, but
+				// disable session.
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean checkSpamHit(String id, HttpServletRequest request) {

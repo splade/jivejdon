@@ -22,6 +22,7 @@ function digMessage(id)
 </head>
 
 <body>
+<input type="hidden" id="contextPath"  name="contextPath" value="<%= request.getContextPath()%>" >
 <logic:iterate indexId="i"   id="forumThread" name="threadListForm" property="list" >
 <div class="linkblock">
 	
@@ -37,27 +38,37 @@ function digMessage(id)
 </SPAN>
 </DIV>      
 	<div class="post-headline">
-	<h3>
-             <a href="<%=request.getContextPath()%>/thread/<bean:write name="forumThread" property="threadId"/>" 
+	
+              <a href="<%=request.getContextPath()%>/thread/<bean:write name="forumThread" property="threadId"/>" 
               target="_blank">
-             <b><bean:write name="forumThread" property="name" /></b></a>
-     </h3>             
-   </div> 
-   
-   <div class="post-byline">   
-        <html:link page="/profile.jsp" paramId="user" paramName="forumThread" paramProperty="rootMessage.account.username"
+             <h3><bean:write name="forumThread" property="name" /></h3></a>     
+      <logic:iterate id="threadTag" name="forumThread" property="tags" >
+         <span  class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
+           <a href='<%=request.getContextPath() %>/tags/<bean:write name="threadTag" property="tagID"/>' target="_blank" class="post-tag">
+             <bean:write name="threadTag" property="title" />
+           </a>
+         </span>
+             &nbsp;
+      </logic:iterate>       
+      <html:link page="/profile.jsp" paramId="user" paramName="forumThread" paramProperty="rootMessage.account.username"
             target="_blank" ><b><bean:write name="forumThread" property="rootMessage.account.username" /></b
             ></html:link>
             &nbsp;
             <bean:define id="cdate" name="forumThread" property="creationDate" ></bean:define>
             <%String cdateS = (String)pageContext.getAttribute("cdate"); %>
-    <%=cdateS.substring(0, 11) %>   
-    &nbsp;&nbsp;
-    <html:img page="/images/comment_reply.gif" height="16" width="16"/>
-    <bean:write name="forumThread" property="state.messageCount" />讨论
-    &nbsp;&nbsp;
-    <bean:write name="forumThread" property="viewCount" />浏览
-   </div>
+    <%=cdateS.substring(2, 11) %>   
+    &nbsp;
+        <logic:greaterThan name="forumThread" property="state.messageCount" value="0">
+           <logic:notEmpty name="forumThread" property="state.lastPost">                        
+            <bean:define id="lastPost" name="forumThread" property="state.lastPost"/>                        
+              <span onmouseover="loadWLJSWithP(this, initLastPost)" class='ThreadLastPost ajax_threadId=<bean:write name="forumThread" property="threadId"/>' >            
+                <a href='<%=request.getContextPath()%>/thread/nav/<bean:write name="lastPost" property="forumThread.threadId" />/<bean:write name="lastPost" property="messageId" />#<bean:write name="lastPost" property="messageId" />'  rel="nofollow">
+    <bean:write name="forumThread" property="viewCount" />/<bean:write name="forumThread" property="state.messageCount" /><html:img page="/images/comment_reply.gif" height="14" width="14"/></a> 
+                </span>          
+          </logic:notEmpty>
+         </logic:greaterThan>       
+         
+      </div>
     			
      <p>
     <span class="tpc_content">
@@ -67,15 +78,7 @@ function digMessage(id)
   
 
     <div class="post-footer">
-    <html:img page="/images/tag_yellow.png" height="16" width="16"/>    
-      <logic:iterate id="threadTag" name="forumThread" property="tags" >
-         <span  class='Tags ajax_tagID=<bean:write name="threadTag" property="tagID"/>' >
-           <a href='<%=request.getContextPath() %>/tags/<bean:write name="threadTag" property="tagID"/>' target="_blank" class="post-tag">
-             <bean:write name="threadTag" property="title" />
-           </a>
-         </span>
-             &nbsp;&nbsp;
-      </logic:iterate>        
+    
         
 
     </div>

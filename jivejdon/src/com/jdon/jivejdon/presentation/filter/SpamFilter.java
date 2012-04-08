@@ -49,14 +49,16 @@ public class SpamFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-		if (isSpam(httpRequest)) {
-			log.error("spammer, giving 'em a 503");
-			disableSessionOnlines(httpRequest);
-			if (!response.isCommitted())
-				response.reset();
-			HttpServletResponse httpResponse = (HttpServletResponse) response;
-			httpResponse.sendError(503);
-			return;
+		if (!httpRequest.getRequestURI().contains("registerCode")) {
+			if (isSpam(httpRequest)) {
+				log.error("spammer, giving 'em a 503");
+				disableSessionOnlines(httpRequest);
+				if (!response.isCommitted())
+					response.reset();
+				HttpServletResponse httpResponse = (HttpServletResponse) response;
+				httpResponse.sendError(503);
+				return;
+			}
 		}
 
 		chain.doFilter(request, response);
