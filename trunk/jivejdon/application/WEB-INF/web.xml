@@ -32,7 +32,11 @@
 		</filter>		
 		<filter>
 			<filter-name>spamFilterTooFreq</filter-name>
-			<filter-class>com.jdon.jivejdon.presentation.filter.SpamFilterTooFreq</filter-class>			
+			<filter-class>com.jdon.jivejdon.presentation.filter.SpamFilterTooFreq</filter-class>
+			<init-param><!-- exclude this robot -->
+				<param-name>referrer.robotCheck.userAgentPattern</param-name>			
+				 <param-value>.*(google|baidu|yahoo|bing|soso|alexa|msn).*</param-value> 
+			</init-param>			
 		</filter>
 			<filter>
 			<filter-name>spamFilterRefer</filter-name>

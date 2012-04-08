@@ -78,13 +78,14 @@ public class SpamFilterRefer implements Filter {
 		}
 
 		chain.doFilter(request, response);
-
+		return;
 	}
 
 	private boolean isPermittedReferer(HttpServletRequest request) {
 		String referrerUrl = request.getHeader("Referer");
 		if (referrerUrl == null) {
-			if (request.getRemoteAddr().equalsIgnoreCase("127.0.0.1") || request.getRemoteAddr().equalsIgnoreCase("localhost")) {
+			if (request.getRemoteAddr().equalsIgnoreCase("127.0.0.1") || request.getRemoteAddr().equalsIgnoreCase("0:0:0:0:0:0:0:1")
+					|| request.getRemoteAddr().equalsIgnoreCase("localhost")) {
 				return true;
 			}
 		} else if (referrerUrl != null && referrerUrl.length() > 0 && domainPattern != null) {
