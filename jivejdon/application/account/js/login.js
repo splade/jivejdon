@@ -53,16 +53,6 @@ function loadWLJSWithP(param,myfunc){
 
 
 
-var initLastPost = function(e){
- TooltipManager.init('ThreadLastPost', 
-  {url: getContextPath()+"/query/threadLastPostViewAction.shtml", 
-   options: {method: 'get'}},
-   {className:"mac_os_x", width:150});
-    TooltipManager.showNow(e);   
-}
-
-
-
 var onlinesInf = function (){
    if (typeof(TooltipManager) == 'undefined') 
        loadWLJS(nof);
