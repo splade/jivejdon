@@ -80,6 +80,10 @@ public class SpamFilterTooFreq implements Filter {
 		Runnable stopFiltertask = new Runnable() {
 			public void run() {
 				isFilter = false;
+				if (customizedThrottle != null) {
+					// when stop .clear the check cache.
+					customizedThrottle.clearCache();
+				}
 			}
 		};
 		// after 10 Mintues stop it

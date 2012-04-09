@@ -8,8 +8,9 @@ public interface CustomizedThrottle {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.jdon.jivejdon.manager.throttle.ThrottleManagerIF#processHitFilter
-	 *      (java.lang.String)
+	 * @see
+	 * com.jdon.jivejdon.manager.throttle.ThrottleManagerIF#processHitFilter
+	 * (java.lang.String)
 	 */
 	boolean processHitFilter(HitKeyIF hitKey);
 
@@ -18,5 +19,7 @@ public interface CustomizedThrottle {
 	void addBanned(String ip);
 
 	void removeBanned(String ip);
+
+	public void clearCache();
 
 }
