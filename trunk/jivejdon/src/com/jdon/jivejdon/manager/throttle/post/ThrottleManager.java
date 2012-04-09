@@ -18,8 +18,7 @@ package com.jdon.jivejdon.manager.throttle.post;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.controller.cache.Cache;
-import com.jdon.controller.cache.CacheManager;
+import com.jdon.cache.UtilCache;
 import com.jdon.jivejdon.manager.block.IPBanListManagerIF;
 import com.jdon.jivejdon.manager.throttle.ClientInfo;
 import com.jdon.jivejdon.manager.throttle.ExpiringCacheEntry;
@@ -38,7 +37,7 @@ public class ThrottleManager {
 
 	private final static Logger log = Logger.getLogger(ThrottleManager.class);
 
-	private final Cache clientHistoryCache;
+	private final UtilCache clientHistoryCache;
 
 	private final IPBanListManagerIF iPBanListManager;
 
@@ -46,8 +45,9 @@ public class ThrottleManager {
 
 	private int interval = 60000; // milliseconds
 
-	public ThrottleManager(CacheManager cacheManager, IPBanListManagerIF iPBanListManager) {
-		this.clientHistoryCache = cacheManager.getCache();
+	public ThrottleManager(IPBanListManagerIF iPBanListManager) {
+		// 30 minutes
+		this.clientHistoryCache = new UtilCache(100, 30 * 60 * 1000, true);
 		this.iPBanListManager = iPBanListManager;
 	}
 

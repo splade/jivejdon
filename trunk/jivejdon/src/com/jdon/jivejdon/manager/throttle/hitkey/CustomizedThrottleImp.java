@@ -3,8 +3,7 @@ package com.jdon.jivejdon.manager.throttle.hitkey;
 import org.apache.log4j.Logger;
 
 import com.jdon.annotation.Component;
-import com.jdon.controller.cache.Cache;
-import com.jdon.controller.cache.CacheManager;
+import com.jdon.cache.UtilCache;
 import com.jdon.jivejdon.manager.block.IPBanListManagerIF;
 import com.jdon.jivejdon.manager.throttle.ExpiringCacheEntry;
 
@@ -14,12 +13,13 @@ public class CustomizedThrottleImp implements CustomizedThrottle {
 
 	private HitConf hitConf;
 
-	private final Cache clientHistoryCache;
+	private final UtilCache clientHistoryCache;
 
 	private final IPBanListManagerIF iPBanListManager;
 
-	public CustomizedThrottleImp(HitConf hitConf, CacheManager cacheManager, IPBanListManagerIF iPBanListManager) {
-		this.clientHistoryCache = cacheManager.getCache();
+	public CustomizedThrottleImp(HitConf hitConf, IPBanListManagerIF iPBanListManager) {
+		// 30 minutes
+		this.clientHistoryCache = new UtilCache(100, 30 * 60 * 1000, true);
 		this.iPBanListManager = iPBanListManager;
 		this.hitConf = hitConf;
 	}
@@ -130,6 +130,10 @@ public class CustomizedThrottleImp implements CustomizedThrottle {
 	public void clear() {
 		clientHistoryCache.clear();
 		iPBanListManager.clear();
+	}
+
+	public void clearCache() {
+		clientHistoryCache.clear();
 	}
 
 }
