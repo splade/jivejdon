@@ -14,7 +14,7 @@
 <br>
 <br>
 <br>
-<p>返回<html:link page="/index.jsp"> 首页</html:link>
+<p>返回<html:link page="/"> 首页</html:link>
 </center>
 <script>
     try{
