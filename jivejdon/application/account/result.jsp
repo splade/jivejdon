@@ -45,7 +45,7 @@
     注册资料操作成功  
 </logic:messagesNotPresent>
 
-<html:link page="/index.jsp"><b>按这里回首页登录</b></html:link>
+<html:link page="/"><b>按这里回首页登录</b></html:link>
 </center>
 <br>
 <br>

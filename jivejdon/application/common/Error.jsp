@@ -15,7 +15,7 @@
 
     <H3>Something happened...</H3>
     <B>可能发生错误，请将本页面地址拷贝告诉管理员！</B>
-    <p>返回<html:link page="/index.jsp" > 首页</html:link>
+    <p>返回<html:link page="/" > 首页</html:link>
     <script>
     try{
       if (window.top.setInfoConten)

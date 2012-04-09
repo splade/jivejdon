@@ -74,7 +74,7 @@
 </tr>
 <tr>
     <td valign="top" > 
-    <br><br><br><p><html:link page="/index.jsp">按这里返回首页</html:link>
+    <br><br><br><p><html:link page="/">按这里返回首页</html:link>
     </td>
 </tr>
 </table>

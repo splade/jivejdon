@@ -109,7 +109,7 @@
       name="messageListForm" scope="request" 
       validate="false">
       <forward name="success" path="/forum/navf.jsp"/>
-      <forward name="failure" path="/forum/index.jsp"/>
+      <forward name="failure" path="/forum/"/>
     </action>
     
     <!-- message List end  -->
@@ -151,7 +151,7 @@
 	
 	<action path="/forum/viewThread" type="com.jdon.jivejdon.presentation.action.ViewThreadAction" 
         scope="request"  validate="false">
-		 <forward name="success" path="/index.jsp"/>
+		 <forward name="error" path="/"/>
 	</action>
 		
     	
